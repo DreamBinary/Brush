@@ -35,6 +35,39 @@ struct Route: ReducerProtocol {
 struct RouteView: View {
     let store: StoreOf<Route>
     
+    let pages = [
+        RecordView(
+            store: Store(
+                initialState: Record.State(),
+                reducer: Record()
+            )
+        ),
+        RecordView(
+            store: Store(
+                initialState: Record.State(),
+                reducer: Record()
+            )
+        ),
+        RecordView(
+            store: Store(
+                initialState: Record.State(),
+                reducer: Record()
+            )
+        ),
+        RecordView(
+            store: Store(
+                initialState: Record.State(),
+                reducer: Record()
+            )
+        ),
+        RecordView(
+            store: Store(
+                initialState: Record.State(),
+                reducer: Record()
+            )
+        )
+    ]
+    
     let unSeletedImages = [
         "bottom00", "bottom10", "bottom20", "bottom30", "bottom40"
     ]
@@ -43,42 +76,50 @@ struct RouteView: View {
         "bottom01", "bottom11", "bottom21", "", "bottom41"
     ]
     
-    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             TabView(selection: vStore.binding(\.$selection)) {
                 ForEach(0 ..< 5) { index in
-                    NavigationView {
-                        VStack {
-                            Image(systemName: "globe")
-                                .imageScale(.large)
-                                .foregroundColor(.accentColor)
-                            Text("Hello, \(index)!")
+                    pages[index]
+                        .tabItem {
+                            if index == 2 {
+                                Image(unSeletedImages[index])
+                            } else {
+                                Image(vStore.selection == index ? seletedImages[index] : unSeletedImages[index])
+                            }
                         }
-                        .padding()
-                        .navigationTitle("Home")
-                    }
-                    .tabItem {
-                        if index == 2 {
-                            Image(unSeletedImages[index])
-                        } else {
-                            Image(vStore.selection == index ? seletedImages[index] : unSeletedImages[index])
-                        }
-                    }
-                    .tag(index)
+                        .tag(index)
                 }
             }
             .onAppear {
-                UITabBar.appearance().backgroundColor = UIColor(red: 191, green: 191, blue: 191, alpha: 0.34)
+                let standardAppearance = UITabBarAppearance()
+                standardAppearance.backgroundColor = UIColor(Color(0xBFBFBF, alpha: 0.1))
+                standardAppearance.shadowColor = UIColor(Color(0xBFBFBF))
+                //                standardAppearance.backgroundImage = UIImage(named: "custom_bg")
+                //                let itemAppearance = UITabBarItemAppearance()
+                //                itemAppearance.normal.iconColor = UIColor(Color.white)
+                //                itemAppearance.selected.iconColor = UIColor(Color.red)
+                //                standardAppearance.inlineLayoutAppearance = itemAppearance
+                //                standardAppearance.stackedLayoutAppearance = itemAppearance
+                //                standardAppearance.compactInlineLayoutAppearance = itemAppearance
+                UITabBar.appearance().standardAppearance = standardAppearance
+                UITabBar.appearance().scrollEdgeAppearance = standardAppearance
+                
             }
-            //            VStack {
-            //                Image(systemName: "globe")
-            //                    .imageScale(.large)
-            //                    .foregroundColor(.accentColor)
-            //                Text("Hello, world!")
-            //            }
-            //            .padding()
+            .edgesIgnoringSafeArea(.bottom)
         }
+    }
+}
+
+extension UITabBar {
+    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+        super.sizeThatFits(size)
+        guard let window = UIApplication.shared.keyWindow else {
+            return super.sizeThatFits(size)
+        }
+        var sizeThatFits = super.sizeThatFits(size)
+        sizeThatFits.height = window.safeAreaInsets.bottom + 65
+        return sizeThatFits
     }
 }
 
@@ -96,4 +137,3 @@ struct RouteView_Previews: PreviewProvider {
     }
 }
 #endif
-

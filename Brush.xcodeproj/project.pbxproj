@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A00913162A430B1600057B4E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00913152A430B1600057B4E /* Theme.swift */; };
+		A00913182A432D7F00057B4E /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00913172A432D7F00057B4E /* Avatar.swift */; };
 		A01E31912A42D39D0044E25F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01E31902A42D39D0044E25F /* Home.swift */; };
 		A01E31932A42D5330044E25F /* Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01E31922A42D5330044E25F /* Analysis.swift */; };
 		A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F7F2A41DBEF00710C4B /* BrushApp.swift */; };
@@ -29,6 +31,7 @@
 		A06684D62A42E12400D27BF3 /* Mine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D52A42E12400D27BF3 /* Mine.swift */; };
 		A06684D82A42E32800D27BF3 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D72A42E32800D27BF3 /* Record.swift */; };
 		A06684DA2A42E35E00D27BF3 /* Tune.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D92A42E35E00D27BF3 /* Tune.swift */; };
+		A06684E22A42F82F00D27BF3 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684E12A42F82F00D27BF3 /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +87,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A00913152A430B1600057B4E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		A00913172A432D7F00057B4E /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		A01E31902A42D39D0044E25F /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		A01E31922A42D5330044E25F /* Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analysis.swift; sourceTree = "<group>"; };
 		A0581F7C2A41DBEF00710C4B /* Brush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brush.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +115,7 @@
 		A06684D52A42E12400D27BF3 /* Mine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mine.swift; sourceTree = "<group>"; };
 		A06684D72A42E32800D27BF3 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		A06684D92A42E35E00D27BF3 /* Tune.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tune.swift; sourceTree = "<group>"; };
+		A06684E12A42F82F00D27BF3 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +196,9 @@
 			children = (
 				A0581F7F2A41DBEF00710C4B /* BrushApp.swift */,
 				A0581F812A41DBEF00710C4B /* ContentView.swift */,
+				A00913152A430B1600057B4E /* Theme.swift */,
 				A0581FDE2A41E7F900710C4B /* Route.swift */,
+				A06684E02A42F81100D27BF3 /* Component */,
 				A06684DB2A42E37600D27BF3 /* Record */,
 				A06684DC2A42E39D00D27BF3 /* Tune */,
 				A06684DD2A42F2B400D27BF3 /* Home */,
@@ -301,6 +309,15 @@
 				A06684D52A42E12400D27BF3 /* Mine.swift */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		A06684E02A42F81100D27BF3 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				A06684E12A42F82F00D27BF3 /* Card.swift */,
+				A00913172A432D7F00057B4E /* Avatar.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -532,11 +549,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A06684D62A42E12400D27BF3 /* Mine.swift in Sources */,
+				A06684E22A42F82F00D27BF3 /* Card.swift in Sources */,
 				A06684DA2A42E35E00D27BF3 /* Tune.swift in Sources */,
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
 				A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */,
 				A01E31912A42D39D0044E25F /* Home.swift in Sources */,
 				A06684D82A42E32800D27BF3 /* Record.swift in Sources */,
+				A00913162A430B1600057B4E /* Theme.swift in Sources */,
+				A00913182A432D7F00057B4E /* Avatar.swift in Sources */,
 				A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */,
 				A01E31932A42D5330044E25F /* Analysis.swift in Sources */,
 			);

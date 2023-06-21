@@ -1,0 +1,36 @@
+//
+//  MyExtension.swift
+//  Brush
+//
+//  Created by cxq on 2023/6/21.
+//
+
+import Foundation
+import SwiftUI
+
+public extension Color {
+    static let lightBlack: Color = .init(.sRGB, red: 98 / 255, green: 98 / 255, blue: 98 / 255,opacity: 1)
+}
+
+extension Color {
+    init(_ hex: Int, alpha: Double = 1) {
+        let components = (
+            R: Double((hex >> 16) & 0xff) / 255,
+            G: Double((hex >> 08) & 0xff) / 255,
+            B: Double((hex >> 00) & 0xff) / 255
+        )
+        self.init(
+            .sRGB,
+            red: components.R,
+            green: components.G,
+            blue: components.B,
+            opacity: alpha
+        )
+    }
+}
+
+public extension UIFont {
+    static func textStyleSize(_ style: UIFont.TextStyle) -> CGFloat {
+        UIFont.preferredFont(forTextStyle: style).pointSize
+    }
+}
