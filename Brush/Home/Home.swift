@@ -14,7 +14,7 @@ import SwiftUI
 struct Home: ReducerProtocol {
     
     struct State: Equatable {
-        @BindingState var
+        
         
     }
     

@@ -26,6 +26,9 @@
 		A0581FC52A41DBF000710C4B /* Brush_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581FC42A41DBF000710C4B /* Brush_Watch_AppUITestsLaunchTests.swift */; };
 		A0581FDD2A41DC4900710C4B /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A0581FDC2A41DC4900710C4B /* ComposableArchitecture */; };
 		A0581FDF2A41E7F900710C4B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581FDE2A41E7F900710C4B /* Route.swift */; };
+		A06684D62A42E12400D27BF3 /* Mine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D52A42E12400D27BF3 /* Mine.swift */; };
+		A06684D82A42E32800D27BF3 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D72A42E32800D27BF3 /* Record.swift */; };
+		A06684DA2A42E35E00D27BF3 /* Tune.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D92A42E35E00D27BF3 /* Tune.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +107,9 @@
 		A0581FC22A41DBF000710C4B /* Brush_Watch_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush_Watch_AppUITests.swift; sourceTree = "<group>"; };
 		A0581FC42A41DBF000710C4B /* Brush_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A0581FDE2A41E7F900710C4B /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		A06684D52A42E12400D27BF3 /* Mine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mine.swift; sourceTree = "<group>"; };
+		A06684D72A42E32800D27BF3 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		A06684D92A42E35E00D27BF3 /* Tune.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tune.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,8 +191,11 @@
 				A0581F7F2A41DBEF00710C4B /* BrushApp.swift */,
 				A0581F812A41DBEF00710C4B /* ContentView.swift */,
 				A0581FDE2A41E7F900710C4B /* Route.swift */,
-				A01E31902A42D39D0044E25F /* Home.swift */,
-				A01E31922A42D5330044E25F /* Analysis.swift */,
+				A06684DB2A42E37600D27BF3 /* Record */,
+				A06684DC2A42E39D00D27BF3 /* Tune */,
+				A06684DD2A42F2B400D27BF3 /* Home */,
+				A06684DE2A42F2C000D27BF3 /* Analysis */,
+				A06684DF2A42F34600D27BF3 /* Mine */,
 				A0581F832A41DBEF00710C4B /* Assets.xcassets */,
 				A0581F852A41DBEF00710C4B /* Preview Content */,
 			);
@@ -252,6 +261,46 @@
 				A0581FC42A41DBF000710C4B /* Brush_Watch_AppUITestsLaunchTests.swift */,
 			);
 			path = "Brush Watch AppUITests";
+			sourceTree = "<group>";
+		};
+		A06684DB2A42E37600D27BF3 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				A06684D72A42E32800D27BF3 /* Record.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		A06684DC2A42E39D00D27BF3 /* Tune */ = {
+			isa = PBXGroup;
+			children = (
+				A06684D92A42E35E00D27BF3 /* Tune.swift */,
+			);
+			path = Tune;
+			sourceTree = "<group>";
+		};
+		A06684DD2A42F2B400D27BF3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A01E31902A42D39D0044E25F /* Home.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		A06684DE2A42F2C000D27BF3 /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				A01E31922A42D5330044E25F /* Analysis.swift */,
+			);
+			path = Analysis;
+			sourceTree = "<group>";
+		};
+		A06684DF2A42F34600D27BF3 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				A06684D52A42E12400D27BF3 /* Mine.swift */,
+			);
+			path = Mine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -482,9 +531,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A06684D62A42E12400D27BF3 /* Mine.swift in Sources */,
+				A06684DA2A42E35E00D27BF3 /* Tune.swift in Sources */,
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
 				A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */,
 				A01E31912A42D39D0044E25F /* Home.swift in Sources */,
+				A06684D82A42E32800D27BF3 /* Record.swift in Sources */,
 				A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */,
 				A01E31932A42D5330044E25F /* Analysis.swift in Sources */,
 			);
