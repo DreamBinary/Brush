@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 import SwiftUI
-import WaterfallGrid
+
 
 // MARK: - Feature domain
 
@@ -71,24 +71,29 @@ struct AnalysisView: View {
                         }
                     }
                     Card(color: Color(0xE1F5B3), cornerRadius: 15) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("New TuneBrush Journey")
-                                    .font(.title2.bold())
-                                    .padding(.bottom, 1)
-                                
-                                Text("预计进行 12min      现在就开始！")
-                                    .foregroundColor(.lightBlack)
-                                    .font(.callout)
-                                
-                                Text("Get Started！")
-                                    .font(.title2.bold())
-                                    .underline()
-                                    .padding(.top, 10)
-                            }
-                            Image("Avatar")
+                        ZStack(alignment: .trailing) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("New TuneBrush Journey")
+                                        .font(.title2.bold())
+                                        .padding(.bottom, 1)
+                                    Text("预计进行 12min      现在就开始！")
+                                        .foregroundColor(.lightBlack)
+                                        .font(.callout)
+                                    Text("Get Started！")
+                                        .font(.title2.bold())
+                                        .underline()
+                                        .padding(.top, 10)
+                                }
+                                Spacer()
+                            }.padding(.horizontal, 25)
+                            Image("BrushBg")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 110)
                         }
-                        .padding()
+                        .padding(.vertical)
+                        
                     }.frame(height: 150)
                     Text("Your Analysis")
                         .font(.title2.bold())
@@ -99,25 +104,25 @@ struct AnalysisView: View {
                                 ForEach(0 ..< 12) { index in
                                     (
                                         vStore.currMonth == index
-                                            ? Card(color: Color(0x365869), cornerRadius: 15) {
-                                                VStack(spacing: 10) {
-                                                    Text(monthC[index])
-                                                        .font(.callout)
-                                                        .foregroundColor(.white)
-                                                    Text(monthE[index])
-                                                        .font(.title.bold())
-                                                        .foregroundColor(.white)
-                                                }
+                                        ? Card(color: Color(0x365869), cornerRadius: 15) {
+                                            VStack(spacing: 10) {
+                                                Text(monthC[index])
+                                                    .font(.callout)
+                                                    .foregroundColor(.white)
+                                                Text(monthE[index])
+                                                    .font(.title.bold())
+                                                    .foregroundColor(.white)
                                             }
-                                            : Card(color: .white.opacity(0.44), cornerRadius: 15) {
-                                                VStack(spacing: 10) {
-                                                    Text(monthC[index])
-                                                        .font(.callout)
-                                                        .foregroundColor(.gray)
-                                                    Text(monthE[index])
-                                                        .font(.title.bold())
-                                                }
+                                        }
+                                        : Card(color: .white.opacity(0.44), cornerRadius: 15) {
+                                            VStack(spacing: 10) {
+                                                Text(monthC[index])
+                                                    .font(.callout)
+                                                    .foregroundColor(.gray)
+                                                Text(monthE[index])
+                                                    .font(.title.bold())
                                             }
+                                        }
                                     ).frame(width: 80, height: 100)
                                         .id(monthE[index])
                                         .onTapGesture {
@@ -131,8 +136,8 @@ struct AnalysisView: View {
                         }
                     }
                     
-                    HStack(alignment: .top) {
-                        VStack {
+                    HStack(alignment: .top, spacing: 15) {
+                        VStack(spacing: 15) {
                             Card(color: Color(0x003FE2, alpha: 0.44), height: 150, backgroundOpacity: 0.5) {
                                 VStack {
                                     Text("历史最高分")
@@ -159,7 +164,7 @@ struct AnalysisView: View {
                                 }
                             }
                         }
-                        VStack {
+                        VStack(spacing: 15) {
                             Card(color: Color(0x00C4DF, alpha: 0.40), height: 100, backgroundOpacity: 0.5) {
                                 VStack {
                                     HStack {
@@ -174,18 +179,39 @@ struct AnalysisView: View {
                                         .fontWeight(.semibold)
                                 }
                             }
-                            Card(color: Color(0xA684C8), height: 250, backgroundOpacity: 0.5) {
-                                VStack {
-                                    Text("热词 Conclusion")
-                                        .font(.callout)
-                                        .fontWeight(.semibold)
-                                }
+                            GeometryReader { _ in
+                                ZStack {
+                                    Card(color: Color(0xA684C8), height: 250, backgroundOpacity: 0.5) {
+                                        VStack {
+                                            Spacer()
+                                            Text("热词 Conclusion")
+                                                .font(.callout)
+                                                .fontWeight(.semibold)
+                                                .padding(.bottom, 20)
+                                        }
+                                    }
+                                }.overlay(
+                                    HotWord("刷轻啦")
+                                        .offset(x: 50, y: -80)
+                                ).overlay(
+                                    HotWord("外左上", paddingH: 10, paddingV: 10)
+                                        .offset(x: -40, y: -65)
+                                ).overlay(
+                                    HotWord("内右上")
+                                        .offset(x: 15, y: -10)).overlay(
+                                            HotWord("再用点劲", paddingH: 12, paddingV: 12)
+                                                .offset(x: -50, y: 45)
+                                        ).overlay(
+                                            HotWord("外左上", paddingH: 10, paddingV: 10)
+                                                .offset(x: 45, y: 55)
+                                                .padding(.all)
+                                        )
                             }
                         }
                     }
                 }
+                .padding(.horizontal)
             }
-            .padding()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             .background(
                 LinearGradient(gradient: Gradient(colors: backgroundColors), startPoint: .top, endPoint: .bottom)
@@ -194,12 +220,34 @@ struct AnalysisView: View {
     }
 }
 
+struct HotWord: View {
+    var content: String
+    var paddingH: CGFloat
+    var paddingV: CGFloat
+    init(_ content: String, paddingH: CGFloat = 20, paddingV: CGFloat = 15) {
+        self.content = content
+        self.paddingV = paddingV
+        self.paddingH = paddingH
+    }
+    
+    var body: some View {
+        Text(content)
+            .padding(.horizontal, paddingH)
+            .padding(.vertical, paddingV)
+            .fontWeight(.semibold)
+            .background(Color(0xF2F7F5))
+            .foregroundColor(Color(0x9272A1))
+            .cornerRadius(5)
+            .shadow(color: Color(0x000000, alpha: 0.25), radius: 5, x: 2, y: 4)
+    }
+}
+
 struct RoundedRectProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: 90, height: 8)
-                .foregroundColor(Color(0xD0D0D0, alpha: 0.5))
+                .foregroundColor(Color(0xD0D0D0, alpha: 0.2))
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * 90, height: 8)
                 .foregroundColor(.white)

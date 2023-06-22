@@ -12,7 +12,7 @@ import SwiftUI
 
 struct Record: ReducerProtocol {
     struct State: Equatable {
-//        @BindingState var
+        //        @BindingState var
     }
     
     enum Action: BindableAction, Equatable {
@@ -37,10 +37,50 @@ struct RecordView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { _ in
-        
+            
             ScrollView {
                 VStack {
+                    ZStack {
+                        Image("BrushTuneBg").resizable()
+                        HStack {
+                            Text("距离上一次刷牙")
+                                .foregroundColor(.gray)
+                            Text("- 12h")
+                                .foregroundColor(.fontBlack)
+                        }.font(.caption)
+                            .fontWeight(.semibold)
+                            .offset(x: -110, y: 118)
+                    }
                     
+                    ZStack(alignment: .topTrailing) {
+                        Image("RecordBg").resizable()
+                        Button(action: {
+                            // 
+                            print("hello")
+                        }) {
+                            ZStack  {
+                                Circle()
+                                    .fill(Color(0xCCF5B3))
+                                Image(systemName: "arrow.up.right")
+                                    .foregroundColor(.lightBlack)
+                            }.frame(width: 40, height: 40)
+                        }
+                        
+                    }.padding(.horizontal)
+                    
+                    Card(color: Color(0xDDC0F9), height: 200) {
+                        VStack {
+                            Text("历史最高分")
+                                .font(.body)
+                                .foregroundColor(.white)
+                            Text("98")
+                                .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            Text("月度最高Top")
+                                .font(.callout)
+                        }
+                    }
                     Card(color: Color(0xDDC0F9), height: 200) {
                         VStack {
                             Text("历史最高分")
@@ -56,33 +96,6 @@ struct RecordView: View {
                     }
                     
                     Card(color: Color(0xDDC0F9), height: 200) {
-                        VStack {
-                            Text("历史最高分")
-                                .font(.body)
-                                .foregroundColor(.white)
-                            Text("98")
-                                .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            Text("月度最高Top")
-                                .font(.callout)
-                        }
-                    }
-                    Card(color: Color( 0xDDC0F9), height: 200) {
-                        VStack {
-                            Text("历史最高分")
-                                .font(.body)
-                                .foregroundColor(.white)
-                            Text("98")
-                                .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            Text("月度最高Top")
-                                .font(.callout)
-                        }
-                    }
-                    
-                    Card(color: Color( 0xDDC0F9), height: 200) {
                         VStack {
                             Text("历史最高分")
                                 .font(.body)
@@ -101,7 +114,6 @@ struct RecordView: View {
                     //                }
                 }
             }
-            
         }
     }
 }
