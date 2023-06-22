@@ -11,7 +11,7 @@ struct Card<Content>: View where Content: View {
     var color: Color = .white
     var width: CGFloat? = nil
     var height: CGFloat? = nil
-    var cornerRadius: CGFloat = 25
+    var cornerRadius: CGFloat = 15
 
     var content: () -> Content
 

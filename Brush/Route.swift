@@ -35,7 +35,7 @@ struct Route: ReducerProtocol {
 struct RouteView: View {
     let store: StoreOf<Route>
     
-    let pages = [
+    let pages: [any View] = [
         RecordView(
             store: Store(
                 initialState: Record.State(),
@@ -54,10 +54,10 @@ struct RouteView: View {
                 reducer: Record()
             )
         ),
-        RecordView(
+        AnalysisView(
             store: Store(
-                initialState: Record.State(),
-                reducer: Record()
+                initialState: Analysis.State(),
+                reducer: Analysis()
             )
         ),
         RecordView(
@@ -91,21 +91,21 @@ struct RouteView: View {
                         .tag(index)
                 }
             }
-            .onAppear {
-                let standardAppearance = UITabBarAppearance()
-                standardAppearance.backgroundColor = UIColor(Color(0xBFBFBF, alpha: 0.1))
-                standardAppearance.shadowColor = UIColor(Color(0xBFBFBF))
-                //                standardAppearance.backgroundImage = UIImage(named: "custom_bg")
-                //                let itemAppearance = UITabBarItemAppearance()
-                //                itemAppearance.normal.iconColor = UIColor(Color.white)
-                //                itemAppearance.selected.iconColor = UIColor(Color.red)
-                //                standardAppearance.inlineLayoutAppearance = itemAppearance
-                //                standardAppearance.stackedLayoutAppearance = itemAppearance
-                //                standardAppearance.compactInlineLayoutAppearance = itemAppearance
-                UITabBar.appearance().standardAppearance = standardAppearance
-                UITabBar.appearance().scrollEdgeAppearance = standardAppearance
-                
-            }
+//            .onAppear {
+//                let standardAppearance = UITabBarAppearance()
+//                standardAppearance.backgroundColor = UIColor(Color(0xBFBFBF, alpha: 0.1))
+//                standardAppearance.shadowColor = UIColor(Color(0xBFBFBF))
+//                //                standardAppearance.backgroundImage = UIImage(named: "custom_bg")
+//                //                let itemAppearance = UITabBarItemAppearance()
+//                //                itemAppearance.normal.iconColor = UIColor(Color.white)
+//                //                itemAppearance.selected.iconColor = UIColor(Color.red)
+//                //                standardAppearance.inlineLayoutAppearance = itemAppearance
+//                //                standardAppearance.stackedLayoutAppearance = itemAppearance
+//                //                standardAppearance.compactInlineLayoutAppearance = itemAppearance
+//                UITabBar.appearance().standardAppearance = standardAppearance
+//                UITabBar.appearance().scrollEdgeAppearance = standardAppearance
+//
+//            }
             .edgesIgnoringSafeArea(.bottom)
         }
     }
