@@ -15,6 +15,7 @@ struct Mine: ReducerProtocol {
     
     struct State: Equatable {
 //        @BindingState var
+        var name: String = ""
         
     }
     

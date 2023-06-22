@@ -12,13 +12,14 @@ struct Card<Content>: View where Content: View {
     var width: CGFloat? = nil
     var height: CGFloat? = nil
     var cornerRadius: CGFloat = 15
-
+    var backgroundOpacity: CGFloat = 1
     var content: () -> Content
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .fill(color)
+                .opacity(backgroundOpacity)
             content()
         }
         .frame(width: width, height: height)

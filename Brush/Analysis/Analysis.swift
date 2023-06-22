@@ -47,7 +47,7 @@ struct AnalysisView: View {
         Color(0xCAFBF3, alpha: 1),
         Color(0xBAFEF3, alpha: 0.52),
         Color(0xDBFFF9, alpha: 0.25),
-        Color(0xEEEEEE, alpha: 0.34)
+        Color(0xEEEEEE, alpha: 0.34),
     ]
     
     let monthE = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -58,7 +58,7 @@ struct AnalysisView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 25) {
                     HStack(spacing: 15) {
                         Avatar()
@@ -86,7 +86,7 @@ struct AnalysisView: View {
                                     .underline()
                                     .padding(.top, 10)
                             }
-                            Image("avatar")
+                            Image("Avatar")
                         }
                         .padding()
                     }.frame(height: 150)
@@ -99,25 +99,25 @@ struct AnalysisView: View {
                                 ForEach(0 ..< 12) { index in
                                     (
                                         vStore.currMonth == index
-                                        ? Card(color: Color(0x365869), cornerRadius: 15) {
-                                            VStack(spacing: 10) {
-                                                Text(monthC[index])
-                                                    .font(.callout)
-                                                    .foregroundColor(.white)
-                                                Text(monthE[index])
-                                                    .font(.title.bold())
-                                                    .foregroundColor(.white)
+                                            ? Card(color: Color(0x365869), cornerRadius: 15) {
+                                                VStack(spacing: 10) {
+                                                    Text(monthC[index])
+                                                        .font(.callout)
+                                                        .foregroundColor(.white)
+                                                    Text(monthE[index])
+                                                        .font(.title.bold())
+                                                        .foregroundColor(.white)
+                                                }
                                             }
-                                        }
-                                        : Card(color: .white.opacity(0.44), cornerRadius: 15) {
-                                            VStack(spacing: 10) {
-                                                Text(monthC[index])
-                                                    .font(.callout)
-                                                    .foregroundColor(.gray)
-                                                Text(monthE[index])
-                                                    .font(.title.bold())
+                                            : Card(color: .white.opacity(0.44), cornerRadius: 15) {
+                                                VStack(spacing: 10) {
+                                                    Text(monthC[index])
+                                                        .font(.callout)
+                                                        .foregroundColor(.gray)
+                                                    Text(monthE[index])
+                                                        .font(.title.bold())
+                                                }
                                             }
-                                        }
                                     ).frame(width: 80, height: 100)
                                         .id(monthE[index])
                                         .onTapGesture {
@@ -131,22 +131,58 @@ struct AnalysisView: View {
                         }
                     }
                     
-                    WaterfallGrid(0 ..< 12, id: \.self) { index in
-                        Card(color: Color(0xDDC0F9), height: CGFloat(Float.random(in: 150...300))) {
-                            VStack {
-                                Text("历史最高分")
-                                    .font(.body)
-                                    .foregroundColor(.white)
-                                Text("98")
-                                    .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                Text("月度最高Top")
-                                    .font(.callout)
+                    HStack(alignment: .top) {
+                        VStack {
+                            Card(color: Color(0x003FE2, alpha: 0.44), height: 150, backgroundOpacity: 0.5) {
+                                VStack {
+                                    Text("历史最高分")
+                                        .font(.body)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.white)
+                                    Text("98")
+                                        .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                    Text("月度最高Top")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                }
                             }
-                        }.padding(.vertical)
+                            Card(color: Color(0xFFE193, alpha: 0.72), height: 200) {
+                                VStack(spacing: 0) {
+                                    Spacer()
+                                    Image("ScoreLine")
+                                    Text("评分曲线 Monthly")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                        .padding(.bottom, 20)
+                                }
+                            }
+                        }
+                        VStack {
+                            Card(color: Color(0x00C4DF, alpha: 0.40), height: 100, backgroundOpacity: 0.5) {
+                                VStack {
+                                    HStack {
+                                        Image("BrushMin")
+                                        ProgressView(value: 0.5)
+                                            .progressViewStyle(RoundedRectProgressViewStyle())
+                                            .frame(width: 90)
+                                        Image("BrushMax")
+                                    }
+                                    Text("平均力度 Average")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                }
+                            }
+                            Card(color: Color(0xA684C8), height: 250, backgroundOpacity: 0.5) {
+                                VStack {
+                                    Text("热词 Conclusion")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                }
+                            }
+                        }
                     }
-                    
                 }
             }
             .padding()
@@ -155,6 +191,20 @@ struct AnalysisView: View {
                 LinearGradient(gradient: Gradient(colors: backgroundColors), startPoint: .top, endPoint: .bottom)
             )
         }
+    }
+}
+
+struct RoundedRectProgressViewStyle: ProgressViewStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 5)
+                .frame(width: 90, height: 8)
+                .foregroundColor(Color(0xD0D0D0, alpha: 0.5))
+            RoundedRectangle(cornerRadius: 5)
+                .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * 90, height: 8)
+                .foregroundColor(.white)
+        }
+        .padding()
     }
 }
 

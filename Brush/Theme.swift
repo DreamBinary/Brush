@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 public extension Color {
-    static let lightBlack: Color = .init(.sRGB, red: 98 / 255, green: 98 / 255, blue: 98 / 255,opacity: 1)
+    static let lightBlack: Color = .init(.sRGB, red: 98 / 255, green: 98 / 255, blue: 98 / 255, opacity: 1)
+    static let fontBlack: Color = .init(.sRGB, red: 46 / 255, green: 47 / 255, blue: 81 / 255, opacity: 1)
 }
 
 extension Color {

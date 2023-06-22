@@ -14,11 +14,11 @@ struct Route: ReducerProtocol {
     struct State: Equatable {
         @BindingState var selection: Int = 0
     }
-    
+
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
     }
-    
+
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { _, action in
@@ -34,48 +34,48 @@ struct Route: ReducerProtocol {
 
 struct RouteView: View {
     let store: StoreOf<Route>
-    
-    let pages: [any View] = [
-        RecordView(
+
+    let pages = [
+        AnyView(RecordView(
             store: Store(
                 initialState: Record.State(),
                 reducer: Record()
             )
-        ),
-        RecordView(
+        )),
+        AnyView(RecordView(
             store: Store(
                 initialState: Record.State(),
                 reducer: Record()
             )
-        ),
-        RecordView(
+        )),
+        AnyView(RecordView(
             store: Store(
                 initialState: Record.State(),
                 reducer: Record()
             )
-        ),
-        AnalysisView(
+        )),
+        AnyView(AnalysisView(
             store: Store(
                 initialState: Analysis.State(),
                 reducer: Analysis()
             )
-        ),
-        RecordView(
+        )),
+        AnyView(RecordView(
             store: Store(
                 initialState: Record.State(),
                 reducer: Record()
             )
-        )
+        ))
     ]
-    
+
     let unSeletedImages = [
         "bottom00", "bottom10", "bottom20", "bottom30", "bottom40"
     ]
-    
+
     let seletedImages = [
         "bottom01", "bottom11", "bottom21", "", "bottom41"
     ]
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             TabView(selection: vStore.binding(\.$selection)) {
@@ -91,21 +91,20 @@ struct RouteView: View {
                         .tag(index)
                 }
             }
-//            .onAppear {
-//                let standardAppearance = UITabBarAppearance()
-//                standardAppearance.backgroundColor = UIColor(Color(0xBFBFBF, alpha: 0.1))
-//                standardAppearance.shadowColor = UIColor(Color(0xBFBFBF))
-//                //                standardAppearance.backgroundImage = UIImage(named: "custom_bg")
-//                //                let itemAppearance = UITabBarItemAppearance()
-//                //                itemAppearance.normal.iconColor = UIColor(Color.white)
-//                //                itemAppearance.selected.iconColor = UIColor(Color.red)
-//                //                standardAppearance.inlineLayoutAppearance = itemAppearance
-//                //                standardAppearance.stackedLayoutAppearance = itemAppearance
-//                //                standardAppearance.compactInlineLayoutAppearance = itemAppearance
-//                UITabBar.appearance().standardAppearance = standardAppearance
-//                UITabBar.appearance().scrollEdgeAppearance = standardAppearance
-//
-//            }
+            .onAppear {
+                let standardAppearance = UITabBarAppearance()
+                standardAppearance.backgroundColor = UIColor(Color(0xBFBFBF, alpha: 0.1))
+                standardAppearance.shadowColor = UIColor(Color(0xBFBFBF))
+                //                standardAppearance.backgroundImage = UIImage(named: "custom_bg")
+                //                let itemAppearance = UITabBarItemAppearance()
+                //                itemAppearance.normal.iconColor = UIColor(Color.white)
+                //                itemAppearance.selected.iconColor = UIColor(Color.red)
+                //                standardAppearance.inlineLayoutAppearance = itemAppearance
+                //                standardAppearance.stackedLayoutAppearance = itemAppearance
+                //                standardAppearance.compactInlineLayoutAppearance = itemAppearance
+                UITabBar.appearance().standardAppearance = standardAppearance
+                UITabBar.appearance().scrollEdgeAppearance = standardAppearance
+            }
             .edgesIgnoringSafeArea(.bottom)
         }
     }

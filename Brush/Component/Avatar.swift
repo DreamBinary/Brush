@@ -10,7 +10,7 @@ import SwiftUI
 struct Avatar: View {
     var width: CGFloat = 60
     var height: CGFloat = 60
-    var img: String = "avatar"
+    var img: String = "Avatar"
     var body: some View {
         ZStack {
             Circle()
