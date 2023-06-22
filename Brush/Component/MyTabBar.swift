@@ -29,7 +29,7 @@ struct MyTabBar: View {
                 } label: {
                     if index == 2 {
                         Image(unSeletedImages[index])
-                            .shadow(color: Color(0x000000, alpha: 0.25), radius: 10, x: 5, y: 10)
+                            .shadow(color: Color(0x000000,  0.25), radius: 10, x: 2, y: 3)
                     } else {
                         Image(selectedIndex == index ? seletedImages[index] : unSeletedImages[index])
                     }

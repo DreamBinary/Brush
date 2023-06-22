@@ -55,10 +55,10 @@ struct RecordView: View {
                     ZStack(alignment: .topTrailing) {
                         Image("RecordBg").resizable()
                         Button(action: {
-                            // 
+                            //
                             print("hello")
                         }) {
-                            ZStack  {
+                            ZStack {
                                 Circle()
                                     .fill(Color(0xCCF5B3))
                                 Image(systemName: "arrow.up.right")
@@ -68,50 +68,26 @@ struct RecordView: View {
                         
                     }.padding(.horizontal)
                     
-                    Card(color: Color(0xDDC0F9), height: 200) {
-                        VStack {
-                            Text("历史最高分")
-                                .font(.body)
-                                .foregroundColor(.white)
-                            Text("98")
-                                .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            Text("月度最高Top")
-                                .font(.callout)
+                    HStack(alignment: .top, spacing: 15) {
+                        Card(color: Color(0xBFD0FF), height: 200, cornerRadius: 30) {
+                            Image("Violin")
+                                .resizable()
                         }
-                    }
-                    Card(color: Color(0xDDC0F9), height: 200) {
-                        VStack {
-                            Text("历史最高分")
-                                .font(.body)
-                                .foregroundColor(.white)
-                            Text("98")
-                                .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            Text("月度最高Top")
-                                .font(.callout)
+                        Card(color: Color(0xDDC0F9), height: 200, cornerRadius: 30) {
+                            VStack {
+                                Text("历史最高分")
+                                    .font(.body)
+                                    .foregroundColor(.white)
+                                Text("98")
+                                    .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                Text("月度最高Top")
+                                    .font(.callout)
+                            }
                         }
-                    }
-                    
-                    Card(color: Color(0xDDC0F9), height: 200) {
-                        VStack {
-                            Text("历史最高分")
-                                .font(.body)
-                                .foregroundColor(.white)
-                            Text("98")
-                                .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            Text("月度最高Top")
-                                .font(.callout)
-                        }
-                    }
-                    
-                    //                Card(color: Color(0xDDC0F9)) {
-                    //                    Text("hello")
-                    //                }
+                        
+                    }.padding()
                 }
             }
         }

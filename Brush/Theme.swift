@@ -14,7 +14,7 @@ public extension Color {
 }
 
 extension Color {
-    init(_ hex: Int, alpha: Double = 1) {
+    init(_ hex: Int, _ alpha: Double = 1) {
         let components = (
             R: Double((hex >> 16) & 0xff) / 255,
             G: Double((hex >> 08) & 0xff) / 255,
@@ -33,5 +33,28 @@ extension Color {
 public extension UIFont {
     static func textStyleSize(_ style: UIFont.TextStyle) -> CGFloat {
         UIFont.preferredFont(forTextStyle: style).pointSize
+    }
+}
+
+
+struct RoundedAndShadowButtonStyle: ButtonStyle {
+    
+    var foregroundColor: Color
+    var backgroundColor: Color
+    var cornerRadius: CGFloat
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0)
+            .foregroundColor(foregroundColor)
+            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            .background(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .foregroundColor(backgroundColor)
+            )
+            .compositingGroup()
+            .shadow(radius: configuration.isPressed ? 0 : 2, x: 0, y: configuration.isPressed ? 0 : 2)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+            .animation(.spring(), value: configuration.isPressed)
     }
 }
