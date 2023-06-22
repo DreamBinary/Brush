@@ -42,13 +42,13 @@ struct RouteView: View {
                 reducer: Record()
             )
         )),
-        AnyView(RecordView(
+        AnyView(LoginView(
             store: Store(
-                initialState: Record.State(),
-                reducer: Record()
+                initialState: Login.State(),
+                reducer: Login()
             )
         )),
-        AnyView(RecordView(
+        AnyView(RecordView( 
             store: Store(
                 initialState: Record.State(),
                 reducer: Record()

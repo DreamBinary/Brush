@@ -39,15 +39,14 @@ public extension UIFont {
 
 struct RoundedAndShadowButtonStyle: ButtonStyle {
     
-    var foregroundColor: Color
-    var backgroundColor: Color
-    var cornerRadius: CGFloat
+    var foregroundColor: Color? = .none
+    var backgroundColor: Color? = .none
+    var cornerRadius: CGFloat = 0
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0)
             .foregroundColor(foregroundColor)
-            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             .background(
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .foregroundColor(backgroundColor)
@@ -58,3 +57,5 @@ struct RoundedAndShadowButtonStyle: ButtonStyle {
             .animation(.spring(), value: configuration.isPressed)
     }
 }
+
+

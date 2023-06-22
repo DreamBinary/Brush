@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoginWay: View {
+struct EnterWay: View {
     var body: some View {
         HStack {
             Button {} label: {
@@ -27,12 +27,12 @@ struct LoginWay: View {
             Button {} label: {
                 Image("QQ")
             }
-        }.buttonStyle(RoundedAndShadowButtonStyle(foregroundColor: Color(0x084A5E), backgroundColor: Color(0x99EADC, 0.64), cornerRadius: 5))
+        }
     }
 }
 
-struct LoginWay_Previews: PreviewProvider {
+struct EnterWay_Previews: PreviewProvider {
     static var previews: some View {
-        LoginWay()
+        EnterWay()
     }
 }

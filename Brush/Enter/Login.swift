@@ -13,17 +13,27 @@ import SwiftUI
 // MARK: - Feature domain
 
 struct Login: ReducerProtocol {
-    struct State: Equatable {}
+    struct State: Equatable {
+        var signUp = SignUp.State()
+        var enterInput = EnterInput.State()
+    }
 
     enum Action: BindableAction, Equatable {
+        case signUp(SignUp.Action)
+        case enterInput(EnterInput.Action)
         case binding(BindingAction<State>)
     }
 
     var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.enterInput, action: /Action.enterInput) {
+            EnterInput()
+        }
+
         BindingReducer()
+
         Reduce { _, action in
             switch action {
-                case .binding:
+                case .signUp, .enterInput, .binding:
                     return .none
             }
         }
@@ -47,15 +57,32 @@ struct LoginView: View {
                     Text("Hi There,\nWelcome back!")
                         .font(.title.bold())
                     EnterInputView(
-                        store: Store(
-                            initialState: EnterInput.State(),
-                            reducer: EnterInput()
-                        )
+                        store: store.scope(state: \.enterInput, action: Login.Action.enterInput)
                     )
-                    LoginWay()
+                    
+//                    NavigationLink(
+//                        destination: IfLetStore(
+//                            self.store.scope(
+//                                state: \.signUp,
+//                                action: Login.Action.signUp
+//                            )
+//                        ) {
+//                            SignUpView(store: $0)
+//                        } else: {
+//                            ProgressView()
+//                        },
+//                        isActive: viewStore.binding(
+//                            get: \.isNavigationActive,
+//                            send: NavigateAndLoad.Action.setNavigation(isActive:)
+//                        )
+//                    ) {
+//                        Text("Load optional counter")
+//                    }
+                    
+                    EnterWay().padding(.vertical, 10)
                 }
                 .padding(.horizontal, 60)
-                .padding(.bottom, 110)
+                .padding(.bottom, 100)
             }
         }
     }

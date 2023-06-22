@@ -11,7 +11,13 @@ import SwiftUI
 // MARK: - Feature domain
 
 struct EnterInput: ReducerProtocol {
+    enum InputType {
+        case Login
+        case SignUp
+    }
+
     struct State: Equatable {
+        var type: InputType = .Login
         @BindingState var focus: Field?
         @BindingState var username: String = ""
         @BindingState var password: String = ""
@@ -58,7 +64,7 @@ struct EnterInputView: View {
                     .font(.callout)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
-                    .background(Color(0xA1D6CD,  0.26))
+                    .background(Color(0xA1D6CD, 0.26))
                     .cornerRadius(5)
                     .focused(self.$focusedField, equals: .username)
 
@@ -80,26 +86,26 @@ struct EnterInputView: View {
                     }
                 }.padding(.horizontal, 10)
                     .padding(.vertical, 5)
-                    .background(Color(0xA1D6CD,  0.26))
+                    .background(Color(0xA1D6CD, 0.26))
                     .cornerRadius(5)
 
                 HStack {
                     Spacer()
-                    Text("Sign up")
+                    Text(vStore.type == .SignUp ? "Log in" : "Sign Up")
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
                 Button(action: {
                     vStore.send(.signInTapped)
                 }, label: {
-                    Text("Log in")
+                    Text(vStore.type == .Login ? "Log in" : "Sign Up")
                         .bold()
+                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 }).buttonStyle(RoundedAndShadowButtonStyle(foregroundColor: Color(0x084A5E), backgroundColor: Color(0x99EADC, 0.64), cornerRadius: 5))
             }.synchronize(vStore.binding(\.$focus), self.$focusedField)
         }
     }
 }
-
 
 // 具体实现是通过在视图上注册两个 onChange 的方法来实现的。第一个 onChange 方法监听 first 的变化，并将变化的值赋值给 second；第二个 onChange 方法监听 second 的变化，并将变化的值赋值给 first。
 extension View {

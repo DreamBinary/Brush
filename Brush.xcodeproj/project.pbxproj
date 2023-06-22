@@ -16,8 +16,9 @@
 		A0300C4A2A4466AE0056496E /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C492A4466AE0056496E /* Welcome.swift */; };
 		A0300C4C2A446A190056496E /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4B2A446A190056496E /* Login.swift */; };
 		A0300C4E2A446A230056496E /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4D2A446A230056496E /* SignUp.swift */; };
-		A0300C502A446E010056496E /* LoginWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* LoginWay.swift */; };
+		A0300C502A446E010056496E /* EnterWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* EnterWay.swift */; };
 		A0300C542A446EFD0056496E /* EnterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C532A446EFD0056496E /* EnterInput.swift */; };
+		A045FA112A448DFF00F7A85C /* CountDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A045FA102A448DFF00F7A85C /* CountDown.swift */; };
 		A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F7F2A41DBEF00710C4B /* BrushApp.swift */; };
 		A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F812A41DBEF00710C4B /* ContentView.swift */; };
 		A0581F842A41DBEF00710C4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0581F832A41DBEF00710C4B /* Assets.xcassets */; };
@@ -103,8 +104,9 @@
 		A0300C492A4466AE0056496E /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		A0300C4B2A446A190056496E /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		A0300C4D2A446A230056496E /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
-		A0300C4F2A446E010056496E /* LoginWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWay.swift; sourceTree = "<group>"; };
+		A0300C4F2A446E010056496E /* EnterWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWay.swift; sourceTree = "<group>"; };
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
+		A045FA102A448DFF00F7A85C /* CountDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDown.swift; sourceTree = "<group>"; };
 		A0581F7C2A41DBEF00710C4B /* Brush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0581F7F2A41DBEF00710C4B /* BrushApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushApp.swift; sourceTree = "<group>"; };
 		A0581F812A41DBEF00710C4B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				A06684DF2A42F34600D27BF3 /* Mine */,
 				A0581F832A41DBEF00710C4B /* Assets.xcassets */,
 				A0581F852A41DBEF00710C4B /* Preview Content */,
+				A045FA102A448DFF00F7A85C /* CountDown.swift */,
 			);
 			path = Brush;
 			sourceTree = "<group>";
@@ -343,7 +346,7 @@
 				A00913172A432D7F00057B4E /* Avatar.swift */,
 				A0300C442A4445CA0056496E /* ScaledImage.swift */,
 				A0300C462A4449E20056496E /* MyTabBar.swift */,
-				A0300C4F2A446E010056496E /* LoginWay.swift */,
+				A0300C4F2A446E010056496E /* EnterWay.swift */,
 				A0300C532A446EFD0056496E /* EnterInput.swift */,
 			);
 			path = Component;
@@ -581,6 +584,7 @@
 				A06684E22A42F82F00D27BF3 /* Card.swift in Sources */,
 				A0300C542A446EFD0056496E /* EnterInput.swift in Sources */,
 				A0300C472A4449E20056496E /* MyTabBar.swift in Sources */,
+				A045FA112A448DFF00F7A85C /* CountDown.swift in Sources */,
 				A06684DA2A42E35E00D27BF3 /* Tune.swift in Sources */,
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
 				A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */,
@@ -588,7 +592,7 @@
 				A0300C4A2A4466AE0056496E /* Welcome.swift in Sources */,
 				A01E31912A42D39D0044E25F /* Home.swift in Sources */,
 				A06684D82A42E32800D27BF3 /* Record.swift in Sources */,
-				A0300C502A446E010056496E /* LoginWay.swift in Sources */,
+				A0300C502A446E010056496E /* EnterWay.swift in Sources */,
 				A00913162A430B1600057B4E /* Theme.swift in Sources */,
 				A00913182A432D7F00057B4E /* Avatar.swift in Sources */,
 				A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */,
