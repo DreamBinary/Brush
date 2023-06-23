@@ -14,7 +14,7 @@ struct MyTabBar: View {
     let seletedImages = [
         "bottom01", "bottom11", "bottom20", "bottom31", "bottom41"
     ]
-    var height: CGFloat = 70
+    static var height: CGFloat = 70
     var width: CGFloat = UIScreen.main.bounds.width
     @Binding var selectedIndex: Int
 
@@ -37,7 +37,7 @@ struct MyTabBar: View {
                 Spacer()
             }
         }
-        .frame(width: width, height: height)
+        .frame(width: width, height: MyTabBar.height)
         .background(.ultraThinMaterial)
     }
 }

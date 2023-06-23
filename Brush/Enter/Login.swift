@@ -50,11 +50,7 @@ struct LoginView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
 
-            ZStack(alignment: .bottom) {
-                Image(vStore.isLogin ? "Login" : "SignUp")
-                    .resizable()
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
+            BgView(vStore.isLogin ? "Login" : "SignUp") {
                 VStack(alignment: .leading, spacing: 12) {
                     Text(vStore.isLogin
                         ? "Hi There,\nWelcome back!"
@@ -67,7 +63,7 @@ struct LoginView: View {
                         .padding(.vertical, 10)
                 }
                 .padding(.horizontal, 60)
-                .padding(.bottom, 100)
+                .padding(.top, 370)
             }
         }
     }

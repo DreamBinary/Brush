@@ -60,7 +60,7 @@ struct AnalysisView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 25) {
                     HStack(spacing: 15) {
-                        Avatar()
+                        Avatar(fillColor: Color(0xADB4F2))
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Hi, Worsh!")
                                 .font(.title2.bold())
@@ -68,7 +68,7 @@ struct AnalysisView: View {
                                 .font(.callout)
                                 .foregroundColor(.lightBlack)
                         }
-                    }
+                    }.padding(.horizontal)
                     Card(color: Color(0xE1F5B3), cornerRadius: 15) {
                         ZStack(alignment: .trailing) {
                             HStack {
@@ -94,8 +94,10 @@ struct AnalysisView: View {
                         .padding(.vertical)
 
                     }.frame(height: 150)
+                        .padding(.horizontal)
                     Text("Your Analysis")
                         .font(.title2.bold())
+                        .padding(.horizontal)
                         .padding(.horizontal)
                     ScrollViewReader { scrollViewProxy in
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -206,10 +208,11 @@ struct AnalysisView: View {
                                         .padding(.all)
                                 )
                             }
-                        }
-                    }
+                        }.padding(.horizontal)
+                    }.padding(.horizontal)
                 }
-                .padding(.horizontal)
+                .padding(.bottom)
+                .padding(.bottom, MyTabBar.height)
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             .background(

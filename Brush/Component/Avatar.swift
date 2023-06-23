@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct Avatar: View {
-    var width: CGFloat = 60
-    var height: CGFloat = 60
+    var radius: CGFloat = 60
     var img: String = "Avatar"
+    var fillColor: Color = .black
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color(0xADB4F2))
+                .fill(fillColor)
             Image(img)
                 .resizable()
-        }.frame(width: width, height: height)
+                .padding(.all, 10)
+        }.frame(width: radius, height: radius)
     }
 }
 

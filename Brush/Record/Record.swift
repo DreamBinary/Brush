@@ -14,11 +14,11 @@ struct Record: ReducerProtocol {
     struct State: Equatable {
         //        @BindingState var
     }
-    
+
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
     }
-    
+
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { _, action in
@@ -34,24 +34,23 @@ struct Record: ReducerProtocol {
 
 struct RecordView: View {
     let store: StoreOf<Record>
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { _ in
-            
             ScrollView {
                 VStack {
                     ZStack {
                         Image("BrushTuneBg").resizable()
                         HStack {
                             Text("距离上一次刷牙")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.fontGray)
                             Text("- 12h")
                                 .foregroundColor(.fontBlack)
                         }.font(.caption)
                             .fontWeight(.semibold)
                             .offset(x: -110, y: 118)
                     }
-                    
+
                     ZStack(alignment: .topTrailing) {
                         Image("RecordBg").resizable()
                         Button(action: {
@@ -65,9 +64,9 @@ struct RecordView: View {
                                     .foregroundColor(.lightBlack)
                             }.frame(width: 40, height: 40)
                         }
-                        
+
                     }.padding(.horizontal)
-                    
+
                     HStack(alignment: .top, spacing: 15) {
                         Card(color: Color(0xBFD0FF), height: 200, cornerRadius: 30) {
                             Image("Violin")
@@ -86,9 +85,10 @@ struct RecordView: View {
                                     .font(.callout)
                             }
                         }
-                        
+
                     }.padding()
                 }
+                .padding(.bottom, MyTabBar.height)
             }
         }
     }
