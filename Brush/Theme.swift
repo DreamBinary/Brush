@@ -11,7 +11,7 @@ import SwiftUI
 public extension Color {
     static let lightBlack: Color = .init(.sRGB, red: 98 / 255, green: 98 / 255, blue: 98 / 255, opacity: 1)
     static let fontBlack: Color = .init(.sRGB, red: 46 / 255, green: 47 / 255, blue: 81 / 255, opacity: 1)
-    static let fontGray: Color = Color(red: 0.51, green: 0.51, blue: 0.51)
+    static let fontGray: Color = .init(red: 0.51, green: 0.51, blue: 0.51)
 }
 
 extension Color {
@@ -37,13 +37,11 @@ public extension UIFont {
     }
 }
 
-
 struct RoundedAndShadowButtonStyle: ButtonStyle {
-    
     var foregroundColor: Color? = .none
     var backgroundColor: Color? = .none
     var cornerRadius: CGFloat = 0
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0)
@@ -58,5 +56,3 @@ struct RoundedAndShadowButtonStyle: ButtonStyle {
             .animation(.spring(), value: configuration.isPressed)
     }
 }
-
-
