@@ -14,12 +14,11 @@ import SwiftUI
 
 struct Login: ReducerProtocol {
     struct State: Equatable {
-        var signUp = SignUp.State()
+        var isLogin = true
         var enterInput = EnterInput.State()
     }
 
     enum Action: BindableAction, Equatable {
-        case signUp(SignUp.Action)
         case enterInput(EnterInput.Action)
         case binding(BindingAction<State>)
     }
@@ -28,12 +27,15 @@ struct Login: ReducerProtocol {
         Scope(state: \.enterInput, action: /Action.enterInput) {
             EnterInput()
         }
-
         BindingReducer()
-
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
-                case .signUp, .enterInput, .binding:
+                case .enterInput(.changeType):
+                    withAnimation(.interactiveSpring()) {
+                        state.isLogin.toggle()
+                    }
+                    return .none
+                case .enterInput, .binding:
                     return .none
             }
         }
@@ -46,40 +48,23 @@ struct LoginView: View {
     let store: StoreOf<Login>
 
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { _ in
+        WithViewStore(self.store, observe: { $0 }) { vStore in
 
             ZStack(alignment: .bottom) {
-                Image("Login")
+                Image(vStore.isLogin ? "Login" : "SignUp")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Hi There,\nWelcome back!")
-                        .font(.title.bold())
+                    Text(vStore.isLogin
+                        ? "Hi There,\nWelcome back!"
+                        : "Hi There,\nHave an account!"
+                    ).font(.title.bold())
                     EnterInputView(
                         store: store.scope(state: \.enterInput, action: Login.Action.enterInput)
                     )
-                    
-//                    NavigationLink(
-//                        destination: IfLetStore(
-//                            self.store.scope(
-//                                state: \.signUp,
-//                                action: Login.Action.signUp
-//                            )
-//                        ) {
-//                            SignUpView(store: $0)
-//                        } else: {
-//                            ProgressView()
-//                        },
-//                        isActive: viewStore.binding(
-//                            get: \.isNavigationActive,
-//                            send: NavigateAndLoad.Action.setNavigation(isActive:)
-//                        )
-//                    ) {
-//                        Text("Load optional counter")
-//                    }
-                    
-                    EnterWay().padding(.vertical, 10)
+                    EnterWay()
+                        .padding(.vertical, 10)
                 }
                 .padding(.horizontal, 60)
                 .padding(.bottom, 100)

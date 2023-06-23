@@ -30,6 +30,7 @@ struct EnterInput: ReducerProtocol {
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case signInTapped
+        case changeType
         //        case secureChange
     }
 
@@ -38,6 +39,13 @@ struct EnterInput: ReducerProtocol {
         Reduce { state, action in
             switch action {
                 case .binding:
+                    return .none
+                case .changeType:
+                    if state.type == .Login {
+                        state.type = .SignUp
+                    } else {
+                        state.type = .Login
+                    }
                     return .none
                 case .signInTapped:
                     if state.username.isEmpty {
@@ -91,9 +99,13 @@ struct EnterInputView: View {
 
                 HStack {
                     Spacer()
-                    Text(vStore.type == .SignUp ? "Log in" : "Sign Up")
-                        .font(.caption)
-                        .foregroundColor(.gray)
+                    Button {
+                        vStore.send(.changeType)
+                    } label: {
+                        Text(vStore.type == .SignUp ? "Log in" : "Sign Up")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
                 }
                 Button(action: {
                     vStore.send(.signInTapped)
