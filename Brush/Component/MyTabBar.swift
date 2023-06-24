@@ -9,10 +9,10 @@ import SwiftUI
 
 struct MyTabBar: View {
     let unSeletedImages = [
-        "bottom00", "bottom10", "bottom20", "bottom30", "bottom40"
+        "bottom00", "bottom10", "", "bottom30", "bottom40"
     ]
     let seletedImages = [
-        "bottom01", "bottom11", "bottom20", "bottom31", "bottom41"
+        "bottom01", "bottom11", "", "bottom31", "bottom41"
     ]
     static var height: CGFloat = 70
     var width: CGFloat = UIScreen.main.bounds.width
@@ -28,8 +28,7 @@ struct MyTabBar: View {
                     }
                 } label: {
                     if index == 2 {
-                        Image(unSeletedImages[index])
-                            .shadow(color: Color(0x000000,  0.25), radius: 10, x: 2, y: 3)
+                        BrushIcon(radius: 50)
                     } else {
                         Image(selectedIndex == index ? seletedImages[index] : unSeletedImages[index])
                     }

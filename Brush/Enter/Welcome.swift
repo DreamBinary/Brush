@@ -15,11 +15,7 @@ struct Welcome: View {
                 Button {
                     print("")
                 } label: {
-                    Image("bottom20")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .shadow(color: Color(0x000000, 0.25), radius: 10, x: 2, y: 3)
+                    BrushIcon()
                         .padding(.bottom, 65)
                 }
             }

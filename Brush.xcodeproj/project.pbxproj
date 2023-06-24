@@ -45,6 +45,12 @@
 		A0A9FF092A45CC8A00305294 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9FF082A45CC8A00305294 /* Rating.swift */; };
 		A0A9FF0B2A45D39500305294 /* BrushingFinished.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9FF0A2A45D39500305294 /* BrushingFinished.swift */; };
 		A0A9FF0F2A45DA4200305294 /* Generate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9FF0E2A45DA4200305294 /* Generate.swift */; };
+		A0DA4B252A46B81E009CA236 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B242A46B81E009CA236 /* Result.swift */; };
+		A0DA4B272A46BA45009CA236 /* BrushIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B262A46BA45009CA236 /* BrushIcon.swift */; };
+		A0DA4B2B2A46BEF8009CA236 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */; };
+		A0DA4B2E2A46CFAD009CA236 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = A0DA4B2D2A46CFAD009CA236 /* SwiftUIPager */; };
+		A0F5D5BC2A46FE1D00C4091D /* HotWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */; };
+		A0F5D5BE2A47202300C4091D /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5D5BD2A47202300C4091D /* Start.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +148,11 @@
 		A0A9FF082A45CC8A00305294 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		A0A9FF0A2A45D39500305294 /* BrushingFinished.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushingFinished.swift; sourceTree = "<group>"; };
 		A0A9FF0E2A45DA4200305294 /* Generate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generate.swift; sourceTree = "<group>"; };
+		A0DA4B242A46B81E009CA236 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		A0DA4B262A46BA45009CA236 /* BrushIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushIcon.swift; sourceTree = "<group>"; };
+		A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
+		A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotWord.swift; sourceTree = "<group>"; };
+		A0F5D5BD2A47202300C4091D /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DA4B2E2A46CFAD009CA236 /* SwiftUIPager in Frameworks */,
 				A0581FDD2A41DC4900710C4B /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,6 +259,8 @@
 				A0A9FF062A45C64400305294 /* Test.swift */,
 				A0A9FF0A2A45D39500305294 /* BrushingFinished.swift */,
 				A0A9FF0E2A45DA4200305294 /* Generate.swift */,
+				A0DA4B242A46B81E009CA236 /* Result.swift */,
+				A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */,
 			);
 			path = Brush;
 			sourceTree = "<group>";
@@ -283,6 +297,7 @@
 				A0581FA92A41DBEF00710C4B /* ContentView.swift */,
 				A0581FAB2A41DBF000710C4B /* Assets.xcassets */,
 				A0581FAD2A41DBF000710C4B /* Preview Content */,
+				A0F5D5BD2A47202300C4091D /* Start.swift */,
 			);
 			path = "Brush Watch App";
 			sourceTree = "<group>";
@@ -363,6 +378,8 @@
 				A0300C532A446EFD0056496E /* EnterInput.swift */,
 				A09987682A459B3600E2DFFE /* BgView.swift */,
 				A0A9FF082A45CC8A00305294 /* Rating.swift */,
+				A0DA4B262A46BA45009CA236 /* BrushIcon.swift */,
+				A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -387,6 +404,7 @@
 			name = Brush;
 			packageProductDependencies = (
 				A0581FDC2A41DC4900710C4B /* ComposableArchitecture */,
+				A0DA4B2D2A46CFAD009CA236 /* SwiftUIPager */,
 			);
 			productName = Brush;
 			productReference = A0581F7C2A41DBEF00710C4B /* Brush.app */;
@@ -526,6 +544,7 @@
 			mainGroup = A0581F732A41DBEF00710C4B;
 			packageReferences = (
 				A0581FDB2A41DC4900710C4B /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				A0DA4B2C2A46CFAD009CA236 /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 			);
 			productRefGroup = A0581F7D2A41DBEF00710C4B /* Products */;
 			projectDirPath = "";
@@ -596,11 +615,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A06684D62A42E12400D27BF3 /* Mine.swift in Sources */,
+				A0DA4B272A46BA45009CA236 /* BrushIcon.swift in Sources */,
 				A06684E22A42F82F00D27BF3 /* Card.swift in Sources */,
 				A0300C542A446EFD0056496E /* EnterInput.swift in Sources */,
 				A0300C472A4449E20056496E /* MyTabBar.swift in Sources */,
 				A045FA112A448DFF00F7A85C /* CountDown.swift in Sources */,
 				A06684DA2A42E35E00D27BF3 /* Tune.swift in Sources */,
+				A0DA4B252A46B81E009CA236 /* Result.swift in Sources */,
 				A09987672A459AB600E2DFFE /* Section.swift in Sources */,
 				A09987692A459B3600E2DFFE /* BgView.swift in Sources */,
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
@@ -616,8 +637,10 @@
 				A00913182A432D7F00057B4E /* Avatar.swift in Sources */,
 				A0A9FF072A45C64400305294 /* Test.swift in Sources */,
 				A0A9FF0F2A45DA4200305294 /* Generate.swift in Sources */,
+				A0F5D5BC2A46FE1D00C4091D /* HotWord.swift in Sources */,
 				A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */,
 				A01E31932A42D5330044E25F /* Analysis.swift in Sources */,
+				A0DA4B2B2A46BEF8009CA236 /* CircularProgress.swift in Sources */,
 				A0300C452A4445CA0056496E /* ScaledImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,6 +667,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0581FAA2A41DBEF00710C4B /* ContentView.swift in Sources */,
+				A0F5D5BE2A47202300C4091D /* Start.swift in Sources */,
 				A0581FA82A41DBEF00710C4B /* BrushApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1178,6 +1202,14 @@
 				minimumVersion = 0.54.1;
 			};
 		};
+		A0DA4B2C2A46CFAD009CA236 /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fermoya/SwiftUIPager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1185,6 +1217,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A0581FDB2A41DC4900710C4B /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		A0DA4B2D2A46CFAD009CA236 /* SwiftUIPager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0DA4B2C2A46CFAD009CA236 /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
+			productName = SwiftUIPager;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -18,20 +18,12 @@ struct BrushingFinished: View {
                     .foregroundColor(.fontGray)
                     .fontWeight(.regular)
                 
-                
-                Image("bottom20")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .shadow(color: Color(0x000000,  0.25), radius: 10, x: 2, y: 3)
+                BrushIcon()
                     .padding(.top, 120)
                     
-                    
-                
             }.font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 300)
-                
         }
     }
 }

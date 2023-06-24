@@ -107,33 +107,33 @@ struct AnalysisView: View {
                                         vStore.currMonth == index
                                             ? Card(color: Color(0x365869), cornerRadius: 15) {
                                                 VStack(spacing: 10) {
-                                                    Text(monthC[index])
+                                                    Text(self.monthC[index])
                                                         .font(.callout)
                                                         .foregroundColor(.white)
-                                                    Text(monthE[index])
+                                                    Text(self.monthE[index])
                                                         .font(.title.bold())
                                                         .foregroundColor(.white)
                                                 }
                                             }
                                             : Card(color: .white.opacity(0.44), cornerRadius: 15) {
                                                 VStack(spacing: 10) {
-                                                    Text(monthC[index])
+                                                    Text(self.monthC[index])
                                                         .font(.callout)
                                                         .foregroundColor(.gray)
-                                                    Text(monthE[index])
+                                                    Text(self.monthE[index])
                                                         .font(.title.bold())
                                                 }
                                             }
                                     ).frame(width: 80, height: 100)
-                                        .id(monthE[index])
+                                        .id(self.monthE[index])
                                         .onTapGesture {
                                             vStore.send(.onTapMonth(index))
-                                            scrollViewProxy.scrollTo(monthE[vStore.currMonth], anchor: .center)
+                                            scrollViewProxy.scrollTo(self.monthE[vStore.currMonth], anchor: .center)
                                         }
                                 }
                             }
                         }.onAppear {
-                            scrollViewProxy.scrollTo(monthE[vStore.currMonth], anchor: .center)
+                            scrollViewProxy.scrollTo(self.monthE[vStore.currMonth], anchor: .center)
                         }
                     }
 
@@ -180,7 +180,10 @@ struct AnalysisView: View {
                                         .fontWeight(.semibold)
                                 }
                             }
-                            GeometryReader { _ in
+                            GeometryReader { geometry in
+                                let widthHalf = geometry.size.width / 2
+                                let heightHalf = geometry.size.height / 2
+
                                 ZStack {
                                     Card(color: Color(0xA684C8), height: 250, backgroundOpacity: 0.5) {
                                         VStack {
@@ -191,24 +194,26 @@ struct AnalysisView: View {
                                                 .padding(.bottom, 20)
                                         }
                                     }
-                                }.overlay(
-                                    HotWord("刷轻啦")
-                                        .offset(x: 50, y: -80)
-                                ).overlay(
-                                    HotWord("外左上", paddingH: 10, paddingV: 10)
-                                        .offset(x: -40, y: -65)
-                                ).overlay(
-                                    HotWord("内右上")
-                                        .offset(x: 15, y: -10)).overlay(
-                                    HotWord("再用点劲", paddingH: 12, paddingV: 12)
-                                        .offset(x: -50, y: 45)
-                                ).overlay(
-                                    HotWord("外左上", paddingH: 10, paddingV: 10)
-                                        .offset(x: 45, y: 55)
-                                        .padding(.all)
-                                )
+                                    Group {
+                                        HotWord("刷轻啦")
+                                            .offset(x: widthHalf * 0.6, y: -heightHalf * 0.64)
+                                        HotWord("外左上",
+                                                paddingH: 10, paddingV: 10)
+                                            .offset(x: -widthHalf * 0.5, y: -heightHalf * 0.52)
+                                        HotWord("内右上")
+                                            .offset(x: widthHalf * 0.17, y: -heightHalf * 0.08)
+                                        HotWord("再用点劲",
+                                                paddingH: 12, paddingV: 12)
+                                            .offset(x: -widthHalf * 0.6, y: heightHalf * 0.36)
+                                        HotWord("外左上",
+                                                paddingH: 10, paddingV: 10)
+                                            .offset(x: widthHalf * 0.52, y: heightHalf * 0.44)
+                                    }.foregroundColor(Color(0x9272A1))
+                                        .shadow(color: Color(0x000000, 0.25), radius: 5, x: 2, y: 4)
+                                    
+                                }
                             }
-                        }.padding(.horizontal)
+                        }
                     }.padding(.horizontal)
                 }
                 .padding(.bottom)
@@ -216,31 +221,9 @@ struct AnalysisView: View {
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             .background(
-                LinearGradient(gradient: Gradient(colors: backgroundColors), startPoint: .top, endPoint: .bottom)
+                LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
             )
         }
-    }
-}
-
-struct HotWord: View {
-    var content: String
-    var paddingH: CGFloat
-    var paddingV: CGFloat
-    init(_ content: String, paddingH: CGFloat = 20, paddingV: CGFloat = 15) {
-        self.content = content
-        self.paddingV = paddingV
-        self.paddingH = paddingH
-    }
-
-    var body: some View {
-        Text(content)
-            .padding(.horizontal, paddingH)
-            .padding(.vertical, paddingV)
-            .fontWeight(.semibold)
-            .background(Color(0xF2F7F5))
-            .foregroundColor(Color(0x9272A1))
-            .cornerRadius(5)
-            .shadow(color: Color(0x000000, 0.25), radius: 5, x: 2, y: 4)
     }
 }
 
