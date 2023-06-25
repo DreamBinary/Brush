@@ -15,6 +15,7 @@ struct Tip: View {
             .scaledToFill()
             .edgesIgnoringSafeArea(.all)
             .onAppear {
+//                print("_____")
                 let device = WKInterfaceDevice()
                 device.play(.start)
             }

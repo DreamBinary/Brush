@@ -82,7 +82,7 @@ struct TestView: View {
                     }.padding()
                 }.padding()
                 Spacer()
-                Image("TestBgBottom")
+                Image("BgBottom")
             }
         }
     }

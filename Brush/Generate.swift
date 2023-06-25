@@ -9,10 +9,10 @@ import SwiftUI
 
 struct Generate: View {
     var body: some View {
-        Image("GenerateBg")
-            .resizable()
-            .scaledToFill()
-            .edgesIgnoringSafeArea(.all)
+        BgView("GenerateBg") {
+            VoiceAnimation()
+                .offset(y: 240)
+        }
     }
 }
 
