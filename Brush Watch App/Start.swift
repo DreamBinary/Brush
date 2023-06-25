@@ -9,7 +9,21 @@ import SwiftUI
 
 struct Start: View {
     var body: some View {
-        Image("StartBg")
+        BgView("StartBg") {
+            ZStack {
+                Text("Start!")
+                    .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.4))
+                    .fontWeight(.bold)
+                
+                VStack {
+                    Spacer()
+                    Text("外左下片区")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(.bottom, 15)
+                }.edgesIgnoringSafeArea(.bottom)
+            }
+        }
     }
 }
 

@@ -9,7 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Start()
+        TabView {
+            ConnectEar()
+            Start()
+            SectionStart()
+            SectionIng()
+            SectionEd()
+            Tip()
+            Score()
+            RemedySelect()
+            RemedyIng()
+            Finished()
+        }.tabViewStyle(.page(indexDisplayMode: .never))
+            .edgesIgnoringSafeArea(.all)
     }
 }
 

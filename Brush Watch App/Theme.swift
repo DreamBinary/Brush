@@ -1,8 +1,8 @@
 //
-//  MyExtension.swift
-//  Brush
+//  Theme.swift
+//  Brush Watch App
 //
-//  Created by cxq on 2023/6/21.
+//  Created by cxq on 2023/6/25.
 //
 
 import Foundation
@@ -41,7 +41,7 @@ struct RoundedAndShadowButtonStyle: ButtonStyle {
     var foregroundColor: Color? = .none
     var backgroundColor: Color? = .none
     var cornerRadius: CGFloat = 0
-
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0)
@@ -66,7 +66,7 @@ extension View {
 struct RoundedCorners: Shape {
     var corners: UIRectCorner
     var radius: CGFloat
-
+    
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(
             roundedRect: rect,
