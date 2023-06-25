@@ -27,7 +27,11 @@ struct ConnectEar: View {
                     }.buttonStyle(.borderless)
                         .padding(.top, geometry.safeAreaInsets.top - 8)
                     Spacer()
-                    Button {} label: {
+                    Button {
+                        // todo
+                        let device = WKInterfaceDevice()
+                        device.play(.start)
+                    } label: {
                         Text("连接")
                             .padding(.bottom)
                     }

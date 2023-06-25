@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WatchKit
 
 struct Tip: View {
     var body: some View {
@@ -13,7 +14,10 @@ struct Tip: View {
             .resizable()
             .scaledToFill()
             .edgesIgnoringSafeArea(.all)
-        
+            .onAppear {
+                let device = WKInterfaceDevice()
+                device.play(.start)
+            }
     }
 }
 

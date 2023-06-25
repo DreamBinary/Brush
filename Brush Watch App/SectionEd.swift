@@ -11,7 +11,21 @@ struct SectionEd: View {
     var body: some View {
         VStack {
             Spacer()
-            Image("Brushed")
+            ZStack {
+                Circle()
+                    .fill(Color(0x61DCC7, 0.2))
+                    .frame(width: 90, height: 90)
+                
+                Circle()
+                    .fill(Color(0x7DE2D1))
+                    .frame(width: 50, height: 50)
+                Image(systemName: "checkmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 25, height: 25)
+                
+            }.padding()
+            
             Text("Congratulations!")
                 .font(.caption2)
                 .foregroundColor(.fontBlack)

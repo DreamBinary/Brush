@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct SectionIng: View {
+    @State var scale: Double = 1
+    @State var isPresented = false
     var body: some View {
         VStack {
             Spacer()
-            Image("Brushing")
+            ZStack {
+                Circle()
+                    .fill(Color(0x61DCC7, 0.2))
+                    .frame(width: 90, height: 90)
+                    .scaleEffect(scale)
+                    .animation(Animation.easeInOut(duration: 1.5)
+                        .repeatForever(autoreverses: true), value: scale)
 
+                Circle()
+                    .fill(Color(0x7DE2D1))
+                    .frame(width: 50, height: 50)
+                VoiceAnimation() {
+                    scale = 50 / 90
+                }
+            }.padding()
+//            Image("Brushing")
+            
             HStack {
                 Image("ResultIcon")
 
@@ -23,14 +40,25 @@ struct SectionIng: View {
             }.padding()
             Spacer()
             Text("Next：外右下边区")
-                .font(.caption)
+                .font(.caption2)
                 .foregroundColor(.fontBlack)
                 .padding()
+                .onTapGesture {
+                    isPresented = true
+                }
 
         }.padding(.bottom)
             .edgesIgnoringSafeArea(.bottom)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.white)
+            .popup(isPresented: isPresented) {
+                Circle()
+                    .fill(.red)
+                    .frame(width: 100, height: 100)
+                    .onTapGesture {
+                        isPresented = false
+                    }
+            }
     }
 }
 
