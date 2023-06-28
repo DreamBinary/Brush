@@ -11,7 +11,7 @@ struct Generate: View {
     var body: some View {
         BgView("GenerateBg") {
             VoiceAnimation()
-                .offset(y: 240)
+                .offset(y: 260)
         }
     }
 }

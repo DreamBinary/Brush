@@ -114,7 +114,7 @@ struct ResultView: View {
             ZStack {
                 VStack {
                     Spacer()
-                    Image("TestBgBottom")
+                    Image("BgBottom")
                 }.edgesIgnoringSafeArea(.bottom)
 
                 VStack {

@@ -69,7 +69,7 @@ struct RouteView: View {
                     MineView(
                         store: store.scope(state: \.mine, action: Route.Action.mine)
                     ).tag(4)
-                }
+                }.edgesIgnoringSafeArea(.all)
                 MyTabBar(selectedIndex: vStore.binding(\.$selection))
             }.onAppear {
                 UITabBar.appearance().isHidden = true

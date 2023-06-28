@@ -44,12 +44,29 @@ struct ContentView: View {
 //            )
             CountDown()
             Section()
-            TestView(
-                store: Store(
-                    initialState: Test.State(),
-                    reducer: Test()
+
+            TabView {
+                TestView(
+                    store: Store(
+                        initialState: Test.State(toothImg: "ToothXraySpot", tip: "在摄入较冰食物的时候，您是否牙齿感到酸痛难忍"),
+                        reducer: Test()
+                    )
                 )
-            )
+                TestView(
+                    store: Store(
+                        initialState: Test.State(toothImg: "ToothGum", tip: "您在刷牙的时候，是否经常出现牙龈出血的情况"),
+                        reducer: Test()
+                    )
+                )
+                TestView(
+                    store: Store(
+                        initialState: Test.State(toothImg: "Cavity", tip: "在使用牙齿的时候，是否经常感到松软无力"),
+                        reducer: Test()
+                    )
+                )
+            }.tabViewStyle(.page(indexDisplayMode: .never))
+                .edgesIgnoringSafeArea(.all)
+
             BrushingFinished()
             Generate()
             ResultView(
