@@ -252,6 +252,7 @@
 				A0581FB72A41DBF000710C4B /* Brush Watch AppTests */,
 				A0581FC12A41DBF000710C4B /* Brush Watch AppUITests */,
 				A0581F7D2A41DBEF00710C4B /* Products */,
+				A0C27BFC2A4C6BB000B11A2C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -424,6 +425,13 @@
 				A0B014142A486D9100838702 /* VoiceAnimation.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		A0C27BFC2A4C6BB000B11A2C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A0D6C50E2A47CAC200C4DA84 /* Component */ = {

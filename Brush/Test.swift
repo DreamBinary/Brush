@@ -42,11 +42,19 @@ struct TestView: View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             ZStack {
                 VStack {
+                    Spacer()
+                    Image("BgBottom")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .edgesIgnoringSafeArea(.bottom)
+                }
+                VStack {
                     ZStack {
                         Image("TestBgTop")
                             .resizable()
                             .scaledToFill()
-                            .frame(maxWidth: .infinity, maxHeight: 480)
+                            .frame(maxWidth: .infinity, maxHeight: 450)
                             .cornerRadius(40)
                             .edgesIgnoringSafeArea(.top)
                         Image(vStore.toothImg)
@@ -90,14 +98,7 @@ struct TestView: View {
                     }.padding()
                     Spacer()
                 }
-                VStack {
-                    Spacer()
-                    Image("BgBottom")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity)
-                        .edgesIgnoringSafeArea(.bottom)
-                }
+
             }.edgesIgnoringSafeArea(.all)
         }
     }
