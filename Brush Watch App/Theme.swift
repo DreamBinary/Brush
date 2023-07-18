@@ -1,8 +1,8 @@
 //
-//  Theme.swift
-//  Brush Watch App
+//  MyExtension.swift
+//  Brush
 //
-//  Created by cxq on 2023/6/25.
+//  Created by cxq on 2023/6/21.
 //
 
 import Foundation
@@ -54,25 +54,5 @@ struct RoundedAndShadowButtonStyle: ButtonStyle {
             .shadow(radius: configuration.isPressed ? 0 : 2, x: 0, y: configuration.isPressed ? 0 : 2)
             .scaleEffect(configuration.isPressed ? 0.95 : 1)
             .animation(.spring(), value: configuration.isPressed)
-    }
-}
-
-extension View {
-    func cornerRadius(corners: UIRectCorner, radius: CGFloat) -> some View {
-        clipShape(RoundedCorners(corners: corners, radius: radius))
-    }
-}
-
-struct RoundedCorners: Shape {
-    var corners: UIRectCorner
-    var radius: CGFloat
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
     }
 }
