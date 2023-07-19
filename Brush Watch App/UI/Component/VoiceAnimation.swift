@@ -12,7 +12,8 @@ struct VoiceAnimation: View {
     @State var height: [CGFloat] = [
         7.5, 8.5, 10.5, 6.5, 8.5, 6.5, 12.5, 8.5, 6, 7.5
     ]
-    var onTap: () -> Void
+    @State var flag = true
+    var startAnim: () -> Void
     var body: some View {
         HStack(spacing: 1) {
             ForEach(0 ..< 10) { index in
@@ -21,10 +22,13 @@ struct VoiceAnimation: View {
                     .animation(Animation.easeInOut(duration: 1)
                         .repeatForever(autoreverses: true).delay(Double(index) * 0.4), value: height[index])
             }
-        }.onTapGesture {
-            onTap()
-            for i in height.indices {
-                height[i] *= 2.5
+        }.onAppear {
+            startAnim()
+            if flag {
+                for i in height.indices {
+                    height[i] *= 2.5
+                }
+                flag = false
             }
         }
     }

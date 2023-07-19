@@ -54,7 +54,7 @@
 		A0B014152A486D9100838702 /* VoiceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B014142A486D9100838702 /* VoiceAnimation.swift */; };
 		A0D6C5052A47C42100C4DA84 /* BgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5042A47C42100C4DA84 /* BgView.swift */; };
 		A0D6C5072A47C4AE00C4DA84 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5062A47C4AE00C4DA84 /* Theme.swift */; };
-		A0D6C5092A47C64100C4DA84 /* SectionStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5082A47C64100C4DA84 /* SectionStart.swift */; };
+		A0D6C5092A47C64100C4DA84 /* SectionPre.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5082A47C64100C4DA84 /* SectionPre.swift */; };
 		A0D6C50B2A47C74300C4DA84 /* SectionIng.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C50A2A47C74300C4DA84 /* SectionIng.swift */; };
 		A0D6C50D2A47C92100C4DA84 /* SectionEd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */; };
 		A0D6C5102A47CB0B00C4DA84 /* Finished.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C50F2A47CB0B00C4DA84 /* Finished.swift */; };
@@ -68,6 +68,9 @@
 		A0DA4B272A46BA45009CA236 /* BrushIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B262A46BA45009CA236 /* BrushIcon.swift */; };
 		A0DA4B2B2A46BEF8009CA236 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */; };
 		A0DA4B2E2A46CFAD009CA236 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = A0DA4B2D2A46CFAD009CA236 /* SwiftUIPager */; };
+		A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B55C2A681264001D5EA4 /* BgColor.swift */; };
+		A0F5B5622A681645001D5EA4 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5612A681645001D5EA4 /* Section.swift */; };
+		A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */; };
 		A0F5D5BC2A46FE1D00C4091D /* HotWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */; };
 		A0F5D5BE2A47202300C4091D /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5D5BD2A47202300C4091D /* Start.swift */; };
 /* End PBXBuildFile section */
@@ -176,7 +179,7 @@
 		A0B014142A486D9100838702 /* VoiceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimation.swift; sourceTree = "<group>"; };
 		A0D6C5042A47C42100C4DA84 /* BgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgView.swift; sourceTree = "<group>"; };
 		A0D6C5062A47C4AE00C4DA84 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		A0D6C5082A47C64100C4DA84 /* SectionStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionStart.swift; sourceTree = "<group>"; };
+		A0D6C5082A47C64100C4DA84 /* SectionPre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionPre.swift; sourceTree = "<group>"; };
 		A0D6C50A2A47C74300C4DA84 /* SectionIng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionIng.swift; sourceTree = "<group>"; };
 		A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEd.swift; sourceTree = "<group>"; };
 		A0D6C50F2A47CB0B00C4DA84 /* Finished.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finished.swift; sourceTree = "<group>"; };
@@ -189,6 +192,9 @@
 		A0DA4B242A46B81E009CA236 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		A0DA4B262A46BA45009CA236 /* BrushIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushIcon.swift; sourceTree = "<group>"; };
 		A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
+		A0F5B55C2A681264001D5EA4 /* BgColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgColor.swift; sourceTree = "<group>"; };
+		A0F5B5612A681645001D5EA4 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionUtil.swift; sourceTree = "<group>"; };
 		A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotWord.swift; sourceTree = "<group>"; };
 		A0F5D5BD2A47202300C4091D /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -332,23 +338,13 @@
 		A0581FA62A41DBEF00710C4B /* Brush Watch App */ = {
 			isa = PBXGroup;
 			children = (
-				A0581FA72A41DBEF00710C4B /* BrushApp.swift */,
-				A0581FA92A41DBEF00710C4B /* ContentView.swift */,
-				A0D6C5062A47C4AE00C4DA84 /* Theme.swift */,
-				A09E219B2A66C8540012C6BB /* Extension */,
-				A0D6C50E2A47CAC200C4DA84 /* Component */,
-				A0581FAB2A41DBF000710C4B /* Assets.xcassets */,
 				A0581FAD2A41DBF000710C4B /* Preview Content */,
-				A0D6C5082A47C64100C4DA84 /* SectionStart.swift */,
-				A0F5D5BD2A47202300C4091D /* Start.swift */,
-				A0D6C50A2A47C74300C4DA84 /* SectionIng.swift */,
-				A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */,
-				A0D6C50F2A47CB0B00C4DA84 /* Finished.swift */,
-				A0D6C5112A47CC2100C4DA84 /* Score.swift */,
-				A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */,
-				A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */,
-				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
-				A0D6C5192A47D1DE00C4DA84 /* ConnectEar.swift */,
+				A0F5B5632A6817A4001D5EA4 /* Utils */,
+				A0F5B5602A681634001D5EA4 /* Entity */,
+				A0F5B55E2A6815B8001D5EA4 /* UI */,
+				A0581FA72A41DBEF00710C4B /* BrushApp.swift */,
+				A09E219B2A66C8540012C6BB /* Extension */,
+				A0581FAB2A41DBF000710C4B /* Assets.xcassets */,
 			);
 			path = "Brush Watch App";
 			sourceTree = "<group>";
@@ -465,12 +461,57 @@
 		A0D6C50E2A47CAC200C4DA84 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				A0F5B55C2A681264001D5EA4 /* BgColor.swift */,
 				A0D6C5042A47C42100C4DA84 /* BgView.swift */,
 				A0D6C51B2A47D52400C4DA84 /* PageView.swift */,
 				A02A842F2A482C20003255A5 /* VoiceBgAnimation.swift */,
 				A02A84312A482FBC003255A5 /* VoiceAnimation.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		A0F5B55E2A6815B8001D5EA4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A0581FA92A41DBEF00710C4B /* ContentView.swift */,
+				A0D6C5062A47C4AE00C4DA84 /* Theme.swift */,
+				A0F5B55F2A6815F7001D5EA4 /* Page */,
+				A0D6C50E2A47CAC200C4DA84 /* Component */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A0F5B55F2A6815F7001D5EA4 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				A0F5D5BD2A47202300C4091D /* Start.swift */,
+				A0D6C5082A47C64100C4DA84 /* SectionPre.swift */,
+				A0D6C50A2A47C74300C4DA84 /* SectionIng.swift */,
+				A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */,
+				A0D6C50F2A47CB0B00C4DA84 /* Finished.swift */,
+				A0D6C5112A47CC2100C4DA84 /* Score.swift */,
+				A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */,
+				A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */,
+				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
+				A0D6C5192A47D1DE00C4DA84 /* ConnectEar.swift */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
+		A0F5B5602A681634001D5EA4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				A0F5B5612A681645001D5EA4 /* Section.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		A0F5B5632A6817A4001D5EA4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -761,18 +802,21 @@
 				A0D6C50D2A47C92100C4DA84 /* SectionEd.swift in Sources */,
 				A0D6C5142A47CC6C00C4DA84 /* RemedySelect.swift in Sources */,
 				A0581FAA2A41DBEF00710C4B /* ContentView.swift in Sources */,
+				A0F5B5622A681645001D5EA4 /* Section.swift in Sources */,
 				A0F5D5BE2A47202300C4091D /* Start.swift in Sources */,
+				A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */,
 				A0D6C5072A47C4AE00C4DA84 /* Theme.swift in Sources */,
 				A02A84302A482C20003255A5 /* VoiceBgAnimation.swift in Sources */,
 				A0D6C5122A47CC2100C4DA84 /* Score.swift in Sources */,
 				A0D6C5162A47D07C00C4DA84 /* RemedyIng.swift in Sources */,
-				A0D6C5092A47C64100C4DA84 /* SectionStart.swift in Sources */,
+				A0D6C5092A47C64100C4DA84 /* SectionPre.swift in Sources */,
 				A0581FA82A41DBEF00710C4B /* BrushApp.swift in Sources */,
 				A02A84322A482FBC003255A5 /* VoiceAnimation.swift in Sources */,
 				A0D6C51A2A47D1DE00C4DA84 /* ConnectEar.swift in Sources */,
 				A0D6C51C2A47D52400C4DA84 /* PageView.swift in Sources */,
 				A0D6C5052A47C42100C4DA84 /* BgView.swift in Sources */,
 				A0D6C5182A47D15B00C4DA84 /* Tip.swift in Sources */,
+				A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */,
 				A0D6C50B2A47C74300C4DA84 /* SectionIng.swift in Sources */,
 				A0D6C5102A47CB0B00C4DA84 /* Finished.swift in Sources */,
 				A09E219D2A66C86F0012C6BB /* Weight.swift in Sources */,

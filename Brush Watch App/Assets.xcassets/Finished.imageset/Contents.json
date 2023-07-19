@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "finishedw.png",
+      "filename" : "WdigetEmptyState (2).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "finishedw (1).png",
+      "filename" : "WdigetEmptyState (1).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "finishedw (2).png",
+      "filename" : "WdigetEmptyState.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

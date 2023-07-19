@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct BgView<Content>: View where Content: View {
     var name: String
     var content: () -> Content

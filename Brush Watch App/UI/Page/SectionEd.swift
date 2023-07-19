@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SectionEd: View {
+    var section: Section
+    @State private var animRunning = false
     var body: some View {
         VStack {
             Spacer()
@@ -15,27 +17,28 @@ struct SectionEd: View {
                 Circle()
                     .fill(Color(0x61DCC7, 0.2))
                     .frame(width: 90, height: 90)
-                
                 Circle()
-                    .fill(Color(0x7DE2D1))
+                    .fill(Color.primary)
                     .frame(width: 50, height: 50)
                 Image(systemName: "checkmark")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 25, height: 25)
-                
+//                Image(systemName: "square.stack.3d.up")
+//                    .symbolEffect(.variableColor.reversing.iterative, options: .speed(3), value: animRunning)
+
             }.padding()
-            
+
             Text("Congratulations!")
                 .font(.caption2)
                 .foregroundColor(.fontBlack)
             Text("即将进入下一片区")
                 .font(.title3)
                 .fontWeight(.bold)
-                .foregroundColor(Color(red: 0.49, green: 0.89, blue: 0.82))
+                .foregroundColor(.primary)
                 .padding()
 
-            Text("外右下边区")
+            Text(SectionUtil.getName(section))
                 .font(.caption)
                 .foregroundColor(.fontBlack)
                 .padding()
@@ -47,8 +50,14 @@ struct SectionEd: View {
     }
 }
 
+extension SectionEd {
+    init(_ section: Section) {
+        self.section = section
+    }
+}
+
 struct SectionEd_Previews: PreviewProvider {
     static var previews: some View {
-        SectionEd()
+        SectionEd(.OLB)
     }
 }

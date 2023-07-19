@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct SectionIng: View {
+    
+    var section: Section
+    
     @State var scale: Double = 1
-    @State var isPresented = false
+    
     var body: some View {
         VStack {
             Spacer()
@@ -21,31 +24,25 @@ struct SectionIng: View {
                     .animation(Animation.easeInOut(duration: 1.5)
                         .repeatForever(autoreverses: true), value: scale)
                 Circle()
-                    .fill(Color(0x7DE2D1))
+                    .fill(Color.primary)
                     .frame(width: 50, height: 50)
-                VoiceAnimation() {
-                    scale = 50 / 90
+                VoiceAnimation {
+                    scale = 5 / 9
                 }
             }.padding()
-//            Image("Brushing")
             
             HStack {
-                Image("ResultIcon")
-
-                Text("外左下片区")
+                Image("SignIcon")
+                Text(SectionUtil.getName(section))
                     .font(.title3)
                     .fontWeight(.bold)
-                    .foregroundColor(Color(red: 0.49, green: 0.89, blue: 0.82))
+                    .foregroundColor(.primary)
             }.padding()
             Spacer()
-            Text("Next：外右下边区")
+            Text("Next：\(SectionUtil.getName(SectionUtil.getNext(section)))")
                 .font(.caption2)
                 .foregroundColor(.fontBlack)
                 .padding()
-                .onTapGesture {
-                    isPresented = true
-                }
-
         }.padding(.bottom)
             .edgesIgnoringSafeArea(.bottom)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -53,8 +50,14 @@ struct SectionIng: View {
     }
 }
 
+extension SectionIng {
+    init(_ section: Section) {
+        self.section = section
+    }
+}
+
 struct SectionIng_Previews: PreviewProvider {
     static var previews: some View {
-        SectionIng()
+        SectionIng(.OLB)
     }
 }
