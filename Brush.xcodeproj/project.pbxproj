@@ -71,6 +71,7 @@
 		A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B55C2A681264001D5EA4 /* BgColor.swift */; };
 		A0F5B5622A681645001D5EA4 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5612A681645001D5EA4 /* Section.swift */; };
 		A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */; };
+		A0F5B5672A682D3A001D5EA4 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */; };
 		A0F5D5BC2A46FE1D00C4091D /* HotWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */; };
 		A0F5D5BE2A47202300C4091D /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5D5BD2A47202300C4091D /* Start.swift */; };
 /* End PBXBuildFile section */
@@ -195,6 +196,7 @@
 		A0F5B55C2A681264001D5EA4 /* BgColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgColor.swift; sourceTree = "<group>"; };
 		A0F5B5612A681645001D5EA4 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionUtil.swift; sourceTree = "<group>"; };
+		A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotWord.swift; sourceTree = "<group>"; };
 		A0F5D5BD2A47202300C4091D /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -466,6 +468,7 @@
 				A0D6C51B2A47D52400C4DA84 /* PageView.swift */,
 				A02A842F2A482C20003255A5 /* VoiceBgAnimation.swift */,
 				A02A84312A482FBC003255A5 /* VoiceAnimation.swift */,
+				A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				A0581FAA2A41DBEF00710C4B /* ContentView.swift in Sources */,
 				A0F5B5622A681645001D5EA4 /* Section.swift in Sources */,
 				A0F5D5BE2A47202300C4091D /* Start.swift in Sources */,
+				A0F5B5672A682D3A001D5EA4 /* CircularProgress.swift in Sources */,
 				A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */,
 				A0D6C5072A47C4AE00C4DA84 /* Theme.swift in Sources */,
 				A02A84302A482C20003255A5 /* VoiceBgAnimation.swift in Sources */,

@@ -10,8 +10,8 @@ import SwiftUI
 struct RemedyIng: View {
     var section: Section
     var body: some View {
-        BgColor(.white) {
-            VStack{
+        BgColor(.red) {
+            WeightVStack { proxy in 
                 Image("SignIcon")
                     .resizable()
                     .scaledToFit()
@@ -19,7 +19,9 @@ struct RemedyIng: View {
                     .font(.body)
                     .foregroundColor(.fontBlack)
                     .fontWeight(.bold)
-                
+                CircularProgressView(score: 60) {
+                    Image(systemName: "checkmark")
+                }.padding()
                 Spacer()
                 Text(SectionUtil.getName(section))
                     .font(.caption2)
