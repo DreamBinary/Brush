@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct Finished: View {
+struct Finish: View {
+    var onFinished: () -> Void
+
     var body: some View {
 //        BgView("Finished") {
 //            VStack {
@@ -24,7 +26,6 @@ struct Finished: View {
 //            }
 //            .edgesIgnoringSafeArea(.bottom)
 //        }
-
         BgColor(.primary) {
             VStack {
                 Spacer()
@@ -39,7 +40,10 @@ struct Finished: View {
                 Text("要好好保持哦！")
                     .font(.caption2)
                     .foregroundColor(.gray)
-                Button {} label: {
+                Button {
+                    onFinished()
+                    print("fasdfa")
+                } label: {
                     Text("OK")
                         .font(.title3)
                         .fontWeight(.medium)
@@ -54,6 +58,8 @@ struct Finished: View {
 
 struct Finished_Previews: PreviewProvider {
     static var previews: some View {
-        Finished()
+        Finish() {
+            
+        }
     }
 }

@@ -7,10 +7,19 @@
 
 import Foundation
 
-
 class SectionUtil {
-    
-    static func getName(_ section: Section?) -> String {
+    static var sections: [Section] = [
+        .OLB,
+        .OLT,
+        .ILB,
+        .ILT,
+        .ORB,
+        .ORT,
+        .IRB,
+        .IRT,
+    ]
+        
+    static func getName(_ section: Section) -> String {
         switch section {
             case .OLB:
                 return "外左下片区"
@@ -28,7 +37,7 @@ class SectionUtil {
                 return "内右下片区"
             case .IRT:
                 return "内右上片区"
-            case .none:
+            case .Finish:
                 return "完成"
         }
     }
@@ -51,11 +60,12 @@ class SectionUtil {
                 return "IRB"
             case .IRT:
                 return "IRT"
+            case .Finish:
+                return "Finish"
         }
     }
     
-    
-    static func getNext(_ section: Section) -> Section? {
+    static func getNext(_ section: Section) -> Section {
         switch section {
             case .OLB:
                 return .OLT
@@ -72,12 +82,11 @@ class SectionUtil {
             case .IRB:
                 return .IRT
             case .IRT:
-                return nil
+                return .Finish
+            case .Finish:
+                return .Finish
         }
     }
-    
-    
-    
     
     //    static fun getName(section: Section?): String = when (section) {
     //
@@ -114,7 +123,4 @@ class SectionUtil {
     //        Section.IRB -> Section.IRT
     //        Section.IRT -> null
     //    }
-    
-    
-    
 }

@@ -8,23 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+                    
     var body: some View {
-        Finished()
+        
+        RemedyIng(.OLB)
+        
 //        TabView {
-//            ConnectEar()
+////            ConnectEar()
+////            Start()
+////            SectionPre(.OLB)
+////            SectionIng(.OLB)
+////            SectionEd()
+////            Tip()
+////            Score()
+////            RemedySelect()
+////            RemedyIng()
+////            Finished()
 //            Start()
-//            SectionPre(.OLB)
-//            SectionIng(.OLB)
-//            SectionEd()
-//            Tip()
-//            Score()
-//            RemedySelect()
-//            RemedyIng()
-//            Finished()
+//            ForEach(SectionUtil.sections) { section in
+//                SectionPre(section)
+//                SectionIng(section)
+//                SectionEd(section)
+//            }
 //        }.tabViewStyle(.page(indexDisplayMode: .never))
 //            .edgesIgnoringSafeArea(.all)
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

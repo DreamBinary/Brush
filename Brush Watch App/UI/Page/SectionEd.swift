@@ -15,15 +15,17 @@ struct SectionEd: View {
             Spacer()
             ZStack {
                 Circle()
-                    .fill(Color(0x61DCC7, 0.2))
+                    .fill(Color.lightPrimary)
                     .frame(width: 90, height: 90)
                 Circle()
                     .fill(Color.primary)
                     .frame(width: 50, height: 50)
-                Image(systemName: "checkmark")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 25, height: 25)
+//                Image(systemName: "checkmark")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 25, height: 25)
+                AnimCheck(fromColor: .fontBlack, toColor: .white)
+
 //                Image(systemName: "square.stack.3d.up")
 //                    .symbolEffect(.variableColor.reversing.iterative, options: .speed(3), value: animRunning)
 

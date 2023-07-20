@@ -11,14 +11,15 @@ struct SectionIng: View {
     
     var section: Section
     
-    @State var scale: Double = 1
+    @State private var scale: Double = 1
+
     
     var body: some View {
         VStack {
             Spacer()
             ZStack {
                 Circle()
-                    .fill(Color(0x61DCC7, 0.2))
+                    .fill(Color.lightPrimary)
                     .frame(width: 90, height: 90)
                     .scaleEffect(scale)
                     .animation(Animation.easeInOut(duration: 1.5)
@@ -48,6 +49,7 @@ struct SectionIng: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.white)
     }
+    
 }
 
 extension SectionIng {

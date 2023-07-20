@@ -13,6 +13,9 @@ public extension Color {
     static let fontBlack: Color = .init(.sRGB, red: 46 / 255, green: 47 / 255, blue: 81 / 255, opacity: 1)
     static let fontGray: Color = .init(red: 0.51, green: 0.51, blue: 0.51)
     static let primary: Color = .init(red: 0.49, green: 0.89, blue: 0.82)
+    static let lightPrimary: Color = .init(red: 0.38, green: 0.86, blue: 0.78, opacity: 0.2)
+    
+    static let brushBlue: Color = .init(red: 0.56, green: 0.9, blue: 0.94)
 }
 
 extension Color {

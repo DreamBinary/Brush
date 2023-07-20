@@ -13,11 +13,13 @@ struct VoiceAnimation: View {
         7.5, 8.5, 10.5, 6.5, 8.5, 6.5, 12.5, 8.5, 6, 7.5
     ]
     @State var flag = true
-    var startAnim: () -> Void
+    var color: Color = .white
+    var startAnim: () -> Void = {}
     var body: some View {
-        HStack(spacing: 1) {
-            ForEach(0 ..< 10) { index in
+        HStack(alignment: VerticalAlignment.center, spacing: width / 2) {
+            ForEach(0 ..< height.count) { index in
                 Rectangle().cornerRadius(width / 2)
+                    .foregroundColor(color)
                     .frame(width: width, height: height[index])
                     .animation(Animation.easeInOut(duration: 1)
                         .repeatForever(autoreverses: true).delay(Double(index) * 0.4), value: height[index])
@@ -36,8 +38,6 @@ struct VoiceAnimation: View {
 
 struct VoiceAnimation_Previews: PreviewProvider {
     static var previews: some View {
-        VoiceAnimation(){
-            
-        }
+        VoiceAnimation {}
     }
 }

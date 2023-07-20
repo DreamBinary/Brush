@@ -19,6 +19,9 @@
 		A0300C4C2A446A190056496E /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4B2A446A190056496E /* Login.swift */; };
 		A0300C502A446E010056496E /* EnterWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* EnterWay.swift */; };
 		A0300C542A446EFD0056496E /* EnterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C532A446EFD0056496E /* EnterInput.swift */; };
+		A04255CF2A69095100D38A16 /* BrushIng.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255CE2A69095100D38A16 /* BrushIng.swift */; };
+		A04255D12A6916A500D38A16 /* AnimCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255D02A6916A500D38A16 /* AnimCheck.swift */; };
+		A04255D32A6916C000D38A16 /* AnimCheckCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */; };
 		A045FA112A448DFF00F7A85C /* CountDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A045FA102A448DFF00F7A85C /* CountDown.swift */; };
 		A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F7F2A41DBEF00710C4B /* BrushApp.swift */; };
 		A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F812A41DBEF00710C4B /* ContentView.swift */; };
@@ -57,7 +60,7 @@
 		A0D6C5092A47C64100C4DA84 /* SectionPre.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5082A47C64100C4DA84 /* SectionPre.swift */; };
 		A0D6C50B2A47C74300C4DA84 /* SectionIng.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C50A2A47C74300C4DA84 /* SectionIng.swift */; };
 		A0D6C50D2A47C92100C4DA84 /* SectionEd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */; };
-		A0D6C5102A47CB0B00C4DA84 /* Finished.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C50F2A47CB0B00C4DA84 /* Finished.swift */; };
+		A0D6C5102A47CB0B00C4DA84 /* Finish.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C50F2A47CB0B00C4DA84 /* Finish.swift */; };
 		A0D6C5122A47CC2100C4DA84 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5112A47CC2100C4DA84 /* Score.swift */; };
 		A0D6C5142A47CC6C00C4DA84 /* RemedySelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */; };
 		A0D6C5162A47D07C00C4DA84 /* RemedyIng.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */; };
@@ -141,6 +144,9 @@
 		A0300C4B2A446A190056496E /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		A0300C4F2A446E010056496E /* EnterWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWay.swift; sourceTree = "<group>"; };
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
+		A04255CE2A69095100D38A16 /* BrushIng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushIng.swift; sourceTree = "<group>"; };
+		A04255D02A6916A500D38A16 /* AnimCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimCheck.swift; sourceTree = "<group>"; };
+		A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimCheckCircle.swift; sourceTree = "<group>"; };
 		A045FA102A448DFF00F7A85C /* CountDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDown.swift; sourceTree = "<group>"; };
 		A0581F7C2A41DBEF00710C4B /* Brush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0581F7F2A41DBEF00710C4B /* BrushApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushApp.swift; sourceTree = "<group>"; };
@@ -183,7 +189,7 @@
 		A0D6C5082A47C64100C4DA84 /* SectionPre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionPre.swift; sourceTree = "<group>"; };
 		A0D6C50A2A47C74300C4DA84 /* SectionIng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionIng.swift; sourceTree = "<group>"; };
 		A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEd.swift; sourceTree = "<group>"; };
-		A0D6C50F2A47CB0B00C4DA84 /* Finished.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finished.swift; sourceTree = "<group>"; };
+		A0D6C50F2A47CB0B00C4DA84 /* Finish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finish.swift; sourceTree = "<group>"; };
 		A0D6C5112A47CC2100C4DA84 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemedySelect.swift; sourceTree = "<group>"; };
 		A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemedyIng.swift; sourceTree = "<group>"; };
@@ -469,6 +475,8 @@
 				A02A842F2A482C20003255A5 /* VoiceBgAnimation.swift */,
 				A02A84312A482FBC003255A5 /* VoiceAnimation.swift */,
 				A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */,
+				A04255D02A6916A500D38A16 /* AnimCheck.swift */,
+				A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -491,12 +499,13 @@
 				A0D6C5082A47C64100C4DA84 /* SectionPre.swift */,
 				A0D6C50A2A47C74300C4DA84 /* SectionIng.swift */,
 				A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */,
-				A0D6C50F2A47CB0B00C4DA84 /* Finished.swift */,
+				A0D6C50F2A47CB0B00C4DA84 /* Finish.swift */,
 				A0D6C5112A47CC2100C4DA84 /* Score.swift */,
 				A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */,
 				A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */,
 				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
 				A0D6C5192A47D1DE00C4DA84 /* ConnectEar.swift */,
+				A04255CE2A69095100D38A16 /* BrushIng.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -802,11 +811,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A04255D32A6916C000D38A16 /* AnimCheckCircle.swift in Sources */,
 				A0D6C50D2A47C92100C4DA84 /* SectionEd.swift in Sources */,
 				A0D6C5142A47CC6C00C4DA84 /* RemedySelect.swift in Sources */,
 				A0581FAA2A41DBEF00710C4B /* ContentView.swift in Sources */,
 				A0F5B5622A681645001D5EA4 /* Section.swift in Sources */,
 				A0F5D5BE2A47202300C4091D /* Start.swift in Sources */,
+				A04255D12A6916A500D38A16 /* AnimCheck.swift in Sources */,
 				A0F5B5672A682D3A001D5EA4 /* CircularProgress.swift in Sources */,
 				A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */,
 				A0D6C5072A47C4AE00C4DA84 /* Theme.swift in Sources */,
@@ -818,11 +829,12 @@
 				A02A84322A482FBC003255A5 /* VoiceAnimation.swift in Sources */,
 				A0D6C51A2A47D1DE00C4DA84 /* ConnectEar.swift in Sources */,
 				A0D6C51C2A47D52400C4DA84 /* PageView.swift in Sources */,
+				A04255CF2A69095100D38A16 /* BrushIng.swift in Sources */,
 				A0D6C5052A47C42100C4DA84 /* BgView.swift in Sources */,
 				A0D6C5182A47D15B00C4DA84 /* Tip.swift in Sources */,
 				A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */,
 				A0D6C50B2A47C74300C4DA84 /* SectionIng.swift in Sources */,
-				A0D6C5102A47CB0B00C4DA84 /* Finished.swift in Sources */,
+				A0D6C5102A47CB0B00C4DA84 /* Finish.swift in Sources */,
 				A09E219D2A66C86F0012C6BB /* Weight.swift in Sources */,
 				A09E219F2A66C8810012C6BB /* CornerRadius.swift in Sources */,
 			);

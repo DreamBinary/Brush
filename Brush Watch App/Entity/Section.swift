@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum Section {
+enum Section :Identifiable {
+    var id: Self {
+        return self
+    }
+    
     case OLB
     case OLT
     case ILB
@@ -16,4 +20,6 @@ enum Section {
     case ORT
     case IRB
     case IRT
+    
+    case Finish
 }
