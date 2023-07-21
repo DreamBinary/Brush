@@ -8,117 +8,79 @@
 import SwiftUI
 
 struct NoteAnim: View {
+    @State var dx: CGFloat = 0
+    @State var dy: CGFloat = 0
+  
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .top, endPoint: .bottom)
-            
-                .mask {
-                    Image("Note0")
-                }.rotationEffect(.degrees(15))
+        VStack {
+            // Note0 container
+            VStack {
+                Image("Note0").randomTransform()
+                    .offset(x: dx, y: dy)
+                    .onTapGesture {
+                        dx += 2
+                        dy += 2
+                    }
+            }
+            // Note1 container
+            VStack {
+                Image("Note1").randomTransform()
+            }
         }
+    }
+}
+
+
+
+extension View {
+    func randomTransform() -> some View {
+        return self.randomScale().randomRotaion().randomRotation3DEffect().randomGradient()
+    }
+    
+    func randomRotaion() -> some View {
+        let angle = RandomUtil.rDouble() * 15
+        return self.rotationEffect(.degrees(angle))
+    }
+    
+    func randomRotation3DEffect() -> some View {
+        let angle = RandomUtil.rDouble() * 15
+        let x = RandomUtil.rDouble()
+        let y = RandomUtil.rDouble()
+        let z = RandomUtil.rDouble()
+        return self.rotation3DEffect(.degrees(angle), axis: (x: x, y: y, z: z))
+    }
+    
+    func randomScale() -> some View {
+        srand48(Int(time(nil)))
+        let scale = drand48() + 0.8
+        return self.scaleEffect(scale)
+    }
+    
+    func randomGradient() -> some View {
+        srand48(Int(time(nil)))
+        let unitPoints: [UnitPoint] = [.topLeading, .top, .topTrailing, .trailing, .bottomTrailing, .bottom, .bottomLeading, .leading,]
+        let colors: [Color] = [
+            .red,
+            .orange,
+            .yellow,
+            .green,
+            .blue,
+            .purple,
+            .pink,
+            .secondary,
+            .accentColor,
+            .gray,
+        ]
+        
+        
+        let selectPoints = RandomUtil.rSelect(data: unitPoints, num: 2)
+        let selectColors = RandomUtil.rSelect(data: colors, num: 2)
+        
+        return self.gradient(gradient: Gradient(colors: selectColors), startPoint: selectPoints[0], endPoint: selectPoints[1])
     }
 }
 
 extension View {
-    //    func randomTransform() -> some View {
-    //        srand48(Int(time(nil)))
-    ////        var temp:some View = self
-    ////        if let a = Optional(drand48()), a < 0.5 {
-    ////            let b = drand48()
-    ////            let angle = a * (b < 0.5 ? 30 : -30)
-    ////            temp = self.rotationEffect(.degrees(angle))
-    ////        }
-    //        self = self.rotationEffect(.degrees(1234))
-    //        return self
-    //    }
-    
-    func randomRotaion() -> some View {
-        srand48(Int(time(nil)))
-        let a = drand48()
-        if a < 0.5 {
-            let b = drand48()
-            let angle = a * (b < 0.5 ? 30 : -30)
-            return self.rotationEffect(.degrees(angle))
-        } else {
-            return self
-        }
-    }
-    
-//    func randomRotation3DEffect() -> some View {
-//        srand48(Int(time(nil)))
-//        if let a = Optional(drand48()), a < 0.5 {
-//            let b = drand48()
-//            let angle = a * (b < 0.5 ? 30 : -30)
-//            return self.rotation3DEffect(.degrees(angle), axis: (x: angle, y: angle, z: angle))
-//        } else {
-//            return self
-//        }
-//    }
-//
-//    func randomOffset() -> some View {
-//        srand48(Int(time(nil)))
-//        if let a = Optional(drand48()), a < 0.5 {
-//            let b = drand48()
-//            let offset = a * (b < 0.5 ? 30 : -30)
-//            return self.offset(x: offset, y: offset)
-//        } else {
-//            return self
-//        }
-//    }
-//
-//    func randomScale() -> some View {
-//        srand48(Int(time(nil)))
-//        if let a = Optional(drand48()), a < 0.5 {
-//            let scale = a * 2 + 0.5
-//            return self.scaleEffect(scale)
-//        } else {
-//            return self
-//        }
-//    }
-//
-//    func randomBlur() -> some View {
-//        srand48(Int(time(nil)))
-//        if let a = Optional(drand48()), a < 0.5 {
-//            let b = drand48()
-//            let blur = a * (b < 0.5 ? 10 : -10)
-//            return self.blur(radius: blur)
-//        } else {
-//            return self
-//        }
-//    }
-//
-//
-//    func randomColor() -> some View {
-//        srand48(Int(time(nil)))
-//        if let a = Optional(drand48()), a < 0.5 {
-//            let b = drand48()
-//            let color = a * (b < 0.5 ? 10 : -10)
-//            return self.colorMultiply(Color(red: color, green: color, blue: color))
-//        } else {
-//            return self
-//        }
-//    }
-//
-//    func randomGradient() -> some View {
-//        srand48(Int(time(nil)))
-//        if let a = Optional(drand48()), a < 0.5 {
-//            let b = drand48()
-//            let color = a * (b < 0.5 ? 10 : -10)
-//            return self.colorMultiply(Color(red: color, green: color, blue: color))
-//        } else {
-//            return self
-//        }
-//    }
-    
-    
-    
-    
-    
-    
-    
-}
-
-extension Image {
     func gradient(gradient: Gradient, startPoint: UnitPoint, endPoint: UnitPoint) -> some View {
         return LinearGradient(
             gradient: gradient,
