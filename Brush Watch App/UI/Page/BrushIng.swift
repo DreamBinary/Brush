@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BrushIng: View {
-    @Environment(\.presentationMode) var presentationMode
+//    @Environment(\.presentationMode) var presentationMode
     
     @State var brushState: BrushState = .start
     @State var cSection : Section = .OLB
@@ -16,32 +16,30 @@ struct BrushIng: View {
         Group{
             switch brushState {
                 case .start:
-                    Start().onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            changePage()
-                        }
+                    Start {
+                        changePage()
                     }
                 case .pre:
                     SectionPre(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             changePage()
                         }
                     }
                 case .ing:
                     SectionIng(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             changePage()
                         }
                     }
                 case .ed:
                     SectionEd(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             changePage()
                         }
                     }
                 case .finish:
                     Finish {
-                        presentationMode.wrappedValue.dismiss()
+                        brushState = .start
                     }
             }
         }
@@ -65,7 +63,7 @@ struct BrushIng: View {
                     case .ed:
                         return .pre
                     case .finish:
-                        return .finish
+                        return .start
                 }
             }()
         }

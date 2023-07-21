@@ -42,7 +42,6 @@ struct Finish: View {
                     .foregroundColor(.gray)
                 Button {
                     onFinished()
-                    print("fasdfa")
                 } label: {
                     Text("OK")
                         .font(.title3)

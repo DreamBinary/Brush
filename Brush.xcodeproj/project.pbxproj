@@ -44,6 +44,7 @@
 		A06684D82A42E32800D27BF3 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D72A42E32800D27BF3 /* Record.swift */; };
 		A06684DA2A42E35E00D27BF3 /* Tune.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D92A42E35E00D27BF3 /* Tune.swift */; };
 		A06684E22A42F82F00D27BF3 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684E12A42F82F00D27BF3 /* Card.swift */; };
+		A06890802A6AAEF400AD2374 /* NoteAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068907F2A6AAEF400AD2374 /* NoteAnim.swift */; };
 		A09987672A459AB600E2DFFE /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09987662A459AB600E2DFFE /* Section.swift */; };
 		A09987692A459B3600E2DFFE /* BgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09987682A459B3600E2DFFE /* BgView.swift */; };
 		A09E21962A66C5CD0012C6BB /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09E21952A66C5CD0012C6BB /* Weight.swift */; };
@@ -174,6 +175,7 @@
 		A06684D72A42E32800D27BF3 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		A06684D92A42E35E00D27BF3 /* Tune.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tune.swift; sourceTree = "<group>"; };
 		A06684E12A42F82F00D27BF3 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		A068907F2A6AAEF400AD2374 /* NoteAnim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAnim.swift; sourceTree = "<group>"; };
 		A09987662A459AB600E2DFFE /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		A09987682A459B3600E2DFFE /* BgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgView.swift; sourceTree = "<group>"; };
 		A09E21952A66C5CD0012C6BB /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 				A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */,
 				A04255D02A6916A500D38A16 /* AnimCheck.swift */,
 				A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */,
+				A068907F2A6AAEF400AD2374 /* NoteAnim.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 				A0D6C5072A47C4AE00C4DA84 /* Theme.swift in Sources */,
 				A02A84302A482C20003255A5 /* VoiceBgAnimation.swift in Sources */,
 				A0D6C5122A47CC2100C4DA84 /* Score.swift in Sources */,
+				A06890802A6AAEF400AD2374 /* NoteAnim.swift in Sources */,
 				A0D6C5162A47D07C00C4DA84 /* RemedyIng.swift in Sources */,
 				A0D6C5092A47C64100C4DA84 /* SectionPre.swift in Sources */,
 				A0581FA82A41DBEF00710C4B /* BrushApp.swift in Sources */,
