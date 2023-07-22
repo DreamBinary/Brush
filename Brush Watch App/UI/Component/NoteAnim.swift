@@ -19,6 +19,8 @@ struct NoteAnim: View {
                     .offset(x: dx, y: dy)
                     .onTapGesture {
                         dx += 2
+                        
+                        
                         dy += 2
                     }
             }
