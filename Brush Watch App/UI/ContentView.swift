@@ -14,6 +14,7 @@ struct ContentView: View {
 //        NoteAnim()
 //            .background(.white)
         Brush()
+
 //        TabView {
 ////            ConnectEar()
 ////            Start()

@@ -12,16 +12,6 @@ struct Start: View {
     var body: some View {
         BgColor(.primary) {
             ZStack {
-//                    VStack(spacing: 0) {
-//                        Image("StartBg")
-//                            .resizable()
-//                            .scaledToFit()
-//                        Spacer()
-                ////                        Text(SectionUtil.getName(cSection.section))
-                ////                            .font(.title2)
-                ////                            .fontWeight(.bold)
-//                    }.padding(.bottom)
-//                        .edgesIgnoringSafeArea(.bottom)
                 NoteAnim()
                 Image("StartBg")
                     .resizable()
@@ -38,18 +28,8 @@ struct Start: View {
     }
 }
 
-// extension Start {
-//    func onStart(perform action: @escaping () -> Void) -> some View {
-//        return body.onTapGesture {
-//            action()
-//        }
-//    }
-// }
-
 struct Start_Previews: PreviewProvider {
     static var previews: some View {
-        Start(){
-            
-        }
+        Start(){}
     }
 }
