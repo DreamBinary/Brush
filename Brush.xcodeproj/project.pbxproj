@@ -21,7 +21,7 @@
 		A0300C4C2A446A190056496E /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4B2A446A190056496E /* Login.swift */; };
 		A0300C502A446E010056496E /* EnterWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* EnterWay.swift */; };
 		A0300C542A446EFD0056496E /* EnterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C532A446EFD0056496E /* EnterInput.swift */; };
-		A04255CF2A69095100D38A16 /* BrushIng.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255CE2A69095100D38A16 /* BrushIng.swift */; };
+		A04255CF2A69095100D38A16 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255CE2A69095100D38A16 /* Brush.swift */; };
 		A04255D12A6916A500D38A16 /* AnimCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255D02A6916A500D38A16 /* AnimCheck.swift */; };
 		A04255D32A6916C000D38A16 /* AnimCheckCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */; };
 		A045FA112A448DFF00F7A85C /* CountDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A045FA102A448DFF00F7A85C /* CountDown.swift */; };
@@ -151,7 +151,7 @@
 		A0300C4B2A446A190056496E /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		A0300C4F2A446E010056496E /* EnterWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWay.swift; sourceTree = "<group>"; };
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
-		A04255CE2A69095100D38A16 /* BrushIng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushIng.swift; sourceTree = "<group>"; };
+		A04255CE2A69095100D38A16 /* Brush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
 		A04255D02A6916A500D38A16 /* AnimCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimCheck.swift; sourceTree = "<group>"; };
 		A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimCheckCircle.swift; sourceTree = "<group>"; };
 		A045FA102A448DFF00F7A85C /* CountDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDown.swift; sourceTree = "<group>"; };
@@ -519,7 +519,7 @@
 				A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */,
 				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
 				A0D6C5192A47D1DE00C4DA84 /* ConnectEar.swift */,
-				A04255CE2A69095100D38A16 /* BrushIng.swift */,
+				A04255CE2A69095100D38A16 /* Brush.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -849,7 +849,7 @@
 				A0B553E72A6979AD0016E819 /* SpeakUtil.swift in Sources */,
 				A0D6C51A2A47D1DE00C4DA84 /* ConnectEar.swift in Sources */,
 				A0D6C51C2A47D52400C4DA84 /* PageView.swift in Sources */,
-				A04255CF2A69095100D38A16 /* BrushIng.swift in Sources */,
+				A04255CF2A69095100D38A16 /* Brush.swift in Sources */,
 				A0D6C5052A47C42100C4DA84 /* BgView.swift in Sources */,
 				A0D6C5182A47D15B00C4DA84 /* Tip.swift in Sources */,
 				A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */,

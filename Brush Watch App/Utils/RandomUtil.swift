@@ -11,8 +11,7 @@ import Foundation
 class RandomUtil {
     
     static func rDouble() -> Double{
-        srand48(Int(Date().timeIntervalSince1970))
-        return drand48() * (drand48() < 0.5 ?  1 : -1)
+        return Double.random(in: -1...1)
     }
     
     static func rSelect<T>(data: [T], num: Int) -> [T] {

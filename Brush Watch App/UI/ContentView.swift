@@ -11,8 +11,9 @@ struct ContentView: View {
                     
     var body: some View {
         
-        BrushIng()
-        
+//        NoteAnim()
+//            .background(.white)
+        Brush()
 //        TabView {
 ////            ConnectEar()
 ////            Start()

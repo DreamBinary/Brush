@@ -22,6 +22,7 @@ struct Start: View {
                 ////                            .fontWeight(.bold)
 //                    }.padding(.bottom)
 //                        .edgesIgnoringSafeArea(.bottom)
+                NoteAnim()
                 Image("StartBg")
                     .resizable()
                     .scaledToFit()

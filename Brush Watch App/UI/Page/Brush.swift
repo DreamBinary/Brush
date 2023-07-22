@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BrushIng: View {
+struct Brush: View {
 //    @Environment(\.presentationMode) var presentationMode
     
     @State var brushState: BrushState = .start
@@ -80,6 +80,6 @@ enum BrushState {
 
 struct BrushIng_Previews: PreviewProvider {
     static var previews: some View {
-        BrushIng()
+        Brush()
     }
 }
