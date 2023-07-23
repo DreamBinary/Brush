@@ -36,7 +36,7 @@ struct SquareIconView: View {
 
 struct SquareIconView_Previews: PreviewProvider {
     static var previews: some View {
-        SquareIconView(iconImage: Image("ToothGum"), color: Color(hex:"#A9FDC1"), sideLength: 100)
+        SquareIconView(iconImage: Image("ToothGum"), color: Color(0xA9FDC1), sideLength: 100)
             .padding()
     }
 }

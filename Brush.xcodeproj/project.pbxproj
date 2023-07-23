@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		581B2AF42A6D07C600E27F93 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581B2AF32A6D07C600E27F93 /* Login.swift */; };
 		588C8C9C2A6ABE8500DD8A65 /* SquareIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C8C9B2A6ABE8500DD8A65 /* SquareIconView.swift */; };
-		5898A7492A6AC3DB00560964 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5898A7482A6AC3DB00560964 /* Color.swift */; };
 		A00913162A430B1600057B4E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00913152A430B1600057B4E /* Theme.swift */; };
 		A00913182A432D7F00057B4E /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00913172A432D7F00057B4E /* Avatar.swift */; };
 		A01E31912A42D39D0044E25F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01E31902A42D39D0044E25F /* Home.swift */; };
@@ -17,8 +17,6 @@
 		A02A84322A482FBC003255A5 /* VoiceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02A84312A482FBC003255A5 /* VoiceAnimation.swift */; };
 		A0300C452A4445CA0056496E /* ScaledImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C442A4445CA0056496E /* ScaledImage.swift */; };
 		A0300C472A4449E20056496E /* MyTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C462A4449E20056496E /* MyTabBar.swift */; };
-		A0300C4A2A4466AE0056496E /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C492A4466AE0056496E /* Welcome.swift */; };
-		A0300C4C2A446A190056496E /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4B2A446A190056496E /* Login.swift */; };
 		A0300C502A446E010056496E /* EnterWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* EnterWay.swift */; };
 		A0300C542A446EFD0056496E /* EnterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C532A446EFD0056496E /* EnterInput.swift */; };
 		A03B6D152A6D316B00FFC5E2 /* AnimViolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */; };
@@ -138,8 +136,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		581B2AF32A6D07C600E27F93 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		588C8C9B2A6ABE8500DD8A65 /* SquareIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareIconView.swift; sourceTree = "<group>"; };
-		5898A7482A6AC3DB00560964 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		A00913152A430B1600057B4E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A00913172A432D7F00057B4E /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		A01E31902A42D39D0044E25F /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -148,8 +146,6 @@
 		A02A84312A482FBC003255A5 /* VoiceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimation.swift; sourceTree = "<group>"; };
 		A0300C442A4445CA0056496E /* ScaledImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledImage.swift; sourceTree = "<group>"; };
 		A0300C462A4449E20056496E /* MyTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBar.swift; sourceTree = "<group>"; };
-		A0300C492A4466AE0056496E /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; tabWidth = 4; };
-		A0300C4B2A446A190056496E /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		A0300C4F2A446E010056496E /* EnterWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWay.swift; sourceTree = "<group>"; };
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
 		A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimViolin.swift; sourceTree = "<group>"; };
@@ -270,8 +266,7 @@
 		588C8C992A6AAE0E00DD8A65 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				A0300C4B2A446A190056496E /* Login.swift */,
-				A0300C492A4466AE0056496E /* Welcome.swift */,
+				581B2AF32A6D07C600E27F93 /* Login.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -467,7 +462,6 @@
 			children = (
 				A09E21952A66C5CD0012C6BB /* Weight.swift */,
 				A09E21972A66C6240012C6BB /* CornerRadius.swift */,
-				5898A7482A6AC3DB00560964 /* Color.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -785,7 +779,6 @@
 			files = (
 				A06684D62A42E12400D27BF3 /* Mine.swift in Sources */,
 				A0DA4B272A46BA45009CA236 /* BrushIcon.swift in Sources */,
-				5898A7492A6AC3DB00560964 /* Color.swift in Sources */,
 				A06684E22A42F82F00D27BF3 /* Card.swift in Sources */,
 				A0300C542A446EFD0056496E /* EnterInput.swift in Sources */,
 				588C8C9C2A6ABE8500DD8A65 /* SquareIconView.swift in Sources */,
@@ -798,8 +791,7 @@
 				A09987692A459B3600E2DFFE /* BgView.swift in Sources */,
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
 				A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */,
-				A0300C4C2A446A190056496E /* Login.swift in Sources */,
-				A0300C4A2A4466AE0056496E /* Welcome.swift in Sources */,
+				581B2AF42A6D07C600E27F93 /* Login.swift in Sources */,
 				A01E31912A42D39D0044E25F /* Home.swift in Sources */,
 				A06684D82A42E32800D27BF3 /* Record.swift in Sources */,
 				A0300C502A446E010056496E /* EnterWay.swift in Sources */,
@@ -1099,6 +1091,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brush/Preview Content\"";
@@ -1132,6 +1125,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brush/Preview Content\"";
