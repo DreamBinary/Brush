@@ -13,17 +13,23 @@ struct ContentView: View {
     @State private var isLogin = false
     
     var body: some View {
-        if !isLogin {
-            Welcome()
-        }
-        else {
-            RouteView(
-                store: Store(
-                    initialState: Route.State(),
-                    reducer: Route()
-                )
+        LoginView(
+            store: Store(
+                initialState: Login.State(),
+                reducer: Login()
             )
-        }
+        )
+//        if !isLogin {
+////            Welcome()
+//        }
+//        else {
+//            RouteView(
+//                store: Store(
+//                    initialState: Route.State(),
+//                    reducer: Route()
+//                )
+//            )
+//        }
         
         
 
