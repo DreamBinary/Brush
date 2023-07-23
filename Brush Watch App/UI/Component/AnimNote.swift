@@ -7,14 +7,12 @@
 
 import SwiftUI
 
-struct NoteAnim: View {
+struct AnimNote: View {
     var body: some View {
         ZStack {
             NoteView("Note0")
             NoteView("Note0")
             NoteView("Note0")
-            NoteView("Note0")
-            NoteView("Note1")
             NoteView("Note1")
             NoteView("Note1")
             NoteView("Note1")
@@ -43,9 +41,13 @@ struct NoteView: View {
                     }
                 }
             }
-            .onChange(of: noteObject.x) { _ in
+            .task(id: noteObject.x) {
                 noteObject.check()
-            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+            }
+//            .onChange(of: noteObject.x) { _ in
+//                noteObject.check()
+//            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             .edgesIgnoringSafeArea(.all)
     }
 }
@@ -125,16 +127,12 @@ class NoteObject: ObservableObject {
 struct TransformEntity {
     private static let unitPoints: [UnitPoint] = [.topLeading, .top, .topTrailing, .trailing, .bottomTrailing, .bottom, .bottomLeading, .leading]
     private static let colors: [Color] = [
-        .red,
-        .orange,
-        .yellow,
-        .green,
-        .blue,
-        .purple,
-        .pink,
-        .secondary,
-        .accentColor,
-        .gray,
+        Color(0x5B9CFF),
+        Color(0xE6A2AA),
+        Color(0xF7ECB0),
+        Color(0x878BF3),
+        Color(0xABABAB),
+        Color(0xC3C3C3),
     ]
     
     let scale: Double = .random(in: 0 ... 1) + 0.5
@@ -146,8 +144,9 @@ struct TransformEntity {
     let r3y: Double = RandomUtil.rDouble()
     let r3z: Double = RandomUtil.rDouble()
     
+    let selectColor = RandomUtil.rSelect(data: colors, num: 1)[0]
     let selectPoints = RandomUtil.rSelect(data: unitPoints, num: 2)
-    let selectColors = RandomUtil.rSelect(data: colors, num: 2)
+    let selectGradient = RandomUtil.rSelect(data: colors, num: 2)
 }
 
 extension View {
@@ -155,69 +154,79 @@ extension View {
         return scaleEffect(transform.scale)
             .rotationEffect(.degrees(transform.rAngle))
             .rotation3DEffect(.degrees(transform.r3Angle), axis: (x: transform.r3x, y: transform.r3y, z: transform.r3z))
-            .gradient(gradient: Gradient(colors: transform.selectColors), startPoint: transform.selectPoints[0], endPoint: transform.selectPoints[1])
+//            .maskColor(transform.selectColor)
+            .maskGgradient(gradient: Gradient(colors: transform.selectGradient), startPoint: transform.selectPoints[0], endPoint: transform.selectPoints[1])
     }
     
-    func randomTransform() -> some View {
-        return randomScale().randomRotaion().randomRotation3DEffect().randomGradient()
-    }
+
+//
+//    func randomTransform() -> some View {
+//        return randomScale().randomRotaion().randomRotation3DEffect().randomGradient()
+//    }
+//
+//    func randomRotaion() -> some View {
+//        let angle = RandomUtil.rDouble() * 15
+//        return rotationEffect(.degrees(angle))
+//    }
+//
+//    func randomColor() ->some View {
+//        let colors: [Int] = [
+//            0x5B9CFF,
+//            0xE6A2AA,
+//            0xF7ECB0,
+//            0x878BF3,
+//        ]
+//        let selectColor = RandomUtil.rSelect(data: colors, num: 1)
+//        return Color(selectColor[0]).mask(self)
+//    }
+//
+//    func randomRotation3DEffect() -> some View {
+//        let angle = RandomUtil.rDouble() * 15
+//        let x = RandomUtil.rDouble()
+//        let y = RandomUtil.rDouble()
+//        let z = RandomUtil.rDouble()
+//        return rotation3DEffect(.degrees(angle), axis: (x: x, y: y, z: z))
+//    }
+//
+//    func randomScale() -> some View {
+//        srand48(Int(time(nil)))
+//        let scale = drand48() + 0.8
+//        return scaleEffect(scale)
+//    }
+//
+//    func randomGradient() -> some View {
+//        srand48(Int(time(nil)))
+//        let unitPoints: [UnitPoint] = [.topLeading, .top, .topTrailing, .trailing, .bottomTrailing, .bottom, .bottomLeading, .leading]
+//        let colors: [Color] = [
+//            .note0, .note1, .note2, .note3
+//        ]
+//
+//        let selectPoints = RandomUtil.rSelect(data: unitPoints, num: 2)
+//        let selectColors = RandomUtil.rSelect(data: colors, num: 2)
+//
+//        return maskGgradient(gradient: Gradient(colors: selectColors), startPoint: selectPoints[0], endPoint: selectPoints[1])
+//    }
     
-    func randomRotaion() -> some View {
-        let angle = RandomUtil.rDouble() * 15
-        return rotationEffect(.degrees(angle))
-    }
-    
-    func randomRotation3DEffect() -> some View {
-        let angle = RandomUtil.rDouble() * 15
-        let x = RandomUtil.rDouble()
-        let y = RandomUtil.rDouble()
-        let z = RandomUtil.rDouble()
-        return rotation3DEffect(.degrees(angle), axis: (x: x, y: y, z: z))
-    }
-    
-    func randomScale() -> some View {
-        srand48(Int(time(nil)))
-        let scale = drand48() + 0.8
-        return scaleEffect(scale)
-    }
-    
-    func randomGradient() -> some View {
-        srand48(Int(time(nil)))
-        let unitPoints: [UnitPoint] = [.topLeading, .top, .topTrailing, .trailing, .bottomTrailing, .bottom, .bottomLeading, .leading]
-        let colors: [Color] = [
-            .red,
-            .orange,
-            .yellow,
-            .green,
-            .blue,
-            .purple,
-            .pink,
-            .secondary,
-            .accentColor,
-            .gray,
-        ]
-        
-        let selectPoints = RandomUtil.rSelect(data: unitPoints, num: 2)
-        let selectColors = RandomUtil.rSelect(data: colors, num: 2)
-        
-        return gradient(gradient: Gradient(colors: selectColors), startPoint: selectPoints[0], endPoint: selectPoints[1])
-    }
 }
 
 extension View {
-    func gradient(gradient: Gradient, startPoint: UnitPoint, endPoint: UnitPoint) -> some View {
+    func maskGgradient(gradient: Gradient, startPoint: UnitPoint, endPoint: UnitPoint) -> some View {
         return LinearGradient(
             gradient: gradient,
             startPoint: startPoint,
             endPoint: endPoint
         ).mask(self)
     }
+    
+//    func maskColor(_ color: Color) -> some View {
+//        return color.mask(self)
+//    }
 }
 
 struct NoteAnim_Previews: PreviewProvider {
     static var previews: some View {
         BgColor(.white) {
-            NoteAnim()
+            AnimNote()
         }
     }
 }

@@ -21,6 +21,7 @@
 		A0300C4C2A446A190056496E /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4B2A446A190056496E /* Login.swift */; };
 		A0300C502A446E010056496E /* EnterWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* EnterWay.swift */; };
 		A0300C542A446EFD0056496E /* EnterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C532A446EFD0056496E /* EnterInput.swift */; };
+		A03B6D152A6D316B00FFC5E2 /* AnimViolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */; };
 		A04255CF2A69095100D38A16 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255CE2A69095100D38A16 /* Brush.swift */; };
 		A04255D12A6916A500D38A16 /* AnimCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255D02A6916A500D38A16 /* AnimCheck.swift */; };
 		A04255D32A6916C000D38A16 /* AnimCheckCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */; };
@@ -46,7 +47,7 @@
 		A06684D82A42E32800D27BF3 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D72A42E32800D27BF3 /* Record.swift */; };
 		A06684DA2A42E35E00D27BF3 /* Tune.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D92A42E35E00D27BF3 /* Tune.swift */; };
 		A06684E22A42F82F00D27BF3 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684E12A42F82F00D27BF3 /* Card.swift */; };
-		A06890802A6AAEF400AD2374 /* NoteAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068907F2A6AAEF400AD2374 /* NoteAnim.swift */; };
+		A06890802A6AAEF400AD2374 /* AnimNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068907F2A6AAEF400AD2374 /* AnimNote.swift */; };
 		A06890822A6AC3F600AD2374 /* RandomUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06890812A6AC3F600AD2374 /* RandomUtil.swift */; };
 		A09987672A459AB600E2DFFE /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09987662A459AB600E2DFFE /* Section.swift */; };
 		A09987692A459B3600E2DFFE /* BgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09987682A459B3600E2DFFE /* BgView.swift */; };
@@ -151,6 +152,7 @@
 		A0300C4B2A446A190056496E /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		A0300C4F2A446E010056496E /* EnterWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWay.swift; sourceTree = "<group>"; };
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
+		A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimViolin.swift; sourceTree = "<group>"; };
 		A04255CE2A69095100D38A16 /* Brush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
 		A04255D02A6916A500D38A16 /* AnimCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimCheck.swift; sourceTree = "<group>"; };
 		A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimCheckCircle.swift; sourceTree = "<group>"; };
@@ -180,7 +182,7 @@
 		A06684D72A42E32800D27BF3 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		A06684D92A42E35E00D27BF3 /* Tune.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tune.swift; sourceTree = "<group>"; };
 		A06684E12A42F82F00D27BF3 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		A068907F2A6AAEF400AD2374 /* NoteAnim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAnim.swift; sourceTree = "<group>"; };
+		A068907F2A6AAEF400AD2374 /* AnimNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimNote.swift; sourceTree = "<group>"; };
 		A06890812A6AC3F600AD2374 /* RandomUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUtil.swift; sourceTree = "<group>"; };
 		A09987662A459AB600E2DFFE /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		A09987682A459B3600E2DFFE /* BgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgView.swift; sourceTree = "<group>"; };
@@ -272,6 +274,13 @@
 				A0300C492A4466AE0056496E /* Welcome.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		A03B6D162A6D3B4900FFC5E2 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		A0581F732A41DBEF00710C4B = {
@@ -490,7 +499,9 @@
 				A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */,
 				A04255D02A6916A500D38A16 /* AnimCheck.swift */,
 				A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */,
-				A068907F2A6AAEF400AD2374 /* NoteAnim.swift */,
+				A068907F2A6AAEF400AD2374 /* AnimNote.swift */,
+				A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */,
+				A03B6D162A6D3B4900FFC5E2 /* New Group */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -841,11 +852,12 @@
 				A0D6C5072A47C4AE00C4DA84 /* Theme.swift in Sources */,
 				A02A84302A482C20003255A5 /* VoiceBgAnimation.swift in Sources */,
 				A0D6C5122A47CC2100C4DA84 /* Score.swift in Sources */,
-				A06890802A6AAEF400AD2374 /* NoteAnim.swift in Sources */,
+				A06890802A6AAEF400AD2374 /* AnimNote.swift in Sources */,
 				A0D6C5162A47D07C00C4DA84 /* RemedyIng.swift in Sources */,
 				A0D6C5092A47C64100C4DA84 /* SectionPre.swift in Sources */,
 				A0581FA82A41DBEF00710C4B /* BrushApp.swift in Sources */,
 				A02A84322A482FBC003255A5 /* VoiceAnimation.swift in Sources */,
+				A03B6D152A6D316B00FFC5E2 /* AnimViolin.swift in Sources */,
 				A0B553E72A6979AD0016E819 /* SpeakUtil.swift in Sources */,
 				A0D6C51A2A47D1DE00C4DA84 /* ConnectEar.swift in Sources */,
 				A0D6C51C2A47D52400C4DA84 /* PageView.swift in Sources */,

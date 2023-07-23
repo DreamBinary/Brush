@@ -16,6 +16,11 @@ public extension Color {
     static let lightPrimary: Color = .init(red: 0.38, green: 0.86, blue: 0.78, opacity: 0.2)
     
     static let brushBlue: Color = .init(red: 0.56, green: 0.9, blue: 0.94)
+    
+    static let note0 = Color(0x5B9CFF)
+    static let note1 = Color(0x5B9CFF)
+    static let note2 = Color(0xF7ECB0)
+    static let note3 = Color(0x878BF3)
 }
 
 extension Color {

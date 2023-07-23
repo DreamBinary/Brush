@@ -12,10 +12,15 @@ struct Start: View {
     var body: some View {
         BgColor(.primary) {
             ZStack {
-                NoteAnim()
-                Image("StartBg")
-                    .resizable()
-                    .scaledToFit()
+                AnimViolin()
+                
+                AnimNote()
+                
+               
+                
+//                Image("StartBg")
+//                    .resizable()
+//                    .scaledToFit()
 
                 Text("Start!")
                     .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.4))
