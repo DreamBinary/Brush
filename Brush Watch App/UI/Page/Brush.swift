@@ -21,19 +21,19 @@ struct Brush: View {
                     }
                 case .pre:
                     SectionPre(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             changePage()
                         }
                     }
                 case .ing:
                     SectionIng(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             changePage()
                         }
                     }
                 case .ed:
                     SectionEd(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             changePage()
                         }
                     }
