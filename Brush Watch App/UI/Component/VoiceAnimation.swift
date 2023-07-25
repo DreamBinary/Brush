@@ -17,7 +17,7 @@ struct VoiceAnimation: View {
     var startAnim: () -> Void = {}
     var body: some View {
         HStack(alignment: VerticalAlignment.center, spacing: width / 2) {
-            ForEach(0 ..< height.count) { index in
+            ForEach(0 ..< height.count, id: \.self) { index in
                 Rectangle().cornerRadius(width / 2)
                     .foregroundColor(color)
                     .frame(width: width, height: height[index])
