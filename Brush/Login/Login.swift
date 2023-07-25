@@ -185,9 +185,7 @@ struct LoginView: View {
                         if !loginViewActive{
                             Image("StartTuneBrush").padding(.bottom,50)
                         }
-                        
                     }
-                    
                 }
             }
         }

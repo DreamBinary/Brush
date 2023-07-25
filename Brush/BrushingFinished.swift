@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BrushingFinished: View {
     var body: some View {
-        BgView("BrushingFinished") {
+//        BgView("BrushingFinished") {
             VStack(spacing: 2) {
                 Text("恭喜您！")
                 Text("您的牙齿很健康")
@@ -24,7 +24,10 @@ struct BrushingFinished: View {
             }.font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 300)
-        }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Image("BrushingFinished"))
+                .edgesIgnoringSafeArea(.all)
+        
     }
 }
 

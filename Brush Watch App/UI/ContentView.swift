@@ -13,13 +13,13 @@ struct ContentView: View {
         
 //        NoteAnim()
 //            .background(.white)
-//        Brush()
+        Brush()
         
 
-        TabView {
-            SectionIng(.OLB)
-            SectionEd(.OLB)
-            
+//        TabView {
+//            SectionIng(.OLB)
+//            SectionEd(.OLB)
+//
 //            ConnectEar()
 //            Start()
 //            SectionPre(.OLB)
@@ -36,8 +36,8 @@ struct ContentView: View {
 //                SectionIng(section)
 //                SectionEd(section)
 //            }
-        }.tabViewStyle(.page(indexDisplayMode: .never))
-            .edgesIgnoringSafeArea(.all)
+//        }.tabViewStyle(.page(indexDisplayMode: .never))
+//            .edgesIgnoringSafeArea(.all)
     }
 }
 

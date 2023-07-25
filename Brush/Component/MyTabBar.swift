@@ -28,7 +28,7 @@ struct MyTabBar: View {
                     }
                 } label: {
                     if index == 2 {
-                        BrushIcon(radius: 50)
+                        BrushIcon(radius: 25)
                     } else {
                         Image(selectedIndex == index ? seletedImages[index] : unSeletedImages[index])
                     }
