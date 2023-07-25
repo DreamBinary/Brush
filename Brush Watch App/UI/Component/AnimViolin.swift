@@ -24,7 +24,7 @@ struct AnimViolin: View {
                     .rotationEffect(.degrees(angle))
 
                 Image("Bow")
-                    .resizable()  
+                    .resizable()
                     .scaledToFit()
                     .opacity(0.6)
                     .frame(height: height * 0.60)
@@ -33,7 +33,9 @@ struct AnimViolin: View {
                     .offset(x: dx, y: -dx * tan(75.0 / 180.0 * Double.pi))
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 .onAppear {
-                    withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+                    withAnimation(.easeInOut(duration: 1)
+                        .repeatForever(autoreverses: true))
+                    {
                         dx = 5
                         angle = 2
                     }
