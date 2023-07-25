@@ -9,44 +9,42 @@ import SwiftUI
 
 struct SectionEd: View {
     var section: Section
-    @State private var animRunning = false
     var body: some View {
-        VStack {
-            Spacer()
-            ZStack {
-                Circle()
-                    .fill(Color.lightPrimary)
-                    .frame(width: 90, height: 90)
-                Circle()
-                    .fill(Color.primary)
-                    .frame(width: 50, height: 50)
-//                Image(systemName: "checkmark")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 25, height: 25)
-                AnimCheck(fromColor: .fontBlack, toColor: .white)
+        GeometryReader { geo in
+            let width = geo.size.width
+            VStack {
+                Spacer()
+//                ZStack {
+//                    Circle()
+//                        .fill(Color.lightPrimary)
+//                        .frame(width: width * 0.45, height: width * 0.45)
+//                    Circle()
+//                        .fill(Color.primary)
+//                        .frame(width: width * 0.25, height: width * 0.25)
+//                    AnimCheck(fromColor: .fontBlack, toColor: .white)
+//                }.padding()
+                AnimCheckCircle(
+                    size: CGSize(width: width * 0.35, height: width * 0.35),
+                    fromColor: .lightPrimary, toColor: .primary,
+                    strokeStyle: .init(lineWidth: width * 0.35 * 0.08, lineCap: .round, lineJoin: .round))
+                Spacer()
+                Text("Congratulations!")
+                    .font(.caption2)
+                    .foregroundColor(.fontBlack)
+                Text("即将进入下一片区")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+                    .padding()
 
-//                Image(systemName: "square.stack.3d.up")
-//                    .symbolEffect(.variableColor.reversing.iterative, options: .speed(3), value: animRunning)
+                Text(SectionUtil.getName(section))
+                    .font(.caption)
+                    .foregroundColor(.fontBlack)
+                    .padding()
 
-            }.padding()
-
-            Text("Congratulations!")
-                .font(.caption2)
-                .foregroundColor(.fontBlack)
-            Text("即将进入下一片区")
-                .font(.title3)
-                .fontWeight(.bold)
-                .foregroundColor(.primary)
-                .padding()
-
-            Text(SectionUtil.getName(section))
-                .font(.caption)
-                .foregroundColor(.fontBlack)
-                .padding()
-
-        }.padding(.bottom)
-            .edgesIgnoringSafeArea(.bottom)
+            }.padding(.bottom)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }.edgesIgnoringSafeArea(.bottom)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.white)
     }

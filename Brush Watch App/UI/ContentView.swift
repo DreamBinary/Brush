@@ -13,27 +13,31 @@ struct ContentView: View {
         
 //        NoteAnim()
 //            .background(.white)
-        Brush()
+//        Brush()
+        
 
-//        TabView {
-////            ConnectEar()
-////            Start()
-////            SectionPre(.OLB)
-////            SectionIng(.OLB)
-////            SectionEd()
-////            Tip()
-////            Score()
-////            RemedySelect()
-////            RemedyIng()
-////            Finished()
+        TabView {
+            SectionIng(.OLB)
+            SectionEd(.OLB)
+            
+//            ConnectEar()
+//            Start()
+//            SectionPre(.OLB)
+//            SectionIng(.OLB)
+//            SectionEd()
+//            Tip()
+//            Score()
+//            RemedySelect()
+//            RemedyIng()
+//            Finished()
 //            Start()
 //            ForEach(SectionUtil.sections) { section in
 //                SectionPre(section)
 //                SectionIng(section)
 //                SectionEd(section)
 //            }
-//        }.tabViewStyle(.page(indexDisplayMode: .never))
-//            .edgesIgnoringSafeArea(.all)
+        }.tabViewStyle(.page(indexDisplayMode: .never))
+            .edgesIgnoringSafeArea(.all)
     }
 }
 

@@ -9,10 +9,9 @@ import SwiftUI
 
 struct VoiceAnimation: View {
     var width: CGFloat = 2
-    @State var height: [CGFloat] = [
-        7.5, 8.5, 10.5, 6.5, 8.5, 6.5, 12.5, 8.5, 6, 7.5
-    ]
-    @State var flag = true
+    var minVoiceHeight: CGFloat
+    @State private var height: [CGFloat]
+    @State private var flag = true
     var color: Color = .white
     var startAnim: () -> Void = {}
     var body: some View {
@@ -36,8 +35,27 @@ struct VoiceAnimation: View {
     }
 }
 
+extension VoiceAnimation {
+    init(minVoiceHeight vh: CGFloat = 6,startAnim: @escaping () -> Void = {}) {
+        self.minVoiceHeight = vh
+        self.startAnim = startAnim
+        self.height =  [
+           vh + 1.5,
+           vh + 2.5,
+           vh + 4.5,
+           vh + 0.5,
+           vh + 2.5,
+           vh + 0.5,
+           vh + 5.5,
+           vh + 2.5,
+           vh + 0,
+           vh + 1.5
+        ]
+    }
+}
+
 struct VoiceAnimation_Previews: PreviewProvider {
     static var previews: some View {
-        VoiceAnimation {}
+        VoiceAnimation(minVoiceHeight: 6) {}
     }
 }

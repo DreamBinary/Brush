@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A0581FA12A41DBEF00710C4B"
-               BuildableName = "Brush Watch App.app"
+               BuildableName = "TuneBrush.app"
                BlueprintName = "Brush Watch App"
                ReferencedContainer = "container:Brush.xcodeproj">
             </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0581FA12A41DBEF00710C4B"
-            BuildableName = "Brush Watch App.app"
+            BuildableName = "TuneBrush.app"
             BlueprintName = "Brush Watch App"
             ReferencedContainer = "container:Brush.xcodeproj">
          </BuildableReference>
@@ -99,7 +99,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0581FA12A41DBEF00710C4B"
-            BuildableName = "Brush Watch App.app"
+            BuildableName = "TuneBrush.app"
             BlueprintName = "Brush Watch App"
             ReferencedContainer = "container:Brush.xcodeproj">
          </BuildableReference>
