@@ -24,25 +24,25 @@ struct AnimNote: View {
 struct NoteView: View {
     var name: String
     
-    @StateObject var noteObject = NoteObject(CGSize(width: 43, height: 40))
+    @StateObject var vm = NoteObject(CGSize(width: 43, height: 40))
     @State var progress = 0
     
     var body: some View {
         Image(self.name)
-            .resizable()
+            .resizable() 
             .scaledToFit()
             .frame(width: 43, height: 40)
-            .randomTransform(transform: self.noteObject.transform)
-            .offset(x: noteObject.x, y: noteObject.y)
+            .randomTransform(transform: self.vm.transform)
+            .offset(x: vm.x, y: vm.y)
             .onAppear {
                 Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
                     withAnimation(.linear(duration: 0.01)) {
-                        noteObject.move()
+                        vm.move()
                     }
                 }
             }
-            .task(id: noteObject.x) {
-                noteObject.check()
+            .task(id: vm.x) {
+                vm.check()
             }
 //            .onChange(of: noteObject.x) { _ in
 //                noteObject.check()

@@ -16,14 +16,8 @@ struct Start: View {
                 
                 AnimNote()
                 
-               
-                
-//                Image("StartBg")
-//                    .resizable()
-//                    .scaledToFit()
-
                 Text("Start!")
-                    .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.4))
+                    .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.5))
                     .fontWeight(.bold)
                     .onTapGesture {
                         onStart()

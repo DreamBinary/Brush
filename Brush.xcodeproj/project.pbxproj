@@ -20,6 +20,7 @@
 		A0300C502A446E010056496E /* EnterWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* EnterWay.swift */; };
 		A0300C542A446EFD0056496E /* EnterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C532A446EFD0056496E /* EnterInput.swift */; };
 		A03B6D152A6D316B00FFC5E2 /* AnimViolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */; };
+		A040AD542A77D511002EF68A /* CountDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A040AD532A77D511002EF68A /* CountDown.swift */; };
 		A04255CF2A69095100D38A16 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255CE2A69095100D38A16 /* Brush.swift */; };
 		A04255D12A6916A500D38A16 /* AnimCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255D02A6916A500D38A16 /* AnimCheck.swift */; };
 		A04255D32A6916C000D38A16 /* AnimCheckCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */; };
@@ -149,6 +150,7 @@
 		A0300C4F2A446E010056496E /* EnterWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWay.swift; sourceTree = "<group>"; };
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
 		A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimViolin.swift; sourceTree = "<group>"; };
+		A040AD532A77D511002EF68A /* CountDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDown.swift; sourceTree = "<group>"; };
 		A04255CE2A69095100D38A16 /* Brush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
 		A04255D02A6916A500D38A16 /* AnimCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimCheck.swift; sourceTree = "<group>"; };
 		A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimCheckCircle.swift; sourceTree = "<group>"; };
@@ -269,13 +271,6 @@
 				581B2AF32A6D07C600E27F93 /* Login.swift */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		A03B6D162A6D3B4900FFC5E2 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		A0581F732A41DBEF00710C4B = {
@@ -495,7 +490,6 @@
 				A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */,
 				A068907F2A6AAEF400AD2374 /* AnimNote.swift */,
 				A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */,
-				A03B6D162A6D3B4900FFC5E2 /* New Group */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -525,6 +519,7 @@
 				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
 				A0D6C5192A47D1DE00C4DA84 /* ConnectEar.swift */,
 				A04255CE2A69095100D38A16 /* Brush.swift */,
+				A040AD532A77D511002EF68A /* CountDown.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -845,6 +840,7 @@
 				A02A84302A482C20003255A5 /* VoiceBgAnimation.swift in Sources */,
 				A0D6C5122A47CC2100C4DA84 /* Score.swift in Sources */,
 				A06890802A6AAEF400AD2374 /* AnimNote.swift in Sources */,
+				A040AD542A77D511002EF68A /* CountDown.swift in Sources */,
 				A0D6C5162A47D07C00C4DA84 /* RemedyIng.swift in Sources */,
 				A0D6C5092A47C64100C4DA84 /* SectionPre.swift in Sources */,
 				A0581FA82A41DBEF00710C4B /* BrushApp.swift in Sources */,

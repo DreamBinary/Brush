@@ -19,6 +19,10 @@ struct Brush: View {
                     Start {
                         changePage()
                     }
+                case .count_down:
+                    CountDown() {
+                        changePage()
+                    }
                 case .pre:
                     SectionPre(cSection).onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -41,6 +45,7 @@ struct Brush: View {
                     Finish {
                         brushState = .start
                     }
+                
             }
         }
     }
@@ -55,6 +60,8 @@ struct Brush: View {
             brushState = {
                 switch brushState {
                     case .start:
+                        return .count_down
+                    case .count_down:
                         return .pre
                     case .pre:
                         return .ing
@@ -72,6 +79,7 @@ struct Brush: View {
 
 enum BrushState {
     case start
+    case count_down
     case pre
     case ing
     case ed
