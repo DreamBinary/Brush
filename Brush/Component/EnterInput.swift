@@ -66,8 +66,6 @@ struct EnterInputView: View {
     
     let store: StoreOf<EnterInput>
     
-    var signUpButtonAction: ((EnterInput.InputType) -> Void)?
-    
     @FocusState var focusedField: EnterInput.State.Field?
     @State var isSecured: Bool = true
     var body: some View {
@@ -108,7 +106,6 @@ struct EnterInputView: View {
                     Spacer()
                     Button {
                         vStore.send(.changeType)
-                        signUpButtonAction?(vStore.type)
                     } label: {
                         Text(vStore.type == .SignUp ? "Log in" : "Sign Up")
                             .font(.caption)
@@ -141,15 +138,15 @@ extension View {
 
 // MARK: - SwiftUI previews
 
-#if DEBUG
-struct EnterInputView_Previews: PreviewProvider {
-    static var previews: some View {
-        EnterInputView(
-            store: Store(
-                initialState: EnterInput.State(),
-                reducer: EnterInput()
-            )
-        )
-    }
-}
-#endif
+//#if DEBUG
+//struct EnterInputView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EnterInputView(
+//            store: Store(
+//                initialState: EnterInput.State(),
+//                reducer: EnterInput()
+//            )
+//        )
+//    }
+//}
+//#endif
