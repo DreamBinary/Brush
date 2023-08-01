@@ -97,6 +97,7 @@ class PurpleToothStatus: Equatable {
 struct LoginView: View {
     let store: StoreOf<Login>
     
+    
     // 是否展示登录状态字段
     //    @State private var loginViewActive = false
     // 紫色卡片的状态
@@ -112,7 +113,7 @@ struct LoginView: View {
     //    let tuneBrushBtnGreen=TuneBrushBtnStatus(bgColor: Color(0xBEFFD0), radius: 40, opacity: 0.81)
     
     // 动画命名空间
-    @Namespace var animation
+//    @Namespace var animation
     
     //    struct PurpleToothSatus {
     //        var x: Double=0
@@ -127,36 +128,13 @@ struct LoginView: View {
     //        var radius: Double=30
     //        var opacity: Double=0.57
     //    }
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            
-            let screenWidth = UIScreen.main.bounds.width
-            let screenHeight = UIScreen.main.bounds.height
             BgView {
                 ZStack {
                     // Z第一层
-                    VStack {
-                        Spacer()
-                        // 顶部两个图标
-                        HStack {
-                            SquareIconView(iconImage: Image("ToothGum"), color: Color(0xA9FDC1), sideLength: 140)
-                                .rotationEffect(Angle(degrees: 30))
-                                .offset(x: !vStore.isLoginView
-                                    ? -20 : -screenWidth)
-                            Spacer()
-                        }
-                            
-                        // 文字
-                        VStack(spacing: 0) {
-                            TextDisplayView(text: "Let's", fontSize: 80, textColor: .white)
-                            Image("BrushText").frame(width: screenWidth, alignment: .bottomLeading)
-                            TextDisplayView(text: "With", fontSize: 80, textColor: .white)
-                            Image("MusicText").frame(width: screenWidth, alignment: .bottomLeading)
-                        }.padding(.leading, 20)
-                            .offset(x: !vStore.isLoginView ? 0 : -screenWidth)
-                        Spacer()
-                    }
+                    FirstView(isRemove: vStore.isLoginView)
                         
                     // Z第二层
                     VStack {
@@ -214,19 +192,7 @@ struct LoginView: View {
                             color: vStore.brushBtnVm.bgColor,
                             opacity: vStore.brushBtnVm.opacity
                         ).onTapGesture {
-                            //                            //                            print("展示登录页面")
-                            //                            withAnimation(.easeInOut(duration: 0.5)) {
-                            //                                vStore.isLoginView
-                            //                            .toggle()
-                            //                                if loginViewActive {
-                            //                                    onSignUpTapped(vStore.isLogin)
-                            //                                } else {
-                            //                                    //                                    purpleToothVm=purpleToothFirst
-                            //                                    purpleToothVm.toFirst()
-                            //                                    //                                    tuneBrushBtnVm=tuneBrushBtnWhite
-                            //                                    tuneBrushBtnVm.toWhite()
-                            //                                }
-                            //                            }
+
                             vStore.send(.onBrushBtnTapped)
                         }
                         if !vStore.isLoginView {
@@ -236,6 +202,44 @@ struct LoginView: View {
                 }
             }.animation(.easeInOut(duration: 0.5), value: vStore.isLoginView)
                 .animation(.easeInOut(duration: 0.5), value: vStore.isLogin)
+                
+        }
+    }
+}
+
+struct FirstView: View {
+    var isRemove: Bool
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            // 顶部两个图标
+            HStack {
+                SquareIconView(iconImage: Image("ToothGum"), color: Color(0xA9FDC1), sideLength: 140)
+                    .rotationEffect(Angle(degrees: 30))
+                    .offset(x: isRemove ? -screenWidth : -20)
+                Spacer()
+            }
+            
+            // 文字
+            ImgText()
+                .padding(.leading, 20)
+                .offset(x: isRemove ? -screenWidth : 0)
+            
+            Spacer()
+        }
+    }
+}
+
+struct ImgText: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            let _ = print("J")
+            TextDisplayView(text: "Let's", fontSize: 80, textColor: .white)
+            Image("BrushText")
+                .frame(width: screenWidth, alignment: .bottomLeading)
+            TextDisplayView(text: "With", fontSize: 80, textColor: .white)
+            Image("MusicText").frame(width: screenWidth, alignment: .bottomLeading)
         }
     }
 }
@@ -274,8 +278,19 @@ struct Login: ReducerProtocol {
         Reduce { state, action in
             switch action {
                 case .enterInput(.changeType):
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        state.isLogin.toggle()
+                    state.isLogin.toggle()
+                    if state.isLogin {
+                        state.purpleToothVm.toSecond()
+                        state.brushBtnVm.change(to: .purple)
+                    } else {
+                        state.purpleToothVm.toThird()
+                        state.brushBtnVm.change(to: .green)
+                    }
+                    
+                    return .none
+                case .onBrushBtnTapped:
+                    state.isLoginView.toggle()
+                    if state.isLoginView {
                         if state.isLogin {
                             state.purpleToothVm.toSecond()
                             state.brushBtnVm.change(to: .purple)
@@ -283,24 +298,11 @@ struct Login: ReducerProtocol {
                             state.purpleToothVm.toThird()
                             state.brushBtnVm.change(to: .green)
                         }
+                    } else {
+                        state.purpleToothVm.toFirst()
+                        state.brushBtnVm.change(to: .white)
                     }
-                    return .none
-                case .onBrushBtnTapped:
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        state.isLoginView.toggle()
-                        if state.isLoginView {
-                            if state.isLogin {
-                                state.purpleToothVm.toSecond()
-                                state.brushBtnVm.change(to: .purple)
-                            } else {
-                                state.purpleToothVm.toThird()
-                                state.brushBtnVm.change(to: .green)
-                            }
-                        } else {
-                            state.purpleToothVm.toFirst()
-                            state.brushBtnVm.change(to: .white)
-                        }
-                    }
+                    
                     return .none
                 case .enterInput, .binding:
                     return .none

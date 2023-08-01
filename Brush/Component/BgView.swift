@@ -12,7 +12,7 @@ struct BgView<Content>: View where Content: View {
 
     var body: some View {
         content()
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .frame(width: screenWidth, height: screenHeight)
             .background(
               LinearGradient(
                 stops: [

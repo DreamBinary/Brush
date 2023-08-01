@@ -62,31 +62,31 @@ struct EnterInput: ReducerProtocol {
 // MARK: - Feature view
 
 struct EnterInputView: View {
-    let textFieldHeight:Double=30
-    
+    let textFieldHeight: Double = 30
+
     let store: StoreOf<EnterInput>
-    
+
     @FocusState var focusedField: EnterInput.State.Field?
     @State var isSecured: Bool = true
+    @State var isBtnDisabled: Bool = false
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             VStack {
                 TextField("Enter Email", text: vStore.binding(\.$username))
-                    .frame(height:textFieldHeight)
+                    .frame(height: self.textFieldHeight)
                     .font(.callout)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
                     .background(Color(0xA1D6CD, 0.26))
                     .cornerRadius(5)
                     .focused(self.$focusedField, equals: .username)
-                    
-                
+
                 ZStack(alignment: .trailing) {
                     Group {
                         if self.isSecured {
-                            SecureField("Password", text: vStore.binding(\.$password)).frame(height:textFieldHeight)
+                            SecureField("Password", text: vStore.binding(\.$password)).frame(height: self.textFieldHeight)
                         } else {
-                            TextField("Password", text: vStore.binding(\.$password)).frame(height:textFieldHeight)
+                            TextField("Password", text: vStore.binding(\.$password)).frame(height: self.textFieldHeight)
                         }
                     }.font(.callout)
                         .padding(.trailing, 32)
@@ -106,19 +106,26 @@ struct EnterInputView: View {
                     Spacer()
                     Button {
                         vStore.send(.changeType)
+                        self.isBtnDisabled = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            self.isBtnDisabled = false
+                        }
                     } label: {
                         Text(vStore.type == .SignUp ? "Log in" : "Sign Up")
                             .font(.caption)
                             .foregroundColor(.gray)
-                    }
+                    }.disabled(self.isBtnDisabled)
                 }
                 Button(action: {
                     vStore.send(.signInTapped)
+
                 }, label: {
                     Text(vStore.type == .Login ? "Log in" : "Sign Up")
                         .bold()
                         .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                }).buttonStyle(RoundedAndShadowButtonStyle(foregroundColor: Color(0x084A5E), backgroundColor: Color(0x99EADC, 0.64), cornerRadius: 5)).frame(height:textFieldHeight*2)
+                }).buttonStyle(RoundedAndShadowButtonStyle(foregroundColor: Color(0x084A5E), backgroundColor: Color(0x99EADC, 0.64), cornerRadius: 5))
+                    .frame(height: self.textFieldHeight * 2)
+
             }.synchronize(vStore.binding(\.$focus), self.$focusedField)
         }
     }
@@ -138,8 +145,8 @@ extension View {
 
 // MARK: - SwiftUI previews
 
-//#if DEBUG
-//struct EnterInputView_Previews: PreviewProvider {
+// #if DEBUG
+// struct EnterInputView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        EnterInputView(
 //            store: Store(
@@ -148,5 +155,5 @@ extension View {
 //            )
 //        )
 //    }
-//}
-//#endif
+// }
+// #endif
