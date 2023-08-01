@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BgView<Content>: View where Content: View {
-    var name: String
     var content: () -> Content
 
     var body: some View {
@@ -28,17 +27,10 @@ struct BgView<Content>: View where Content: View {
     }
 }
 
-extension BgView {
-    init(_ name: String, @ViewBuilder _ content: @escaping () -> Content) {
-        self.name = name
-        self.content = content
-    }
-}
-
 struct BgView_Previews: PreviewProvider {
     static var previews: some View {
-        BgView(name: "MineBg") {
-            Text("Hello")
+        BgView(){
+            Spacer()
         }
     }
 }

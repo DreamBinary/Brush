@@ -39,7 +39,7 @@ struct MineView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { _ in
             
-            BgView("MineBg") {
+            BgView() {
                 VStack {
                     ZStack {
                         Rectangle()
