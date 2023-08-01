@@ -9,19 +9,26 @@ import SwiftUI
 
 struct Start: View {
     var onStart: () -> Void
+    @State var isStarted = false
     var body: some View {
         BgColor(.primary) {
             ZStack {
                 AnimViolin()
-                
+
                 AnimNote()
-                
-                Text("Start!")
-                    .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.5))
-                    .fontWeight(.bold)
-                    .onTapGesture {
+
+                if isStarted {
+                    CountDown {
                         onStart()
                     }
+                } else {
+                    Text("Start!")
+                        .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.5))
+                        .fontWeight(.bold)
+                        .onTapGesture {
+                            isStarted.toggle()
+                        }
+                }
             }
         }
     }
@@ -29,6 +36,6 @@ struct Start: View {
 
 struct Start_Previews: PreviewProvider {
     static var previews: some View {
-        Start(){}
+        Start {}
     }
 }
