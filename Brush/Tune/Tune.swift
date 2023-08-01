@@ -42,7 +42,9 @@ struct TuneView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            
+            VStack {
+                Text("Hello")
+            }
         }
     }
 }

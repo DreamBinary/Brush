@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Avatar: View {
-    var radius: CGFloat = 60
+    var radius: CGFloat = 30
     var img: String = "Avatar"
     var fillColor: Color = .black
     var body: some View {
@@ -18,7 +18,7 @@ struct Avatar: View {
             Image(img)
                 .resizable()
                 .padding(.all, 10)
-        }.frame(width: radius, height: radius)
+        }.frame(width: radius * 2, height: radius * 2)
     }
 }
 

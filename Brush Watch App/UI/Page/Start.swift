@@ -14,8 +14,10 @@ struct Start: View {
         BgColor(.primary) {
             ZStack {
                 AnimViolin()
-
-                AnimNote()
+                
+                if !isStarted {
+                    AnimNote()
+                }
 
                 if isStarted {
                     CountDown {

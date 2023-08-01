@@ -13,33 +13,27 @@ import SwiftUI
 struct Route: ReducerProtocol {
     struct State: Equatable {
         @BindingState var selection: Int = 0
-        var record = Record.State()
         var tune = Tune.State()
-        var home = Home.State()
         var analysis = Analysis.State()
         var mine = Mine.State()
     }
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
-        case record(Record.Action)
         case tune(Tune.Action)
-        case home(Home.Action)
         case analysis(Analysis.Action)
         case mine(Mine.Action)
     }
 
     var body: some ReducerProtocol<State, Action> {
-        Scope(state: \.record, action: /Action.record) { Record() }
         Scope(state: \.tune, action: /Action.tune) { Tune() }
-        Scope(state: \.home, action: /Action.home) { Home() }
         Scope(state: \.analysis, action: /Action.analysis) { Analysis() }
         Scope(state: \.mine, action: /Action.mine) { Mine() }
 
         BindingReducer()
         Reduce { _, action in
             switch action {
-                case .binding, .record, .tune, .home, .analysis, .mine:
+                case .binding, .tune, .analysis, .mine:
                     return .none
             }
         }
@@ -54,23 +48,23 @@ struct RouteView: View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             ZStack(alignment: .bottom) {
                 TabView(selection: vStore.binding(\.$selection)) {
-                    RecordView(
-                        store: store.scope(state: \.record, action: Route.Action.record)
+                    AnalysisView(
+                        store: store.scope(state: \.analysis, action: Route.Action.analysis)
                     ).tag(0)
                     TuneView(
                         store: store.scope(state: \.tune, action: Route.Action.tune)
                     ).tag(1)
-                    HomeView(
-                        store: store.scope(state: \.home, action: Route.Action.home)
-                    ).tag(2)
-                    AnalysisView(
-                        store: store.scope(state: \.analysis, action: Route.Action.analysis)
-                    ).tag(3)
+            
                     MineView(
                         store: store.scope(state: \.mine, action: Route.Action.mine)
-                    ).tag(4)
+                    ).tag(2)
                 }.edgesIgnoringSafeArea(.all)
-                MyTabBar(selectedIndex: vStore.binding(\.$selection))
+                    .padding(.bottom, MyTabBar.height + 8)
+                HStack {
+                    Spacer()
+                    MyTabBar(selectedIndex: vStore.binding(\.$selection))
+                    Spacer()
+                }.background(.white)
             }.onAppear {
                 UITabBar.appearance().isHidden = true
             }
