@@ -29,9 +29,10 @@ struct EnterInput: ReducerProtocol {
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
-        case signInTapped
+        case loginTapped
+        case loginSuccess(User)
+        case loginFail
         case changeType
-        //        case secureChange
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -47,12 +48,28 @@ struct EnterInput: ReducerProtocol {
                         state.type = .Login
                     }
                     return .none
-                case .signInTapped:
+
+                case .loginTapped:
+                    // TODO: signup tap
                     if state.username.isEmpty {
                         state.focus = .username
                     } else if state.password.isEmpty {
                         state.focus = .password
+                    } else {
+                        // TODO: use moya ?
+                        return .task { [email = state.username, plainPassword = state.password] in
+                            let u: User? = try await ApiClient.request(Url.login, method: .POST, params: ["email": email,"plainPassword": plainPassword])
+                            return u == .none ? .loginFail : .loginSuccess(u!)
+                        }
                     }
+                    return .none
+                    
+                case let .loginSuccess(user):
+                    DataUtil.saveUser(user)
+                    return .none
+
+                case .loginFail:
+                    // TODO: fail fallback
                     return .none
             }
         }
@@ -117,7 +134,7 @@ struct EnterInputView: View {
                     }.disabled(self.isBtnDisabled)
                 }
                 Button(action: {
-                    vStore.send(.signInTapped)
+                    vStore.send(.loginTapped)
 
                 }, label: {
                     Text(vStore.type == .Login ? "Log in" : "Sign Up")

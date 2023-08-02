@@ -35,8 +35,8 @@ struct Main: ReducerProtocol {
         BindingReducer()
         Reduce { state, action in
             switch action {
-                case .login(.enterInput(.signInTapped)):
-                    withAnimation(.easeInOut) {
+                case .login(.enterInput(.loginSuccess)):
+                    withAnimation(.interactiveSpring()) {
                         state.isLogin.toggle()
                     }
                     return .none

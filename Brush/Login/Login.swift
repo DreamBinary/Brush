@@ -97,7 +97,6 @@ class PurpleToothStatus: Equatable {
 struct LoginView: View {
     let store: StoreOf<Login>
     
-    
     // 是否展示登录状态字段
     //    @State private var loginViewActive = false
     // 紫色卡片的状态
@@ -113,7 +112,7 @@ struct LoginView: View {
     //    let tuneBrushBtnGreen=TuneBrushBtnStatus(bgColor: Color(0xBEFFD0), radius: 40, opacity: 0.81)
     
     // 动画命名空间
-//    @Namespace var animation
+    //    @Namespace var animation
     
     //    struct PurpleToothSatus {
     //        var x: Double=0
@@ -128,14 +127,14 @@ struct LoginView: View {
     //        var radius: Double=30
     //        var opacity: Double=0.57
     //    }
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             BgView {
                 ZStack {
                     // Z第一层
                     FirstView(isRemove: vStore.isLoginView)
-                        
+                    
                     // Z第二层
                     VStack {
                         HStack {
@@ -149,39 +148,29 @@ struct LoginView: View {
                         }
                         Spacer()
                     }
-                        
+                    
                     // Z第三层
-                        
                     VStack {
                         Spacer()
-                             
-                        Rectangle()
-                            .foregroundColor(.clear)
-                            .frame(width: screenWidth, height: screenHeight * 0.5)
-                            .background(Color(red: 0.99, green: 0.99, blue: 0.99))
-                            .cornerRadius(16)
-                            .overlay(
-                                VStack {
-                                    VStack(alignment: .leading, spacing: 12) {
-                                        Spacer()
-                                        Text(vStore.isLogin
-                                            ? "Hi There,\nWelcome back!"
-                                            : "Hi There,\nHave an account!"
-                                        ).font(.system(size: 32)) // 使用自定义字体和字体大小
-                                            .fontWeight(.bold) // 设置字体粗细
-                                            .padding(.bottom, 10)
-                                        EnterInputView(
-                                            store: store.scope(state: \.enterInput, action: Login.Action.enterInput)
-                                        )
-                                        EnterWay().padding(.vertical, 10)
-                                        Spacer()
-                                    }.frame(width: UIScreen.main.bounds.width * 0.7)
-                                    Spacer()
-                                }
-                            )
+                        Card(color: Color(red: 0.99, green: 0.99, blue: 0.99), cornerRadius: 15) {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Spacer()
+                                Text(vStore.isLogin
+                                    ? "Hi There,\nWelcome back!"
+                                    : "Hi There,\nHave an account!"
+                                ).font(.system(size: 32)) // 使用自定义字体和字体大小
+                                    .fontWeight(.bold) // 设置字体粗细
+                                    .padding(.bottom, 10)
+                                EnterInputView(
+                                    store: store.scope(state: \.enterInput, action: Login.Action.enterInput)
+                                )
+                                EnterWay().padding(.vertical, 10)
+                                Spacer()
+                            }.frame(width: UIScreen.main.bounds.width * 0.7)
+                        }.frame(width: screenWidth, height: screenHeight * 0.5)
                             .offset(y: vStore.isLoginView ? 0 : screenHeight)
                     }
-                        
+                    
                     // Z第四层
                     VStack {
                         if !vStore.isLoginView {
@@ -192,17 +181,15 @@ struct LoginView: View {
                             color: vStore.brushBtnVm.bgColor,
                             opacity: vStore.brushBtnVm.opacity
                         ).onTapGesture {
-
                             vStore.send(.onBrushBtnTapped)
                         }
                         if !vStore.isLoginView {
-                            Image("StartTuneBrush").padding(.bottom, 50)
+                            Image("StartTuneBrush").padding(.bottom, 50).padding(.top)
                         }
                     }
                 }
             }.animation(.easeInOut(duration: 0.5), value: vStore.isLoginView)
                 .animation(.easeInOut(duration: 0.5), value: vStore.isLogin)
-                
         }
     }
 }
@@ -234,7 +221,6 @@ struct FirstView: View {
 struct ImgText: View {
     var body: some View {
         VStack(spacing: 0) {
-            let _ = print("J")
             TextDisplayView(text: "Let's", fontSize: 80, textColor: .white)
             Image("BrushText")
                 .frame(width: screenWidth, alignment: .bottomLeading)
@@ -302,7 +288,6 @@ struct Login: ReducerProtocol {
                         state.purpleToothVm.toFirst()
                         state.brushBtnVm.change(to: .white)
                     }
-                    
                     return .none
                 case .enterInput, .binding:
                     return .none
