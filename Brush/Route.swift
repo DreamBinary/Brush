@@ -16,6 +16,7 @@ struct Route: ReducerProtocol {
         var tune = Tune.State()
         var analysis = Analysis.State()
         var mine = Mine.State()
+        var isSheetPresented = false
     }
 
     enum Action: BindableAction, Equatable {
@@ -23,6 +24,7 @@ struct Route: ReducerProtocol {
         case tune(Tune.Action)
         case analysis(Analysis.Action)
         case mine(Mine.Action)
+        case setSheet(isPresented: Bool)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -31,8 +33,11 @@ struct Route: ReducerProtocol {
         Scope(state: \.mine, action: /Action.mine) { Mine() }
 
         BindingReducer()
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
+                case let .setSheet(isPresented):
+                    state.isSheetPresented = isPresented
+                    return .none
                 case .binding, .tune, .analysis, .mine:
                     return .none
             }
@@ -51,10 +56,6 @@ struct RouteView: View {
                     AnalysisView(
                         store: store.scope(state: \.analysis, action: Route.Action.analysis)
                     ).tag(0)
-                    TuneView(
-                        store: store.scope(state: \.tune, action: Route.Action.tune)
-                    ).tag(1)
-            
                     MineView(
                         store: store.scope(state: \.mine, action: Route.Action.mine)
                     ).tag(2)
@@ -62,11 +63,22 @@ struct RouteView: View {
                     .padding(.bottom, MyTabBar.height + 8)
                 HStack {
                     Spacer()
-                    MyTabBar(selectedIndex: vStore.binding(\.$selection))
+                    MyTabBar(selectedIndex: vStore.binding(\.$selection)){
+                        vStore.send(.setSheet(isPresented: true))
+                    }
                     Spacer()
                 }.background(.white)
             }.onAppear {
                 UITabBar.appearance().isHidden = true
+            }.sheet(
+                isPresented: vStore.binding(
+                    get: \.isSheetPresented,
+                    send: Route.Action.setSheet(isPresented:)
+                )
+            ) {
+                TuneView(
+                    store: store.scope(state: \.tune, action: Route.Action.tune)
+                ).tag(1)
             }
         }
     }

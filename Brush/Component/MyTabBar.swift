@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct MyTabBar: View {
-    let unSeletedImages = [
+    private let unSeletedImages = [
         "analysis0", "", "mine0"
     ]
-    let seletedImages = [
+    private let seletedImages = [
         "analysis1", "", "mine1"
     ]
     static var height: CGFloat = 60
     var width: CGFloat = UIScreen.main.bounds.width * 0.6
     @Binding var selectedIndex: Int
-
+    var onBrushBtnTap: () -> Void
     var body: some View {
         HStack {
             Spacer()
@@ -29,6 +29,9 @@ struct MyTabBar: View {
                 } label: {
                     if index == 1 {
                         BrushIcon(radius: MyTabBar.height * 0.45)
+                            .onTapGesture {
+                                onBrushBtnTap()
+                            }
                     } else {
                         Image(selectedIndex == index ? seletedImages[index] : unSeletedImages[index])
                     }
@@ -57,6 +60,6 @@ struct BackgroundClearView: UIViewRepresentable {
 struct MyTabBar_Previews: PreviewProvider {
     static var previews: some View {
         @State var index = 1
-        MyTabBar(selectedIndex: $index)
+        MyTabBar(selectedIndex: $index){}
     }
 }

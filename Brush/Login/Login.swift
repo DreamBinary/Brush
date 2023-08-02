@@ -130,7 +130,7 @@ struct LoginView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            BgView {
+            BgColor {
                 ZStack {
                     // Z第一层
                     FirstView(isRemove: vStore.isLoginView)

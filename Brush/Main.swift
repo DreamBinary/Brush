@@ -16,7 +16,7 @@ import SwiftUI
 struct Main: ReducerProtocol {
     
     struct State: Equatable {
-        var isLogin: Bool = false
+        var isLogin: Bool = true
         var route = Route.State()
         var login = Login.State()
         

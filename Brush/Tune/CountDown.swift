@@ -9,42 +9,78 @@ import Combine
 import SwiftUI
 
 struct CountDown: View {
-    @State private var timeRemaining = 5
+    @State private var cnt = 3
     var cancellable: AnyCancellable?
 
     let timer = MyTimer()
 //    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Image("CountDownBg")
-                .resizable()
-                .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
-            VStack(spacing: 5) {
-                Text("准备好了吗？")
-                Text("我们马上要开始啦！")
-                Text("倒计时")
-                    .padding(.top, 40)
-                    .onTapGesture {
-                        self.timeRemaining = 5
-                        self.timer.restart()
-                    }
-                Text("\(self.timeRemaining)")
-                    .foregroundColor(Color(0x7DE2D1))
-                    .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
-                    .onTapGesture {
-                        self.timer.start()
-                    }
-            }.font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.bottom, 160)
+        BgView("CountDownBg") {
+            GeometryReader { geo in
+                let width = geo.size.width
+                let height = geo.size.height
+                ZStack {
+                    CountDownBg()
+                    
+                    
+                                VStack(spacing: 5) {
+                                    Text("准备好了吗？")
+                                    Text("我们马上要开始啦！")
+                                    HStack {
+                                        Spacer()
+                                        Image("DrawLine")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: width / 2)
+                                            .padding(.trailing)
+                                            .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
+                                    }
+                                    Text("倒计时")
+                                        .padding(.top, 40)
+                                    Text("\(self.cnt)")
+                                        .foregroundColor(Color(0x7DE2D1))
+                                        .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
+                                        .onTapGesture {
+                                            self.timer.start()
+                                        }
+                                }.font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .padding(.top, height * 0.4)
+                }
+                
+            }
+        }
+        .onAppear {
+            timer.start()
         }
         .onReceive(self.timer.timer) { _ in
-            if self.timeRemaining > 0 {
-                self.timeRemaining -= 1
+            if self.cnt > 0 {
+                self.cnt -= 1
             } else {
                 self.timer.stop()
             }
+        }
+    }
+}
+
+struct CountDownBg: View {
+    var body: some View {
+        GeometryReader { geo in
+            let width = geo.size.width
+            VStack(spacing: 0) {
+                ZStack {
+                    Image("CountDownBgTop")
+                        .resizable()
+                        .scaledToFit().frame(width: width)
+                    AnimViolin().frame(width: width * 0.65, height:  width * 0.5)
+                }.padding(.top)
+                
+                Spacer()
+                Image("CountDownBgBottom")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: width)
+            }.edgesIgnoringSafeArea(.bottom)
         }
     }
 }

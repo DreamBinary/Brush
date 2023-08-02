@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Section: View {
     var body: some View {
-        BgView() {
+        BgColor() {
             VStack {
                 Image("OutLeftBelow")
                     .resizable()
