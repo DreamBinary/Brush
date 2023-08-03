@@ -40,16 +40,20 @@ struct BrushView: View {
             switch brushState {
                 case .start:
                     StartBrush {
-                        brushState = .countdown
-                    }
+                        withAnimation {
+                            brushState = .countdown
+                        }
+                    }.transition(.move(edge: .top))
 
                 case .countdown:
                     CountDown {
-                        brushState = .inn
-                    }
+                        withAnimation {
+                            brushState = .inn
+                        }
+                    }.transition(.move(edge: .bottom))
 
                 case .inn:
-                    InBrush()
+                    InBrush().transition(.move(edge: .leading))
             }
         }
     }

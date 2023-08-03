@@ -16,7 +16,7 @@ import SwiftUI
 struct Main: ReducerProtocol {
     
     struct State: Equatable {
-        var isLogin: Bool = true
+        var isLogin: Bool = false
         var route = Route.State()
         var login = Login.State()
         
@@ -57,12 +57,11 @@ struct MainView: View {
             if (vStore.isLogin) {
                 RouteView(
                     store: store.scope(state: \.route, action: Main.Action.route)
-                )
+                ).transition(.opacity)
             } else {
                 LoginView(
                     store: store.scope(state: \.login, action: Main.Action.login)
-                )
-                
+                ).transition(.opacity)
             }
         }
     }

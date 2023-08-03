@@ -11,18 +11,18 @@ import SwiftUI
 struct ContentView: View {
     
     var body: some View {
-        BrushView(
-            store: Store(
-                initialState: Brush.State(),
-                reducer: Brush()
-            )
-        )
-//        MainView(
+//        BrushView(
 //            store: Store(
-//                initialState: Main.State(),
-//                reducer: Main()
+//                initialState: Brush.State(),
+//                reducer: Brush()
 //            )
 //        )
+        MainView(
+            store: Store(
+                initialState: Main.State(),
+                reducer: Main()
+            )
+        )
     }
 }
 

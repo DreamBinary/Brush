@@ -33,8 +33,6 @@ struct StartBrush: View {
                         .fontWeight(.regular)
                         .foregroundColor(.fontGray)
                     Spacer()
-                    
-     
                         BrushIcon(
                             radius: 30,
                             color: .white,
@@ -42,8 +40,6 @@ struct StartBrush: View {
                         ).onTapGesture {
                             onStart()
                         }
-
-                    
                     Image("StartTuneBrush").padding(.bottom, 50).padding(.top, 8)
                 }
             }

@@ -10,34 +10,7 @@ import SwiftUI
 struct ContentView: View {
                     
     var body: some View {
-        
-//        NoteAnim()
-//            .background(.white)
         Brush()
-        
-
-//        TabView {
-//            SectionIng(.OLB)
-//            SectionEd(.OLB)
-//
-//            ConnectEar()
-//            Start()
-//            SectionPre(.OLB)
-//            SectionIng(.OLB)
-//            SectionEd()
-//            Tip()
-//            Score()
-//            RemedySelect()
-//            RemedyIng()
-//            Finished()
-//            Start()
-//            ForEach(SectionUtil.sections) { section in
-//                SectionPre(section)
-//                SectionIng(section)
-//                SectionEd(section)
-//            }
-//        }.tabViewStyle(.page(indexDisplayMode: .never))
-//            .edgesIgnoringSafeArea(.all)
     }
 }
 
