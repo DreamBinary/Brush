@@ -11,10 +11,10 @@ import SwiftUI
 struct CountDown: View {
     var onEnd: () -> Void
 
-    @State var cnt = 3
-    @State var scale: Double = 1
-    let timer = MyTimer()
-    let font: Font = .system(size: UIFont.textStyleSize(.largeTitle) * 1.5).bold()
+    @State private var cnt = 3
+    @State private var scale: Double = 1
+    private let timer = MyTimer()
+    private let font: Font = .system(size: UIFont.textStyleSize(.largeTitle) * 1.5).bold()
     var body: some View {
         Text("0")
             .font(self.font)
@@ -46,20 +46,13 @@ struct CountDown: View {
             .onReceive(self.timer.timer) { _ in
                 if self.cnt > 0 {
                     withAnimation(.interactiveSpring()) {
-                        if self.cnt > 0 {
-                            self.cnt -= 1
-                        } else {
-                            self.cnt = 3
-                        }
+                        self.cnt -= 1
                     }
                     self.textScale()
                 } else {
                     self.timer.stop()
                     self.onEnd()
                 }
-            }
-            .onTapGesture {
-                self.cnt = 3
             }
     }
 
