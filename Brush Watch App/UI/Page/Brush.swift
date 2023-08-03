@@ -25,27 +25,31 @@ struct Brush: View {
 //                    }
                 case .pre:
                     SectionPre(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             changePage()
                         }
                     }
                 case .ing:
                     SectionIng(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             changePage()
                         }
                     }
                 case .ed:
                     SectionEd(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             changePage()
                         }
                     }
                 case .finish:
                     Finish {
-                        brushState = .start
+                        cSection = .OLB
+                        changePage()
                     }
-                
+                case .score:
+                    Score {
+                        changePage()
+                    }
             }
         }
     }
@@ -70,6 +74,8 @@ struct Brush: View {
                     case .ed:
                         return .pre
                     case .finish:
+                        return .score
+                    case .score:
                         return .start
                 }
             }()
@@ -84,6 +90,7 @@ enum BrushState {
     case ing
     case ed
     case finish
+    case score
 }
 
 struct BrushIng_Previews: PreviewProvider {

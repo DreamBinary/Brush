@@ -66,6 +66,7 @@
 		A0C167E72A793148004B7F51 /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167E62A793148004B7F51 /* ObservableScrollView.swift */; };
 		A0C167EA2A7944DA004B7F51 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167E92A7944DA004B7F51 /* Main.swift */; };
 		A0C167ED2A795A78004B7F51 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167EC2A795A78004B7F51 /* Constant.swift */; };
+		A0CACD902A7B9CA5005CDDD4 /* CircleScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CACD8F2A7B9CA5005CDDD4 /* CircleScore.swift */; };
 		A0D154672A7B306300C6BAEF /* BrushUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D154662A7B306300C6BAEF /* BrushUtil.swift */; };
 		A0D154692A7B3A3200C6BAEF /* PhoneUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D154682A7B3A3200C6BAEF /* PhoneUtil.swift */; };
 		A0D1546B2A7B402E00C6BAEF /* InBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D1546A2A7B402E00C6BAEF /* InBrush.swift */; };
@@ -79,8 +80,6 @@
 		A0D6C5142A47CC6C00C4DA84 /* RemedySelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */; };
 		A0D6C5162A47D07C00C4DA84 /* RemedyIng.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */; };
 		A0D6C5182A47D15B00C4DA84 /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5172A47D15B00C4DA84 /* Tip.swift */; };
-		A0D6C51A2A47D1DE00C4DA84 /* ConnectEar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5192A47D1DE00C4DA84 /* ConnectEar.swift */; };
-		A0D6C51C2A47D52400C4DA84 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C51B2A47D52400C4DA84 /* PageView.swift */; };
 		A0DA4B252A46B81E009CA236 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B242A46B81E009CA236 /* Result.swift */; };
 		A0DA4B272A46BA45009CA236 /* BrushIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B262A46BA45009CA236 /* BrushIcon.swift */; };
 		A0DA4B2B2A46BEF8009CA236 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */; };
@@ -210,6 +209,7 @@
 		A0C167E62A793148004B7F51 /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
 		A0C167E92A7944DA004B7F51 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		A0C167EC2A795A78004B7F51 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		A0CACD8F2A7B9CA5005CDDD4 /* CircleScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleScore.swift; sourceTree = "<group>"; };
 		A0D154652A7B2CA200C6BAEF /* Brush-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Brush-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A0D154662A7B306300C6BAEF /* BrushUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushUtil.swift; sourceTree = "<group>"; };
 		A0D154682A7B3A3200C6BAEF /* PhoneUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneUtil.swift; sourceTree = "<group>"; };
@@ -224,8 +224,6 @@
 		A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemedySelect.swift; sourceTree = "<group>"; };
 		A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemedyIng.swift; sourceTree = "<group>"; };
 		A0D6C5172A47D15B00C4DA84 /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
-		A0D6C5192A47D1DE00C4DA84 /* ConnectEar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectEar.swift; sourceTree = "<group>"; };
-		A0D6C51B2A47D52400C4DA84 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		A0DA4B242A46B81E009CA236 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		A0DA4B262A46BA45009CA236 /* BrushIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushIcon.swift; sourceTree = "<group>"; };
 		A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
@@ -392,6 +390,7 @@
 				A0581FA72A41DBEF00710C4B /* BrushApp.swift */,
 				A09E219B2A66C8540012C6BB /* Extension */,
 				A0581FAB2A41DBF000710C4B /* Assets.xcassets */,
+				A0CACD8E2A7B9AB4005CDDD4 /* RM */,
 			);
 			path = "Brush Watch App";
 			sourceTree = "<group>";
@@ -525,19 +524,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A0CACD8E2A7B9AB4005CDDD4 /* RM */ = {
+			isa = PBXGroup;
+			children = (
+				A04255D02A6916A500D38A16 /* AnimCheck.swift */,
+				A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */,
+				A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */,
+			);
+			path = RM;
+			sourceTree = "<group>";
+		};
 		A0D6C50E2A47CAC200C4DA84 /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				A0F5B55C2A681264001D5EA4 /* BgColor.swift */,
 				A0D6C5042A47C42100C4DA84 /* BgView.swift */,
-				A0D6C51B2A47D52400C4DA84 /* PageView.swift */,
 				A02A842F2A482C20003255A5 /* VoiceBgAnimation.swift */,
 				A02A84312A482FBC003255A5 /* VoiceAnimation.swift */,
 				A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */,
-				A04255D02A6916A500D38A16 /* AnimCheck.swift */,
 				A04255D22A6916C000D38A16 /* AnimCheckCircle.swift */,
 				A068907F2A6AAEF400AD2374 /* AnimNote.swift */,
 				A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */,
+				A0CACD8F2A7B9CA5005CDDD4 /* CircleScore.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -556,18 +564,15 @@
 		A0F5B55F2A6815F7001D5EA4 /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				A04255CE2A69095100D38A16 /* Brush.swift */,
 				A0F5D5BD2A47202300C4091D /* Start.swift */,
+				A040AD532A77D511002EF68A /* CountDown.swift */,
 				A0D6C5082A47C64100C4DA84 /* SectionPre.swift */,
 				A0D6C50A2A47C74300C4DA84 /* SectionIng.swift */,
 				A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */,
-				A0D6C50F2A47CB0B00C4DA84 /* Finish.swift */,
 				A0D6C5112A47CC2100C4DA84 /* Score.swift */,
-				A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */,
-				A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */,
+				A0D6C50F2A47CB0B00C4DA84 /* Finish.swift */,
 				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
-				A0D6C5192A47D1DE00C4DA84 /* ConnectEar.swift */,
-				A04255CE2A69095100D38A16 /* Brush.swift */,
-				A040AD532A77D511002EF68A /* CountDown.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -909,12 +914,11 @@
 				A02A84322A482FBC003255A5 /* VoiceAnimation.swift in Sources */,
 				A03B6D152A6D316B00FFC5E2 /* AnimViolin.swift in Sources */,
 				A0B553E72A6979AD0016E819 /* SpeakUtil.swift in Sources */,
-				A0D6C51A2A47D1DE00C4DA84 /* ConnectEar.swift in Sources */,
-				A0D6C51C2A47D52400C4DA84 /* PageView.swift in Sources */,
 				A04255CF2A69095100D38A16 /* Brush.swift in Sources */,
 				A0D6C5052A47C42100C4DA84 /* BgView.swift in Sources */,
 				A0D6C5182A47D15B00C4DA84 /* Tip.swift in Sources */,
 				A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */,
+				A0CACD902A7B9CA5005CDDD4 /* CircleScore.swift in Sources */,
 				A0D6C50B2A47C74300C4DA84 /* SectionIng.swift in Sources */,
 				A0D6C5102A47CB0B00C4DA84 /* Finish.swift in Sources */,
 				A09E219D2A66C86F0012C6BB /* Weight.swift in Sources */,

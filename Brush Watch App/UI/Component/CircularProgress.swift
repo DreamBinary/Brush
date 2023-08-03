@@ -9,44 +9,51 @@ import SwiftUI
 
 import SwiftUI
 
-struct CircularProgressView<Content>: View where Content: View {
+struct CircularProgressView: View {
     var score: Int = 0
-    let backgroundColor: Color = .init(0x7DE2D1, 0.34)
-    let foregroundColor: Color = .init(0x7DE2D1)
+    var backgroundColor: Color = .init(0x7DE2D1, 0.34)
+    var foregroundColors: [Color] = [.red, .blue]
     var lineWidth: Double = 10
     var radius: Double = 40
+    @State private var value: Double = 0
 
-    var content: () -> Content
     var body: some View {
+        let selectPoints: [UnitPoint] = RandomUtil.rSelect(data: [.topLeading, .top, .topTrailing, .trailing, .bottomTrailing, .bottom, .bottomLeading, .leading], num: 2)
         ZStack {
-            ZStack {
-                Circle()
-                    .stroke(
-                        backgroundColor,
-                        lineWidth: lineWidth
+            Circle()
+                .stroke(
+                    backgroundColor,
+                    lineWidth: lineWidth
+                )
+            Circle()
+                .trim(from: 0, to: value)
+                .stroke(
+                    LinearGradient(colors: foregroundColors, startPoint: selectPoints[0], endPoint: selectPoints[1]),
+                    style: StrokeStyle(
+                        lineWidth: lineWidth,
+                        lineCap: .round
                     )
-                Circle()
-                    .trim(from: 0, to: CGFloat(score) / 100)
-                    .stroke(
-                        foregroundColor,
-                        style: StrokeStyle(
-                            lineWidth: lineWidth,
-                            lineCap: .round
-                        )
-                    )
-                    .rotationEffect(.degrees(-90))
-                    .animation(.interactiveSpring(), value: CGFloat(score) / 100)
-            }
-            content().frame(width: radius * 2 - 2 * lineWidth,
-                            height: radius * 2 - 2 * lineWidth)
+                )
+                .rotationEffect(.degrees(-90))
         }.frame(width: radius * 2, height: radius * 2)
+            .onAppear {
+                animate()
+            }
+            .onTapGesture {
+                value = 0
+                animate()
+            }
+    }
+
+    func animate() {
+        withAnimation(.interactiveSpring(response: 1)) {
+            value = Double(score) / 100
+        }
     }
 }
 
 struct CircleProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        CircularProgressView(score: 60) {
-            Image(systemName: "checkmark")
-        }
+        CircularProgressView(score: 60)
     }
 }

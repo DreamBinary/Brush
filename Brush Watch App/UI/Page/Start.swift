@@ -13,23 +13,23 @@ struct Start: View {
     var body: some View {
         BgColor(.primary) {
             ZStack {
-                AnimViolin()
-                
                 if !isStarted {
-                    AnimNote()
+                    AnimViolin().transition(.opacity)
                 }
+                
+                AnimNote()
 
                 if isStarted {
                     CountDown {
                         onStart()
-                    }
+                    }.transition(.opacity)
                 } else {
                     Text("Start!")
                         .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.5))
                         .fontWeight(.bold)
                         .onTapGesture {
                             isStarted.toggle()
-                        }
+                        }.transition(.opacity)
                 }
             }
         }
