@@ -13,7 +13,7 @@ import SwiftUI
 struct Route: ReducerProtocol {
     struct State: Equatable {
         @BindingState var selection: Int = 0
-        var tune = Tune.State()
+        var brush = Brush.State()
         var analysis = Analysis.State()
         var mine = Mine.State()
         var isSheetPresented = false
@@ -21,14 +21,14 @@ struct Route: ReducerProtocol {
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
-        case tune(Tune.Action)
+        case brush(Brush.Action)
         case analysis(Analysis.Action)
         case mine(Mine.Action)
         case setSheet(isPresented: Bool)
     }
 
     var body: some ReducerProtocol<State, Action> {
-        Scope(state: \.tune, action: /Action.tune) { Tune() }
+        Scope(state: \.brush, action: /Action.brush) { Brush() }
         Scope(state: \.analysis, action: /Action.analysis) { Analysis() }
         Scope(state: \.mine, action: /Action.mine) { Mine() }
 
@@ -38,7 +38,7 @@ struct Route: ReducerProtocol {
                 case let .setSheet(isPresented):
                     state.isSheetPresented = isPresented
                     return .none
-                case .binding, .tune, .analysis, .mine:
+                case .binding, .brush, .analysis, .mine:
                     return .none
             }
         }
@@ -76,8 +76,8 @@ struct RouteView: View {
                     send: Route.Action.setSheet(isPresented:)
                 )
             ) {
-                TuneView(
-                    store: store.scope(state: \.tune, action: Route.Action.tune)
+                BrushView(
+                    store: store.scope(state: \.brush, action: Route.Action.brush)
                 ).tag(1)
             }
         }

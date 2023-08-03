@@ -15,7 +15,6 @@ struct VoiceAnimation: View {
         52, 70, 42, 15, 36
     ]
     @State var current = 0.0
-    @State var flag = true
     let timer = MyTimer(interval: 0.001)
     var body: some View {
         HStack(spacing: 5) {
@@ -28,15 +27,12 @@ struct VoiceAnimation: View {
                         .repeatForever(autoreverses: true)
                         .delay(delayTime), value: height[index])
             }
-        }.onTapGesture {
-            if flag {
+        }.frame(height: 76 * 1.5) // maxHeight * 1.5
+        .onAppear {
                 for i in height.indices {
                     height[i] *= 1.5
                 }
                 self.timer.start()
-                flag = false
-            }
-            
         }.onReceive(self.timer.timer) { _ in
             if self.current < 15 {
                 self.current += 0.001

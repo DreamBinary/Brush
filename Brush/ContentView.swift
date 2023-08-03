@@ -9,16 +9,20 @@ import ComposableArchitecture
 import SwiftUI
 
 struct ContentView: View {
-    // 登录状态字段
-    @State private var isLogin = false
     
     var body: some View {
-        MainView(
+        BrushView(
             store: Store(
-                initialState: Main.State(),
-                reducer: Main()
+                initialState: Brush.State(),
+                reducer: Brush()
             )
         )
+//        MainView(
+//            store: Store(
+//                initialState: Main.State(),
+//                reducer: Main()
+//            )
+//        )
     }
 }
 
