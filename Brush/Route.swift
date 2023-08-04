@@ -50,7 +50,16 @@ struct Route: ReducerProtocol {
 struct RouteView: View {
     let store: StoreOf<Route>
     var body: some View {
+
+        
         WithViewStore(self.store, observe: { $0 }) { vStore in
+            let util = WatchUtil() { msg in
+                if ((msg["start"] != nil) == true) {
+                    vStore.send(.setSheet(isPresented: true))
+                } else if ((msg["finish"] != nil) == true) {
+                    vStore.send(.setSheet(isPresented: false))
+                }
+            }
             ZStack(alignment: .bottom) {
                 TabView(selection: vStore.binding(\.$selection)) {
                     AnalysisView(
@@ -77,7 +86,8 @@ struct RouteView: View {
                 )
             ) {
                 BrushView(
-                    store: store.scope(state: \.brush, action: Route.Action.brush)
+                    store: store.scope(state: \.brush, action: Route.Action.brush),
+                    util: util
                 ).tag(1)
             }
         }

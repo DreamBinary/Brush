@@ -11,18 +11,26 @@ import SwiftUI
 struct ContentView: View {
     
     var body: some View {
+//        TmpExchange()
+        RouteView(
+            store: Store(
+                initialState: Route.State(),
+                reducer: Route()
+            )
+        )
+//        TmpExchange()
 //        BrushView(
 //            store: Store(
 //                initialState: Brush.State(),
 //                reducer: Brush()
 //            )
 //        )
-        MainView(
-            store: Store(
-                initialState: Main.State(),
-                reducer: Main()
-            )
-        )
+//        MainView(
+//            store: Store(
+//                initialState: Main.State(),
+//                reducer: Main()
+//            )
+//        )
 //        ZStack(alignment: .center) {
 //            SquareIconView(iconImage: vStore.purpleToothVm.image, color: vStore.purpleToothVm.color, sideLength: 200)
 //                .rotationEffect(Angle(degrees: vStore.purpleToothVm.angle), anchor: .center)

@@ -16,7 +16,7 @@ struct CountDown: View {
                     let width = geo.size.width
                     let height = geo.size.height
                     ZStack {
-                        CountDownBg()
+//                        CountDownBg()
 
                         VStack(spacing: 5) {
                             Text("准备好了吗？")
@@ -33,7 +33,6 @@ struct CountDown: View {
                             Text("倒计时")
                                 .padding(.top, 40)
                             CountDownNum(onEnd: onEnd)
-
                         }.font(.largeTitle)
                             .fontWeight(.bold)
                             .padding(.top, height * 0.4)
@@ -67,10 +66,11 @@ struct CountDownBg: View {
 
 struct CountDownNum: View {
     var onEnd: () -> Void
+    
     @State private var cnt = 3
     @State private var scale: Double = 1
-    private let font: Font = .system(size: UIFont.textStyleSize(.largeTitle) * 1.5).bold()
     private let timer = MyTimer()
+    private let font: Font = .system(size: UIFont.textStyleSize(.largeTitle) * 1.5).bold()
     var body: some View {
         Text("0")
             .font(self.font)
@@ -88,7 +88,6 @@ struct CountDownNum: View {
                                 .foregroundColor(Color(0x7DE2D1))
                                 .font(self.font)
                                 .frame(width: width, height: height, alignment: .center)
-                                .foregroundColor(.white)
                         }
                     }
                     .offset(y: -height * CGFloat(self.cnt))
@@ -96,14 +95,12 @@ struct CountDownNum: View {
             }
             .clipped()
             .onAppear {
-                print("appear")
                 self.textScale()
                 self.timer.start()
             }
             .onReceive(self.timer.timer) { _ in
                 if self.cnt > 0 {
                     withAnimation(.interactiveSpring()) {
-                        let _ = print("fasd")
                         self.cnt -= 1
                     }
                     self.textScale()
@@ -113,12 +110,12 @@ struct CountDownNum: View {
                 }
             }
     }
-
+    
     func textScale() {
         withAnimation(.easeIn(duration: 0.2)) {
             self.scale = 1.5
         }
-        withAnimation(.easeOut(duration: 0.8).delay(0.5)) {
+        withAnimation(.easeOut(duration: 0.8).delay(0.2)) {
             self.scale = 1.0
         }
     }
@@ -128,21 +125,21 @@ class MyTimer {
     var interval = 1.0
     var timer: Timer.TimerPublisher
     var cancellable: AnyCancellable?
-
+    
     init(interval: Double = 1.0) {
         self.interval = interval
         self.timer = Timer.TimerPublisher(interval: interval, runLoop: .main, mode: .default)
     }
-
+    
     func restart() {
         self.timer = Timer.TimerPublisher(interval: 1.0, runLoop: .main, mode: .default)
         self.cancellable = self.timer.connect() as? AnyCancellable
     }
-
+    
     func stop() {
         self.cancellable?.cancel()
     }
-
+    
     func start() {
         self.cancellable = self.timer.connect() as? AnyCancellable
     }

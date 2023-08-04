@@ -17,6 +17,7 @@ struct Tmp: View {
     @State var isStart = false
     var body: some View {
         let path: String = Logger.path ?? "none"
+        
         VStack {
             Text("\(path)")
             Text("\(x)")
@@ -42,6 +43,7 @@ struct Tmp: View {
                     }
                 } else {
                     player.stop()
+                    util.stopAccelerometers()
                     Logger.logi("View disappeared") // 保存调试信息到文件
                 }
             }

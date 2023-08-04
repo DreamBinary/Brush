@@ -21,6 +21,9 @@
 		A03252352A7BF509002EEB5C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03252342A7BF509002EEB5C /* Logger.swift */; };
 		A03252382A7BF523002EEB5C /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = A03252372A7BF523002EEB5C /* CocoaLumberjack */; };
 		A032523A2A7BF523002EEB5C /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A03252392A7BF523002EEB5C /* CocoaLumberjackSwift */; };
+		A0333C822A7D163700E20F8E /* WatchUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0333C812A7D163700E20F8E /* WatchUtil.swift */; };
+		A0333C842A7D1B9300E20F8E /* TmpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0333C832A7D1B9300E20F8E /* TmpExchange.swift */; };
+		A0333C862A7D1D6F00E20F8E /* TmpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0333C852A7D1D6F00E20F8E /* TmpExchange.swift */; };
 		A03B6D152A6D316B00FFC5E2 /* AnimViolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */; };
 		A040AD542A77D511002EF68A /* CountDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A040AD532A77D511002EF68A /* CountDown.swift */; };
 		A04255CF2A69095100D38A16 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255CE2A69095100D38A16 /* Brush.swift */; };
@@ -165,6 +168,9 @@
 		A0300C4F2A446E010056496E /* EnterWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWay.swift; sourceTree = "<group>"; };
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
 		A03252342A7BF509002EEB5C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		A0333C812A7D163700E20F8E /* WatchUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchUtil.swift; sourceTree = "<group>"; };
+		A0333C832A7D1B9300E20F8E /* TmpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpExchange.swift; sourceTree = "<group>"; };
+		A0333C852A7D1D6F00E20F8E /* TmpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpExchange.swift; sourceTree = "<group>"; };
 		A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimViolin.swift; sourceTree = "<group>"; };
 		A040AD532A77D511002EF68A /* CountDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDown.swift; sourceTree = "<group>"; };
 		A04255CE2A69095100D38A16 /* Brush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
@@ -350,6 +356,7 @@
 				A00913152A430B1600057B4E /* Theme.swift */,
 				A0C167E92A7944DA004B7F51 /* Main.swift */,
 				A0581FDE2A41E7F900710C4B /* Route.swift */,
+				A0333C852A7D1D6F00E20F8E /* TmpExchange.swift */,
 				A09E21942A66C5B10012C6BB /* Extension */,
 				A06684E02A42F81100D27BF3 /* Component */,
 				588C8C992A6AAE0E00DD8A65 /* Login */,
@@ -533,6 +540,7 @@
 			children = (
 				A0C167EC2A795A78004B7F51 /* Constant.swift */,
 				A045D3112A7A37AA0009EF7B /* DataUtil.swift */,
+				A0333C812A7D163700E20F8E /* WatchUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -571,6 +579,7 @@
 				A0F5B55F2A6815F7001D5EA4 /* Page */,
 				A0D6C50E2A47CAC200C4DA84 /* Component */,
 				A0B0E3CB2A7BF4B000AF6572 /* Tmp.swift */,
+				A0333C832A7D1B9300E20F8E /* TmpExchange.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -878,10 +887,12 @@
 				A0300C502A446E010056496E /* EnterWay.swift in Sources */,
 				A045D3102A7A31B70009EF7B /* User.swift in Sources */,
 				A09E21982A66C6240012C6BB /* CornerRadius.swift in Sources */,
+				A0333C862A7D1D6F00E20F8E /* TmpExchange.swift in Sources */,
 				A00913162A430B1600057B4E /* Theme.swift in Sources */,
 				A0A9FF092A45CC8A00305294 /* Rating.swift in Sources */,
 				A0A9FF0B2A45D39500305294 /* FinishBrush.swift in Sources */,
 				A00913182A432D7F00057B4E /* Avatar.swift in Sources */,
+				A0333C822A7D163700E20F8E /* WatchUtil.swift in Sources */,
 				A0A9FF072A45C64400305294 /* Test.swift in Sources */,
 				A0F5D5BC2A46FE1D00C4091D /* HotWord.swift in Sources */,
 				A06B6E292A7A2799001614D4 /* Url.swift in Sources */,
@@ -926,6 +937,7 @@
 				A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */,
 				A0D6C5072A47C4AE00C4DA84 /* Theme.swift in Sources */,
 				A02A84302A482C20003255A5 /* VoiceBgAnimation.swift in Sources */,
+				A0333C842A7D1B9300E20F8E /* TmpExchange.swift in Sources */,
 				A0D6C5122A47CC2100C4DA84 /* Score.swift in Sources */,
 				A0D154672A7B306300C6BAEF /* MotionUtil.swift in Sources */,
 				A06890802A6AAEF400AD2374 /* AnimNote.swift in Sources */,

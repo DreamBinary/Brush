@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CountDown: View {
     var onEnd: () -> Void
-
     @State private var cnt = 3
     @State private var scale: Double = 1
     private let timer = MyTimer()
@@ -32,7 +31,6 @@ struct CountDown: View {
                                 .foregroundColor(.white)
                                 .font(self.font)
                                 .frame(width: width, height: height, alignment: .center)
-                                .foregroundColor(.white)
                         }
                     }
                     .offset(y: -height * CGFloat(self.cnt))
@@ -60,7 +58,7 @@ struct CountDown: View {
         withAnimation(.easeIn(duration: 0.2)) {
             self.scale = 1.5
         }
-        withAnimation(.easeOut(duration: 0.8).delay(0.5)) {
+        withAnimation(.easeOut(duration: 0.8).delay(0.2)) {
             self.scale = 1.0
         }
     }

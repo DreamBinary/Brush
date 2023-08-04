@@ -22,6 +22,7 @@ class Logger {
         fileLogger.logFileManager.maximumNumberOfLogFiles = 7 // 最多保存7天的日志文件
         fileLogger.maximumFileSize = 1024 * 1024 * 100 // 100 MB
         path = fileLogger.logFileManager.logsDirectory
+        print("\(fileLogger.logFileManager.description)")
         print("\(fileLogger.logFileManager.logsDirectory)")
         
         // 添加文件日志输出

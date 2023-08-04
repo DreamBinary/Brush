@@ -9,14 +9,22 @@ import SwiftUI
 
 struct Brush: View {
 //    @Environment(\.presentationMode) var presentationMode
-    
-    @State var brushState: BrushState = .start
-    @State var cSection : Section = .OLB
+
+    @State private var brushState: BrushState = .start
+    @State private var cSection: Section = .OLB
     var body: some View {
-        Group{
+        let util: PhoneUtil = PhoneUtil { msg in
+            if ((msg["start"] != nil) == true) {
+                brushState = .start
+                cSection = .OLB
+                changePage()
+            }
+        }
+        Group {
             switch brushState {
                 case .start:
                     Start {
+                        util.send2Phone(["start": true])
                         changePage()
                     }
 //                case .count_down:
@@ -43,6 +51,7 @@ struct Brush: View {
                     }
                 case .finish:
                     Finish {
+                        util.send2Phone(["finish": true])
                         cSection = .OLB
                         changePage()
                     }
@@ -53,12 +62,12 @@ struct Brush: View {
             }
         }
     }
-    
-    private func changePage() {
-        if (brushState == .ed) {
+
+    func changePage() {
+        if brushState == .ed {
             cSection = SectionUtil.getNext(cSection)
         }
-        if (cSection == .Finish) {
+        if cSection == .Finish {
             brushState = .finish
         } else {
             brushState = {

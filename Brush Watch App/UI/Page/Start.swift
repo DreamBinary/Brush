@@ -9,6 +9,10 @@ import SwiftUI
 
 struct Start: View {
     var onStart: () -> Void
+    
+    init(onStart: () -> Void) {
+        self.onStart = onStart
+    }
     @State var isStarted = false
     var body: some View {
         BgColor(.primary) {

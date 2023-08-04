@@ -11,18 +11,39 @@ import SwiftUI
 // MARK: - Feature domain
 
 struct Brush: ReducerProtocol {
+    enum BrushState {
+        case start
+        case countdown
+        case inn
+    }
+
     struct State: Equatable {
-//        @BindingState var
+        var brushState: BrushState = .start
     }
 
     enum Action: BindableAction, Equatable {
+        case startEnd
+        case countdownEnd
+        case innEnd
         case binding(BindingAction<State>)
     }
 
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
+                case .startEnd:
+                    withAnimation {
+                        state.brushState = .countdown
+                    }
+                    return .none
+                case .countdownEnd:
+                    withAnimation {
+                        state.brushState = .inn
+                    }
+                    return .none
+                case .innEnd:
+                    return .none
                 case .binding:
                     return .none
             }
@@ -34,50 +55,67 @@ struct Brush: ReducerProtocol {
 
 struct BrushView: View {
     let store: StoreOf<Brush>
-    @State var brushState: BrushState = .start
+    let util: WatchUtil
+    @State private var isPresented: Bool = false
+    @State private var msg: String = ""
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { _ in
-            switch brushState {
+        WithViewStore(self.store, observe: { $0 }) { vStore in
+            switch vStore.brushState {
                 case .start:
                     StartBrush {
-                        withAnimation {
-                            brushState = .countdown
+                        onStart {
+                            vStore.send(.startEnd)
                         }
                     }.transition(.move(edge: .top))
-
+                        .alert(msg, isPresented: $isPresented) {
+                            Button("OK") {
+                                isPresented = false
+                            }
+                        }
                 case .countdown:
                     CountDown {
-                        withAnimation {
-                            brushState = .inn
-                        }
+                        vStore.send(.countdownEnd)
                     }.transition(.move(edge: .bottom))
-
                 case .inn:
                     InBrush().transition(.move(edge: .leading))
             }
         }
     }
-    
-    enum BrushState {
-        case start
-        case countdown
-        case inn
+
+    private func onStart(onFinal: () -> Void) {
+        if !util.isPaired() {
+            msg = "watch not paired"
+            isPresented = true
+            return
+        }
+        if !util.isWatchAppInstalled() {
+            msg = "watch app not installed"
+            isPresented = true
+            return
+        }
+
+        if !util.isReachable() {
+            msg = "watch not reachable"
+            isPresented = true
+            return
+        }
+        util.send2Watch(["start": true])
+        onFinal()
     }
 }
-
-
 
 // MARK: - SwiftUI previews
 
-#if DEBUG
-struct BrushView_Previews: PreviewProvider {
-    static var previews: some View {
-        BrushView(
-            store: Store(
-                initialState: Brush.State(),
-                reducer: Brush()
-            )
-        )
-    }
-}
-#endif
+//#if DEBUG
+//struct BrushView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BrushView(
+//            store: Store(
+//                initialState: Brush.State(),
+//                reducer: Brush()
+//            ),
+//            util:
+//        )
+//    }
+//}
+//#endif
