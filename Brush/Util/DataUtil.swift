@@ -13,10 +13,9 @@ class DataUtil {
     static func saveUser(_ user: User) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(user) {
-            let defaults = `UserDefaults`.standard
+            let defaults = UserDefaults.standard
             defaults.set(encoded, forKey: "user")
         }
-        print("saveUser")
     }
     
     static func getUser() -> User? {

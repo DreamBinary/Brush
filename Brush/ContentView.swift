@@ -23,6 +23,10 @@ struct ContentView: View {
                 reducer: Main()
             )
         )
+//        ZStack(alignment: .center) {
+//            SquareIconView(iconImage: vStore.purpleToothVm.image, color: vStore.purpleToothVm.color, sideLength: 200)
+//                .rotationEffect(Angle(degrees: vStore.purpleToothVm.angle), anchor: .center)
+//        }
     }
 }
 

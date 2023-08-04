@@ -141,12 +141,13 @@ struct LoginView: View {
                             if !vStore.isLoginView {
                                 Spacer()
                             }
-                            SquareIconView(iconImage: vStore.purpleToothVm.image, color: vStore.purpleToothVm.color, sideLength: 200)
-                                .rotationEffect(Angle(degrees: vStore.purpleToothVm.angle))
+                            SquareIconView(iconImage: vStore.purpleToothVm.image, color: vStore.purpleToothVm.color, sideLength: 200, degrees: vStore.purpleToothVm.angle)
                                 .offset(y: vStore.purpleToothVm.y)
                                 .padding(.top, screenHeight * 0.1)
                         }
                         Spacer()
+                    }.onTapGesture {
+                        vStore.send(.enterInput(.changeType))
                     }
                     
                     // Z第三层
@@ -155,10 +156,13 @@ struct LoginView: View {
                         Card(color: Color(red: 0.99, green: 0.99, blue: 0.99), cornerRadius: 15) {
                             VStack(alignment: .leading, spacing: 12) {
                                 Spacer()
-                                Text(vStore.isLogin
-                                    ? "Hi There,\nWelcome back!"
-                                    : "Hi There,\nHave an account!"
-                                ).font(.system(size: 32)) // 使用自定义字体和字体大小
+                                Group {
+                                    if vStore.isLogin {
+                                        Text("Hi There,\nWelcome back!")
+                                    } else {
+                                        Text("Hi There,\nHave an account!")
+                                    }
+                                }.font(.system(size: 32)) // 使用自定义字体和字体大小
                                     .fontWeight(.bold) // 设置字体粗细
                                     .padding(.bottom, 10)
                                 EnterInputView(
@@ -202,12 +206,10 @@ struct FirstView: View {
             Spacer()
             // 顶部两个图标
             HStack {
-                SquareIconView(iconImage: Image("ToothGum"), color: Color(0xA9FDC1), sideLength: 140)
-                    .rotationEffect(Angle(degrees: 30))
+                SquareIconView(iconImage: Image("ToothGum"), color: Color(0xA9FDC1), sideLength: 140, degrees: 30)
                     .offset(x: isRemove ? -screenWidth : -20)
                 Spacer()
             }
-            
             // 文字
             ImgText()
                 .padding(.leading, 20)

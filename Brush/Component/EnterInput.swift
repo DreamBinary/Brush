@@ -21,7 +21,6 @@ struct EnterInput: ReducerProtocol {
         @BindingState var focus: Field?
         @BindingState var username: String = ""
         @BindingState var password: String = ""
-        //        var isSecured: Bool = true
         enum Field: String, Hashable {
             case username, password
         }
@@ -58,12 +57,12 @@ struct EnterInput: ReducerProtocol {
                     } else {
                         // TODO: use moya ?
                         return .task { [email = state.username, plainPassword = state.password] in
-                            let u: User? = try await ApiClient.request(Url.login, method: .POST, params: ["email": email,"plainPassword": plainPassword])
+                            let u: User? = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "plainPassword": plainPassword])
                             return u == .none ? .loginFail : .loginSuccess(u!)
                         }
                     }
                     return .none
-                    
+
                 case let .loginSuccess(user):
                     DataUtil.saveUser(user)
                     return .none
@@ -84,67 +83,98 @@ struct EnterInputView: View {
     let store: StoreOf<EnterInput>
 
     @FocusState var focusedField: EnterInput.State.Field?
-    @State var isSecured: Bool = true
-    @State var isBtnDisabled: Bool = false
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             VStack {
-                TextField("Enter Email", text: vStore.binding(\.$username))
-                    .frame(height: self.textFieldHeight)
-                    .font(.callout)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(Color(0xA1D6CD, 0.26))
-                    .cornerRadius(5)
+                UsernameInput(text: vStore.binding(\.$username), height: self.textFieldHeight)
                     .focused(self.$focusedField, equals: .username)
-
-                ZStack(alignment: .trailing) {
-                    Group {
-                        if self.isSecured {
-                            SecureField("Password", text: vStore.binding(\.$password)).frame(height: self.textFieldHeight)
-                        } else {
-                            TextField("Password", text: vStore.binding(\.$password)).frame(height: self.textFieldHeight)
-                        }
-                    }.font(.callout)
-                        .padding(.trailing, 32)
-                        .focused(self.$focusedField, equals: .password)
-                    Button(action: {
-                        self.isSecured.toggle()
-                    }) {
-                        Image(systemName: self.isSecured ? "eye.slash" : "eye")
-                            .accentColor(.gray)
-                    }
-                }.padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(Color(0xA1D6CD, 0.26))
-                    .cornerRadius(5)
-
-                HStack {
-                    Spacer()
-                    Button {
-                        vStore.send(.changeType)
-                        self.isBtnDisabled = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            self.isBtnDisabled = false
-                        }
-                    } label: {
-                        Text(vStore.type == .SignUp ? "Log in" : "Sign Up")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }.disabled(self.isBtnDisabled)
-                }
-                Button(action: {
-                    vStore.send(.loginTapped)
-
-                }, label: {
-                    Text(vStore.type == .Login ? "Log in" : "Sign Up")
-                        .bold()
-                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                }).buttonStyle(RoundedAndShadowButtonStyle(foregroundColor: Color(0x084A5E), backgroundColor: Color(0x99EADC, 0.64), cornerRadius: 5))
-                    .frame(height: self.textFieldHeight * 2)
+                PasswordInput(text: vStore.binding(\.$password), height: self.textFieldHeight)
+                    .focused(self.$focusedField, equals: .password)
+                SignUpBtn(text: vStore.type == .SignUp ? "Log in" : "Sign Up", onTap: {
+                    vStore.send(.changeType)
+                })
+                LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up", onTap: { vStore.send(.loginTapped)
+                })
+                .frame(height: self.textFieldHeight * 2)
 
             }.synchronize(vStore.binding(\.$focus), self.$focusedField)
         }
+    }
+}
+
+struct UsernameInput: View {
+    var text: Binding<String>
+    var height: Double
+    var body: some View {
+        TextField("Enter Email", text: self.text)
+            .frame(height: self.height)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(Color(0xA1D6CD, 0.26))
+            .cornerRadius(5)
+    }
+}
+
+struct PasswordInput: View {
+    var text: Binding<String>
+    var height: Double
+    @State private var isSecured: Bool = true
+    var body: some View {
+        HStack {
+            if self.isSecured {
+                SecureField("Password", text: self.text).frame(height: self.height)
+            } else {
+                TextField("Password", text: self.text).frame(height: self.height)
+            }
+            Image(systemName: self.isSecured ? "eye.slash" : "eye")
+                .resizable()
+                .scaledToFit()
+                .accentColor(.gray)
+                .frame(height: self.height * 0.5)
+                .onTapGesture {
+                    self.isSecured.toggle()
+                }
+        }.frame(height: self.height)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(Color(0xA1D6CD, 0.26))
+            .cornerRadius(5)
+    }
+}
+
+struct SignUpBtn: View {
+    var text: String
+    var onTap: () -> Void
+    @State private var isBtnDisabled: Bool = false
+    var body: some View {
+        HStack {
+            Spacer()
+            Button {
+                self.onTap()
+                self.isBtnDisabled = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    self.isBtnDisabled = false
+                }
+            } label: {
+                Text(self.text)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }.padding(.trailing, 5)
+                .disabled(self.isBtnDisabled)
+        }
+    }
+}
+
+struct LoginBtn: View {
+    var text: String
+    var onTap: () -> Void
+    var body: some View {
+        Button(action: self.onTap, label: {
+            Text(self.text)
+                .bold()
+                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+        }).buttonStyle(RoundedAndShadowButtonStyle(foregroundColor: Color(0x084A5E), backgroundColor: Color(0x99EADC, 0.64), cornerRadius: 5))
     }
 }
 
