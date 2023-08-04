@@ -50,7 +50,6 @@ struct Route: ReducerProtocol {
 struct RouteView: View {
     let store: StoreOf<Route>
     var body: some View {
-
         
         WithViewStore(self.store, observe: { $0 }) { vStore in
             let util = WatchUtil() { msg in

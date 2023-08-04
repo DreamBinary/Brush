@@ -4,7 +4,6 @@
 //
 //  Created by cxq on 2023/6/25.
 //
-
 import SwiftUI
 
 struct VoiceAnimation: View {
@@ -15,7 +14,7 @@ struct VoiceAnimation: View {
         52, 70, 42, 15, 36
     ]
     @State var current = 0.0
-    let timer = MyTimer(interval: 0.001)
+    let timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     var body: some View {
         HStack(spacing: 5) {
             ForEach(0 ..< 25) { index in
@@ -32,12 +31,11 @@ struct VoiceAnimation: View {
                 for i in height.indices {
                     height[i] *= 1.5
                 }
-                self.timer.start()
-        }.onReceive(self.timer.timer) { _ in
+        }.onReceive(self.timer) { _ in
             if self.current < 15 {
                 self.current += 0.001
             } else {
-                self.timer.stop()
+                self.timer.upstream.connect().cancel()
             }
         }
 //        .onAppear {

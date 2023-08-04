@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct Start: View {
+    @Binding var isStarted: Bool
     var onStart: () -> Void
-    @State var isStarted = false
+ 
     var body: some View {
         BgColor(.primary) {
             ZStack {
@@ -22,6 +23,7 @@ struct Start: View {
                 if isStarted {
                     CountDown {
                         onStart()
+                        isStarted = false
                     }.transition(.opacity)
                 } else {
                     Text("Start!")
@@ -36,8 +38,8 @@ struct Start: View {
     }
 }
 
-struct Start_Previews: PreviewProvider {
-    static var previews: some View {
-        Start {}
-    }
-}
+//struct Start_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Start(isStarted: false) {}
+//    }
+//}

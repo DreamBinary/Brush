@@ -12,7 +12,7 @@ struct CountDown: View {
     var onEnd: () -> Void
     @State private var cnt = 3
     @State private var scale: Double = 1
-    private let timer = MyTimer()
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     private let font: Font = .system(size: UIFont.textStyleSize(.largeTitle) * 1.5).bold()
     var body: some View {
         Text("0")
@@ -39,16 +39,15 @@ struct CountDown: View {
             .clipped()
             .onAppear {
                 self.textScale()
-                self.timer.start()
             }
-            .onReceive(self.timer.timer) { _ in
+            .onReceive(self.timer) { _ in
                 if self.cnt > 0 {
                     withAnimation(.interactiveSpring()) {
                         self.cnt -= 1
                     }
                     self.textScale()
                 } else {
-                    self.timer.stop()
+                    self.timer.upstream.connect().cancel()
                     self.onEnd()
                 }
             }
@@ -64,29 +63,29 @@ struct CountDown: View {
     }
 }
 
-class MyTimer {
-    var interval = 1.0
-    var timer: Timer.TimerPublisher
-    var cancellable: AnyCancellable?
-
-    init(interval: Double = 1.0) {
-        self.interval = interval
-        self.timer = Timer.TimerPublisher(interval: interval, runLoop: .main, mode: .default)
-    }
-
-    func restart() {
-        self.timer = Timer.TimerPublisher(interval: 1.0, runLoop: .main, mode: .default)
-        self.cancellable = self.timer.connect() as? AnyCancellable
-    }
-
-    func stop() {
-        self.cancellable?.cancel()
-    }
-
-    func start() {
-        self.cancellable = self.timer.connect() as? AnyCancellable
-    }
-}
+//class MyTimer {
+//    var interval = 1.0
+//    var timer: Timer.TimerPublisher
+//    var cancellable: AnyCancellable?
+//
+//    init(interval: Double = 1.0) {
+//        self.interval = interval
+//        self.timer = Timer.TimerPublisher(interval: interval, runLoop: .main, mode: .default)
+//    }
+//
+//    func restart() {
+//        self.timer = Timer.TimerPublisher(interval: 1.0, runLoop: .main, mode: .default)
+//        self.cancellable = self.timer.connect() as? AnyCancellable
+//    }
+//
+//    func stop() {
+//        self.cancellable?.cancel()
+//    }
+//
+//    func start() {
+//        self.cancellable = self.timer.connect() as? AnyCancellable
+//    }
+//}
 
 struct CountDown_Previews: PreviewProvider {
     static var previews: some View {

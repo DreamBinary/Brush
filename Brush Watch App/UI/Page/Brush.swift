@@ -12,18 +12,19 @@ struct Brush: View {
 
     @State private var brushState: BrushState = .start
     @State private var cSection: Section = .OLB
+    @State private var isStarted: Bool = false
     var body: some View {
         let util: PhoneUtil = PhoneUtil { msg in
             if ((msg["start"] != nil) == true) {
                 brushState = .start
                 cSection = .OLB
-                changePage()
+                isStarted = true
             }
         }
         Group {
             switch brushState {
                 case .start:
-                    Start {
+                    Start(isStarted: $isStarted) {
                         util.send2Phone(["start": true])
                         changePage()
                     }
