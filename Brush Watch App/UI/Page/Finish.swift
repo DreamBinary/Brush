@@ -41,6 +41,7 @@ struct Finish: View {
                     .font(.caption2)
                     .foregroundColor(.gray)
                 Button {
+                    HapticUtil.click()
                     onFinished()
                 } label: {
                     Text("OK")

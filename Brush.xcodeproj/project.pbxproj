@@ -61,6 +61,7 @@
 		A07ED39D2A7A777700466663 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A07ED39C2A7A777700466663 /* Moya */; };
 		A090A05F2A7CCBCB00F1EB81 /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A090A05E2A7CCBCB00F1EB81 /* bgm.mp3 */; };
 		A090A0612A7CCCDB00F1EB81 /* MusicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090A0602A7CCCDB00F1EB81 /* MusicUtil.swift */; };
+		A097C9062A7DC740001FC8ED /* HapticUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097C9052A7DC740001FC8ED /* HapticUtil.swift */; };
 		A09987692A459B3600E2DFFE /* BgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09987682A459B3600E2DFFE /* BgColor.swift */; };
 		A09E21982A66C6240012C6BB /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09E21972A66C6240012C6BB /* CornerRadius.swift */; };
 		A09E219D2A66C86F0012C6BB /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09E219C2A66C86F0012C6BB /* Weight.swift */; };
@@ -211,6 +212,7 @@
 		A06B6E282A7A2799001614D4 /* Url.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Url.swift; sourceTree = "<group>"; };
 		A090A05E2A7CCBCB00F1EB81 /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
 		A090A0602A7CCCDB00F1EB81 /* MusicUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicUtil.swift; sourceTree = "<group>"; };
+		A097C9052A7DC740001FC8ED /* HapticUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticUtil.swift; sourceTree = "<group>"; };
 		A09987682A459B3600E2DFFE /* BgColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgColor.swift; sourceTree = "<group>"; };
 		A09E21972A66C6240012C6BB /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		A09E219C2A66C86F0012C6BB /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 				A0D154682A7B3A3200C6BAEF /* PhoneUtil.swift */,
 				A03252342A7BF509002EEB5C /* Logger.swift */,
 				A090A0602A7CCCDB00F1EB81 /* MusicUtil.swift */,
+				A097C9052A7DC740001FC8ED /* HapticUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -959,6 +962,7 @@
 				A0D6C50B2A47C74300C4DA84 /* SectionIng.swift in Sources */,
 				A0D6C5102A47CB0B00C4DA84 /* Finish.swift in Sources */,
 				A09E219D2A66C86F0012C6BB /* Weight.swift in Sources */,
+				A097C9062A7DC740001FC8ED /* HapticUtil.swift in Sources */,
 				A06890822A6AC3F600AD2374 /* RandomUtil.swift in Sources */,
 				A09E219F2A66C8810012C6BB /* CornerRadius.swift in Sources */,
 			);

@@ -30,6 +30,7 @@ struct Start: View {
                         .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.5))
                         .fontWeight(.bold)
                         .onTapGesture {
+                            HapticUtil.click()
                             isStarted.toggle()
                         }.transition(.opacity)
                 }

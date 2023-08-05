@@ -19,6 +19,7 @@ struct Brush: View {
                 brushState = .start
                 cSection = .OLB
                 isStarted = true
+                HapticUtil.getFromPhone()
             }
         }
         Group {
@@ -26,6 +27,7 @@ struct Brush: View {
                 case .start:
                     Start(isStarted: $isStarted) {
                         util.send2Phone(["start": true])
+                        HapticUtil.change()
                         changePage()
                     }
 //                case .count_down:
@@ -34,19 +36,21 @@ struct Brush: View {
 //                    }
                 case .pre:
                     SectionPre(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            HapticUtil.start()
                             changePage()
                         }
                     }
                 case .ing:
                     SectionIng(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            HapticUtil.change()
                             changePage()
                         }
                     }
                 case .ed:
                     SectionEd(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             changePage()
                         }
                     }

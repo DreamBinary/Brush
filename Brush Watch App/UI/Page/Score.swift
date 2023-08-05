@@ -33,6 +33,7 @@ struct Score: View {
                     .underline(pattern: .solid)
                     .foregroundColor(.fontBlack)
                     .onTapGesture {
+                        HapticUtil.click()
                         onBtnTap()
                     }
             }.padding(.bottom)
