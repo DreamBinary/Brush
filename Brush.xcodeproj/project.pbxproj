@@ -64,7 +64,6 @@
 		A097C9062A7DC740001FC8ED /* HapticUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097C9052A7DC740001FC8ED /* HapticUtil.swift */; };
 		A09987692A459B3600E2DFFE /* BgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09987682A459B3600E2DFFE /* BgColor.swift */; };
 		A09E21982A66C6240012C6BB /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09E21972A66C6240012C6BB /* CornerRadius.swift */; };
-		A09E219D2A66C86F0012C6BB /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09E219C2A66C86F0012C6BB /* Weight.swift */; };
 		A09E219F2A66C8810012C6BB /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09E219E2A66C8810012C6BB /* CornerRadius.swift */; };
 		A0A9FF072A45C64400305294 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9FF062A45C64400305294 /* Test.swift */; };
 		A0A9FF092A45CC8A00305294 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9FF082A45CC8A00305294 /* Rating.swift */; };
@@ -215,7 +214,6 @@
 		A097C9052A7DC740001FC8ED /* HapticUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticUtil.swift; sourceTree = "<group>"; };
 		A09987682A459B3600E2DFFE /* BgColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgColor.swift; sourceTree = "<group>"; };
 		A09E21972A66C6240012C6BB /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
-		A09E219C2A66C86F0012C6BB /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 		A09E219E2A66C8810012C6BB /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		A0A9FF062A45C64400305294 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A0A9FF082A45CC8A00305294 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -520,7 +518,6 @@
 		A09E219B2A66C8540012C6BB /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				A09E219C2A66C86F0012C6BB /* Weight.swift */,
 				A09E219E2A66C8810012C6BB /* CornerRadius.swift */,
 			);
 			path = Extension;
@@ -961,7 +958,6 @@
 				A0CACD902A7B9CA5005CDDD4 /* CircleScore.swift in Sources */,
 				A0D6C50B2A47C74300C4DA84 /* SectionIng.swift in Sources */,
 				A0D6C5102A47CB0B00C4DA84 /* Finish.swift in Sources */,
-				A09E219D2A66C86F0012C6BB /* Weight.swift in Sources */,
 				A097C9062A7DC740001FC8ED /* HapticUtil.swift in Sources */,
 				A06890822A6AC3F600AD2374 /* RandomUtil.swift in Sources */,
 				A09E219F2A66C8810012C6BB /* CornerRadius.swift in Sources */,

@@ -98,7 +98,7 @@ struct CountDownNum: View {
                 self.textScale()
             }
             .onReceive(self.timer) { _ in
-                if self.cnt > 0 {
+                if self.cnt > 1 {
                     withAnimation(.interactiveSpring()) {
                         self.cnt -= 1
                     }

@@ -23,7 +23,7 @@ class SpeakUtil {
         
         // 使用下面的方法获取设备上所有可用的语音列表
         let voices = AVSpeechSynthesisVoice.speechVoices()
-        print(voices)
+//        print(voices)
         
         // 在语音列表中选择你想要的声音，例如中文的普通话女声
         if let voice = voices.first(where: { $0.name == "com.apple.ttsbundle.siri_female_zh-CN_compact" }) {
@@ -34,7 +34,7 @@ class SpeakUtil {
         }
         
 //        utterance.voice = AVSpeechSynthesisVoice(language: "zh-CN")
-        utterance.rate = 0.9
+        utterance.rate = 0.7
         synthesizer?.speak(utterance)
     }
     

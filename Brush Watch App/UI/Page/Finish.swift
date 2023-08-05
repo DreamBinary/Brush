@@ -11,21 +11,6 @@ struct Finish: View {
     var onFinished: () -> Void
 
     var body: some View {
-//        BgView("Finished") {
-//            VStack {
-//                Spacer()
-//
-//                Button {} label: {
-//                    Text("OK")
-//                        .font(.title3)
-//                        .fontWeight(.medium)
-//                        .underline(pattern: .solid)
-//                        .foregroundColor(.fontBlack)
-//                        .padding(.bottom)
-//                }
-//            }
-//            .edgesIgnoringSafeArea(.bottom)
-//        }
         BgColor(.primary) {
             VStack {
                 Spacer()

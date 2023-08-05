@@ -54,6 +54,7 @@ struct CountDown: View {
     }
 
     func textScale() {
+        SpeakUtil.shared.speak("\(self.cnt)")
         withAnimation(.easeIn(duration: 0.2)) {
             self.scale = 1.5
         }
