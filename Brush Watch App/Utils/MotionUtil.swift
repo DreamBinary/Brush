@@ -19,9 +19,10 @@ class MotionUtil {
             self.motion.startAccelerometerUpdates()
 
             self.timer = Timer(fire: Date(), interval: (1.0 / 20.0),
-                               repeats: true, block: { (timer) in
+                               repeats: true, block: { _ in
                 if let data = self.motion.accelerometerData {
-                    let x :Double = data.acceleration.x
+//                    value 1.0 representing an acceleration of 9.8 meters per second (per second) in the given direction
+                    let x = data.acceleration.x
                     let y = data.acceleration.y
                     let z = data.acceleration.z
                     getData(x, y, z)
