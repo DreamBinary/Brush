@@ -28,12 +28,19 @@ class MotionUtil {
                     getData(x, y, z)
                 }
             })
-            
             // Add the timer to the current run loop.
             RunLoop.current.add(self.timer!, forMode: .default)
         } else {
             print("disable")
         }
+    }
+    
+    func getPower(x xx: Double, y yy: Double, z zz: Double) {
+        let x = abs(xx)
+        let y = abs(yy)
+        let z = abs(zz) - 1
+        
+        let xyz = sqrt(x * x + y * y + z * z) * 9.8
     }
     
     func stopAccelerometers() {

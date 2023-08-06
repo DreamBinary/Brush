@@ -26,7 +26,7 @@ struct NoteView: View {
     
     @StateObject var vm = NoteObject(CGSize(width: 43, height: 40))
     @State var progress = 0
-    
+    private let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     var body: some View {
         Image(self.name)
             .resizable() 
@@ -34,16 +34,22 @@ struct NoteView: View {
             .frame(width: 43, height: 40)
             .randomTransform(transform: self.vm.transform)
             .offset(x: vm.x, y: vm.y)
-            .onAppear {
-                Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
-                    withAnimation(.linear(duration: 0.01)) {
-                        vm.move()
-                    }
-                }
+            .onReceive(self.timer) { _ in
+                withAnimation(.linear(duration: 0.01)) {
+                                            vm.move()
+                                        }
+                
             }
-            .task(id: vm.x) {
-                vm.check()
-            }
+//            .onAppear {
+//                Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+//                    withAnimation(.linear(duration: 0.01)) {
+//                        vm.move()
+//                    }
+//                }
+//            }
+//            .task(id: vm.x) {
+//                vm.check()
+//            }
 //            .onChange(of: noteObject.x) { _ in
 //                noteObject.check()
 //            }
