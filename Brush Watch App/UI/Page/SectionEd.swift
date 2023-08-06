@@ -37,7 +37,7 @@ struct SectionEd: View {
                     .foregroundColor(.primary)
                     .padding()
 
-                Text(SectionUtil.getName(section))
+                Text(SectionUtil.getName(SectionUtil.getNext(section)))
                     .font(.caption)
                     .foregroundColor(.fontBlack)
                     .padding()

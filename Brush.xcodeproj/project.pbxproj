@@ -94,7 +94,6 @@
 		A0DA4B2B2A46BEF8009CA236 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */; };
 		A0DA4B2E2A46CFAD009CA236 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = A0DA4B2D2A46CFAD009CA236 /* SwiftUIPager */; };
 		A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B55C2A681264001D5EA4 /* BgColor.swift */; };
-		A0F5B5622A681645001D5EA4 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5612A681645001D5EA4 /* Section.swift */; };
 		A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */; };
 		A0F5B5672A682D3A001D5EA4 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */; };
 		A0F5D5BC2A46FE1D00C4091D /* HotWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */; };
@@ -244,7 +243,6 @@
 		A0DA4B262A46BA45009CA236 /* BrushIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushIcon.swift; sourceTree = "<group>"; };
 		A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		A0F5B55C2A681264001D5EA4 /* BgColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgColor.swift; sourceTree = "<group>"; };
-		A0F5B5612A681645001D5EA4 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionUtil.swift; sourceTree = "<group>"; };
 		A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotWord.swift; sourceTree = "<group>"; };
@@ -403,7 +401,6 @@
 				A0D154652A7B2CA200C6BAEF /* Brush-Watch-App-Info.plist */,
 				A0581FAD2A41DBF000710C4B /* Preview Content */,
 				A0F5B5632A6817A4001D5EA4 /* Utils */,
-				A0F5B5602A681634001D5EA4 /* Entity */,
 				A0F5B55E2A6815B8001D5EA4 /* UI */,
 				A0581FA72A41DBEF00710C4B /* BrushApp.swift */,
 				A09E219B2A66C8540012C6BB /* Extension */,
@@ -597,14 +594,6 @@
 				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
 			);
 			path = Page;
-			sourceTree = "<group>";
-		};
-		A0F5B5602A681634001D5EA4 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				A0F5B5612A681645001D5EA4 /* Section.swift */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		A0F5B5632A6817A4001D5EA4 /* Utils */ = {
@@ -929,7 +918,6 @@
 				A0D6C50D2A47C92100C4DA84 /* SectionEd.swift in Sources */,
 				A0D6C5142A47CC6C00C4DA84 /* RemedySelect.swift in Sources */,
 				A0581FAA2A41DBEF00710C4B /* ContentView.swift in Sources */,
-				A0F5B5622A681645001D5EA4 /* Section.swift in Sources */,
 				A090A0612A7CCCDB00F1EB81 /* MusicUtil.swift in Sources */,
 				A0F5D5BE2A47202300C4091D /* Start.swift in Sources */,
 				A04255D12A6916A500D38A16 /* AnimCheck.swift in Sources */,

@@ -12,17 +12,21 @@ struct SectionPre: View {
     var section: Section
     
     var body: some View {
+       
         BgColor(.primary) {
-            VStack(spacing: 0) {
-                Image("OLB")
+            ZStack {
+                Image(section.rawValue)
                     .resizable()
-                    .scaledToFit()
-                Spacer()
-                Text(SectionUtil.getName(section))
-                    .font(.title2)
-                    .fontWeight(.bold)
-            }.padding(.bottom)
-                .edgesIgnoringSafeArea(.bottom)
+                    .scaledToFill()
+                    .offset(y: 16)
+                VStack(spacing: 0) {
+                    Spacer()
+                    Text(SectionUtil.getName(section))
+                        .font(.title3)
+                        .fontWeight(.bold)
+                }.padding(.bottom)
+                    .edgesIgnoringSafeArea(.bottom)
+            }
         }
     }
 }

@@ -31,7 +31,7 @@ struct Start: View {
                         .fontWeight(.bold)
                         .onTapGesture {
                             HapticUtil.click()
-                            isStarted.toggle()
+                            isStarted = true
                         }.transition(.opacity)
                 }
             }

@@ -7,120 +7,86 @@
 
 import Foundation
 
+enum Section :String, Identifiable {
+    var id: Self {
+        return self
+    }
+    case ORT = "ORT"
+    case OLT = "OLT"
+    case MRT = "MRT"
+    case MLT = "MLT"
+    case IRT = "IRT"
+    case ILT = "ILT"
+    case ORB = "ORB"
+    case OLB = "OLB"
+    case MRB = "MRB"
+    case MLB = "MLB"
+    case IRB = "IRB"
+    case ILB = "ILB"
+    case Finish = "Finish"
+}
+
+
 class SectionUtil {
-    static var sections: [Section] = [
-        .OLB,
-        .OLT,
-        .ILB,
-        .ILT,
-        .ORB,
-        .ORT,
-        .IRB,
-        .IRT,
-    ]
-        
     static func getName(_ section: Section) -> String {
         switch section {
-            case .OLB:
-                return "外左下片区"
-            case .OLT:
-                return "外左上片区"
-            case .ILB:
-                return "内左下片区"
-            case .ILT:
-                return "内左上片区"
-            case .ORB:
-                return "外右下片区"
             case .ORT:
-                return "外右上片区"
-            case .IRB:
-                return "内右下片区"
+                return "右上颊侧面"
+            case .OLT:
+                return "左上颊侧面"
+            case .MRT:
+                return "右上咬合面"
+            case .MLT:
+                return "左上咬合面"
             case .IRT:
-                return "内右上片区"
+                return "右上舌侧面"
+            case .ILT:
+                return "左上舌侧面"
+            case .ORB:
+                return "右下颊侧面"
+            case .OLB:
+                return "左下颊侧面"
+            case .MRB:
+                return "右下咬合面"
+            case .MLB:
+                return "左下咬合面"
+            case .IRB:
+                return "右下舌侧面"
+            case .ILB:
+                return "左下舌侧面"
             case .Finish:
                 return "完成"
         }
     }
     
-    static func getId(_ section: Section) -> String {
-        switch section {
-            case .OLB:
-                return "OLB"
-            case .OLT:
-                return "OLT"
-            case .ILB:
-                return "ILB"
-            case .ILT:
-                return "ILT"
-            case .ORB:
-                return "ORB"
-            case .ORT:
-                return "ORT"
-            case .IRB:
-                return "IRB"
-            case .IRT:
-                return "IRT"
-            case .Finish:
-                return "Finish"
-        }
-    }
-    
     static func getNext(_ section: Section) -> Section {
         switch section {
-            case .OLB:
+            case .ORT:
                 return .OLT
             case .OLT:
-                return .ILB
-            case .ILB:
+                return .MRT
+            case .MRT:
+                return .MLT
+            case .MLT:
+                return .IRT
+            case .IRT:
                 return .ILT
             case .ILT:
                 return .ORB
             case .ORB:
-                return .ORT
-            case .ORT:
+                return .OLB
+            case .OLB:
+                return .MRB
+            case .MRB:
+                return .MLB
+            case .MLB:
                 return .IRB
             case .IRB:
-                return .IRT
-            case .IRT:
+                return .ILB
+            case .ILB:
                 return .Finish
             case .Finish:
                 return .Finish
         }
     }
-    
-    //    static fun getName(section: Section?): String = when (section) {
-    //
-    //        Section.OLB -> "外左下片区"
-    //        Section.OLT -> "外左上片区"
-    //        Section.ILB -> "内左下片区"
-    //        Section.ILT -> "内左上片区"
-    //        Section.ORB -> "外右下片区"
-    //        Section.ORT -> "外右上片区"
-    //        Section.IRB -> "内右下片区"
-    //        Section.IRT -> "内右上片区"
-    //        null -> "完成"
-    //    }
-    //
-    //    fun getId(section: Section): Int = when (section) {
-    //        Section.OLB -> R.drawable.sec_olb
-    //        Section.OLT -> R.drawable.sec_olb
-    //        Section.ILB -> R.drawable.sec_olb
-    //        Section.ILT -> R.drawable.sec_olb
-    //        Section.ORB -> R.drawable.sec_olb
-    //        Section.ORT -> R.drawable.sec_olb
-    //        Section.IRB -> R.drawable.sec_olb
-    //        Section.IRT -> R.drawable.sec_olb
-    //    }
-    //
-    //    // 左右手
-    //    fun getNext(section: Section): Section? = when (section) {
-    //        Section.OLB -> Section.OLT
-    //        Section.OLT -> Section.ILB
-    //        Section.ILB -> Section.ILT
-    //        Section.ILT -> Section.ORB
-    //        Section.ORB -> Section.ORT
-    //        Section.ORT -> Section.IRB
-    //        Section.IRB -> Section.IRT
-    //        Section.IRT -> null
-    //    }
 }

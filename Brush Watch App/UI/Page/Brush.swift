@@ -11,8 +11,9 @@ struct Brush: View {
 //    @Environment(\.presentationMode) var presentationMode
 
     @State private var brushState: BrushState = .start
-    @State private var cSection: Section = .OLB
+    @State private var cSection: Section = .ORT
     @State private var isStarted: Bool = false
+    let player = MusicUtil(res: "bgm")
     var body: some View {
         let util: PhoneUtil = PhoneUtil { msg in
             if ((msg["start"] != nil) == true) {
@@ -26,6 +27,7 @@ struct Brush: View {
             switch brushState {
                 case .start:
                     Start(isStarted: $isStarted) {
+                        MotionUtil.startAccelerometers(){_,_,_ in }
                         util.send2Phone(["start": true])
                         HapticUtil.change()
                         changePage()
@@ -36,15 +38,17 @@ struct Brush: View {
 //                    }
                 case .pre:
                     SectionPre(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        player.play()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             HapticUtil.start()
                             changePage()
                         }
                     }
                 case .ing:
                     SectionIng(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             HapticUtil.change()
+                            player.stop()
                             changePage()
                         }
                     }
