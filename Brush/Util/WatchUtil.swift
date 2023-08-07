@@ -7,20 +7,26 @@
 
 import Foundation
 import WatchConnectivity
+import HealthKit
 
 class WatchUtil: NSObject, WCSessionDelegate {
     func sessionDidBecomeInactive(_ session: WCSession) {
-      
+        
     }
     
     func sessionDidDeactivate(_ session: WCSession) {
- 
+        
     }
     
-    var onReceive: ([String : Any]) ->  Void
+//    var onReceive: ([String : Any]) ->  Void
     private var session: WCSession = .default
-    init(onReceive: @escaping ([String : Any]) -> Void = {_ in }) {
-        self.onReceive = onReceive
+//    init(onReceive: @escaping ([String : Any]) -> Void = {_ in }) {
+//        self.onReceive = onReceive
+//        super.init()
+//        self.session.delegate = self
+//        session.activate()
+//    }
+    override init() {
         super.init()
         self.session.delegate = self
         session.activate()
@@ -32,13 +38,23 @@ class WatchUtil: NSObject, WCSessionDelegate {
         } else {}
     }
     
+    func startApp(completion: @escaping (Bool, Error?) -> Void) {
+        if isPaired() && isWatchAppInstalled() {
+            let workoutConfiguration = HKWorkoutConfiguration()
+            workoutConfiguration.locationType = .indoor
+            workoutConfiguration.activityType = .other
+            let healthStore = HKHealthStore()
+            healthStore.startWatchApp(with: workoutConfiguration, completion: completion)
+        }
+    }
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        onReceive(message)
+//        onReceive(message)
     }
     
-//    WCSession is not reachable
+    //    WCSession is not reachable
     func isReachable()-> Bool {
         return session.isReachable
     }

@@ -18,13 +18,15 @@ class PhoneUtil: NSObject, WCSessionDelegate {
         session.activate()
     }
     
-    func send2Phone(_ message: [String: Any]) {
-        if WCSession.isSupported() {
-            session.sendMessage(message, replyHandler: nil, errorHandler: nil)
-        } else {
-            print("WCSession is not supported")
-        }
-    }
+    
+    
+//    func send2Phone(_ message: [String: Any]) {
+//        if WCSession.isSupported() {
+//            session.sendMessage(message, replyHandler: nil, errorHandler: nil)
+//        } else {
+//            print("WCSession is not supported")
+//        }
+//    }
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
     

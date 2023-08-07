@@ -55,7 +55,7 @@ struct Brush: ReducerProtocol {
 
 struct BrushView: View {
     let store: StoreOf<Brush>
-    let util: WatchUtil
+    let util = WatchUtil()
     @State private var isPresented: Bool = false
     @State private var msg: String = ""
     var body: some View {
@@ -64,8 +64,15 @@ struct BrushView: View {
                 case .start:
                     StartBrush {
                         onStart {
-                            vStore.send(.startEnd)
-                        }
+                            util.startApp(){success, error in
+                                if (success) {
+                                    print("s")
+                                } else {
+                                    print(error?.localizedDescription)
+                                }
+                                
+                                //                            vStore.send(.startEnd)
+                            }}
                     }.transition(.move(edge: .top))
                         .alert(msg, isPresented: $isPresented) {
                             Button("OK") {
@@ -94,12 +101,12 @@ struct BrushView: View {
             return
         }
 
-        if !util.isReachable() {
-            msg = "watch not reachable"
-            isPresented = true
-            return
-        }
-        util.send2Watch(["start": true])
+//        if !util.isReachable() {
+//            msg = "watch not reachable"
+//            isPresented = true
+//            return
+//        }
+//        util.send2Watch(["start": true])
         onFinal()
     }
 }
