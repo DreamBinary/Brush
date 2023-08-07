@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct StartBrush: View {
-    var onStart: () ->Void
+    var onStart: () -> Void
+    let util = WatchUtil()
+    @State private var isPresented: Bool = false
+    @State private var msg: String = ""
     var body: some View {
         BgColor {
             GeometryReader { geo in
@@ -24,7 +27,6 @@ struct StartBrush: View {
                             .scaledToFit()
                             .frame(width: width * 0.6)
                     }
-                    
                     Text("开始刷牙!")
                         .font(.largeTitle.bold())
                         .padding(.bottom, 1)
@@ -33,15 +35,58 @@ struct StartBrush: View {
                         .fontWeight(.regular)
                         .foregroundColor(.fontGray)
                     Spacer()
-                        BrushIcon(
-                            radius: 30,
-                            color: .white,
-                            opacity: 0.57
-                        ).onTapGesture {
-                            onStart()
-                        }
+                    BrushIcon(
+                        radius: 30,
+                        color: .white,
+                        opacity: 0.57
+                    ).onTapGesture {
+                        onStartWatch()
+                    }
                     Image("StartTuneBrush").padding(.bottom, 50).padding(.top, 8)
                 }
+            }
+        }.alert(msg, isPresented: $isPresented) {
+            Button("OK") {
+                isPresented = false
+            }
+        }
+    }
+
+    private func onStartWatch() {
+        if !util.isPaired() {
+            msg = "watch not paired"
+            isPresented = true
+            return
+        }
+        if !util.isWatchAppInstalled() {
+            msg = "watch app not installed"
+            isPresented = true
+            return
+        }
+        if !util.isReachable() {
+            msg = "watch not reachable"
+            isPresented = true
+            return
+        }
+        util.startApp { success, _ in
+            msg = "start"
+            isPresented = true
+            if success {
+                if !util.isReachable() {
+                    msg = "watch not reachable"
+                    isPresented = true
+                    return
+                }
+                util.send2Watch(["start": true], onSuccess: {
+                    onStart()
+                }, onError: {
+                    msg = "error"
+                    isPresented = true
+                })
+            } else {
+                msg = "start app failed"
+                isPresented = true
+                return
             }
         }
     }
@@ -49,6 +94,6 @@ struct StartBrush: View {
 
 struct StartBrush_Previews: PreviewProvider {
     static var previews: some View {
-        StartBrush(){}
+        StartBrush {}
     }
 }

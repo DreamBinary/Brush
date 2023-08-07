@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Start: View {
     @Binding var isStarted: Bool
-    var onStart: () -> Void
+    var onCountdownEnd: () -> Void
  
     var body: some View {
         BgColor(.primary) {
@@ -22,7 +22,7 @@ struct Start: View {
 
                 if isStarted {
                     CountDown {
-                        onStart()
+                        onCountdownEnd()
                         isStarted = false
                     }.transition(.opacity)
                 } else {

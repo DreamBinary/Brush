@@ -55,30 +55,14 @@ struct Brush: ReducerProtocol {
 
 struct BrushView: View {
     let store: StoreOf<Brush>
-    let util = WatchUtil()
-    @State private var isPresented: Bool = false
-    @State private var msg: String = ""
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             switch vStore.brushState {
                 case .start:
                     StartBrush {
-                        onStart {
-                            util.startApp(){success, error in
-                                if (success) {
-                                    print("s")
-                                } else {
-                                    print(error?.localizedDescription)
-                                }
-                                
-                                //                            vStore.send(.startEnd)
-                            }}
+                        vStore.send(.startEnd)
                     }.transition(.move(edge: .top))
-                        .alert(msg, isPresented: $isPresented) {
-                            Button("OK") {
-                                isPresented = false
-                            }
-                        }
+
                 case .countdown:
                     CountDown {
                         vStore.send(.countdownEnd)
@@ -88,33 +72,12 @@ struct BrushView: View {
             }
         }
     }
-
-    private func onStart(onFinal: () -> Void) {
-        if !util.isPaired() {
-            msg = "watch not paired"
-            isPresented = true
-            return
-        }
-        if !util.isWatchAppInstalled() {
-            msg = "watch app not installed"
-            isPresented = true
-            return
-        }
-
-//        if !util.isReachable() {
-//            msg = "watch not reachable"
-//            isPresented = true
-//            return
-//        }
-//        util.send2Watch(["start": true])
-        onFinal()
-    }
 }
 
 // MARK: - SwiftUI previews
 
-//#if DEBUG
-//struct BrushView_Previews: PreviewProvider {
+// #if DEBUG
+// struct BrushView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        BrushView(
 //            store: Store(
@@ -124,5 +87,5 @@ struct BrushView: View {
 //            util:
 //        )
 //    }
-//}
-//#endif
+// }
+// #endif

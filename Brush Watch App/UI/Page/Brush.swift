@@ -12,62 +12,52 @@ struct Brush: View {
 
     @State private var brushState: BrushState = .start
     @State private var cSection: Section = .ORT
-    @State private var isStarted: Bool = false
+    @ObservedObject private var util = PhoneUtil()
     @State var player = MusicUtil(res: Section.ORT.rawValue)
     var body: some View {
-        let _ = PhoneUtil { msg in
-            if ((msg["start"] != nil) == true) {
-                brushState = .start
-                cSection = .OLB
-                isStarted = true
-                HapticUtil.getFromPhone()
-            }
-        }
-        Group {
-            switch brushState {
-                case .start:
-                    Start(isStarted: $isStarted) {
-                        MotionUtil.startAccelerometers(){_,_,_ in }
-                        HapticUtil.change()
-                        changePage()
-                    }
+        switch brushState {
+            case .start:
+                Start(isStarted: $util.isStarted) {
+                    MotionUtil.startAccelerometers { _, _, _ in }
+                    HapticUtil.change()
+                    changePage()
+                }
 //                case .count_down:
 //                    CountDown() {
 //                        changePage()
 //                    }
-                case .pre:
-                    SectionPre(cSection).onAppear {
+            case .pre:
+                SectionPre(cSection).onAppear {
                         player.play()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            HapticUtil.start()
-                            changePage()
-                        }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        HapticUtil.start()
+                        changePage()
                     }
-                case .ing:
-                    SectionIng(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                            HapticUtil.change()
+                }
+            case .ing:
+                SectionIng(cSection).onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                        HapticUtil.change()
                             player.stop()
                             player = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
-                            changePage()
-                        }
-                    }
-                case .ed:
-                    SectionEd(cSection).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            changePage()
-                        }
-                    }
-                case .finish:
-                    Finish {
-                        cSection = .OLB
                         changePage()
                     }
-                case .score:
-                    Score {
+                }
+            case .ed:
+                SectionEd(cSection).onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         changePage()
                     }
-            }
+                }
+            case .finish:
+                Finish {
+                    cSection = .OLB
+                    changePage()
+                }
+            case .score:
+                Score {
+                    changePage()
+                }
         }
     }
 

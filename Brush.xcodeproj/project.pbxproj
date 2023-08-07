@@ -19,11 +19,7 @@
 		A0300C502A446E010056496E /* EnterWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* EnterWay.swift */; };
 		A0300C542A446EFD0056496E /* EnterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C532A446EFD0056496E /* EnterInput.swift */; };
 		A03252352A7BF509002EEB5C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03252342A7BF509002EEB5C /* Logger.swift */; };
-		A03252382A7BF523002EEB5C /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = A03252372A7BF523002EEB5C /* CocoaLumberjack */; };
-		A032523A2A7BF523002EEB5C /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A03252392A7BF523002EEB5C /* CocoaLumberjackSwift */; };
 		A0333C822A7D163700E20F8E /* WatchUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0333C812A7D163700E20F8E /* WatchUtil.swift */; };
-		A0333C842A7D1B9300E20F8E /* TmpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0333C832A7D1B9300E20F8E /* TmpExchange.swift */; };
-		A0333C862A7D1D6F00E20F8E /* TmpExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0333C852A7D1D6F00E20F8E /* TmpExchange.swift */; };
 		A03B6D152A6D316B00FFC5E2 /* AnimViolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */; };
 		A040AD542A77D511002EF68A /* CountDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A040AD532A77D511002EF68A /* CountDown.swift */; };
 		A04255CF2A69095100D38A16 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04255CE2A69095100D38A16 /* Brush.swift */; };
@@ -47,7 +43,6 @@
 		A0581FB92A41DBF000710C4B /* Brush_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581FB82A41DBF000710C4B /* Brush_Watch_AppTests.swift */; };
 		A0581FC32A41DBF000710C4B /* Brush_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581FC22A41DBF000710C4B /* Brush_Watch_AppUITests.swift */; };
 		A0581FC52A41DBF000710C4B /* Brush_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581FC42A41DBF000710C4B /* Brush_Watch_AppUITestsLaunchTests.swift */; };
-		A0581FDD2A41DC4900710C4B /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A0581FDC2A41DC4900710C4B /* ComposableArchitecture */; };
 		A0581FDF2A41E7F900710C4B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581FDE2A41E7F900710C4B /* Route.swift */; };
 		A05D85222A80D7D100D27890 /* OLT.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A05D85162A80D7D100D27890 /* OLT.mp3 */; };
 		A05D85232A80D7D100D27890 /* ORB.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A05D85172A80D7D100D27890 /* ORB.mp3 */; };
@@ -61,6 +56,8 @@
 		A05D852B2A80D7D100D27890 /* MLT.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A05D851F2A80D7D100D27890 /* MLT.mp3 */; };
 		A05D852C2A80D7D100D27890 /* OLB.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A05D85202A80D7D100D27890 /* OLB.mp3 */; };
 		A05D852D2A80D7D100D27890 /* ILT.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A05D85212A80D7D100D27890 /* ILT.mp3 */; };
+		A063838E2A81200100E46CEF /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = A063838D2A81200100E46CEF /* SwiftUIPager */; };
+		A06383942A8120B500E46CEF /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A06383932A8120B500E46CEF /* ComposableArchitecture */; };
 		A06684D62A42E12400D27BF3 /* Mine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D52A42E12400D27BF3 /* Mine.swift */; };
 		A06684D82A42E32800D27BF3 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D72A42E32800D27BF3 /* Record.swift */; };
 		A06684DA2A42E35E00D27BF3 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D92A42E35E00D27BF3 /* Brush.swift */; };
@@ -70,7 +67,6 @@
 		A06B6E252A7A23B3001614D4 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06B6E242A7A23B3001614D4 /* ApiClient.swift */; };
 		A06B6E272A7A25B7001614D4 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06B6E262A7A25B7001614D4 /* Response.swift */; };
 		A06B6E292A7A2799001614D4 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06B6E282A7A2799001614D4 /* Url.swift */; };
-		A07ED39D2A7A777700466663 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A07ED39C2A7A777700466663 /* Moya */; };
 		A090A0612A7CCCDB00F1EB81 /* MusicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090A0602A7CCCDB00F1EB81 /* MusicUtil.swift */; };
 		A097C9062A7DC740001FC8ED /* HapticUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097C9052A7DC740001FC8ED /* HapticUtil.swift */; };
 		A09987692A459B3600E2DFFE /* BgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09987682A459B3600E2DFFE /* BgColor.swift */; };
@@ -80,7 +76,6 @@
 		A0A9FF092A45CC8A00305294 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9FF082A45CC8A00305294 /* Rating.swift */; };
 		A0A9FF0B2A45D39500305294 /* FinishBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9FF0A2A45D39500305294 /* FinishBrush.swift */; };
 		A0B014152A486D9100838702 /* VoiceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B014142A486D9100838702 /* VoiceAnimation.swift */; };
-		A0B0E3CC2A7BF4B000AF6572 /* Tmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B0E3CB2A7BF4B000AF6572 /* Tmp.swift */; };
 		A0B553E72A6979AD0016E819 /* SpeakUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B553E62A6979AD0016E819 /* SpeakUtil.swift */; };
 		A0C167E52A78FEB0004B7F51 /* StartBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167E42A78FEB0004B7F51 /* StartBrush.swift */; };
 		A0C167E72A793148004B7F51 /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167E62A793148004B7F51 /* ObservableScrollView.swift */; };
@@ -103,7 +98,6 @@
 		A0DA4B252A46B81E009CA236 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B242A46B81E009CA236 /* Result.swift */; };
 		A0DA4B272A46BA45009CA236 /* BrushIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B262A46BA45009CA236 /* BrushIcon.swift */; };
 		A0DA4B2B2A46BEF8009CA236 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */; };
-		A0DA4B2E2A46CFAD009CA236 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = A0DA4B2D2A46CFAD009CA236 /* SwiftUIPager */; };
 		A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B55C2A681264001D5EA4 /* BgColor.swift */; };
 		A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */; };
 		A0F5B5672A682D3A001D5EA4 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */; };
@@ -179,8 +173,6 @@
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
 		A03252342A7BF509002EEB5C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A0333C812A7D163700E20F8E /* WatchUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchUtil.swift; sourceTree = "<group>"; };
-		A0333C832A7D1B9300E20F8E /* TmpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpExchange.swift; sourceTree = "<group>"; };
-		A0333C852A7D1D6F00E20F8E /* TmpExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpExchange.swift; sourceTree = "<group>"; };
 		A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimViolin.swift; sourceTree = "<group>"; };
 		A040AD532A77D511002EF68A /* CountDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDown.swift; sourceTree = "<group>"; };
 		A04255CE2A69095100D38A16 /* Brush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
@@ -222,6 +214,7 @@
 		A05D851F2A80D7D100D27890 /* MLT.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MLT.mp3; sourceTree = "<group>"; };
 		A05D85202A80D7D100D27890 /* OLB.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = OLB.mp3; sourceTree = "<group>"; };
 		A05D85212A80D7D100D27890 /* ILT.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ILT.mp3; sourceTree = "<group>"; };
+		A06383882A810F8D00E46CEF /* entitlement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = entitlement.plist; sourceTree = "<group>"; };
 		A06684D52A42E12400D27BF3 /* Mine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mine.swift; sourceTree = "<group>"; };
 		A06684D72A42E32800D27BF3 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		A06684D92A42E35E00D27BF3 /* Brush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
@@ -240,7 +233,6 @@
 		A0A9FF082A45CC8A00305294 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		A0A9FF0A2A45D39500305294 /* FinishBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishBrush.swift; sourceTree = "<group>"; };
 		A0B014142A486D9100838702 /* VoiceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimation.swift; sourceTree = "<group>"; };
-		A0B0E3CB2A7BF4B000AF6572 /* Tmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tmp.swift; sourceTree = "<group>"; };
 		A0B553E62A6979AD0016E819 /* SpeakUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakUtil.swift; sourceTree = "<group>"; };
 		A0C167E42A78FEB0004B7F51 /* StartBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartBrush.swift; sourceTree = "<group>"; };
 		A0C167E62A793148004B7F51 /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
@@ -278,9 +270,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0DA4B2E2A46CFAD009CA236 /* SwiftUIPager in Frameworks */,
-				A0581FDD2A41DC4900710C4B /* ComposableArchitecture in Frameworks */,
-				A07ED39D2A7A777700466663 /* Moya in Frameworks */,
+				A06383942A8120B500E46CEF /* ComposableArchitecture in Frameworks */,
+				A063838E2A81200100E46CEF /* SwiftUIPager in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,8 +293,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A032523A2A7BF523002EEB5C /* CocoaLumberjackSwift in Frameworks */,
-				A03252382A7BF523002EEB5C /* CocoaLumberjack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,12 +360,12 @@
 		A0581F7E2A41DBEF00710C4B /* Brush */ = {
 			isa = PBXGroup;
 			children = (
+				A06383882A810F8D00E46CEF /* entitlement.plist */,
 				A0581F7F2A41DBEF00710C4B /* BrushApp.swift */,
 				A0581F812A41DBEF00710C4B /* ContentView.swift */,
 				A00913152A430B1600057B4E /* Theme.swift */,
 				A0C167E92A7944DA004B7F51 /* Main.swift */,
 				A0581FDE2A41E7F900710C4B /* Route.swift */,
-				A0333C852A7D1D6F00E20F8E /* TmpExchange.swift */,
 				A09E21942A66C5B10012C6BB /* Extension */,
 				A06684E02A42F81100D27BF3 /* Component */,
 				588C8C992A6AAE0E00DD8A65 /* Login */,
@@ -607,8 +596,6 @@
 				A0D6C5062A47C4AE00C4DA84 /* Theme.swift */,
 				A0F5B55F2A6815F7001D5EA4 /* Page */,
 				A0D6C50E2A47CAC200C4DA84 /* Component */,
-				A0B0E3CB2A7BF4B000AF6572 /* Tmp.swift */,
-				A0333C832A7D1B9300E20F8E /* TmpExchange.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -663,9 +650,8 @@
 			);
 			name = Brush;
 			packageProductDependencies = (
-				A0581FDC2A41DC4900710C4B /* ComposableArchitecture */,
-				A0DA4B2D2A46CFAD009CA236 /* SwiftUIPager */,
-				A07ED39C2A7A777700466663 /* Moya */,
+				A063838D2A81200100E46CEF /* SwiftUIPager */,
+				A06383932A8120B500E46CEF /* ComposableArchitecture */,
 			);
 			productName = Brush;
 			productReference = A0581F7C2A41DBEF00710C4B /* Brush.app */;
@@ -721,8 +707,6 @@
 			);
 			name = "Brush Watch App";
 			packageProductDependencies = (
-				A03252372A7BF523002EEB5C /* CocoaLumberjack */,
-				A03252392A7BF523002EEB5C /* CocoaLumberjackSwift */,
 			);
 			productName = "Brush Watch App";
 			productReference = A0581FA22A41DBEF00710C4B /* TuneBrush.app */;
@@ -808,10 +792,8 @@
 			);
 			mainGroup = A0581F732A41DBEF00710C4B;
 			packageReferences = (
-				A0581FDB2A41DC4900710C4B /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
-				A0DA4B2C2A46CFAD009CA236 /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
-				A07ED39B2A7A777700466663 /* XCRemoteSwiftPackageReference "Moya" */,
-				A03252362A7BF523002EEB5C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
+				A06383922A8120B500E46CEF /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = A0581F7D2A41DBEF00710C4B /* Products */;
 			projectDirPath = "";
@@ -920,7 +902,6 @@
 				A0300C502A446E010056496E /* EnterWay.swift in Sources */,
 				A045D3102A7A31B70009EF7B /* User.swift in Sources */,
 				A09E21982A66C6240012C6BB /* CornerRadius.swift in Sources */,
-				A0333C862A7D1D6F00E20F8E /* TmpExchange.swift in Sources */,
 				A00913162A430B1600057B4E /* Theme.swift in Sources */,
 				A0A9FF092A45CC8A00305294 /* Rating.swift in Sources */,
 				A0A9FF0B2A45D39500305294 /* FinishBrush.swift in Sources */,
@@ -969,7 +950,6 @@
 				A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */,
 				A0D6C5072A47C4AE00C4DA84 /* Theme.swift in Sources */,
 				A02A84302A482C20003255A5 /* VoiceBgAnimation.swift in Sources */,
-				A0333C842A7D1B9300E20F8E /* TmpExchange.swift in Sources */,
 				A0D6C5122A47CC2100C4DA84 /* Score.swift in Sources */,
 				A0D154672A7B306300C6BAEF /* MotionUtil.swift in Sources */,
 				A06890802A6AAEF400AD2374 /* AnimNote.swift in Sources */,
@@ -983,7 +963,6 @@
 				A0B553E72A6979AD0016E819 /* SpeakUtil.swift in Sources */,
 				A04255CF2A69095100D38A16 /* Brush.swift in Sources */,
 				A0D6C5052A47C42100C4DA84 /* BgView.swift in Sources */,
-				A0B0E3CC2A7BF4B000AF6572 /* Tmp.swift in Sources */,
 				A03252352A7BF509002EEB5C /* Logger.swift in Sources */,
 				A0D6C5182A47D15B00C4DA84 /* Tip.swift in Sources */,
 				A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */,
@@ -1076,6 +1055,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Brush/entitlement.plist;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1135,6 +1115,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Brush/entitlement.plist;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1181,7 +1162,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cxq.Brush.watchkitapp;
 				PRODUCT_NAME = TuneBrush;
 				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -1215,7 +1196,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cxq.Brush.watchkitapp;
 				PRODUCT_NAME = TuneBrush;
 				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -1534,31 +1515,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A03252362A7BF523002EEB5C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-		A0581FDB2A41DC4900710C4B /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.54.1;
-			};
-		};
-		A07ED39B2A7A777700466663 /* XCRemoteSwiftPackageReference "Moya" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Moya/Moya.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 15.0.0;
-			};
-		};
-		A0DA4B2C2A46CFAD009CA236 /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
+		A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fermoya/SwiftUIPager.git";
 			requirement = {
@@ -1566,33 +1523,26 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		A06383922A8120B500E46CEF /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.58.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A03252372A7BF523002EEB5C /* CocoaLumberjack */ = {
+		A063838D2A81200100E46CEF /* SwiftUIPager */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A03252362A7BF523002EEB5C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
-			productName = CocoaLumberjack;
-		};
-		A03252392A7BF523002EEB5C /* CocoaLumberjackSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A03252362A7BF523002EEB5C /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
-			productName = CocoaLumberjackSwift;
-		};
-		A0581FDC2A41DC4900710C4B /* ComposableArchitecture */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A0581FDB2A41DC4900710C4B /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
-			productName = ComposableArchitecture;
-		};
-		A07ED39C2A7A777700466663 /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A07ED39B2A7A777700466663 /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = Moya;
-		};
-		A0DA4B2D2A46CFAD009CA236 /* SwiftUIPager */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A0DA4B2C2A46CFAD009CA236 /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
+			package = A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
 			productName = SwiftUIPager;
+		};
+		A06383932A8120B500E46CEF /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A06383922A8120B500E46CEF /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
