@@ -18,12 +18,10 @@ struct SquareIconView: View {
                 .fill(color)
                 .frame(width: sideLength, height: sideLength)
                 .cornerRadius(16)
-                .shadow(color: .black.opacity(0.1), radius: 0, x: 0, y: 0)
                 .shadow(color: .black.opacity(0.1), radius: 4.5, x: 2, y: -4)
                 .shadow(color: .black.opacity(0.09), radius: 8.5, x: 8, y: -15)
                 .shadow(color: .black.opacity(0.05), radius: 11.5, x: 17, y: -33)
                 .shadow(color: .black.opacity(0.01), radius: 13.5, x: 31, y: -59)
-                .shadow(color: .black.opacity(0), radius: 14.5, x: 48, y: -93)
                 
             iconImage
                 .resizable()
