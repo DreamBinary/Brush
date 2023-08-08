@@ -13,19 +13,22 @@ struct SectionPre: View {
     
     var body: some View {
        
-        BgColor(.primary) {
-            ZStack {
-                Image(section.rawValue)
-                    .resizable()
-                    .scaledToFill()
-                    .offset(y: 16)
-                VStack(spacing: 0) {
-                    Spacer()
-                    Text(SectionUtil.getName(section))
-                        .font(.title3)
-                        .fontWeight(.bold)
-                }.padding(.bottom)
-                    .edgesIgnoringSafeArea(.bottom)
+        GeometryReader { geo in
+            let height = geo.size.height
+            BgColor(.primary) {
+                ZStack {
+                    Image(section.rawValue)
+                        .resizable()
+                        .scaledToFill()
+                        .offset(y: 0.075 * height)
+                    VStack(spacing: 0) {
+                        Spacer()
+                        Text(SectionUtil.getName(section))
+                            .font(.title3)
+                            .fontWeight(.bold)
+                    }.padding(.bottom)
+                        .edgesIgnoringSafeArea(.bottom)
+                }
             }
         }
     }

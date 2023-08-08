@@ -28,18 +28,13 @@ class WatchUtil: NSObject, WCSessionDelegate {
         session.activate()
     }
     
-    func send2Watch(_ message: [String: Any], onSuccess: @escaping () -> Void, onError: @escaping () -> Void) {
+    func send2Watch(_ message: [String: Any], onSuccess: @escaping () -> Void) {
         if WCSession.isSupported() {
             session.sendMessage(message, replyHandler: { msg in
-                print("reply")
                 if (msg["success"] != nil) as Bool == true {
                     onSuccess()
-                } else {
-                    onError()
                 }
-            }, errorHandler: { _ in
-                onError()
-            })
+            }, errorHandler: .none)
         }
     }
     

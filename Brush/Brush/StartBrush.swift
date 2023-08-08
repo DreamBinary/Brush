@@ -51,7 +51,7 @@ struct StartBrush: View {
             }
         }
     }
-
+    
     private func onStartWatch() {
         if !util.isPaired() {
             msg = "watch not paired"
@@ -63,30 +63,21 @@ struct StartBrush: View {
             isPresented = true
             return
         }
-        if !util.isReachable() {
-            msg = "watch not reachable"
-            isPresented = true
-            return
-        }
         util.startApp { success, _ in
-            msg = "start"
-            isPresented = true
             if success {
-                if !util.isReachable() {
+                var i = 0
+                while (!util.isReachable() && i < 10) {
+                    sleep(1)
+                    util.send2Watch(["start": true], onSuccess: onStart)
+                    i += 1
+                }
+                if i >= 10 {
                     msg = "watch not reachable"
                     isPresented = true
-                    return
                 }
-                util.send2Watch(["start": true], onSuccess: {
-                    onStart()
-                }, onError: {
-                    msg = "error"
-                    isPresented = true
-                })
             } else {
                 msg = "start app failed"
                 isPresented = true
-                return
             }
         }
     }
