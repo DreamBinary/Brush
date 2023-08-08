@@ -28,7 +28,6 @@ struct Brush: View {
 //                    }
             case .pre:
                 SectionPre(cSection).onAppear {
-                        player.play()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         HapticUtil.start()
                         changePage()
@@ -36,10 +35,11 @@ struct Brush: View {
                 }
             case .ing:
                 SectionIng(cSection).onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                    player.play()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
                         HapticUtil.change()
-                            player.stop()
-                            player = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
+                        player.stop()
+                        player = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
                         changePage()
                     }
                 }
