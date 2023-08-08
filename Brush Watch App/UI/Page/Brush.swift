@@ -18,7 +18,6 @@ struct Brush: View {
         switch brushState {
             case .start:
                 Start(isStarted: $util.isStarted) {
-                    MotionUtil.startAccelerometers { _, _, _ in }
                     HapticUtil.change()
                     changePage()
                 }
@@ -51,7 +50,7 @@ struct Brush: View {
                 }
             case .finish:
                 Finish {
-                    cSection = .OLB
+                    cSection = .ORT
                     changePage()
                 }
             case .score:
