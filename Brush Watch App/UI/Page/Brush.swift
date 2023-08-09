@@ -26,20 +26,12 @@ struct Brush: View {
 //                        changePage()
 //                    }
             case .pre:
-                WindowGroup {
-                    SectionPre(cSection)
-                }.backgroundTask(.appRefresh) {
+                SectionPre(cSection).onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         HapticUtil.start()
                         changePage()
                     }
                 }
-//                    .onAppear {
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                        HapticUtil.start()
-//                        changePage()
-//                    }
-//                }
             case .ing:
                 SectionIng(cSection).onAppear {
                     player.play()

@@ -12,8 +12,6 @@ struct Brush_Watch_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.backgroundTask(.appRefresh) {
-            
         }
     }
 }
