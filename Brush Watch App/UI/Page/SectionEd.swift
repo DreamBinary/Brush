@@ -14,15 +14,6 @@ struct SectionEd: View {
             let width = geo.size.width
             VStack {
                 Spacer()
-//                ZStack {
-//                    Circle()
-//                        .fill(Color.lightPrimary)
-//                        .frame(width: width * 0.45, height: width * 0.45)
-//                    Circle()
-//                        .fill(Color.primary)
-//                        .frame(width: width * 0.25, height: width * 0.25)
-//                    AnimCheck(fromColor: .fontBlack, toColor: .white)
-//                }.padding()
                 AnimCheckCircle(
                     size: CGSize(width: width * 0.35, height: width * 0.35),
                     fromColor: .lightPrimary, toColor: .primary,

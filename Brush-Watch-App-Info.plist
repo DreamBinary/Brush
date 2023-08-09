@@ -4,7 +4,7 @@
 <dict>
 	<key>WKBackgroundModes</key>
 	<array>
-		<string>self-care</string>
+		<string>alarm</string>
 		<string>workout-processing</string>
 	</array>
 </dict>
