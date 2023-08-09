@@ -54,29 +54,29 @@ struct StartBrush: View {
     
     private func onStartWatch() {
         if !util.isPaired() {
-            msg = "watch not paired"
+            msg = "还没有连接上你的 Apple Watch 吧"
             isPresented = true
             return
         }
         if !util.isWatchAppInstalled() {
-            msg = "watch app not installed"
+            msg = "是不是还没安装我们的 TuneBrush Watch"
             isPresented = true
             return
         }
         util.startApp { success, _ in
             if success {
                 var i = 0
-                while (!util.isReachable() && i < 10) {
-                    sleep(1)
+                while (!util.isReachable() && i < 3) {
+                    usleep(500000)
                     util.send2Watch(["start": true], onSuccess: onStart)
                     i += 1
                 }
-                if i >= 10 {
-                    msg = "watch not reachable"
+                if i >= 3 {
+                    msg = "信号发送出了错,再试试或者手动打开吧"
                     isPresented = true
                 }
             } else {
-                msg = "start app failed"
+                msg = "TuneBrush Watch 打开失败了,再试试或者手动打开吧"
                 isPresented = true
             }
         }

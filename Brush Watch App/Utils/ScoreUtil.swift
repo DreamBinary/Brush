@@ -18,7 +18,7 @@ class ScoreUtil {
         preDataInSecond.append((x, y, z))
     }
     
-    func secondProcess() async {
+    func secondProccess() async {
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
                 await self.computeTime()
@@ -30,7 +30,7 @@ class ScoreUtil {
         preDataInSecond.removeAll()
     }
     
-    func sectionProces() async {
+    func sectionProcces() async {
         await computeScoreInSection()
         dataInSecond.removeAll()
     }
@@ -53,7 +53,7 @@ class ScoreUtil {
     }
     
     // TODO
-    private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool { 
+    private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool {
         return false
     }
     
@@ -71,7 +71,6 @@ class ScoreUtil {
         let start = Int(length / 6) //  1 / 6
         let end = start * 5 //  5 / 6
         let datasTmp: [Double] = Array(datas.sorted()[start ..< end])
-        print(datasTmp)
         let avg = getAvg(data: datasTmp)
         dataInSecond.append(avg)
     }
@@ -90,6 +89,7 @@ class ScoreUtil {
         return data.reduce(0, +) / Double(data.count)
     }
     
+    // TODO
     private func computeScoreInSecond(data: Double) -> Double {
         return 0.1
     }

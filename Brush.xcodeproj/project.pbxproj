@@ -570,6 +570,7 @@
 		A0CACD8E2A7B9AB4005CDDD4 /* RM */ = {
 			isa = PBXGroup;
 			children = (
+				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
 				A04255D02A6916A500D38A16 /* AnimCheck.swift */,
 				A0D6C5152A47D07C00C4DA84 /* RemedyIng.swift */,
 				A0D6C5132A47CC6C00C4DA84 /* RemedySelect.swift */,
@@ -616,7 +617,6 @@
 				A0D6C50C2A47C92100C4DA84 /* SectionEd.swift */,
 				A0D6C5112A47CC2100C4DA84 /* Score.swift */,
 				A0D6C50F2A47CB0B00C4DA84 /* Finish.swift */,
-				A0D6C5172A47D15B00C4DA84 /* Tip.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
