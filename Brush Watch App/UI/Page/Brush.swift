@@ -8,23 +8,27 @@
 import SwiftUI
 
 struct Brush: View {
-//    @Environment(\.presentationMode) var presentationMode
-
+    //    @Environment(\.presentationMode) var presentationMode
+    
     @State private var brushState: BrushState = .start
     @State private var cSection: Section = .ORT
     @ObservedObject private var util = PhoneUtil()
     @State var player = MusicUtil(res: Section.ORT.rawValue)
+    var session = SessionUtil()
+    
+    
     var body: some View {
         switch brushState {
             case .start:
                 Start(isStarted: $util.isStarted) {
                     HapticUtil.change()
+                    session.start()
                     changePage()
                 }
-//                case .count_down:
-//                    CountDown() {
-//                        changePage()
-//                    }
+                //                case .count_down:
+                //                    CountDown() {
+                //                        changePage()
+                //                    }
             case .pre:
                 SectionPre(cSection).onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -59,7 +63,7 @@ struct Brush: View {
                 }
         }
     }
-
+    
     func changePage() {
         if brushState == .ed {
             cSection = SectionUtil.getNext(cSection)
@@ -70,8 +74,8 @@ struct Brush: View {
             brushState = {
                 switch brushState {
                     case .start:
-//                        return .count_down
-//                    case .count_down:
+                        //                        return .count_down
+                        //                    case .count_down:
                         return .pre
                     case .pre:
                         return .ing
@@ -91,7 +95,7 @@ struct Brush: View {
 
 enum BrushState {
     case start
-//    case count_down
+    //    case count_down
     case pre
     case ing
     case ed
