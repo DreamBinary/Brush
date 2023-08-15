@@ -44,7 +44,6 @@ class WatchUtil: NSObject, WCSessionDelegate {
             workoutConfiguration.locationType = .indoor
             workoutConfiguration.activityType = .other
             let healthStore = HKHealthStore()
-            print("helth")
             healthStore.startWatchApp(with: workoutConfiguration) { success, error in
                 completion(success, error)
             }

@@ -28,6 +28,7 @@ class PhoneUtil: NSObject, ObservableObject, WCSessionDelegate {
     //            print("WCSession is not supported")
     //        }
     //    }
+    
     func session(_ session: WCSession,
                  didReceiveMessage message: [String: Any],
                  replyHandler: @escaping ([String: Any]) -> Void) {
