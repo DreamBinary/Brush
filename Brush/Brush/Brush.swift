@@ -43,6 +43,7 @@ struct Brush: ReducerProtocol {
                     }
                     return .none
                 case .innEnd:
+                    state.brushState = .start
                     return .none
                 case .binding:
                     return .none
@@ -68,7 +69,11 @@ struct BrushView: View {
                         vStore.send(.countdownEnd)
                     }.transition(.move(edge: .bottom))
                 case .inn:
-                    InBrush().transition(.move(edge: .leading))
+                    InBrush().transition(.move(edge: .leading)).onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 156, execute: {
+                            vStore.send(.innEnd)
+                        })
+                    }
             }
         }
     }
