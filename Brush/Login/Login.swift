@@ -23,48 +23,6 @@ struct TextDisplayView: View {
     }
 }
 
-// class PurpleToothSatus: ObservableObject {
-//    @Published var y: Double = 0
-//    @Published var color: Color = .init(0xADC4FF)
-//    @Published var angle: Double = 30
-//    let image: Image = .init("ToothGum")
-//    func toFirst() {
-//        y = 0
-//    }
-//
-//    func toSecond() {
-//        y = 50
-//    }
-//
-//    func toThird() {
-//        y = 50
-//        color = Color(0xA9FDC1)
-//        angle = 30
-//    }
-// }
-//
-// class TuneBrushBtnStatus: ObservableObject {
-//    @Published var bgColor: Color = .white
-//    @Published var radius: Double = 30
-//    @Published var opacity: Double = 0.57
-//    func toWhite() {
-//        bgColor = .white
-//        radius = 30
-//        opacity = 0.57
-//    }
-//
-//    func toPurple() {
-//        bgColor = Color(0xADC4FF)
-//        radius = 40
-//        opacity = 0.65
-//    }
-//
-//    func toGreen() {
-//        bgColor = Color(0xBEFFD0)
-//        radius = 40
-//        opacity = 0.81
-//    }
-// }
 
 class PurpleToothStatus: Equatable {
     static func == (lhs: PurpleToothStatus, rhs: PurpleToothStatus) -> Bool {
@@ -73,8 +31,8 @@ class PurpleToothStatus: Equatable {
     
     var y: Double = 0
     var color: Color = .init(0xADC4FF)
-    var angle: Double = 30
-    let image: Image = .init("ToothGum")
+    var angle: Double = -20
+    var image: Image = .init("ToothShine")
     func toFirst() {
         y = 0
         color = .init(0xADC4FF)
@@ -89,6 +47,7 @@ class PurpleToothStatus: Equatable {
     
     func toThird() {
         y = 50
+        image=Image("ToothGum")
         color = Color(0xA9FDC1)
         angle = 30
     }
@@ -96,37 +55,7 @@ class PurpleToothStatus: Equatable {
 
 struct LoginView: View {
     let store: StoreOf<Login>
-    
-    // 是否展示登录状态字段
-    //    @State private var loginViewActive = false
-    // 紫色卡片的状态
-    //    @StateObject private var purpleToothVm = PurpleToothSatus()
-    //    let purpleToothFirst=PurpleToothSatus(x: 0, y: 0)
-    //    let purpleToothSecond=PurpleToothSatus(x: 0, y: 50)
-    //    let purpleToothThird=PurpleToothSatus(x: 0, y: 50, color: Color(0xA9FDC1), image: Image("ToothGum"), angle: 30)
-    
-    // tunebrushLogo状态
-    //    @StateObject private var brushBtnVm = TuneBrushBtnStatus()
-    //    let tuneBrushBtnWhite=TuneBrushBtnStatus()
-    //    let tuneBrushBtnPurple=TuneBrushBtnStatus(bgColor: Color(0xADC4FF), radius: 40, opacity: 0.65)
-    //    let tuneBrushBtnGreen=TuneBrushBtnStatus(bgColor: Color(0xBEFFD0), radius: 40, opacity: 0.81)
-    
-    // 动画命名空间
-    //    @Namespace var animation
-    
-    //    struct PurpleToothSatus {
-    //        var x: Double=0
-    //        var y: Double=0
-    //        var color: Color = .init(0xA9C1FD)
-    //        var image: Image = .init("ToothShine")
-    //        var angle: Double = -20
-    //    }
-    
-    //    struct TuneBrushBtnStatus {
-    //        var bgColor: Color = .white
-    //        var radius: Double=30
-    //        var opacity: Double=0.57
-    //    }
+    @State private var isAgreed = false
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
@@ -146,8 +75,6 @@ struct LoginView: View {
                                 .padding(.top, screenHeight * 0.1)
                         }
                         Spacer()
-                    }.onTapGesture {
-                        vStore.send(.enterInput(.changeType))
                     }
                     
                     // Z第三层
@@ -169,9 +96,12 @@ struct LoginView: View {
                                     store: store.scope(state: \.enterInput, action: Login.Action.enterInput)
                                 )
                                 EnterWay().padding(.vertical, 10)
+                                if !vStore.isLogin {
+
+                                }
                                 Spacer()
                             }.frame(width: UIScreen.main.bounds.width * 0.7)
-                        }.frame(width: screenWidth, height: screenHeight * 0.5)
+                        }.frame(width: screenWidth, height: vStore.isLogin ? screenHeight * 0.5 : screenHeight * 0.50 + 30)
                             .offset(y: vStore.isLoginView ? 0 : screenHeight)
                     }
                     
@@ -184,7 +114,8 @@ struct LoginView: View {
                             radius: vStore.brushBtnVm.radius,
                             color: vStore.brushBtnVm.bgColor,
                             opacity: vStore.brushBtnVm.opacity
-                        ).onTapGesture {
+                        ).offset(y: vStore.isLogin ? 0 : -30)
+                        .onTapGesture {
                             vStore.send(.onBrushBtnTapped)
                         }
                         if !vStore.isLoginView {
@@ -197,6 +128,7 @@ struct LoginView: View {
         }
     }
 }
+
 
 struct FirstView: View {
     var isRemove: Bool
