@@ -9,34 +9,41 @@ import Foundation
 import SwiftUI
 import WatchKit
 
-class SessionUtil: NSObject, WKExtendedRuntimeSessionDelegate {
+class BgRunUtil: NSObject, WKExtendedRuntimeSessionDelegate {
+    var onStart: () -> Void
+    var onStop: () -> Void
     private var session: WKExtendedRuntimeSession?
-    func start() {
-        guard session?.state != .running else { return }
+    
+    init(onStart: @escaping () -> Void, onStop: @escaping () -> Void) {
+        self.onStart = onStart
+        self.onStop = onStop
+        super.init()
         
-        // create or recreate session if needed
-        if session == nil || session?.state == .invalid {
-            session = WKExtendedRuntimeSession()
-            session?.delegate = self
-        }
-        session?.start()
     }
     
-    func invalidate() {
+    func start() {
+        guard session?.state != .running else { return }
+        if (session == nil || session!.state != .running) {
+            session = WKExtendedRuntimeSession()
+            session!.delegate = self
+        }
+        session?.start(at: Date())
+    }
+    
+    func stop() {
+        onStop()
         session?.invalidate()
     }
     
     func extendedRuntimeSession(_ extendedRuntimeSession: WKExtendedRuntimeSession, didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason, error: Error?) {
-         
+        print("extendedRuntimeSession")
     }
     
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            print("timer")
-        }
+        onStart()
     }
     
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-         
+        print("extendedRuntimeSessionWillExpire")
     }
 }

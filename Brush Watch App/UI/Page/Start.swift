@@ -9,7 +9,8 @@ import SwiftUI
 
 struct Start: View {
     @Binding var isStarted: Bool
-    var onCountdownEnd: () -> Void
+    @Binding var cnt: Int
+    var onStartTap: () -> Void
  
     var body: some View {
         BgColor(.primary) {
@@ -17,12 +18,9 @@ struct Start: View {
                 if !isStarted {
                     AnimViolin().transition(.opacity)
                 }
-                
                 AnimNote()
-
                 if isStarted {
-                    CountDown {
-                        onCountdownEnd()
+                    CountDown(cnt: $cnt) {
                         isStarted = false
                     }.transition(.opacity)
                 } else {
@@ -30,6 +28,7 @@ struct Start: View {
                         .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.5))
                         .fontWeight(.bold)
                         .onTapGesture {
+                            onStartTap()
                             HapticUtil.click()
                             isStarted = true
                         }.transition(.opacity)

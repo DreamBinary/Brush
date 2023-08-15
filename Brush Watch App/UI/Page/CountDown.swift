@@ -5,14 +5,14 @@
 //  Created by cxq on 2023/7/31.
 //
 
-import Combine
+
 import SwiftUI
 
 struct CountDown: View {
+    @Binding var cnt: Int
     var onEnd: () -> Void
-    @State private var cnt = 3
     @State private var scale: Double = 1
-    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     private let font: Font = .system(size: UIFont.textStyleSize(.largeTitle) * 1.5).bold()
     var body: some View {
         Text("0")
@@ -40,21 +40,16 @@ struct CountDown: View {
             .onAppear {
                 self.textScale()
             }
-            .onReceive(self.timer) { _ in
-                if self.cnt > 1 {
-                    withAnimation(.interactiveSpring()) {
-                        self.cnt -= 1
-                    }
+            .onChange(of: self.cnt) { _ in
+                if self.cnt > 0 {
                     self.textScale()
                 } else {
-                    self.timer.upstream.connect().cancel()
                     self.onEnd()
                 }
             }
     }
 
     func textScale() {
-        SpeakUtil.shared.speak("\(self.cnt)")
         withAnimation(.easeIn(duration: 0.2)) {
             self.scale = 1.5
         }
@@ -64,32 +59,6 @@ struct CountDown: View {
     }
 }
 
-//class MyTimer {
-//    var interval = 1.0
-//    var timer: Timer.TimerPublisher
-//    var cancellable: AnyCancellable?
-//
-//    init(interval: Double = 1.0) {
-//        self.interval = interval
-//        self.timer = Timer.TimerPublisher(interval: interval, runLoop: .main, mode: .default)
-//    }
-//
-//    func restart() {
-//        self.timer = Timer.TimerPublisher(interval: 1.0, runLoop: .main, mode: .default)
-//        self.cancellable = self.timer.connect() as? AnyCancellable
-//    }
-//
-//    func stop() {
-//        self.cancellable?.cancel()
-//    }
-//
-//    func start() {
-//        self.cancellable = self.timer.connect() as? AnyCancellable
-//    }
-//}
 
-struct CountDown_Previews: PreviewProvider {
-    static var previews: some View {
-        CountDown(onEnd: {})
-    }
-}
+
+

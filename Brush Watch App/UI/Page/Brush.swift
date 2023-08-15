@@ -1,3 +1,104 @@
+////
+////  BrushIng.swift
+////  Brush Watch App
+////
+////  Created by cxq on 2023/7/20.
+////
+//
+// import SwiftUI
+//
+// struct Brush: View {
+//    @State private var brushState: BrushState = .start
+//    @State private var cSection: Section = .ORT
+//    @ObservedObject private var phoneUtil = PhoneUtil()
+//    @State var player = MusicUtil(res: Section.ORT.rawValue)
+//    var session = SessionUtil()
+//
+//
+//    var body: some View {
+//        switch brushState {
+//            case .start:
+//                Start(isStarted: $phoneUtil.isStarted) {
+//                    HapticUtil.change()
+//                    changePage()
+//                }
+//            case .pre:
+//                SectionPre(cSection).onAppear {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                        HapticUtil.start()
+//                        changePage()
+//                    }
+//                }
+//            case .ing:
+//                SectionIng(cSection).onAppear {
+//                    player.play()
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
+//                        HapticUtil.change()
+//                        player.stop()
+//                        player = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
+//                        changePage()
+//                    }
+//                }
+//            case .ed:
+//                SectionEd(cSection).onAppear {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                        changePage()
+//                    }
+//                }
+//            case .finish:
+//                Finish {
+//                    cSection = .ORT
+//                    changePage()
+//                }
+//            case .score:
+//                Score {
+//                    changePage()
+//                }
+//        }
+//    }
+//
+//    func changePage() {
+//        if brushState == .ed {
+//            cSection = SectionUtil.getNext(cSection)
+//        }
+//        if cSection == .Finish {
+//            brushState = .finish
+//        } else {
+//            brushState = {
+//                switch brushState {
+//                    case .start:
+//                        return .pre
+//                    case .pre:
+//                        return .ing
+//                    case .ing:
+//                        return .ed
+//                    case .ed:
+//                        return .pre
+//                    case .finish:
+//                        return .score
+//                    case .score:
+//                        return .start
+//                }
+//            }()
+//        }
+//    }
+// }
+//
+// enum BrushState {
+//    case start
+//    case pre
+//    case ing
+//    case ed
+//    case finish
+//    case score
+// }
+//
+// struct BrushIng_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Brush()
+//    }
+// }
+
 //
 //  BrushIng.swift
 //  Brush Watch App
@@ -8,99 +109,25 @@
 import SwiftUI
 
 struct Brush: View {
-    //    @Environment(\.presentationMode) var presentationMode
-    
-    @State private var brushState: BrushState = .start
-    @State private var cSection: Section = .ORT
-    @ObservedObject private var util = PhoneUtil()
-    @State var player = MusicUtil(res: Section.ORT.rawValue)
-    var session = SessionUtil()
-    
-    
+    @ObservedObject private var util = BrushUtil()
     var body: some View {
-        switch brushState {
+        switch util.brushState {
             case .start:
-                Start(isStarted: $util.isStarted) {
-                    HapticUtil.change()
-                    session.start()
-                    changePage()
-                }
-                //                case .count_down:
-                //                    CountDown() {
-                //                        changePage()
-                //                    }
+                Start(isStarted: $util.phoneUtil.isStarted, cnt: $util.cnt, onStartTap: {
+                    util.startBrush()
+                })
             case .pre:
-                SectionPre(cSection).onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        HapticUtil.start()
-                        changePage()
-                    }
-                }
+                SectionPre(util.cSection)
             case .ing:
-                SectionIng(cSection).onAppear {
-                    player.play()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
-                        HapticUtil.change()
-                        player.stop()
-                        player = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
-                        changePage()
-                    }
-                }
+                SectionIng(util.cSection)
             case .ed:
-                SectionEd(cSection).onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        changePage()
-                    }
-                }
+                SectionEd(util.cSection)
             case .finish:
-                Finish {
-                    cSection = .ORT
-                    changePage()
-                }
+                Finish { util.finishBrush() }
             case .score:
-                Score {
-                    changePage()
-                }
+                Score { util.changePage() }
         }
     }
-    
-    func changePage() {
-        if brushState == .ed {
-            cSection = SectionUtil.getNext(cSection)
-        }
-        if cSection == .Finish {
-            brushState = .finish
-        } else {
-            brushState = {
-                switch brushState {
-                    case .start:
-                        //                        return .count_down
-                        //                    case .count_down:
-                        return .pre
-                    case .pre:
-                        return .ing
-                    case .ing:
-                        return .ed
-                    case .ed:
-                        return .pre
-                    case .finish:
-                        return .score
-                    case .score:
-                        return .start
-                }
-            }()
-        }
-    }
-}
-
-enum BrushState {
-    case start
-    //    case count_down
-    case pre
-    case ing
-    case ed
-    case finish
-    case score
 }
 
 struct BrushIng_Previews: PreviewProvider {

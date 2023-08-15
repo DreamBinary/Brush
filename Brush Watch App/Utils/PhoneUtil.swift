@@ -10,10 +10,12 @@ import WatchConnectivity
 
 class PhoneUtil: NSObject, ObservableObject, WCSessionDelegate {
     @Published var isStarted: Bool
+    var onStart: () -> Void
     private var session: WCSession = .default
     
-    init(isStarted: Bool = false) {
+    init(isStarted: Bool = false, onStart: @escaping () -> Void = {}) {
         self.isStarted = isStarted
+        self.onStart = onStart
         super.init()
         session.delegate = self
         session.activate()
@@ -32,6 +34,7 @@ class PhoneUtil: NSObject, ObservableObject, WCSessionDelegate {
         if (message["start"] != nil) == true {
             HapticUtil.getFromPhone()
             isStarted = true
+            onStart()
             replyHandler(["success": true])
         }
     }
