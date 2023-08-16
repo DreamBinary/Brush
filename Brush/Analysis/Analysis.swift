@@ -12,12 +12,16 @@ import SwiftUI
 
 struct Analysis: ReducerProtocol {
     struct State: Equatable {
-        var curMonth = 5 // from 1 start
+        var name: String = "Worsh"
+        var label: String = "Are you ready for your new journey?"
+        var curMonth: Int = 5 // from 1 start
+        var topScore: Int = 100
+        var avgPower: Double = 0.5
     }
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
-
+        case onTapGetStarted
         case onTapMonth(Int)
     }
 
@@ -26,6 +30,8 @@ struct Analysis: ReducerProtocol {
         Reduce { state, action in
             switch action {
                 case .binding:
+                    return .none
+                case .onTapGetStarted:
                     return .none
                 case let .onTapMonth(month):
                     state.curMonth = month
@@ -40,7 +46,7 @@ struct Analysis: ReducerProtocol {
 struct AnalysisView: View {
     let store: StoreOf<Analysis>
 
-    let backgroundColors: [Color] = [
+    private let backgroundColors: [Color] = [
         Color(0x7DE2D1, 1),
         Color(0x9BEADC, 0.69),
         Color(0xCAFBF3, 1),
@@ -51,139 +57,192 @@ struct AnalysisView: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            GeometryReader { _ in
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(spacing: 15) {
-                        Avatar(fillColor: Color(0xADB4F2))
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("Hi, Worsh!")
-                                .font(.title2.bold())
-                            Text("Are you ready for your new journey?")
-                                .font(.callout)
-                                .foregroundColor(.lightBlack)
+                GeometryReader { _ in
+                    VStack(alignment: .leading, spacing: 10) {
+                        Person(name: vStore.name, label: vStore.label)
+                        
+                        StartCard(onGetStarted: {vStore.send(.onTapGetStarted)})
+                        
+                        Text("Your Analysis")
+                            .font(.title2.bold())
+                            .padding(.horizontal)
+                            .padding(.horizontal)
+                        
+                        MonthRow(curMonth: vStore.curMonth) { index in
+                            vStore.send(.onTapMonth(index + 1))
                         }
-                    }.padding(.horizontal)
-                    Card(color: Color(0xE1F5B3), cornerRadius: 15) {
-                        ZStack(alignment: .trailing) {
-                            Image("BrushBg")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 110)
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("New TuneBrush Journey")
-                                        .font(.title2.bold())
-                                        .padding(.bottom, 1)
-                                    Text("预计进行 12min      现在就开始！")
-                                        .foregroundColor(.lightBlack)
-                                        .font(.callout)
-                                    Text("Get Started！")
-                                        .font(.title2.bold())
-                                        .underline()
-                                        .padding(.top, 10)
-                                }
-                                Spacer()
-                            }.padding(.horizontal, 25)
-                        }.padding(.vertical)
-                    }.padding(.horizontal)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Text("Your Analysis")
-                        .font(.title2.bold())
-                        .padding(.horizontal)
-                        .padding(.horizontal)
-
-                    MonthRow(curMonth: vStore.curMonth) { index in
-                        vStore.send(.onTapMonth(index + 1))
-                    }
-
-                    GeometryReader { geo in
-                        let height = geo.size.height - 15
-                        HStack(alignment: .top, spacing: 15) {
-                            VStack(spacing: 15) {
-                                Card(color: Color(0x003FE2, 0.44), backgroundOpacity: 0.5) {
-                                    VStack {
-                                        Text("历史最高分")
-                                            .font(.body)
-                                            .fontWeight(.semibold)
-                                            .foregroundColor(.white)
-                                        Text("98")
-                                            .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
-                                        Text("月度最高Top")
-                                            .font(.callout)
-                                            .fontWeight(.semibold)
-                                    }
-                                }.frame(height: height * 0.4)
-                                Card(color: Color(0xFFE193, 0.72)) {
-                                    VStack(spacing: 0) {
-                                        Spacer()
-                                        Image("ScoreLine")
-                                        Text("评分曲线 Monthly")
-                                            .font(.callout)
-                                            .fontWeight(.semibold)
-                                            .padding(.bottom)
-                                    }
-                                }.frame(height: height * 0.6)
-                            }
-                            VStack(spacing: 15) {
-                                Card(color: Color(0x00C4DF, 0.40), backgroundOpacity: 0.5) {
-                                    VStack {
-                                        HStack {
-                                            Image("BrushMin")
-                                            ProgressView(value: 0.5)
-                                                .progressViewStyle(RoundedRectProgressViewStyle())
-                                                .frame(width: 90)
-                                            Image("BrushMax")
-                                        }
-                                        Text("平均力度 Average")
-                                            .font(.callout)
-                                            .fontWeight(.semibold)
-                                    }
-                                }.frame(height: height * 0.25)
-                                GeometryReader { geometry in
-                                    let widthHalf = geometry.size.width / 2
-                                    let heightHalf = geometry.size.height / 2
-
-                                    ZStack {
-                                        Card(color: Color(0xA684C8), backgroundOpacity: 0.5) {
-                                            VStack {
-                                                Spacer()
-                                                Text("热词 Conclusion")
-                                                    .font(.callout)
-                                                    .fontWeight(.semibold)
-                                                    .padding(.bottom)
-                                            }
-                                        }.frame(height: height * 0.75)
-                                        Group {
-                                            HotWord("刷轻啦")
-                                                .offset(x: widthHalf * 0.6, y: -heightHalf * 0.64)
-                                            HotWord("外左上",
-                                                    paddingH: 10, paddingV: 10)
-                                                .offset(x: -widthHalf * 0.5, y: -heightHalf * 0.52)
-                                            HotWord("内右上")
-                                                .offset(x: widthHalf * 0.17, y: -heightHalf * 0.08)
-                                            HotWord("再用点劲",
-                                                    paddingH: 12, paddingV: 12)
-                                                .offset(x: -widthHalf * 0.6, y: heightHalf * 0.36)
-                                            HotWord("外左上",
-                                                    paddingH: 10, paddingV: 10)
-                                                .offset(x: widthHalf * 0.52, y: heightHalf * 0.44)
-                                        }.foregroundColor(Color(0x9272A1))
-                                            .shadow(color: Color(0x000000, 0.25), radius: 5, x: 2, y: 4)
+                        
+                        GeometryReader { geo in
+                            let height = geo.size.height - 15
+                            HStack(alignment: .top, spacing: 15) {
+                                VStack(spacing: 15) {
+                                    Top(score: vStore.topScore).frame(height: height * 0.4)
+                                    NavigationLink(destination: RatingLine()) {
+                                        Mothly().frame(height: height * 0.6)
                                     }
                                 }
+                                VStack(spacing: 15) {
+                                    Average(avgPower: vStore.avgPower).frame(height: height * 0.25)
+                                    Conclusion().frame(height: height * 0.75)
+                                }
                             }
-                        }
-                    }.padding(.horizontal)
-                }
-                .clipped()
-            }.background(
-                LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
-            )
+                        }.padding(.horizontal)
+                    }.clipped()
+                }.background(
+                    LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
+                )
         }
     }
 }
+
+
+struct Person: View {
+    var name: String
+    var label: String
+    var body: some View {
+        HStack(spacing: 15) {
+            Avatar(fillColor: Color(0xADB4F2))
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Hi, \(name)!")
+                    .font(.title2.bold())
+                Text("\(label)")
+                    .font(.callout)
+                    .foregroundColor(.lightBlack)
+            }
+        }.padding(.horizontal)
+    }
+}
+
+struct StartCard: View {
+    var onGetStarted: () ->Void
+    var body: some View {
+        Card(color: Color(0xE1F5B3), cornerRadius: 15) {
+            ZStack(alignment: .trailing) {
+                Image("BrushBg")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 110)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("New TuneBrush Journey")
+                            .font(.title2.bold())
+                            .padding(.bottom, 1)
+                        Text("预计进行 2min      现在就开始！")
+                            .foregroundColor(.lightBlack)
+                            .font(.callout)
+                        Text("Get Started！")
+                            .font(.title2.bold())
+                            .underline()
+                            .padding(.top, 10)
+                            .onTapGesture {
+                                onGetStarted()
+                            }
+                    }
+                    Spacer()
+                }.padding(.horizontal, 25)
+            }.padding(.vertical)
+        }.padding(.horizontal)
+            .fixedSize(horizontal: false, vertical: true)
+    }
+}
+
+struct Top: View {
+    var score: Int
+    var body: some View {
+        Card(color: Color(0x003FE2, 0.44), backgroundOpacity: 0.5) {
+            VStack {
+                Text("历史最高分")
+                    .font(.body)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                Text("\(score)")
+                    .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                Text("月度最高Top")
+                    .font(.callout)
+                    .fontWeight(.semibold)
+            }
+        }
+    }
+}
+struct Average: View {
+    var avgPower: Double
+    var body: some View {
+        Card(color: Color(0x00C4DF, 0.40), backgroundOpacity: 0.5) {
+            VStack {
+                HStack {
+                    Image("BrushMin")
+                    ProgressView(value: avgPower)
+                        .progressViewStyle(RoundedRectProgressViewStyle())
+                        .frame(width: 90)
+                    Image("BrushMax")
+                }
+                Text("平均力度 Average")
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.lightBlack)
+            }
+        }
+    }
+}
+struct Mothly: View {
+    
+    var body: some View {
+        Card(color: Color(0xFFE193, 0.72)) {
+            VStack(spacing: 0) {
+                Spacer()
+                Image("ScoreLine")
+                Text("评分曲线 Monthly")
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                    .padding(.bottom)
+                    .foregroundColor(.lightBlack)
+            }
+        }
+    }
+}
+
+struct Conclusion: View {
+    
+    var body: some View {
+        GeometryReader { geo in
+            let widthHalf = geo.size.width / 2
+            let heightHalf = geo.size.height / 2
+            ZStack {
+                Card(color: Color(0xA684C8), backgroundOpacity: 0.5) {
+                    VStack {
+                        Spacer()
+                        Text("热词 Conclusion")
+                            .font(.callout)
+                            .fontWeight(.semibold)
+                            .padding(.bottom)
+                            .foregroundColor(.lightBlack)
+                    }
+                }
+                Group {
+                    HotWord("刷轻啦")
+                        .offset(x: widthHalf * 0.6, y: -heightHalf * 0.64)
+                    HotWord("外左上",
+                            paddingH: 10, paddingV: 10)
+                    .offset(x: -widthHalf * 0.5, y: -heightHalf * 0.52)
+                    HotWord("内右上")
+                        .offset(x: widthHalf * 0.17, y: -heightHalf * 0.08)
+                    HotWord("再用点劲",
+                            paddingH: 12, paddingV: 12)
+                    .offset(x: -widthHalf * 0.6, y: heightHalf * 0.36)
+                    HotWord("外左上",
+                            paddingH: 10, paddingV: 10)
+                    .offset(x: widthHalf * 0.52, y: heightHalf * 0.44)
+                }.foregroundColor(Color(0x9272A1))
+                    .shadow(color: Color(0x000000, 0.25), radius: 5, x: 2, y: 4)
+            }
+        }
+    }
+}
+
+
+
 
 struct RoundedRectProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {

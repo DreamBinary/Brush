@@ -13,7 +13,7 @@ import SwiftUI
 struct Mine: ReducerProtocol {
     struct State: Equatable {
 //        @BindingState var
-        var name: String = ""
+        var name: String = "Conan Worsh"
     }
     
     enum Action: BindableAction, Equatable {
@@ -37,7 +37,7 @@ struct MineView: View {
     let store: StoreOf<Mine>
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { _ in
+        WithViewStore(self.store, observe: { $0 }) { vStore in
             GeometryReader { geo in
                 let height = geo.size.height
                 let width = geo.size.width
@@ -53,7 +53,7 @@ struct MineView: View {
                             VStack {
                                 Spacer(minLength: width * 0.5 * sqrt(6) / 4)
                                 VStack(spacing: 5) {
-                                    Text("Conan Worsh")
+                                    Text(vStore.name)
                                         .font(.largeTitle.bold())
                                         
                                     Text("I want BRIGHT smile")

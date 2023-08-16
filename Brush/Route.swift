@@ -38,6 +38,9 @@ struct Route: ReducerProtocol {
                 case let .setSheet(isPresented):
                     state.isSheetPresented = isPresented
                     return .none
+                case .analysis(.onTapGetStarted):
+                    state.isSheetPresented = true
+                    return .none
                 case .brush(.innEnd):
                     state.isSheetPresented = false
                     return .none

@@ -18,12 +18,14 @@ struct ContentView: View {
 //                reducer: Login()
 //            )
 //        )
-        RouteView(
-            store: Store(
-                initialState: Route.State(),
-                reducer: Route()
+        NavigationView {
+            RouteView(
+                store: Store(
+                    initialState: Route.State(),
+                    reducer: Route()
+                )
             )
-        )
+        }
 //        TmpExchange()
 //        BrushView(
 //            store: Store(
