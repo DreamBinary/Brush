@@ -13,10 +13,14 @@ class BrushUtil: ObservableObject {
     @Published var brushState: BrushState = .start
     @Published var cSection: Section = .ORT
     @Published var cnt: Int = 3
-    lazy var phoneUtil = PhoneUtil(onStart: startBrush)
-    private var player = MusicUtil(res: Section.ORT.rawValue)
-    lazy private var bgRun = BgRunUtil(onStart: {
+    @Published var isStarted = false
+    lazy var phoneUtil = PhoneUtil(onStart: self.startBrush)
+    private var musicUtil = MusicUtil(res: Section.ORT.rawValue)
+    private var scoreUtil = ScoreUtil()
+    
+    private lazy var bgRun = BgRunUtil(onStart: {
         Task {
+            self.isStarted = true
             while self.cnt > 0 {
                 SpeakUtil.shared.speak("\(self.cnt)")
                 try await Task.sleep(for: .seconds(1))
@@ -28,21 +32,29 @@ class BrushUtil: ObservableObject {
         self.brushState = .start
         self.cSection = .ORT
         self.cnt = 3
-        self.player = MusicUtil(res: Section.ORT.rawValue)
+        self.isStarted = false
+        self.musicUtil = MusicUtil(res: Section.ORT.rawValue)
     })
     
-    func brush() async {
+    private func brush() async {
         changePage()
         while brushState != .finish {
             sleep(1)
             HapticUtil.start()
             changePage()
-            player.play()
-            sleep(1)
-            player.stop()
-            player = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
+            musicUtil.play()
+            MotionUtil.start(getAcceData: { x, y, z in
+                self.scoreUtil.getPreDataInSecond(x: x, y: y, z: z)
+            })
+            sleep(11)
+            MotionUtil.stop()
+            musicUtil.stop()
+            musicUtil = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
             HapticUtil.change()
             changePage()
+            Task {
+                await scoreUtil.sectionProcces()
+            }
             sleep(1)
             changePage()
         }
@@ -56,6 +68,10 @@ class BrushUtil: ObservableObject {
         cSection = .ORT
         changePage()
         bgRun.stop()
+    }
+    
+    func getBrushScore() -> [String: Int] {
+        return scoreUtil.getScore()
     }
     
     func changePage() {

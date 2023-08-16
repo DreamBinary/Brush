@@ -113,7 +113,7 @@ struct Brush: View {
     var body: some View {
         switch util.brushState {
             case .start:
-                Start(isStarted: $util.phoneUtil.isStarted, cnt: $util.cnt, onStartTap: {
+                Start(isStarted: $util.isStarted, cnt: $util.cnt, onStartTap: {
                     util.startBrush()
                 })
             case .pre:
@@ -125,7 +125,7 @@ struct Brush: View {
             case .finish:
                 Finish { util.finishBrush() }
             case .score:
-                Score { util.changePage() }
+                Score(score: util.getBrushScore()) { util.changePage() }
         }
     }
 }

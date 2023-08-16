@@ -8,13 +8,11 @@
 import Foundation
 import WatchConnectivity
 
-class PhoneUtil: NSObject, ObservableObject, WCSessionDelegate {
-    @Published var isStarted: Bool
+class PhoneUtil: NSObject, WCSessionDelegate {
     var onStart: () -> Void
     private var session: WCSession = .default
     
     init(isStarted: Bool = false, onStart: @escaping () -> Void = {}) {
-        self.isStarted = isStarted
         self.onStart = onStart
         super.init()
         session.delegate = self
@@ -34,8 +32,8 @@ class PhoneUtil: NSObject, ObservableObject, WCSessionDelegate {
                  replyHandler: @escaping ([String: Any]) -> Void) {
         if (message["start"] != nil) == true {
             HapticUtil.getFromPhone()
-            isStarted = true
             onStart()
+            print("fdsafasd")
             replyHandler(["success": true])
         }
     }

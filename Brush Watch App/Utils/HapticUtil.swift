@@ -7,6 +7,7 @@
 
 import Foundation
 import WatchKit
+
 class HapticUtil {
     
     static private let device = WKInterfaceDevice.current()

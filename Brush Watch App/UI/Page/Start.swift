@@ -20,17 +20,14 @@ struct Start: View {
                 }
                 AnimNote()
                 if isStarted {
-                    CountDown(cnt: $cnt) {
-                        isStarted = false
-                    }.transition(.opacity)
+                    CountDown(cnt: $cnt).transition(.opacity)
                 } else {
                     Text("Start!")
                         .font(.system(size: UIFont.textStyleSize(.largeTitle) * 1.5))
                         .fontWeight(.bold)
                         .onTapGesture {
-                            onStartTap()
                             HapticUtil.click()
-                            isStarted = true
+                            onStartTap()
                         }.transition(.opacity)
                 }
             }

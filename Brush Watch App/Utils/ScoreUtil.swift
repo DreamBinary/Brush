@@ -11,14 +11,35 @@ import SwiftUI
 class ScoreUtil {
     private var dataInSecond: [Double] = [] // length 11 --> in a section
     private var scoreInSection: [Double] = [] // length 12
-    private var time = 0 // total time is 11 * 12 = 132v
-    private var preDataInSecond: [(Double, Double, Double)] = []
-    
+    private var time: Int = 0 // total time is 11 * 12 = 132
+    private var cntOneSecond = 11
+    var preDataInSecond: [[(Double, Double, Double)]] = [[(Double, Double, Double)]](repeating: [], count: 15)
+    private var curSecond = 0
     func getPreDataInSecond(x: Double, y: Double, z: Double) {
-        preDataInSecond.append((x, y, z))
+        preDataInSecond[curSecond].append((x, y, z))
+        if (preDataInSecond[curSecond].count == 20) {
+            curSecond += 1
+        }
+    }
+
+    func sectionProcces() async {
+        await secondProccess()
+        await computeScoreInSection()
+        dataInSecond.removeAll()
     }
     
-    func secondProccess() async {
+    func getScore() -> [String: Int]{
+        var score: [String: Int] = [:]
+        //        var powerScore: Int
+        //        var timeScore: Int
+        //        var sectionScore: Int
+        score["powerScore"] = Int(getAvg(data: scoreInSection))
+        score["timeScore"] = Int(time / 132)
+        score["sectionScore"] = Int(scoreInSection.min() ?? 0)
+        return score
+    }
+    
+    private func secondProccess() async {
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
                 await self.computeTime()
@@ -29,68 +50,70 @@ class ScoreUtil {
         }
         preDataInSecond.removeAll()
     }
-    
-    func sectionProcces() async {
-        await computeScoreInSection()
-        dataInSecond.removeAll()
-    }
-    
+
     private func computeTime() async {
-        var cnt = 0
-        preDataInSecond.forEach { (x, y, z) in
-            if (isMotion(x, y, z)) {
-                cnt += 1
+        for i in 0 ..< cntOneSecond {
+            var cnt = 0
+            preDataInSecond[i].forEach { (x, y, z) in
+                if (isMotion(x, y, z)) {
+                    cnt += 1
+                }
+            }
+            if (cnt * 2 > preDataInSecond[i].count) {
+                time += 1
             }
         }
-        if (cnt * 2 > preDataInSecond.count) {
-            time += 1
-        }
     }
-    
+
     private func computePower() async {
         let datas = await getDataInSecond()
         await computeDataInSecond(datas: datas)
     }
-    
+
     // TODO
     private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool {
-        return false
+        return true
     }
-    
+
     // TODO
-    private func getDataInSecond() async -> [Double] {
-        let datas: [Double] = []
-        preDataInSecond.forEach { (x, y, z) in
-            
+    private func getDataInSecond() async -> [[Double]] {
+        var datas: [[Double]] = []
+        for i in 0 ..< cntOneSecond {
+            var data:[Double] = []
+            preDataInSecond[i].forEach { (x, y, z) in
+                data.append(sqrt(x * x + y * y + z * z))
+            }
+            datas.append(data)
         }
         return datas
     }
-    
-    private func computeDataInSecond(datas: [Double]) async -> Void {
-        let length = datas.count
-        let start = Int(length / 6) //  1 / 6
-        let end = start * 5 //  5 / 6
-        let datasTmp: [Double] = Array(datas.sorted()[start ..< end])
-        let avg = getAvg(data: datasTmp)
-        dataInSecond.append(avg)
+
+    private func computeDataInSecond(datas: [[Double]]) async -> Void {
+        for data in datas {
+            let length = data.count
+            let start = Int(length / 6) //  1 / 6
+            let end = start * 5 //  5 / 6
+            let datasTmp: [Double] = Array(data.sorted()[start ..< end])
+            let avg = getAvg(data: datasTmp)
+            dataInSecond.append(avg)
+        }
     }
-    
+
     private func computeScoreInSection() async {
         var datasTmp: [Double] = []
         dataInSecond.forEach { data in
             datasTmp.append(computeScoreInSecond(data: data))
         }
-        dataInSecond.removeAll()
         let avg = getAvg(data: datasTmp)
         scoreInSection.append(avg)
     }
-    
+
     private func getAvg(data: [Double]) -> Double {
         return data.reduce(0, +) / Double(data.count)
     }
-    
+
     // TODO
     private func computeScoreInSecond(data: Double) -> Double {
-        return 0.1
+        return 90
     }
 }

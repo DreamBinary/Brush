@@ -12,9 +12,9 @@ import WatchKit
 class MotionUtil {
     static private let motion = CMMotionManager()
     static private var timerAcce: Timer?
-    static private var timerGyro: Timer?
+//    static private var timerGyro: Timer?
     static private let interval = 1.0 / 20.0  // 20 Hz
-    static func start( getAcceData: @escaping (Double, Double, Double) -> Void, getGyroData: @escaping (Double, Double, Double) -> Void) {
+    static func start( getAcceData: @escaping (Double, Double, Double) -> Void) {
         if self.motion.isAccelerometerAvailable {
             self.motion.accelerometerUpdateInterval = interval
             self.motion.startAccelerometerUpdates()
@@ -30,20 +30,20 @@ class MotionUtil {
             // Add the timer to the current run loop.
             RunLoop.current.add(self.timerAcce!, forMode: .default)
         }
-        if motion.isGyroAvailable {
-            motion.gyroUpdateInterval = interval
-            motion.startGyroUpdates()
-            self.timerGyro = Timer(fire: Date(), interval: interval, repeats: true, block: { _ in
-                if let data = motion.gyroData {
-                    let x = data.rotationRate.x
-                    let y = data.rotationRate.y
-                    let z = data.rotationRate.z
-                    getGyroData(x, y, z)
-                }
-            })
-            // Add the timer to the current run loop.
-            RunLoop.current.add(self.timerGyro!, forMode: .default)
-        }
+//        if motion.isGyroAvailable {
+//            motion.gyroUpdateInterval = interval
+//            motion.startGyroUpdates()
+//            self.timerGyro = Timer(fire: Date(), interval: interval, repeats: true, block: { _ in
+//                if let data = motion.gyroData {
+//                    let x = data.rotationRate.x
+//                    let y = data.rotationRate.y
+//                    let z = data.rotationRate.z
+//                    getGyroData(x, y, z)
+//                }
+//            })
+//            // Add the timer to the current run loop.
+//            RunLoop.current.add(self.timerGyro!, forMode: .default)
+//        }
     }
     
     static func stop() {
@@ -51,10 +51,10 @@ class MotionUtil {
             self.timerAcce?.invalidate()
             self.timerAcce = nil
         }
-        if self.timerGyro != nil {
-            self.timerGyro?.invalidate()
-            self.timerGyro = nil
-        }
+//        if self.timerGyro != nil {
+//            self.timerGyro?.invalidate()
+//            self.timerGyro = nil
+//        }
     }
     
     func getOnWrist() -> WKInterfaceDeviceWristLocation {

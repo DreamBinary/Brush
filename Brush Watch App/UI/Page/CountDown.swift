@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CountDown: View {
     @Binding var cnt: Int
-    var onEnd: () -> Void
     @State private var scale: Double = 1
 
     private let font: Font = .system(size: UIFont.textStyleSize(.largeTitle) * 1.5).bold()
@@ -43,8 +42,6 @@ struct CountDown: View {
             .onChange(of: self.cnt) { _ in
                 if self.cnt > 0 {
                     self.textScale()
-                } else {
-                    self.onEnd()
                 }
             }
     }

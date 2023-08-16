@@ -50,7 +50,7 @@ struct SectionIng: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }.edgesIgnoringSafeArea(.bottom)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.white)
+            .background(Color(0xE7EAEA))
     }
 }
 
