@@ -89,7 +89,7 @@ struct MineView: View {
                                                             Text("分")
                                                                 .font(.callout)
                                                         }
-                                                        Text("牙齿敏感情况")
+                                                        Text("查看刷牙情况")
                                                             .font(.title2)
                                                     }.padding(.horizontal)
                                                 }
@@ -110,7 +110,7 @@ struct MineView: View {
                                                             Text("天")
                                                                 .font(.callout)
                                                         }
-                                                        Text("牙齿敏感情况")
+                                                        Text("牙刷更换情况")
                                                             .font(.title2)
                                                     }.padding(.horizontal)
                                                 }
