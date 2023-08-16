@@ -11,12 +11,10 @@ import WatchKit
 
 class BgRunUtil: NSObject, WKExtendedRuntimeSessionDelegate {
     var onStart: () -> Void
-    var onStop: () -> Void
     private var session: WKExtendedRuntimeSession?
     
-    init(onStart: @escaping () -> Void, onStop: @escaping () -> Void) {
+    init(onStart: @escaping () -> Void) {
         self.onStart = onStart
-        self.onStop = onStop
         super.init()
         
     }
@@ -31,7 +29,6 @@ class BgRunUtil: NSObject, WKExtendedRuntimeSessionDelegate {
     }
     
     func stop() {
-        onStop()
         session?.invalidate()
     }
     

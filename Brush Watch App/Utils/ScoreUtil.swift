@@ -13,11 +13,11 @@ class ScoreUtil {
     private var scoreInSection: [Double] = [] // length 12
     private var time: Int = 0 // total time is 11 * 12 = 132
     private var cntOneSecond = 11
-    var preDataInSecond: [[(Double, Double, Double)]] = [[(Double, Double, Double)]](repeating: [], count: 15)
+    var preDataInSecond: [[(Double, Double, Double)]] = .init(repeating: [], count: 15)
     private var curSecond = 0
     func getPreDataInSecond(x: Double, y: Double, z: Double) {
         preDataInSecond[curSecond].append((x, y, z))
-        if (preDataInSecond[curSecond].count == 20) {
+        if preDataInSecond[curSecond].count == 20 {
             curSecond += 1
         }
     }
@@ -25,20 +25,27 @@ class ScoreUtil {
     func sectionProcces() async {
         await secondProccess()
         await computeScoreInSection()
+
+        print("TAG", time)
+        print("TAG", scoreInSection)
         dataInSecond.removeAll()
     }
-    
-    func getScore() -> [String: Int]{
+
+    func getScore() -> [String: Int] {
         var score: [String: Int] = [:]
         //        var powerScore: Int
         //        var timeScore: Int
         //        var sectionScore: Int
+
+        print("TAG", time)
+        print("TAG", scoreInSection)
+
         score["powerScore"] = Int(getAvg(data: scoreInSection))
         score["timeScore"] = Int(time / 132)
         score["sectionScore"] = Int(scoreInSection.min() ?? 0)
         return score
     }
-    
+
     private func secondProccess() async {
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
@@ -48,18 +55,18 @@ class ScoreUtil {
                 await self.computePower()
             }
         }
-        preDataInSecond.removeAll()
+        preDataInSecond = [[(Double, Double, Double)]](repeating: [], count: 15)
     }
 
     private func computeTime() async {
         for i in 0 ..< cntOneSecond {
             var cnt = 0
-            preDataInSecond[i].forEach { (x, y, z) in
-                if (isMotion(x, y, z)) {
+            preDataInSecond[i].forEach { x, y, z in
+                if isMotion(x, y, z) {
                     cnt += 1
                 }
             }
-            if (cnt * 2 > preDataInSecond[i].count) {
+            if cnt * 2 > preDataInSecond[i].count {
                 time += 1
             }
         }
@@ -70,17 +77,17 @@ class ScoreUtil {
         await computeDataInSecond(datas: datas)
     }
 
-    // TODO
+    // TODO:
     private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool {
         return true
     }
 
-    // TODO
+    // TODO:
     private func getDataInSecond() async -> [[Double]] {
         var datas: [[Double]] = []
         for i in 0 ..< cntOneSecond {
-            var data:[Double] = []
-            preDataInSecond[i].forEach { (x, y, z) in
+            var data: [Double] = []
+            preDataInSecond[i].forEach { x, y, z in
                 data.append(sqrt(x * x + y * y + z * z))
             }
             datas.append(data)
@@ -88,7 +95,7 @@ class ScoreUtil {
         return datas
     }
 
-    private func computeDataInSecond(datas: [[Double]]) async -> Void {
+    private func computeDataInSecond(datas: [[Double]]) async {
         for data in datas {
             let length = data.count
             let start = Int(length / 6) //  1 / 6
@@ -112,7 +119,7 @@ class ScoreUtil {
         return data.reduce(0, +) / Double(data.count)
     }
 
-    // TODO
+    // TODO:
     private func computeScoreInSecond(data: Double) -> Double {
         return 90
     }

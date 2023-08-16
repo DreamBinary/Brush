@@ -28,25 +28,19 @@ class BrushUtil: ObservableObject {
             }
             await self.brush()
         }
-    }, onStop: {
-        self.brushState = .start
-        self.cSection = .ORT
-        self.cnt = 3
-        self.isStarted = false
-        self.musicUtil = MusicUtil(res: Section.ORT.rawValue)
     })
     
     private func brush() async {
         changePage()
         while brushState != .finish {
             sleep(1)
-            HapticUtil.start()
-            changePage()
             musicUtil.play()
             MotionUtil.start(getAcceData: { x, y, z in
                 self.scoreUtil.getPreDataInSecond(x: x, y: y, z: z)
             })
-            sleep(11)
+            HapticUtil.start()
+            changePage()
+            sleep(1)
             MotionUtil.stop()
             musicUtil.stop()
             musicUtil = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
@@ -58,6 +52,14 @@ class BrushUtil: ObservableObject {
             sleep(1)
             changePage()
         }
+        reset()
+    }
+    
+    func reset() {
+        self.cSection = .ORT
+        self.cnt = 3
+        self.isStarted = false
+        self.musicUtil = MusicUtil(res: Section.ORT.rawValue)
     }
     
     func startBrush() {
@@ -65,9 +67,8 @@ class BrushUtil: ObservableObject {
     }
     
     func finishBrush() {
-        cSection = .ORT
-        changePage()
         bgRun.stop()
+        changePage()
     }
     
     func getBrushScore() -> [String: Int] {
@@ -75,28 +76,30 @@ class BrushUtil: ObservableObject {
     }
     
     func changePage() {
-        if brushState == .ed {
-            cSection = SectionUtil.getNext(cSection)
-        }
-        if cSection == .Finish {
-            brushState = .finish
-        } else {
-            brushState = {
-                switch brushState {
-                    case .start:
-                        return .pre
-                    case .pre:
-                        return .ing
-                    case .ing:
-                        return .ed
-                    case .ed:
-                        return .pre
-                    case .finish:
-                        return .score
-                    case .score:
-                        return .start
-                }
-            }()
+        DispatchQueue.main.async {
+            if self.brushState == .ed {
+                self.cSection = SectionUtil.getNext(self.cSection)
+            }
+            if self.cSection == .Finish {
+                self.brushState = .finish
+            } else {
+                self.brushState = {
+                    switch self.brushState {
+                        case .start:
+                            return .pre
+                        case .pre:
+                            return .ing
+                        case .ing:
+                            return .ed
+                        case .ed:
+                            return .pre
+                        case .finish:
+                            return .score
+                        case .score:
+                            return .start
+                    }
+                }()
+            }
         }
     }
 }
