@@ -75,47 +75,17 @@ struct MineView: View {
                                         .foregroundColor(.fontGray)
                                         
                                     HStack(spacing: 15) {
-                                        Button {} label: {
-                                            Card(color: Color(0xA9C1FD)) {
-                                                ZStack(alignment: .bottomLeading) {
-                                                    Image("Cavity")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .padding()
-                                                    VStack(alignment: .leading) {
-                                                        HStack(alignment: .firstTextBaseline) {
-                                                            Text("93")
-                                                                .font(.largeTitle.bold())
-                                                            Text("分")
-                                                                .font(.callout)
-                                                        }
-                                                        Text("查看刷牙情况")
-                                                            .font(.title2)
-                                                    }.padding(.horizontal)
-                                                }
-                                            }
-                                        }
-                                                
-                                        Button {} label: {
-                                            Card(color: Color(0xA9FDC0)) {
-                                                ZStack(alignment: .bottomLeading) {
-                                                    Image("ToothXraySpot")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .padding()
-                                                    VStack(alignment: .leading) {
-                                                        HStack(alignment: .firstTextBaseline) {
-                                                            Text("16")
-                                                                .font(.largeTitle.bold())
-                                                            Text("天")
-                                                                .font(.callout)
-                                                        }
-                                                        Text("牙刷更换情况")
-                                                            .font(.title2)
-                                                    }.padding(.horizontal)
-                                                }
-                                            }
-                                        }
+                                        NavigationLink(destination: BrushCaseView(), label: {
+                                            BrushCaseCard()
+                                        })
+                                        NavigationLink(destination: ToothBrushView(
+                                            store: Store(
+                                                initialState: ToothBrush.State(),
+                                                reducer: ToothBrush()
+                                            )
+                                        ), label: {
+                                            ToothBrushCard()
+                                        })
                                     }.foregroundColor(Color(0x35444C))
                                         .fontWeight(.semibold)
                                         .padding()
@@ -159,6 +129,54 @@ struct MineView: View {
                     endPoint: UnitPoint(x: 0.98, y: 1)
                 )
             )
+        }
+    }
+}
+
+struct BrushCaseCard: View {
+    
+    
+    var body: some View {
+        Card(color: Color(0xA9C1FD)) {
+            ZStack(alignment: .bottomLeading) {
+                Image("Cavity")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                VStack(alignment: .leading) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("93")
+                            .font(.largeTitle.bold())
+                        Text("分")
+                            .font(.callout)
+                    }
+                    Text("查看刷牙情况")
+                        .font(.title2)
+                }.padding(.horizontal)
+            }
+        }
+    }
+}
+
+struct ToothBrushCard: View {
+    var body: some View {
+        Card(color: Color(0xA9FDC0)) {
+            ZStack(alignment: .bottomLeading) {
+                Image("ToothXraySpot")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                VStack(alignment: .leading) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("16")
+                            .font(.largeTitle.bold())
+                        Text("天")
+                            .font(.callout)
+                    }
+                    Text("牙刷更换情况")
+                        .font(.title2)
+                }.padding(.horizontal)
+            }
         }
     }
 }
