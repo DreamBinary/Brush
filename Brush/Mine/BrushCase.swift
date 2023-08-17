@@ -12,10 +12,6 @@ import SwiftUI
 import SwiftUIPager
 
 // MARK: - Feature domain
-
-
-
-
 struct BrushCase: ReducerProtocol {
     
     struct State: Equatable {
