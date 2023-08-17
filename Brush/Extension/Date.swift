@@ -13,7 +13,7 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         dateFormatter.timeStyle = .none
-        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.locale = Locale(identifier: "cn_CN")
         return dateFormatter.string(from: self)
     }
     
@@ -25,7 +25,7 @@ extension Date {
     func monthName() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM"
-        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.locale = Locale(identifier: "cn_CN")
         return dateFormatter.string(from: self)
     }
 }

@@ -61,13 +61,9 @@ struct MineView: View {
                                         .fontWeight(.medium)
                                         .foregroundColor(.fontGray)
                                         
-                                    HStack(alignment: .firstTextBaseline) {
-                                        Text("136")
-                                            .font(.largeTitle.bold())
-                                        Text("天")
-                                            .font(.callout)
-                                            .foregroundColor(.fontGray)
-                                    }.padding(.top)
+                                
+                                    TwoWord("136", "天").padding(.top)
+                          
                                         
                                     Text("加入 TuneBrush")
                                         .font(.body)
@@ -75,7 +71,12 @@ struct MineView: View {
                                         .foregroundColor(.fontGray)
                                         
                                     HStack(spacing: 15) {
-                                        NavigationLink(destination: BrushCaseView(), label: {
+                                        NavigationLink(destination: BrushCaseView(
+                                            store: Store(
+                                                initialState: BrushCase.State(),
+                                                reducer: BrushCase()
+                                            )
+                                        ), label: {
                                             BrushCaseCard()
                                         })
                                         NavigationLink(destination: ToothBrushView(
@@ -134,8 +135,6 @@ struct MineView: View {
 }
 
 struct BrushCaseCard: View {
-    
-    
     var body: some View {
         Card(color: Color(0xA9C1FD)) {
             ZStack(alignment: .bottomLeading) {
@@ -144,12 +143,7 @@ struct BrushCaseCard: View {
                     .scaledToFit()
                     .padding()
                 VStack(alignment: .leading) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text("93")
-                            .font(.largeTitle.bold())
-                        Text("分")
-                            .font(.callout)
-                    }
+                    TwoWord("93", "分")
                     Text("查看刷牙情况")
                         .font(.title2)
                 }.padding(.horizontal)
@@ -167,12 +161,7 @@ struct ToothBrushCard: View {
                     .scaledToFit()
                     .padding()
                 VStack(alignment: .leading) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text("16")
-                            .font(.largeTitle.bold())
-                        Text("天")
-                            .font(.callout)
-                    }
+                    TwoWord("16", "天")
                     Text("牙刷更换情况")
                         .font(.title2)
                 }.padding(.horizontal)
