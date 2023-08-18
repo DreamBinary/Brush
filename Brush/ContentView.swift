@@ -12,12 +12,12 @@ struct ContentView: View {
     
     var body: some View {
 //        TmpExchange()
-//        LoginView(
-//            store: Store(
-//                initialState: Login.State(),
-//                reducer: Login()
-//            )
-//        )
+        LoginView(
+            store: Store(
+                initialState: Login.State(),
+                reducer: Login()
+            )
+        )
         NavigationView {
             RouteView(
                 store: Store(

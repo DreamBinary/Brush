@@ -46,7 +46,7 @@ class PurpleToothStatus: Equatable {
     }
     
     func toThird() {
-        y = 50
+        y = 10
         image=Image("ToothGum")
         color = Color(0xA9FDC1)
         angle = 30
@@ -114,7 +114,7 @@ struct LoginView: View {
                             radius: vStore.brushBtnVm.radius,
                             color: vStore.brushBtnVm.bgColor,
                             opacity: vStore.brushBtnVm.opacity
-                        ).offset(y: vStore.isLogin ? 0 : -30)
+                        ).offset(y: vStore.isLoginView && !vStore.isLogin ? -30 : 0)
                         .onTapGesture {
                             vStore.send(.onBrushBtnTapped)
                         }
@@ -124,7 +124,7 @@ struct LoginView: View {
                     }
                 }
             }.animation(.easeInOut(duration: 0.5), value: vStore.isLoginView)
-                .animation(.easeInOut(duration: 0.5), value: vStore.isLogin)
+            .animation(.easeInOut(duration: 0.5), value: vStore.isLogin)
         }
     }
 }

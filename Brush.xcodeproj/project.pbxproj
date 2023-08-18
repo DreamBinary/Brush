@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		581B2AF42A6D07C600E27F93 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581B2AF32A6D07C600E27F93 /* Login.swift */; };
+		58707BD62A8F0BD500AC00C3 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 58707BD52A8F0BD500AC00C3 /* PopupView */; };
 		588C8C9C2A6ABE8500DD8A65 /* SquareIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C8C9B2A6ABE8500DD8A65 /* SquareIconView.swift */; };
 		A00913162A430B1600057B4E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00913152A430B1600057B4E /* Theme.swift */; };
 		A00913182A432D7F00057B4E /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00913172A432D7F00057B4E /* Avatar.swift */; };
@@ -294,6 +295,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58707BD62A8F0BD500AC00C3 /* PopupView in Frameworks */,
 				A06383942A8120B500E46CEF /* ComposableArchitecture in Frameworks */,
 				A063838E2A81200100E46CEF /* SwiftUIPager in Frameworks */,
 			);
@@ -688,6 +690,7 @@
 			packageProductDependencies = (
 				A063838D2A81200100E46CEF /* SwiftUIPager */,
 				A06383932A8120B500E46CEF /* ComposableArchitecture */,
+				58707BD52A8F0BD500AC00C3 /* PopupView */,
 			);
 			productName = Brush;
 			productReference = A0581F7C2A41DBEF00710C4B /* Brush.app */;
@@ -830,6 +833,7 @@
 			packageReferences = (
 				A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 				A06383922A8120B500E46CEF /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				58707BD42A8F0BD400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = A0581F7D2A41DBEF00710C4B /* Products */;
 			projectDirPath = "";
@@ -1563,6 +1567,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		58707BD42A8F0BD400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fermoya/SwiftUIPager.git";
@@ -1582,6 +1594,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		58707BD52A8F0BD500AC00C3 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 58707BD42A8F0BD400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
 		A063838D2A81200100E46CEF /* SwiftUIPager */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */;

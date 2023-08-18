@@ -12,7 +12,7 @@ struct EnterWay: View {
         HStack {
             Button {} label: {
                 Image("WeChat")
-            }
+            }.hidden()
             Spacer()
             Button {} label: {
                 Image("Apple")
@@ -26,7 +26,7 @@ struct EnterWay: View {
             Spacer()
             Button {} label: {
                 Image("QQ")
-            }
+            }.hidden()
         }
     }
 }
