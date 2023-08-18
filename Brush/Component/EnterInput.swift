@@ -81,6 +81,7 @@ struct EnterInputView: View {
     let textFieldHeight: Double = 30
 
     let store: StoreOf<EnterInput>
+    
 
     @FocusState var focusedField: EnterInput.State.Field?
 
@@ -94,13 +95,16 @@ struct EnterInputView: View {
                 SignUpBtn(text: vStore.type == .SignUp ? "Log in" : "Sign Up", onTap: {
                     vStore.send(.changeType)
                 })
-                LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up", onTap: { vStore.send(.loginTapped)
+                LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up", onTap: {
+
+                    vStore.send(.loginTapped)
                 })
                 .frame(height: self.textFieldHeight * 2)
 
             }.synchronize(vStore.binding(\.$focus), self.$focusedField)
         }
     }
+
 }
 
 struct UsernameInput: View {
@@ -163,6 +167,7 @@ struct SignUpBtn: View {
             }.padding(.trailing, 5)
                 .disabled(self.isBtnDisabled)
         }
+        
     }
 }
 

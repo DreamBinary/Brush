@@ -95,10 +95,10 @@ struct LoginView: View {
                                 EnterInputView(
                                     store: store.scope(state: \.enterInput, action: Login.Action.enterInput)
                                 )
-                                EnterWay().padding(.vertical, 10)
                                 if !vStore.isLogin {
-
+                                    AggrementView()
                                 }
+                                EnterWay().padding(.vertical, 10)
                                 Spacer()
                             }.frame(width: UIScreen.main.bounds.width * 0.7)
                         }.frame(width: screenWidth, height: vStore.isLogin ? screenHeight * 0.5 : screenHeight * 0.50 + 30)
@@ -125,6 +125,7 @@ struct LoginView: View {
                 }
             }.animation(.easeInOut(duration: 0.5), value: vStore.isLoginView)
             .animation(.easeInOut(duration: 0.5), value: vStore.isLogin)
+            
         }
     }
 }

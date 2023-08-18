@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		581B2AF42A6D07C600E27F93 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581B2AF32A6D07C600E27F93 /* Login.swift */; };
-		58707BD62A8F0BD500AC00C3 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 58707BD52A8F0BD500AC00C3 /* PopupView */; };
+		58707BD82A8F104E00AC00C3 /* AggrementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58707BD72A8F104E00AC00C3 /* AggrementView.swift */; };
+		58707BDA2A8F38C000AC00C3 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58707BD92A8F38C000AC00C3 /* Popup.swift */; };
+		58707BDD2A8F3A2400AC00C3 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 58707BDC2A8F3A2400AC00C3 /* PopupView */; };
 		588C8C9C2A6ABE8500DD8A65 /* SquareIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C8C9B2A6ABE8500DD8A65 /* SquareIconView.swift */; };
 		A00913162A430B1600057B4E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00913152A430B1600057B4E /* Theme.swift */; };
 		A00913182A432D7F00057B4E /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00913172A432D7F00057B4E /* Avatar.swift */; };
@@ -174,6 +176,8 @@
 
 /* Begin PBXFileReference section */
 		581B2AF32A6D07C600E27F93 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		58707BD72A8F104E00AC00C3 /* AggrementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggrementView.swift; sourceTree = "<group>"; };
+		58707BD92A8F38C000AC00C3 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		588C8C9B2A6ABE8500DD8A65 /* SquareIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareIconView.swift; sourceTree = "<group>"; };
 		A00913152A430B1600057B4E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A00913172A432D7F00057B4E /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
@@ -295,7 +299,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58707BD62A8F0BD500AC00C3 /* PopupView in Frameworks */,
+				58707BDD2A8F3A2400AC00C3 /* PopupView in Frameworks */,
 				A06383942A8120B500E46CEF /* ComposableArchitecture in Frameworks */,
 				A063838E2A81200100E46CEF /* SwiftUIPager in Frameworks */,
 			);
@@ -524,6 +528,8 @@
 				A0194E932A8DBD5E00F8287B /* Dialog.swift */,
 				A0194E952A8DCD2600F8287B /* CircleScore.swift */,
 				A0194E9B2A8DD28C00F8287B /* TwoWord.swift */,
+				58707BD72A8F104E00AC00C3 /* AggrementView.swift */,
+				58707BD92A8F38C000AC00C3 /* Popup.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -690,7 +696,7 @@
 			packageProductDependencies = (
 				A063838D2A81200100E46CEF /* SwiftUIPager */,
 				A06383932A8120B500E46CEF /* ComposableArchitecture */,
-				58707BD52A8F0BD500AC00C3 /* PopupView */,
+				58707BDC2A8F3A2400AC00C3 /* PopupView */,
 			);
 			productName = Brush;
 			productReference = A0581F7C2A41DBEF00710C4B /* Brush.app */;
@@ -833,7 +839,7 @@
 			packageReferences = (
 				A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 				A06383922A8120B500E46CEF /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
-				58707BD42A8F0BD400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */,
+				58707BDB2A8F3A2400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = A0581F7D2A41DBEF00710C4B /* Products */;
 			projectDirPath = "";
@@ -929,6 +935,7 @@
 				A0C167E52A78FEB0004B7F51 /* StartBrush.swift in Sources */,
 				A0F932822A7A992600FFA190 /* BgView.swift in Sources */,
 				A0C167ED2A795A78004B7F51 /* Constant.swift in Sources */,
+				58707BD82A8F104E00AC00C3 /* AggrementView.swift in Sources */,
 				A045FA112A448DFF00F7A85C /* CountDown.swift in Sources */,
 				A06684DA2A42E35E00D27BF3 /* Brush.swift in Sources */,
 				A0C167EA2A7944DA004B7F51 /* Main.swift in Sources */,
@@ -936,6 +943,7 @@
 				A0194E942A8DBD5E00F8287B /* Dialog.swift in Sources */,
 				A0B014152A486D9100838702 /* VoiceAnimation.swift in Sources */,
 				A0D1546B2A7B402E00C6BAEF /* InBrush.swift in Sources */,
+				58707BDA2A8F38C000AC00C3 /* Popup.swift in Sources */,
 				A09987692A459B3600E2DFFE /* BgColor.swift in Sources */,
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
 				A0194E982A8DCDC600F8287B /* RandomUtil.swift in Sources */,
@@ -1567,7 +1575,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		58707BD42A8F0BD400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+		58707BDB2A8F3A2400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/exyte/PopupView";
 			requirement = {
@@ -1594,9 +1602,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		58707BD52A8F0BD500AC00C3 /* PopupView */ = {
+		58707BDC2A8F3A2400AC00C3 /* PopupView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 58707BD42A8F0BD400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */;
+			package = 58707BDB2A8F3A2400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = PopupView;
 		};
 		A063838D2A81200100E46CEF /* SwiftUIPager */ = {
