@@ -13,9 +13,13 @@ import SwiftUI
 
 // MARK: - Feature domain
 
+
 struct Main: ReducerProtocol {
     
     struct State: Equatable {
+        @BindingState var showToast: Bool = false
+        var toastState:ToastState=ToastState()
+        
         var isLogin: Bool = false
         var route = Route.State()
         var login = Login.State()
@@ -35,6 +39,10 @@ struct Main: ReducerProtocol {
         BindingReducer()
         Reduce { state, action in
             switch action {
+                case let .login(.showToast(ToastState:toastState)):
+                    state.showToast=true
+                    state.toastState = toastState
+                    return .none
                 case .login(.enterInput(.loginSuccess)):
                     withAnimation(.interactiveSpring()) {
                         state.isLogin.toggle()
@@ -42,6 +50,7 @@ struct Main: ReducerProtocol {
                     return .none
                 case .binding, .route, .login:
                     return .none
+
             }
         }
     }
@@ -54,15 +63,17 @@ struct MainView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            if (vStore.isLogin) {
-                RouteView(
-                    store: store.scope(state: \.route, action: Main.Action.route)
-                ).transition(.opacity)
-            } else {
-                LoginView(
-                    store: store.scope(state: \.login, action: Main.Action.login)
-                ).transition(.opacity)
-            }
+            Group{
+                if (vStore.isLogin) {
+                    RouteView(
+                        store: store.scope(state: \.route, action: Main.Action.route)
+                    ).transition(.opacity)
+                } else {
+                    LoginView(
+                        store: store.scope(state: \.login, action: Main.Action.login)
+                    ).transition(.opacity)
+                }
+            }.toast(showToast: vStore.binding(\.$showToast),toastState: vStore.toastState)
         }
     }
 }

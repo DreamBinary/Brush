@@ -21,6 +21,11 @@ struct EnterInput: ReducerProtocol {
         @BindingState var focus: Field?
         @BindingState var username: String = ""
         @BindingState var password: String = ""
+        
+        @BindingState var shakeUsername:Bool = false
+        @BindingState var shakePassword:Bool = false
+        @BindingState var shakeAggrement:Bool = false
+        @BindingState var isAgree:Bool = false
         enum Field: String, Hashable {
             case username, password
         }
@@ -28,6 +33,7 @@ struct EnterInput: ReducerProtocol {
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
+        case signupTapped
         case loginTapped
         case loginSuccess(User)
         case loginFail
@@ -40,6 +46,21 @@ struct EnterInput: ReducerProtocol {
             switch action {
                 case .binding:
                     return .none
+                case .signupTapped:
+                    if state.username.isEmpty{
+                        state.shakeUsername=true
+                        state.focus = .username
+                    } else if !isValidEmail(email: state.username){
+                        state.shakeUsername=true
+                        state.focus = .username
+                    }else if state.password.isEmpty{
+                        state.shakePassword=true
+                        state.focus = .password
+                    }else if !state.isAgree{
+                        state.shakeAggrement=true
+                    }
+                    // TODO: 注册逻辑
+                    return .none
                 case .changeType:
                     if state.type == .Login {
                         state.type = .SignUp
@@ -49,10 +70,11 @@ struct EnterInput: ReducerProtocol {
                     return .none
 
                 case .loginTapped:
-                    // TODO: signup tap
                     if state.username.isEmpty {
+                        state.shakeUsername=true
                         state.focus = .username
                     } else if state.password.isEmpty {
+                        state.shakePassword=true
                         state.focus = .password
                     } else {
                         // TODO: use moya ?
@@ -73,6 +95,12 @@ struct EnterInput: ReducerProtocol {
             }
         }
     }
+    
+    func isValidEmail(email: String) -> Bool {
+            let emailRegEx = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+            let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+            return emailPred.evaluate(with: email)
+        }
 }
 
 // MARK: - Feature view
@@ -90,18 +118,24 @@ struct EnterInputView: View {
             VStack {
                 UsernameInput(text: vStore.binding(\.$username), height: self.textFieldHeight)
                     .focused(self.$focusedField, equals: .username)
+                    .shake(vStore.binding(\.$shakeUsername))
                 PasswordInput(text: vStore.binding(\.$password), height: self.textFieldHeight)
                     .focused(self.$focusedField, equals: .password)
+                    .shake(vStore.binding(\.$shakePassword))
                 SignUpBtn(text: vStore.type == .SignUp ? "Log in" : "Sign Up", onTap: {
                     vStore.send(.changeType)
                 })
+                if (vStore.type != .Login){
+                    AggrementView(isAgree:vStore.binding(\.$isAgree))
+                        .shake(vStore.binding(\.$shakeAggrement)).frame(width: UIScreen.main.bounds.width).padding(.top,4)
+                }
                 LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up", onTap: {
-
-                    vStore.send(.loginTapped)
+                    vStore.send(vStore.type == .Login ? .loginTapped : .signupTapped)
                 })
                 .frame(height: self.textFieldHeight * 2)
 
             }.synchronize(vStore.binding(\.$focus), self.$focusedField)
+                .animation(.easeInOut(duration: 0.5), value: vStore.type)
         }
     }
 

@@ -56,6 +56,7 @@ class PurpleToothStatus: Equatable {
 struct LoginView: View {
     let store: StoreOf<Login>
     @State private var isAgreed = false
+    @State private var shouldShake = false
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
@@ -81,7 +82,7 @@ struct LoginView: View {
                     VStack {
                         Spacer()
                         Card(color: Color(red: 0.99, green: 0.99, blue: 0.99), cornerRadius: 15) {
-                            VStack(alignment: .leading, spacing: 12) {
+                            VStack(alignment: .center, spacing: 12) {
                                 Spacer()
                                 Group {
                                     if vStore.isLogin {
@@ -89,15 +90,13 @@ struct LoginView: View {
                                     } else {
                                         Text("Hi There,\nHave an account!")
                                     }
-                                }.font(.system(size: 32)) // 使用自定义字体和字体大小
+                                }.offset(x:-20).font(.system(size: 32)) // 使用自定义字体和字体大小
                                     .fontWeight(.bold) // 设置字体粗细
                                     .padding(.bottom, 10)
                                 EnterInputView(
                                     store: store.scope(state: \.enterInput, action: Login.Action.enterInput)
                                 )
-                                if !vStore.isLogin {
-                                    AggrementView()
-                                }
+//                                .background(Color(.purple))
                                 EnterWay().padding(.vertical, 10)
                                 Spacer()
                             }.frame(width: UIScreen.main.bounds.width * 0.7)
@@ -189,6 +188,7 @@ struct Login: ReducerProtocol {
         case enterInput(EnterInput.Action)
         case onBrushBtnTapped
         case binding(BindingAction<State>)
+        case showToast(ToastState)
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -224,8 +224,11 @@ struct Login: ReducerProtocol {
                         state.brushBtnVm.change(to: .white)
                     }
                     return .none
+                case .showToast(_):
+                    return .none
                 case .enterInput, .binding:
                     return .none
+
             }
         }
     }

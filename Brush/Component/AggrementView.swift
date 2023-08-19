@@ -16,7 +16,7 @@ import SwiftUI
 import PopupView
 
 struct AggrementView: View {
-    @State private var isAgree: Bool = false
+    @Binding var isAgree: Bool
     @State private var fontSize: CGFloat = 13
     @State private var showingPopup: Bool = false
     
@@ -52,9 +52,9 @@ struct AggrementView: View {
     }
 }
 
-struct AggrementView_Previews: PreviewProvider {
-    static var previews: some View {
-        AggrementView()
-    }
-}
+//struct AggrementView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AggrementView()
+//    }
+//}
 
