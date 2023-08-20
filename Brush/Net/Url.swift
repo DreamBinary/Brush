@@ -9,7 +9,6 @@ import Foundation
 
 
 class Url {
-    
     static private let baseUrl = "https://tunebrush-api.shawnxixi.icu"
     static let signUp = baseUrl + "/api/users/register"
     static let login = baseUrl + "/api/users/login"

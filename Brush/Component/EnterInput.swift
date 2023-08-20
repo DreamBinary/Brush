@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import SwiftUI
+import Moya
 
 // MARK: - Feature domain
 
@@ -26,6 +27,9 @@ struct EnterInput: ReducerProtocol {
         @BindingState var shakePassword:Bool = false
         @BindingState var shakeAggrement:Bool = false
         @BindingState var isAgree:Bool = false
+        
+        var buttonLoading = false
+        
         enum Field: String, Hashable {
             case username, password
         }
@@ -58,9 +62,47 @@ struct EnterInput: ReducerProtocol {
                         state.focus = .password
                     }else if !state.isAgree{
                         state.shakeAggrement=true
+                    }else{
+                        state.buttonLoading=true
+                        let provider = MoyaProvider<ApiService>()
+                        provider.request(.signUp(email:state.username,password:state.password)) { result in
+                            switch result {
+                            case let .success(res):
+                                do {
+                                    let response = try Response<String>(res: res.data)
+                                    let code = response.code ?? -1
+                                    var msg:String = ""
+                                    if code == ErrorCode.badRequest.rawValue {
+                                           msg = ErrorCode.badRequest.message
+                                       } else if code == ErrorCode.invalidEmailFormat.rawValue {
+                                           msg = ErrorCode.invalidEmailFormat.message
+                                       } else if code == ErrorCode.emailAlreadyExists.rawValue {
+                                           msg = ErrorCode.emailAlreadyExists.message
+                                       } else if code == ErrorCode.registrationFailed.rawValue {
+                                           msg = ErrorCode.registrationFailed.message
+                                       } else if code == 200 {
+                                           // 注册成功
+                                           msg = SuccessMessage.register.rawValue
+                                       }
+                                     print(code)
+                                    print(msg)
+
+                                } catch {
+                                    // TODO: 数据解析错误处理
+                                    print("Error creating Response")
+                                }
+                            case let .failure(err):
+                                // TODO: 接口请求错误处理
+                                print(err)
+                                break
+                            }
+                        }
+                        
+                        //return Effect.send(.changeType)
+                        return .none
+
                     }
-                    // TODO: 注册逻辑
-                    return .none
+                return .none
                 case .changeType:
                     if state.type == .Login {
                         state.type = .SignUp
@@ -77,11 +119,25 @@ struct EnterInput: ReducerProtocol {
                         state.shakePassword=true
                         state.focus = .password
                     } else {
-                        // TODO: use moya ?
-                        return .task { [email = state.username, plainPassword = state.password] in
-                            let u: User? = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "plainPassword": plainPassword])
-                            return u == .none ? .loginFail : .loginSuccess(u!)
-                        }
+                        // 发起登录请求
+//                        let provider = MoyaProvider<ApiService>()
+//                        provider.request(.login(email:state.username,password:state.password)) { result in
+//                            switch result {
+//                            case let .success(res):
+//                                do {
+//                                    let response = try Response<User>(res: res.data)
+////                                    let msg=response.message!
+////                                    let code = response.code!
+//                                    let data = response.data!
+//                                    print(data.id)
+//                                } catch {
+//                                    // 处理错误
+//                                    print("Error creating Response<User>: \(error)")
+//                                }
+//                            case .failure(_): break
+//                                // TODO: handle the error == best. comment. ever.
+//                            }
+//                        }
                     }
                     return .none
 
@@ -129,7 +185,7 @@ struct EnterInputView: View {
                     AggrementView(isAgree:vStore.binding(\.$isAgree))
                         .shake(vStore.binding(\.$shakeAggrement)).frame(width: UIScreen.main.bounds.width).padding(.top,4)
                 }
-                LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up", onTap: {
+                LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up",buttonLoading: vStore.buttonLoading, onTap: {
                     vStore.send(vStore.type == .Login ? .loginTapped : .signupTapped)
                 })
                 .frame(height: self.textFieldHeight * 2)
@@ -184,22 +240,16 @@ struct PasswordInput: View {
 struct SignUpBtn: View {
     var text: String
     var onTap: () -> Void
-    @State private var isBtnDisabled: Bool = false
     var body: some View {
         HStack {
             Spacer()
             Button {
                 self.onTap()
-                self.isBtnDisabled = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    self.isBtnDisabled = false
-                }
             } label: {
                 Text(self.text)
                     .font(.caption)
                     .foregroundColor(.gray)
             }.padding(.trailing, 5)
-                .disabled(self.isBtnDisabled)
         }
         
     }
@@ -207,12 +257,22 @@ struct SignUpBtn: View {
 
 struct LoginBtn: View {
     var text: String
+    var buttonLoading : Bool
+    
     var onTap: () -> Void
     var body: some View {
         Button(action: self.onTap, label: {
-            Text(self.text)
-                .bold()
-                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            HStack{
+                if buttonLoading{
+                    ProgressView()
+                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                }
+                else {
+                    Text(self.text)
+                        .bold()
+                        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                }
+            }
         }).buttonStyle(RoundedAndShadowButtonStyle(foregroundColor: Color(0x084A5E), backgroundColor: Color(0x99EADC, 0.64), cornerRadius: 5))
     }
 }

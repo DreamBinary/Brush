@@ -20,16 +20,19 @@ class Response<T: Codable>: Codable {
         case data = "data"
     }
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        code = try values.decodeIfPresent(Int.self, forKey: .code)
-        message = try values.decodeIfPresent(String.self, forKey: .message)
-        data = try values.decodeIfPresent(T.self, forKey: .data)
+//    required init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        code = try values.decodeIfPresent(Int.self, forKey: .code)
+//        message = try values.decodeIfPresent(String.self, forKey: .message)
+//        data = try values.decodeIfPresent(T.self, forKey: .data)
+//    }
+    
+    init (res:Data) throws{
+        let response = try JSONDecoder().decode(Response.self, from: res)
+        code = response.code
+        message = response.message
+        //data = response.data ?? "null" as! T
     }
     
-    init() {
-        code = 0
-        message = ""
-        data = nil
-    }
+    
 }
