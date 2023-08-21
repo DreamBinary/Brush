@@ -163,6 +163,22 @@ struct EnterInputView: View {
                     .shake(vStore.binding(\.$shakePassword))
                 SignUpBtn(text: vStore.type == .SignUp ? "Log in" : "Sign Up", onTap: {
                     vStore.send(.changeType)
+                    
+                        let username = "111111@qq.com"
+                        for var i: Int in 0 ... username.count {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
+                                var s = username.prefix(i)
+                                vStore.send(.autoU(String(s)))
+                            }
+                        }
+                        let password = "111111@qq.com"
+                        for var i: Int in 0 ... password.count {
+                            var t: Double = Double(i) * 0.3 + Double(username.count) * 0.3
+                            DispatchQueue.main.asyncAfter(deadline: .now() + t) {
+                                var s = password.prefix(i)
+                                vStore.send(.autoP(String(s)))
+                            }
+                        }
                 })
                 if vStore.type != .Login {
                     AggrementView(isAgree: vStore.binding(\.$isAgree))
@@ -174,25 +190,7 @@ struct EnterInputView: View {
                 .frame(height: self.textFieldHeight * 2)
             }.synchronize(vStore.binding(\.$focus), self.$focusedField)
                 .animation(.easeInOut(duration: 0.5), value: vStore.type)
-                .onTapGesture {
-                    if (focusedField == .username) {
-                        let str = "111111@qq.com"
-                        for var i: Int in 0 ... str.count {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
-                                var s = str.prefix(i)
-                                vStore.send(.autoU(String(s)))
-                            }
-                        }
-                    } else if (focusedField == .password) {
-                        let str = "111111@qq.com"
-                        for var i: Int in 0 ... str.count {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
-                                var s = str.prefix(i)
-                                vStore.send(.autoP(String(s)))
-                            }
-                        }
-                    }
-                }
+                
         }
     }
 }
