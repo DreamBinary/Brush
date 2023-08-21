@@ -9,45 +9,45 @@ import SwiftUI
 import PopupView
 
 
+enum ToastType: String {
+    case success = "checkmark.circle"
+    case fail = "exclamationmark.circle"
+}
+
 struct ToastState : Equatable{
-    var iconName: String = "sun.min"
+    var toastType: ToastType = .success
     var iconColor: Color = .black
-    var iconSize : CGFloat = 16
+    var iconSize : CGFloat = 18
     var text: String = "这是一条提示框"
     var textColor: Color = .black
     var textSize: CGFloat = 16
-    var bgColor: Color = Color(0xff0000, 0.7)
+    var bgColor: Color = .white.opacity(0.8)
     var duration: Double = 1.6
 }
 
 extension View {
-    func toast(
-        showToast:Binding<Bool>,
-        toastState:ToastState) -> some View {
-            ZStack(alignment: .center){
-                self
+    func toast(showToast:Binding<Bool>, toastState:ToastState) -> some View {
+            self
                 .popup(isPresented: showToast) {
                     HStack(spacing: 8) {
-                        Image(systemName: toastState.iconName)
+                        Image(systemName: toastState.toastType.rawValue)
                             .foregroundColor(toastState.iconColor)
                             .frame(width: toastState.iconSize, height: toastState.iconSize)
-                        
                         Text(toastState.text)
                             .foregroundColor(toastState.textColor)
                             .font(.system(size: toastState.textSize))
-                    }
-                    .padding(16)
+                    }.padding(16)
                     .background(toastState.bgColor.cornerRadius(12))
-                    .padding(.bottom, 30)
+                    .background(.ultraThinMaterial)
+                    .fixedSize()
+                    .padding(.bottom, 50)
                 } customize: {
-                $0
-                    .type(.floater())
-                    .position(.bottom)
-                    .appearFrom(.bottom)
-                    .animation(.spring())
-                    .autohideIn(toastState.duration)
-            }
-        }
+                    $0.type(.floater())
+                        .position(.bottom)
+                        .appearFrom(.bottom)
+                        .animation(.spring())
+                        .autohideIn(toastState.duration)
+                }
      }
 }
 

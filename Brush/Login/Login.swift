@@ -8,6 +8,66 @@
 import ComposableArchitecture
 import SwiftUI
 
+struct Login: ReducerProtocol {
+    struct State: Equatable {
+        var isLogin = true
+        var isLoginView = false
+        var enterInput = EnterInput.State()
+        var brushBtnVm = BrushBtnStatus()
+        var purpleToothVm = PurpleToothStatus()
+    }
+    
+    enum Action: BindableAction, Equatable {
+        case enterInput(EnterInput.Action)
+        case onBrushBtnTapped
+        case binding(BindingAction<State>)
+    }
+    
+    var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.enterInput, action: /Action.enterInput) {
+            EnterInput()
+        }
+        BindingReducer()
+        Reduce { state, action in
+            switch action {
+                case .enterInput(.changeType):
+                    state.isLogin.toggle()
+                    if state.isLogin {
+                        state.purpleToothVm.toSecond()
+                        state.brushBtnVm.change(to: .purple)
+                    } else {
+                        state.purpleToothVm.toThird()
+                        state.brushBtnVm.change(to: .green)
+                    }
+                    
+                    return .none
+                case .onBrushBtnTapped:
+                    state.isLoginView.toggle()
+                    if state.isLoginView {
+                        if state.isLogin {
+                            state.purpleToothVm.toSecond()
+                            state.brushBtnVm.change(to: .purple)
+                        } else {
+                            state.purpleToothVm.toThird()
+                            state.brushBtnVm.change(to: .green)
+                        }
+                    } else {
+                        state.purpleToothVm.toFirst()
+                        state.brushBtnVm.change(to: .white)
+                    }
+                    return .none
+                case .enterInput, .binding:
+                    return .none
+                    
+            }
+        }
+    }
+}
+
+
+
+
+
 // 文字展示组件
 struct TextDisplayView: View {
     var text: String
@@ -174,65 +234,4 @@ struct NewLogin_Previews: PreviewProvider {
         )
     }
 }
-
-struct Login: ReducerProtocol {
-    struct State: Equatable {
-        var isLogin = true
-        var isLoginView = false
-        var enterInput = EnterInput.State()
-        var brushBtnVm = BrushBtnStatus()
-        var purpleToothVm = PurpleToothStatus()
-    }
-    
-    enum Action: BindableAction, Equatable {
-        case enterInput(EnterInput.Action)
-        case onBrushBtnTapped
-        case binding(BindingAction<State>)
-        case showToast(ToastState)
-    }
-    
-    var body: some ReducerProtocol<State, Action> {
-        Scope(state: \.enterInput, action: /Action.enterInput) {
-            EnterInput()
-        }
-        BindingReducer()
-        Reduce { state, action in
-            switch action {
-                case .enterInput(.changeType):
-                    state.isLogin.toggle()
-                    if state.isLogin {
-                        state.purpleToothVm.toSecond()
-                        state.brushBtnVm.change(to: .purple)
-                    } else {
-                        state.purpleToothVm.toThird()
-                        state.brushBtnVm.change(to: .green)
-                    }
-                    
-                    return .none
-                case .onBrushBtnTapped:
-                    state.isLoginView.toggle()
-                    if state.isLoginView {
-                        if state.isLogin {
-                            state.purpleToothVm.toSecond()
-                            state.brushBtnVm.change(to: .purple)
-                        } else {
-                            state.purpleToothVm.toThird()
-                            state.brushBtnVm.change(to: .green)
-                        }
-                    } else {
-                        state.purpleToothVm.toFirst()
-                        state.brushBtnVm.change(to: .white)
-                    }
-                    return .none
-                case .showToast(_):
-                    return .none
-                case .enterInput, .binding:
-                    return .none
-
-            }
-        }
-    }
-}
-
-
 

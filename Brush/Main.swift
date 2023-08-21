@@ -10,38 +10,54 @@ import SwiftUI
 import ComposableArchitecture
 import SwiftUI
 
-
 // MARK: - Feature domain
 
-
 struct Main: ReducerProtocol {
-    
     struct State: Equatable {
         @BindingState var showToast: Bool = false
-        var toastState:ToastState=ToastState()
-        
+        var toastState: ToastState = .init()
+
         var isLogin: Bool = false
         var route = Route.State()
         var login = Login.State()
-        
     }
-    
+
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
+        case showToast
         case route(Route.Action)
         case login(Login.Action)
     }
-    
+
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.route, action: /Action.route) { Route() }
         Scope(state: \.login, action: /Action.login) { Login() }
-        
+
         BindingReducer()
         Reduce { state, action in
             switch action {
-                case let .login(.showToast(ToastState:toastState)):
-                    state.showToast=true
-                    state.toastState = toastState
+                case let .login(.enterInput(.signUpFail(code))):
+                    var msg: String = ""
+                    if code == ErrorCode.badRequest.rawValue {
+                        msg = ErrorCode.badRequest.message
+                    } else if code == ErrorCode.invalidEmailFormat.rawValue {
+                        msg = ErrorCode.invalidEmailFormat.message
+                    } else if code == ErrorCode.emailAlreadyExists.rawValue {
+                        msg = ErrorCode.emailAlreadyExists.message
+                    } else if code == ErrorCode.registrationFailed.rawValue {
+                        msg = ErrorCode.registrationFailed.message
+                    } else {
+                        msg = ErrorCode.otherError.message
+                    }
+                    state.toastState.text = msg
+                    state.toastState.toastType = .fail
+                    return Effect.send(.showToast)
+                case .login(.enterInput(.signUpSuccess)):
+                    state.toastState.text = SuccessMessage.register.rawValue
+                    state.toastState.toastType = .success
+                    return Effect.send(.showToast)
+                case .showToast:
+                    state.showToast = true
                     return .none
                 case .login(.enterInput(.loginSuccess)):
                     withAnimation(.interactiveSpring()) {
@@ -50,7 +66,6 @@ struct Main: ReducerProtocol {
                     return .none
                 case .binding, .route, .login:
                     return .none
-
             }
         }
     }
@@ -60,11 +75,11 @@ struct Main: ReducerProtocol {
 
 struct MainView: View {
     let store: StoreOf<Main>
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            Group{
-                if (vStore.isLogin) {
+            Group {
+                if vStore.isLogin {
                     RouteView(
                         store: store.scope(state: \.route, action: Main.Action.route)
                     ).transition(.opacity)
@@ -73,7 +88,8 @@ struct MainView: View {
                         store: store.scope(state: \.login, action: Main.Action.login)
                     ).transition(.opacity)
                 }
-            }.toast(showToast: vStore.binding(\.$showToast),toastState: vStore.toastState)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                .toast(showToast: vStore.binding(\.$showToast), toastState: vStore.toastState)
         }
     }
 }

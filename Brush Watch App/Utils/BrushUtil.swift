@@ -20,7 +20,9 @@ class BrushUtil: ObservableObject {
     
     private lazy var bgRun = BgRunUtil(onStart: {
         Task {
-            self.isStarted = true
+            DispatchQueue.main.async {
+                self.isStarted = true
+            }
             while self.cnt > 0 {
                 SpeakUtil.shared.speak("\(self.cnt)")
                 try await Task.sleep(for: .seconds(1))
@@ -40,7 +42,7 @@ class BrushUtil: ObservableObject {
             })
             HapticUtil.start()
             changePage()
-            sleep(1)
+            sleep(11)
             MotionUtil.stop()
             musicUtil.stop()
             musicUtil = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)

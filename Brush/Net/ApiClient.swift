@@ -22,7 +22,7 @@ struct ApiClient {
         method: Method = .GET,
         params: [String: Any] = [:],
         headers: [String: String] = [:]
-    ) async throws -> T?{
+    ) async throws -> (T?, HTTPURLResponse?){
         // 1. 创建URL
         guard let url = URL(string: url) else {
             fatalError("URL is not correct!")
@@ -48,9 +48,9 @@ struct ApiClient {
         if (httpresponse?.statusCode == 200) {
             let decoder = JSONDecoder()
             let result = try decoder.decode(T.self, from: data)
-            return result
+            return (result, httpresponse)
         } else {
-            return .none
+            return (.none, httpresponse)
         } 
         
         //        // 5. 创建任务

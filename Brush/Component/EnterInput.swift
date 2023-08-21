@@ -6,8 +6,8 @@
 //
 
 import ComposableArchitecture
-import SwiftUI
 import Moya
+import SwiftUI
 
 // MARK: - Feature domain
 
@@ -16,17 +16,17 @@ struct EnterInput: ReducerProtocol {
         case Login
         case SignUp
     }
-
+    
     struct State: Equatable {
         var type: InputType = .Login
         @BindingState var focus: Field?
         @BindingState var username: String = ""
         @BindingState var password: String = ""
         
-        @BindingState var shakeUsername:Bool = false
-        @BindingState var shakePassword:Bool = false
-        @BindingState var shakeAggrement:Bool = false
-        @BindingState var isAgree:Bool = false
+        @BindingState var shakeUsername: Bool = false
+        @BindingState var shakePassword: Bool = false
+        @BindingState var shakeAggrement: Bool = false
+        @BindingState var isAgree: Bool = false
         
         var buttonLoading = false
         
@@ -34,75 +34,97 @@ struct EnterInput: ReducerProtocol {
             case username, password
         }
     }
-
+    
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
+        case changeType
         case signupTapped
         case loginTapped
         case loginSuccess(User)
-        case loginFail
-        case changeType
+        case loginFail(Int)
+        case signUpFail(Int)
+        case signUpSuccess
+        
+        case autoU(String)
+        case autoP(String)
     }
-
+    
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
             switch action {
+                case let .autoU(s):
+                    withAnimation {
+                        state.username = s
+                    }
+                    return .none
+                    
+                case let .autoP(s):
+                    withAnimation {
+                        state.password = s
+                    }
+                    return .none
+                    
+                    
+                    
+                    
+                    
                 case .binding:
                     return .none
                 case .signupTapped:
-                    if state.username.isEmpty{
-                        state.shakeUsername=true
+                    if state.username.isEmpty {
+                        state.shakeUsername = true
                         state.focus = .username
-                    } else if !isValidEmail(email: state.username){
-                        state.shakeUsername=true
+                    } else if !self.isValidEmail(email: state.username) {
+                        state.shakeUsername = true
                         state.focus = .username
-                    }else if state.password.isEmpty{
-                        state.shakePassword=true
+                    } else if state.password.isEmpty {
+                        state.shakePassword = true
                         state.focus = .password
-                    }else if !state.isAgree{
-                        state.shakeAggrement=true
-                    }else{
-                        state.buttonLoading=true
-                        let provider = MoyaProvider<ApiService>()
-                        provider.request(.signUp(email:state.username,password:state.password)) { result in
-                            switch result {
-                            case let .success(res):
-                                do {
-                                    let response = try Response<String>(res: res.data)
-                                    let code = response.code ?? -1
-                                    var msg:String = ""
-                                    if code == ErrorCode.badRequest.rawValue {
-                                           msg = ErrorCode.badRequest.message
-                                       } else if code == ErrorCode.invalidEmailFormat.rawValue {
-                                           msg = ErrorCode.invalidEmailFormat.message
-                                       } else if code == ErrorCode.emailAlreadyExists.rawValue {
-                                           msg = ErrorCode.emailAlreadyExists.message
-                                       } else if code == ErrorCode.registrationFailed.rawValue {
-                                           msg = ErrorCode.registrationFailed.message
-                                       } else if code == 200 {
-                                           // 注册成功
-                                           msg = SuccessMessage.register.rawValue
-                                       }
-                                     print(code)
-                                    print(msg)
-
-                                } catch {
-                                    // TODO: 数据解析错误处理
-                                    print("Error creating Response")
-                                }
-                            case let .failure(err):
-                                // TODO: 接口请求错误处理
-                                print(err)
-                                break
-                            }
+                    } else if !state.isAgree {
+                        state.shakeAggrement = true
+                    } else {
+                        state.buttonLoading = true
+                        return .task { [email = state.username, password = state.password] in
+                            let (user, response): (User?, HTTPURLResponse?) = try await ApiClient.request(Url.signUp, method: .POST, params: ["email": email, "password": password])
+                            return user == .none ? .signUpFail(response?.statusCode ?? -1) : .signUpSuccess
                         }
-                        
-                        //return Effect.send(.changeType)
-                        return .none
-
                     }
-                return .none
+                    return .none
+
+                case .loginTapped:
+                    if state.username.isEmpty {
+                        state.shakeUsername = true
+                        state.focus = .username
+                    } else if !self.isValidEmail(email: state.username) {
+                        state.shakeUsername = true
+                        state.focus = .username
+                    } else if state.password.isEmpty {
+                        state.shakePassword = true
+                        state.focus = .password
+                    } else {
+                        state.buttonLoading = true
+                        return .task { [email = state.username, password = state.password] in
+                            let (user, response): (User?, HTTPURLResponse?) = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "password": password])
+                            return user == .none ? .loginFail(response?.statusCode ?? -1) : .loginSuccess(user!)
+                        }
+                    }
+                    return .none
+                    
+                case let .loginSuccess(user):
+                    state.buttonLoading = false
+                    DataUtil.saveUser(user)
+                    return .none
+                case .loginFail:
+                    state.buttonLoading = false
+                    return .none
+                case .signUpFail(_):
+                    state.buttonLoading = false
+                    return .none
+                case .signUpSuccess:
+                    state.buttonLoading = false
+                    return Effect.send(.changeType)
+                    
                 case .changeType:
                     if state.type == .Login {
                         state.type = .SignUp
@@ -110,65 +132,26 @@ struct EnterInput: ReducerProtocol {
                         state.type = .Login
                     }
                     return .none
-
-                case .loginTapped:
-                    if state.username.isEmpty {
-                        state.shakeUsername=true
-                        state.focus = .username
-                    } else if state.password.isEmpty {
-                        state.shakePassword=true
-                        state.focus = .password
-                    } else {
-                        // 发起登录请求
-//                        let provider = MoyaProvider<ApiService>()
-//                        provider.request(.login(email:state.username,password:state.password)) { result in
-//                            switch result {
-//                            case let .success(res):
-//                                do {
-//                                    let response = try Response<User>(res: res.data)
-////                                    let msg=response.message!
-////                                    let code = response.code!
-//                                    let data = response.data!
-//                                    print(data.id)
-//                                } catch {
-//                                    // 处理错误
-//                                    print("Error creating Response<User>: \(error)")
-//                                }
-//                            case .failure(_): break
-//                                // TODO: handle the error == best. comment. ever.
-//                            }
-//                        }
-                    }
-                    return .none
-
-                case let .loginSuccess(user):
-                    DataUtil.saveUser(user)
-                    return .none
-
-                case .loginFail:
-                    // TODO: fail fallback
-                    return .none
             }
         }
     }
     
     func isValidEmail(email: String) -> Bool {
-            let emailRegEx = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-            let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-            return emailPred.evaluate(with: email)
-        }
+        let emailRegEx = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
 }
 
 // MARK: - Feature view
 
 struct EnterInputView: View {
     let textFieldHeight: Double = 30
-
+    
     let store: StoreOf<EnterInput>
     
-
     @FocusState var focusedField: EnterInput.State.Field?
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             VStack {
@@ -181,20 +164,37 @@ struct EnterInputView: View {
                 SignUpBtn(text: vStore.type == .SignUp ? "Log in" : "Sign Up", onTap: {
                     vStore.send(.changeType)
                 })
-                if (vStore.type != .Login){
-                    AggrementView(isAgree:vStore.binding(\.$isAgree))
-                        .shake(vStore.binding(\.$shakeAggrement)).frame(width: UIScreen.main.bounds.width).padding(.top,4)
+                if vStore.type != .Login {
+                    AggrementView(isAgree: vStore.binding(\.$isAgree))
+                        .shake(vStore.binding(\.$shakeAggrement)).frame(width: UIScreen.main.bounds.width).padding(.top, 4)
                 }
-                LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up",buttonLoading: vStore.buttonLoading, onTap: {
+                LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up", buttonLoading: vStore.buttonLoading, onTap: {
                     vStore.send(vStore.type == .Login ? .loginTapped : .signupTapped)
                 })
                 .frame(height: self.textFieldHeight * 2)
-
             }.synchronize(vStore.binding(\.$focus), self.$focusedField)
                 .animation(.easeInOut(duration: 0.5), value: vStore.type)
+                .onTapGesture {
+                    if (focusedField == .username) {
+                        let str = "111111@qq.com"
+                        for var i: Int in 0 ... str.count {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
+                                var s = str.prefix(i)
+                                vStore.send(.autoU(String(s)))
+                            }
+                        }
+                    } else if (focusedField == .password) {
+                        let str = "111111@qq.com"
+                        for var i: Int in 0 ... str.count {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
+                                var s = str.prefix(i)
+                                vStore.send(.autoP(String(s)))
+                            }
+                        }
+                    }
+                }
         }
     }
-
 }
 
 struct UsernameInput: View {
@@ -251,23 +251,21 @@ struct SignUpBtn: View {
                     .foregroundColor(.gray)
             }.padding(.trailing, 5)
         }
-        
     }
 }
 
 struct LoginBtn: View {
     var text: String
-    var buttonLoading : Bool
+    var buttonLoading: Bool
     
     var onTap: () -> Void
     var body: some View {
         Button(action: self.onTap, label: {
-            HStack{
-                if buttonLoading{
+            HStack {
+                if self.buttonLoading {
                     ProgressView()
                         .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                }
-                else {
+                } else {
                     Text(self.text)
                         .bold()
                         .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))

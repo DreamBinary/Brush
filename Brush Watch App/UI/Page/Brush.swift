@@ -125,7 +125,8 @@ struct Brush: View {
             case .finish:
                 Finish { util.finishBrush() }
             case .score:
-                Score(score: util.getBrushScore()) { util.changePage() }
+//                Score(score: util.getBrushScore()) { util.changePage() }
+                Score(score: ["powerScore": 90, "timeScore": 85, "sectionScore": 77], onBtnTap: { util.changePage() })
         }
     }
 }

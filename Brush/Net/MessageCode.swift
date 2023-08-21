@@ -12,7 +12,8 @@ enum ErrorCode: Int {
     case invalidEmailFormat = 453
     case emailAlreadyExists = 454
     case registrationFailed = 455
-    
+    case otherError = -1
+
     var message: String {
         switch self {
         case .badRequest:
@@ -26,6 +27,8 @@ enum ErrorCode: Int {
         case .emailAlreadyExists:
             return "邮箱已存在"
         case .registrationFailed:
+            return "注册失败"
+        case .otherError:
             return "注册失败"
         }
     }
