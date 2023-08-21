@@ -36,6 +36,9 @@ struct Main: ReducerProtocol {
         BindingReducer()
         Reduce { state, action in
             switch action {
+                case .showToast:
+                    state.showToast = true
+                    return .none
                 case let .login(.enterInput(.signUpFail(code))):
                     var msg: String = ""
                     if code == ErrorCode.badRequest.rawValue {
@@ -56,13 +59,20 @@ struct Main: ReducerProtocol {
                     state.toastState.text = SuccessMessage.register.rawValue
                     state.toastState.toastType = .success
                     return Effect.send(.showToast)
-                case .showToast:
-                    state.showToast = true
-                    return .none
                 case .login(.enterInput(.loginSuccess)):
                     withAnimation(.interactiveSpring()) {
                         state.isLogin.toggle()
                     }
+                    state.toastState.text = SuccessMessage.login.rawValue
+                    state.toastState.toastType = .success
+                    return Effect.send(.showToast)
+                    
+                // TODO
+                case let .login(.enterInput(.loginFail(code))):
+                    var msg: String = ""
+                    
+                    state.toastState.text = msg
+                    state.toastState.toastType = .fail
                     return .none
                 case .binding, .route, .login:
                     return .none
