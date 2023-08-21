@@ -58,39 +58,41 @@ struct RouteView: View {
     var body: some View {
         
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            ZStack(alignment: .bottom) {
-                TabView(selection: vStore.binding(\.$selection)) {
-                    AnalysisView(
-                        store: store.scope(state: \.analysis, action: Route.Action.analysis)
-                    ).tag(0)
-                    MineView(
-                        store: store.scope(state: \.mine, action: Route.Action.mine)
-                    ).tag(2)
-                }.edgesIgnoringSafeArea(.all)
-                    .padding(.bottom, MyTabBar.height + 8)
-                HStack {
-                    Spacer()
-                    MyTabBar(selectedIndex: vStore.binding(\.$selection)){
-                        vStore.send(.setSheet(isPresented: true))
-                    }
-                    Spacer()
-                }.background(.white)
-            }.onAppear {
-                UITabBar.appearance().isHidden = true
-            }.sheet(
-                isPresented: vStore.binding(
-                    get: \.isSheetPresented,
-                    send: Route.Action.setSheet(isPresented:)
-                )
-            ) {
-                BrushView(
-                    store: store.scope(state: \.brush, action: Route.Action.brush)
-                ).tag(1)
-            }.onAppear {
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation") // Forcing the rotation to portrait
-                AppDelegate.orientationLock = .portrait // And making sure it stays that way
-            }.onDisappear {
-                AppDelegate.orientationLock = .all // Unlocking the rotation when leaving the view
+            NavigationView {
+                ZStack(alignment: .bottom) {
+                    TabView(selection: vStore.binding(\.$selection)) {
+                        AnalysisView(
+                            store: store.scope(state: \.analysis, action: Route.Action.analysis)
+                        ).tag(0)
+                        MineView(
+                            store: store.scope(state: \.mine, action: Route.Action.mine)
+                        ).tag(2)
+                    }.edgesIgnoringSafeArea(.all)
+                        .padding(.bottom, MyTabBar.height + 8)
+                    HStack {
+                        Spacer()
+                        MyTabBar(selectedIndex: vStore.binding(\.$selection)){
+                            vStore.send(.setSheet(isPresented: true))
+                        }
+                        Spacer()
+                    }.background(.white)
+                }.onAppear {
+                    UITabBar.appearance().isHidden = true
+                }.sheet(
+                    isPresented: vStore.binding(
+                        get: \.isSheetPresented,
+                        send: Route.Action.setSheet(isPresented:)
+                    )
+                ) {
+                    BrushView(
+                        store: store.scope(state: \.brush, action: Route.Action.brush)
+                    ).tag(1)
+                }.onAppear {
+                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation") // Forcing the rotation to portrait
+                    AppDelegate.orientationLock = .portrait // And making sure it stays that way
+                }.onDisappear {
+                    AppDelegate.orientationLock = .all // Unlocking the rotation when leaving the view
+                }
             }
         }
     }
