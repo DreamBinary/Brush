@@ -58,39 +58,39 @@ struct BrushView: View {
     let store: StoreOf<Brush>
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            switch vStore.brushState {
-                case .start:
-                    StartBrush {
-                        vStore.send(.startEnd)
-                    }.transition(.move(edge: .top))
-
-                case .countdown:
-                    CountDown {
-                        vStore.send(.countdownEnd)
-                    }.transition(.move(edge: .bottom))
-                case .inn:
-                    InBrush().transition(.move(edge: .leading)).onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 156, execute: {
-                            vStore.send(.innEnd)
-                        })
+                    switch vStore.brushState {
+                        case .start:
+                            StartBrush {
+                                vStore.send(.startEnd)
+                            }.transition(.move(edge: .top))
+                            
+                        case .countdown:
+                            CountDown {
+                                vStore.send(.countdownEnd)
+                            }.transition(.move(edge: .bottom))
+                        case .inn:
+                            InBrush().transition(.move(edge: .leading)).onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 156, execute: {
+                                    vStore.send(.innEnd)
+                                })
+                            }
                     }
-            }
+            
         }
     }
 }
 
 // MARK: - SwiftUI previews
 
-// #if DEBUG
-// struct BrushView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BrushView(
-//            store: Store(
-//                initialState: Brush.State(),
-//                reducer: Brush()
-//            ),
-//            util:
-//        )
-//    }
-// }
-// #endif
+ #if DEBUG
+ struct BrushView_Previews: PreviewProvider {
+    static var previews: some View {
+        BrushView(
+            store: Store(
+                initialState: Brush.State(),
+                reducer: Brush()
+            )
+        )
+    }
+ }
+ #endif

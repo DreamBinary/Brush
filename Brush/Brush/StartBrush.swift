@@ -17,6 +17,7 @@ struct StartBrush: View {
             GeometryReader { geo in
                 let width = geo.size.width
                 VStack {
+                    SheetTag()
                     ZStack(alignment: .center) {
                         Image("Squiggles")
                             .resizable()
@@ -40,7 +41,9 @@ struct StartBrush: View {
                         color: .white,
                         opacity: 0.57
                     ).onTapGesture {
-                        onStartWatch()
+                        onStart()
+                        // TODO
+//                        onStartWatch()
                     }
                     Image("StartTuneBrush").padding(.bottom, 50).padding(.top, 8)
                 }
