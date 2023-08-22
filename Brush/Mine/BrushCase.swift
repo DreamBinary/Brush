@@ -61,7 +61,7 @@ struct BrushCaseView: View {
                             Spacer()
                             DatePicker("", selection: vStore.binding(\.$date), displayedComponents: .date).fixedSize().labelsHidden()
                             Spacer()
-                        }
+                        }.padding(.top)
                         CircleScore(powerScore: vStore.powerScore, timeScore: vStore.timeScore, sectionScore: vStore.sectionScore).frame(width: width * 0.7, height: width * 0.7)
                         ScoreRow(powerScore: vStore.powerScore, timeScore: vStore.timeScore, sectionScore: vStore.sectionScore)
                         ResultPageView()

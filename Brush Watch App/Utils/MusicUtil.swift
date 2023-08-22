@@ -18,8 +18,13 @@ class MusicUtil {
     }
     
     func play() {
+        player?.volume = 1
         player?.seek(to: .zero)
         player?.play()
+    }
+    
+    func changeVolumn() {
+        player?.volume = 1
     }
     
     func stop() {

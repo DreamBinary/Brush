@@ -15,37 +15,43 @@ class ScoreUtil {
     private var cntOneSecond = 11
     var preDataInSecond: [[(Double, Double, Double)]] = .init(repeating: [], count: 15)
     private var curSecond = 0
+    
+    private var normalSpeed: Double = 0.02 / (11 / 8)
+    
     func getPreDataInSecond(x: Double, y: Double, z: Double) {
+        print("TAG", x, y, z)
         preDataInSecond[curSecond].append((x, y, z))
-        if preDataInSecond[curSecond].count == 20 {
+        if preDataInSecond[curSecond].count == 60 {
+            print("TAG", "--------------" , curSecond)
             curSecond += 1
         }
     }
-
+    
     func sectionProcces() async {
         await secondProccess()
         await computeScoreInSection()
-
-        print("TAG", time)
-        print("TAG", scoreInSection)
+        
+        print("TAG", "time", time)
+        print("TAG", "dataInSecond", dataInSecond)
+        print("TAG", "scoreInSection", scoreInSection)
         dataInSecond.removeAll()
     }
-
+    
     func getScore() -> [String: Int] {
         var score: [String: Int] = [:]
         //        var powerScore: Int
         //        var timeScore: Int
         //        var sectionScore: Int
-
-        print("TAG", time)
-        print("TAG", scoreInSection)
-
+        print("TAG", "time", time)
+        print("TAG", "dataInSecond", dataInSecond)
+        print("TAG", "scoreInSection", scoreInSection)
+        
         score["powerScore"] = Int(getAvg(data: scoreInSection))
         score["timeScore"] = Int(time / 132)
         score["sectionScore"] = Int(scoreInSection.min() ?? 0)
         return score
     }
-
+    
     private func secondProccess() async {
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
@@ -56,8 +62,9 @@ class ScoreUtil {
             }
         }
         preDataInSecond = [[(Double, Double, Double)]](repeating: [], count: 15)
+        curSecond = 0
     }
-
+    
     private func computeTime() async {
         for i in 0 ..< cntOneSecond {
             var cnt = 0
@@ -71,41 +78,90 @@ class ScoreUtil {
             }
         }
     }
-
+    
     private func computePower() async {
-        let datas = await getDataInSecond()
-        await computeDataInSecond(datas: datas)
+        await getDataInSecond()
+//        let datas = await getDataInSecond()
+//        await computeDataInSecond(datas: datas)
     }
-
+    
     // TODO:
     private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool {
-        return true
+        if (x > 0.01 && z > 0.01 && y > 0.1) {
+            return true
+        }
+        return false
     }
-
+    
     // TODO:
-    private func getDataInSecond() async -> [[Double]] {
-        var datas: [[Double]] = []
+    private func getDataInSecond() async {
+        var vx: [Double] = []
+        var vy: [Double] = []
+        var vz: [Double] = []
         for i in 0 ..< cntOneSecond {
-            var data: [Double] = []
+            var tx = 0.0
+            var ty = 0.0
+            var tz = 0.0
+            // TODO
             preDataInSecond[i].forEach { x, y, z in
-                data.append(sqrt(x * x + y * y + z * z))
+                let length = Double(preDataInSecond[i].count)
+                tx += x / length
+                ty += y / length
+                tz += z / length
             }
-            datas.append(data)
+            if (i == 0) {
+                vx.append(tx)
+                vy.append(tx)
+                vz.append(tx)
+            } else {
+                vx.append(vx[i - 1] + tx)
+                vy.append(vy[i - 1] + ty)
+                vz.append(vz[i - 1] + tz)
+            }
+//            vx[i] = i > 0 ? vx[i - 1] + tx : tx
+//            vy[i] = i > 0 ? vy[i - 1] + ty : ty
+//            vz[i] = i > 0 ? vz[i - 1] + tz : tz
+            dataInSecond.append(sqrt(vx[i] * vx[i] + vy[i] * vy[i] + vz[i] * vz[i]))
         }
-        return datas
     }
-
-    private func computeDataInSecond(datas: [[Double]]) async {
-        for data in datas {
-            let length = data.count
-            let start = Int(length / 6) //  1 / 6
-            let end = start * 5 //  5 / 6
-            let datasTmp: [Double] = Array(data.sorted()[start ..< end])
-            let avg = getAvg(data: datasTmp)
-            dataInSecond.append(avg)
-        }
-    }
-
+    
+    
+//    private func getDataInSecond() async -> [[Double]] {
+//        var datas: [[Double]] = []
+//        var vx: [Double] = []
+//        var vy: [Double] = []
+//        var vz: [Double] = []
+//        for i in 0 ..< cntOneSecond {
+//            var data: [Double] = []
+//            var tx = 0.0
+//            var ty = 0.0
+//            var tz = 0.0
+//            // TODO
+//            preDataInSecond[i].forEach { x, y, z in
+//                let length = Double(preDataInSecond[i].count)
+//                tx += x / length     // 60 HZ
+//                ty += y / length
+//                tz += z / length
+//            }
+//            vx[i] = i > 0 ? vx[i - 1] + tx : tx
+//            vy[i] = i > 0 ? vy[i - 1] + ty : ty
+//            vz[i] = i > 0 ? vz[i - 1] + tz : tz
+//            datas.append(sqrt(vx[i] * vx[i] + vy[i] * vy[i] + vz[i] * vz[i]))
+//        }
+//        return datas
+//    }
+//
+//    private func computeDataInSecond(datas: [[Double]]) async {
+//        for data in datas {
+//            let length = data.count
+//            let start = Int(length / 6) //  1 / 6
+//            let end = start * 5 //  5 / 6
+//            let datasTmp: [Double] = Array(data.sorted()[start ..< end])
+//            let avg = getAvg(data: datasTmp)
+//            dataInSecond.append(avg)
+//        }
+//    }
+    
     private func computeScoreInSection() async {
         var datasTmp: [Double] = []
         dataInSecond.forEach { data in
@@ -114,13 +170,18 @@ class ScoreUtil {
         let avg = getAvg(data: datasTmp)
         scoreInSection.append(avg)
     }
-
+    
     private func getAvg(data: [Double]) -> Double {
         return data.reduce(0, +) / Double(data.count)
     }
-
+    
     // TODO:
     private func computeScoreInSecond(data: Double) -> Double {
-        return 90
+        let tmp = 100.0 / normalSpeed * data
+        if data <= normalSpeed {
+            return tmp
+        } else {
+            return 200.0 - tmp
+        }
     }
 }

@@ -38,7 +38,7 @@ class BrushUtil: ObservableObject {
             sleep(1)
             musicUtil.play()
             MotionUtil.start(getAcceData: { x, y, z in
-                self.scoreUtil.getPreDataInSecond(x: x, y: y, z: z)
+                self.processData(x, y, z)
             })
             HapticUtil.start()
             changePage()
@@ -55,6 +55,13 @@ class BrushUtil: ObservableObject {
             changePage()
         }
         reset()
+        print("TAG", "--------------", "finish")
+    }
+    
+    private func processData(_ x: Double, _ y: Double, _ z: Double) {
+        self.scoreUtil.getPreDataInSecond(x: x, y: y, z: z)
+        // TODO
+//        self.musicUtil.changeVolumn()
     }
     
     func reset() {
