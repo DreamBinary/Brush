@@ -10,9 +10,9 @@ import SwiftUI
 struct EnterWay: View {
     var body: some View {
         HStack {
-            Button {} label: {
-                Image("WeChat")
-            }.hidden()
+//            Button {} label: {
+//                Image("WeChat")
+//            }.hidden()
             Spacer()
             Button {} label: {
                 Image("Apple")
@@ -24,9 +24,9 @@ struct EnterWay: View {
 //                    .shadow(color: .black.opacity(0), radius: 5.5, x: 4, y: 39)
             }
             Spacer()
-            Button {} label: {
-                Image("QQ")
-            }.hidden()
+//            Button {} label: {
+//                Image("QQ")
+//            }.hidden()
         }
     }
 }

@@ -12,7 +12,7 @@ struct BgColor<Content>: View where Content: View {
 
     var body: some View {
         content()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(width: screenWidth, height: screenHeight)
             .background(
                 LinearGradient(
                     stops: [
