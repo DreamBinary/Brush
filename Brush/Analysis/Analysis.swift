@@ -17,12 +17,14 @@ struct Analysis: ReducerProtocol {
         var curMonth: Int = 5 // from 1 start
         var topScore: Int = 100
         var avgPower: Double = 0.5
+        @BindingState var isShowMothly = false
     }
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case onTapGetStarted
         case onTapMonth(Int)
+        case showMonthly
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -30,6 +32,9 @@ struct Analysis: ReducerProtocol {
         Reduce { state, action in
             switch action {
                 case .binding:
+                    return .none
+                case .showMonthly:
+                    state.isShowMothly = true
                     return .none
                 case .onTapGetStarted:
                     return .none
@@ -77,8 +82,8 @@ struct AnalysisView: View {
                             HStack(alignment: .top, spacing: 15) {
                                 VStack(spacing: 15) {
                                     Top(score: vStore.topScore).frame(height: height * 0.4)
-                                    NavigationLink(destination: RatingLine()) {
-                                        Mothly().frame(height: height * 0.6)
+                                    Mothly().frame(height: height * 0.6).onTapGesture {
+                                        vStore.send(.showMonthly)
                                     }
                                 }
                                 VStack(spacing: 15) {
@@ -90,7 +95,9 @@ struct AnalysisView: View {
                     }.clipped()
                 }.background(
                     LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
-                )
+                ).popup(isPresented: vStore.binding(\.$isShowMothly)) {
+                    RatingLine()
+                }
         }
     }
 }
