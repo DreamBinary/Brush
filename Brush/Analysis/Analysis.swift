@@ -14,10 +14,9 @@ struct Analysis: ReducerProtocol {
     struct State: Equatable {
         var name: String = "Worsh"
         var label: String = "Are you ready for your new journey?"
-        var curMonth: Int = 5 // from 1 start
-        var topScore: Int = 100
-        var avgPower: Double = 0.5
-        @BindingState var isShowMothly = false
+        var curMonth: Int = 8 // from 1 start
+        var topScore: Int = 93
+        var avgPower: Double = 0.55
     }
 
     enum Action: BindableAction, Equatable {
@@ -175,21 +174,33 @@ struct Top: View {
 }
 struct Average: View {
     var avgPower: Double
+    
+    @State private var currentProgress: Double = 0.0
+    @State private var toAvg: Bool = false
+    
     var body: some View {
         Card(color: Color(0x00C4DF, 0.40), backgroundOpacity: 0.5) {
             VStack {
                 HStack {
                     Image("BrushMin")
-                    ProgressView(value: avgPower)
+                    ProgressView(value: toAvg ? avgPower : 0.0)
                         .progressViewStyle(RoundedRectProgressViewStyle())
                         .frame(width: 90)
-                    Image("BrushMax")
-                }
+                        .onAppear {
+                            startAnimation(duration : 0.3)
+                        }
+                    Image(toAvg ? "BrushMax" : "BrushMin")
+                }.animation(.easeInOut(duration: 0.5), value: toAvg)
                 Text("平均力度 Average")
                     .font(.callout)
                     .fontWeight(.semibold)
                     .foregroundColor(.lightBlack)
             }
+        }
+    }
+    func startAnimation(duration:Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+            toAvg = true
         }
     }
 }
