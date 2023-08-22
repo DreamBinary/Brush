@@ -13,19 +13,19 @@ struct ContentView: View {
     
     var body: some View {
 //        TmpExchange()
-        LoginView(
-            store: Store(
-                initialState: Login.State(),
-                reducer: Login()
-            )
-        )
-//        NavigationView {
-//            RouteView(
-//                store: Store(
-//                    initialState: Route.State(),
-//                    reducer: Route()
-//                )
+//        LoginView(
+//            store: Store(
+//                initialState: Login.State(),
+//                reducer: Login()
 //            )
+//        )
+//        NavigationView {
+            RouteView(
+                store: Store(
+                    initialState: Route.State(),
+                    reducer: Route()
+                )
+            )
 //        }
 //        TmpExchange()
 //        BrushView(

@@ -163,18 +163,17 @@ struct EnterInputView: View {
                     .shake(vStore.binding(\.$shakePassword))
                 SignUpBtn(text: vStore.type == .SignUp ? "Log in" : "Sign Up", onTap: {
                     vStore.send(.changeType)
-                    
-                        let username = "111111@qq.com"
+                        let username = "tunebrush@shawnxixi.icu"
                         for var i: Int in 0 ... username.count {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1 + 1) {
                                 var s = username.prefix(i)
                                 vStore.send(.autoU(String(s)))
                             }
                         }
                         let password = "111111@qq.com"
                         for var i: Int in 0 ... password.count {
-                            var t: Double = Double(i) * 0.3 + Double(username.count) * 0.3
-                            DispatchQueue.main.asyncAfter(deadline: .now() + t) {
+                            var t: Double = Double(i) * 0.1 + Double(username.count) * 0.1
+                            DispatchQueue.main.asyncAfter(deadline: .now() + t + 1) {
                                 var s = password.prefix(i)
                                 vStore.send(.autoP(String(s)))
                             }
