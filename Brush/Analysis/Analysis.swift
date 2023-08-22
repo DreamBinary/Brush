@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import SwiftUI
+import PopupView
 
 // MARK: - Feature domain
 
@@ -17,15 +18,16 @@ struct Analysis: ReducerProtocol {
         var curMonth: Int = 8 // from 1 start
         var topScore: Int = 93
         var avgPower: Double = 0.55
+        @BindingState var isShowMothly = false
     }
-
+    
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case onTapGetStarted
         case onTapMonth(Int)
         case showMonthly
     }
-
+    
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
@@ -49,7 +51,7 @@ struct Analysis: ReducerProtocol {
 
 struct AnalysisView: View {
     let store: StoreOf<Analysis>
-
+    
     private let backgroundColors: [Color] = [
         Color(0x7DE2D1, 1),
         Color(0x9BEADC, 0.69),
@@ -58,49 +60,59 @@ struct AnalysisView: View {
         Color(0xDBFFF9, 0.25),
         Color(0xEEEEEE, 0.34),
     ]
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-                GeometryReader { _ in
-                    VStack(alignment: .leading, spacing: 10) {
-                        Person(name: vStore.name, label: vStore.label)
-                        
-                        StartCard(onGetStarted: {vStore.send(.onTapGetStarted)})
-                        
-                        Text("Your Analysis")
-                            .font(.title2.bold())
-                            .padding(.horizontal)
-                            .padding(.horizontal)
-                        
-                        MonthRow(curMonth: vStore.curMonth) { index in
-                            vStore.send(.onTapMonth(index + 1))
-                        }
-                        
-                        GeometryReader { geo in
-                            let height = geo.size.height - 15
-                            HStack(alignment: .top, spacing: 15) {
-                                VStack(spacing: 15) {
-                                    Top(score: vStore.topScore).frame(height: height * 0.4)
-                                    Mothly().frame(height: height * 0.6).onTapGesture {
-                                        vStore.send(.showMonthly)
-                                    }
-                                }
-                                VStack(spacing: 15) {
-                                    Average(avgPower: vStore.avgPower).frame(height: height * 0.25)
-                                    Conclusion().frame(height: height * 0.75)
+            GeometryReader { _ in
+                VStack(alignment: .leading, spacing: 10) {
+                    Person(name: vStore.name, label: vStore.label)
+                    
+                    StartCard(onGetStarted: { vStore.send(.onTapGetStarted) })
+                    
+                    Text("Your Analysis")
+                        .font(.title2.bold())
+                        .padding(.horizontal)
+                        .padding(.horizontal)
+                    
+                    MonthRow(curMonth: vStore.curMonth) { index in
+                        vStore.send(.onTapMonth(index + 1))
+                    }
+                    
+                    GeometryReader { geo in
+                        let height = geo.size.height - 15
+                        HStack(alignment: .top, spacing: 15) {
+                            VStack(spacing: 15) {
+                                Top(score: vStore.topScore).frame(height: height * 0.4)
+                                Mothly().frame(height: height * 0.6).onTapGesture {
+                                    vStore.send(.showMonthly)
                                 }
                             }
-                        }.padding(.horizontal)
-                    }.clipped()
-                }.background(
-                    LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
-                ).popup(isPresented: vStore.binding(\.$isShowMothly)) {
-                    RatingLine()
-                }
+                            VStack(spacing: 15) {
+                                Average(avgPower: vStore.avgPower).frame(height: height * 0.25)
+                                Conclusion().frame(height: height * 0.75)
+                            }
+                        }
+                    }.padding(.horizontal)
+                }.clipped()
+            }.background(
+                LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
+            ).sheet(isPresented: vStore.binding(\.$isShowMothly)) {
+//                    if #available(iOS 16.4, *) {
+//                        RatingLine()
+//                            .presentationDetents([.fraction(0.6)])
+//                            .presentationDragIndicator(.visible)
+//                            .presentationCornerRadius(30)
+//                    } else {
+                        RatingLine()
+                            .presentationDetents([.fraction(0.6)])
+                            .presentationDragIndicator(.visible)
+//                    }
+                
+            }
+                
         }
     }
 }
-
 
 struct Person: View {
     var name: String
@@ -120,7 +132,7 @@ struct Person: View {
 }
 
 struct StartCard: View {
-    var onGetStarted: () ->Void
+    var onGetStarted: () -> Void
     var body: some View {
         Card(color: Color(0xE1F5B3), cornerRadius: 15) {
             ZStack(alignment: .trailing) {
@@ -172,6 +184,7 @@ struct Top: View {
         }
     }
 }
+
 struct Average: View {
     var avgPower: Double
     
@@ -187,7 +200,7 @@ struct Average: View {
                         .progressViewStyle(RoundedRectProgressViewStyle())
                         .frame(width: 90)
                         .onAppear {
-                            startAnimation(duration : 0.3)
+                            startAnimation(duration: 0.3)
                         }
                     Image(toAvg ? "BrushMax" : "BrushMin")
                 }.animation(.easeInOut(duration: 0.5), value: toAvg)
@@ -198,14 +211,15 @@ struct Average: View {
             }
         }
     }
-    func startAnimation(duration:Double) {
+    
+    func startAnimation(duration: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
             toAvg = true
         }
     }
 }
+
 struct Mothly: View {
-    
     var body: some View {
         Card(color: Color(0xFFE193, 0.72)) {
             VStack(spacing: 0) {
@@ -222,7 +236,6 @@ struct Mothly: View {
 }
 
 struct Conclusion: View {
-    
     var body: some View {
         GeometryReader { geo in
             let widthHalf = geo.size.width / 2
@@ -259,9 +272,6 @@ struct Conclusion: View {
     }
 }
 
-
-
-
 struct RoundedRectProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         ZStack(alignment: .leading) {
@@ -281,15 +291,15 @@ struct MonthRow: View {
     var onTap: (Int) -> Void
     private let monthE = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                           "Jul", "Aug", "Sep", "Oct", "Nev", "Dec"]
-
+    
     private let monthC = ["一月", "二月", "三月", "四月", "五月", "六月",
                           "七月", "八月", "九月", "十月", "十一月", "十二月"]
-
+    
     init(curMonth: Int, onTap: @escaping (Int) -> Void) {
         self.curIndex = curMonth - 1
         self.onTap = onTap
     }
-
+    
     var body: some View {
         ScrollViewReader { scrollViewProxy in
             ScrollView(.horizontal, showsIndicators: false) {
@@ -297,26 +307,26 @@ struct MonthRow: View {
                     ForEach(0 ..< 12) { index in
                         (
                             curIndex == index
-                                ? Card(color: Color(0x365869), cornerRadius: 15) {
-                                    VStack(spacing: 10) {
-                                        Text(self.monthC[index])
-                                            .font(.callout)
-                                            .foregroundColor(.white)
-                                        Text(self.monthE[index])
-                                            .font(.title.bold())
-                                            .foregroundColor(.white)
-                                    }
+                            ? Card(color: Color(0x365869), cornerRadius: 15) {
+                                VStack(spacing: 10) {
+                                    Text(self.monthC[index])
+                                        .font(.callout)
+                                        .foregroundColor(.white)
+                                    Text(self.monthE[index])
+                                        .font(.title.bold())
+                                        .foregroundColor(.white)
                                 }
-                                : Card(color: .white.opacity(0.44), cornerRadius: 15) {
-                                    VStack(spacing: 10) {
-                                        Text(self.monthC[index])
-                                            .font(.callout)
-                                            .foregroundColor(.gray)
-                                        Text(self.monthE[index])
-                                            .font(.title.bold())
-                                            .foregroundColor(Color(0x365869))
-                                    }
+                            }
+                            : Card(color: .white.opacity(0.44), cornerRadius: 15) {
+                                VStack(spacing: 10) {
+                                    Text(self.monthC[index])
+                                        .font(.callout)
+                                        .foregroundColor(.gray)
+                                    Text(self.monthE[index])
+                                        .font(.title.bold())
+                                        .foregroundColor(Color(0x365869))
                                 }
+                            }
                         ).frame(width: 70, height: 90)
                             .id(self.monthE[index])
                             .onTapGesture {

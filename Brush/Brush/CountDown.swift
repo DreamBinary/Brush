@@ -46,7 +46,6 @@ struct CountDownBg: View {
         GeometryReader { geo in
             let width = geo.size.width
             VStack(spacing: 0) {
-                SheetTag()
                 ZStack {
                     Image("CountDownBgTop")
                         .resizable()

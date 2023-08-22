@@ -96,7 +96,6 @@
 		A0A9FF0B2A45D39500305294 /* FinishBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A9FF0A2A45D39500305294 /* FinishBrush.swift */; };
 		A0B014152A486D9100838702 /* VoiceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B014142A486D9100838702 /* VoiceAnimation.swift */; };
 		A0B553E72A6979AD0016E819 /* SpeakUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B553E62A6979AD0016E819 /* SpeakUtil.swift */; };
-		A0BEC57B2A93B1BA00A496FE /* SheetTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BEC57A2A93B1BA00A496FE /* SheetTag.swift */; };
 		A0C167E52A78FEB0004B7F51 /* StartBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167E42A78FEB0004B7F51 /* StartBrush.swift */; };
 		A0C167E72A793148004B7F51 /* ObservableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167E62A793148004B7F51 /* ObservableScrollView.swift */; };
 		A0C167EA2A7944DA004B7F51 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167E92A7944DA004B7F51 /* Main.swift */; };
@@ -270,7 +269,6 @@
 		A0A9FF0A2A45D39500305294 /* FinishBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishBrush.swift; sourceTree = "<group>"; };
 		A0B014142A486D9100838702 /* VoiceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimation.swift; sourceTree = "<group>"; };
 		A0B553E62A6979AD0016E819 /* SpeakUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakUtil.swift; sourceTree = "<group>"; };
-		A0BEC57A2A93B1BA00A496FE /* SheetTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTag.swift; sourceTree = "<group>"; };
 		A0C167E42A78FEB0004B7F51 /* StartBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartBrush.swift; sourceTree = "<group>"; };
 		A0C167E62A793148004B7F51 /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
 		A0C167E92A7944DA004B7F51 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
@@ -537,7 +535,6 @@
 				A0194E952A8DCD2600F8287B /* CircleScore.swift */,
 				A0194E9B2A8DD28C00F8287B /* TwoWord.swift */,
 				58707BD72A8F104E00AC00C3 /* AggrementView.swift */,
-				A0BEC57A2A93B1BA00A496FE /* SheetTag.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -853,6 +850,7 @@
 				A06383922A8120B500E46CEF /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				58707BDB2A8F3A2400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */,
 				5883C1912A924E17002B87A7 /* XCRemoteSwiftPackageReference "Moya" */,
+				A052C5F42A94646E00A06BA9 /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = A0581F7D2A41DBEF00710C4B /* Products */;
 			projectDirPath = "";
@@ -953,7 +951,6 @@
 				A06684DA2A42E35E00D27BF3 /* Brush.swift in Sources */,
 				A0C167EA2A7944DA004B7F51 /* Main.swift in Sources */,
 				A046BA632A8CFD9400FB3F9A /* Date.swift in Sources */,
-				A0BEC57B2A93B1BA00A496FE /* SheetTag.swift in Sources */,
 				A0194E942A8DBD5E00F8287B /* Dialog.swift in Sources */,
 				A0B014152A486D9100838702 /* VoiceAnimation.swift in Sources */,
 				A0D1546B2A7B402E00C6BAEF /* InBrush.swift in Sources */,
@@ -1605,6 +1602,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 15.0.0;
+			};
+		};
+		A052C5F42A94646E00A06BA9 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {

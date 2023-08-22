@@ -9,10 +9,11 @@ import SwiftUI
 
 struct RatingLine: View {
     private var weightModel = WeightData()
-    private let dataPointWidth: CGFloat = 30
+    private let dataPointWidth: CGFloat = 50
     @Namespace var trailingID
     @Namespace var leadingID
     
+    let gradient = LinearGradient(gradient: Gradient(colors: [.primary.opacity(0.6), .primary.opacity(0.5), .primary.opacity(0.2), .primary.opacity(0.02)]), startPoint: .top, endPoint: .bottom)
     var body: some View {
         GeometryReader { geo in
             let width = geo.size.width
@@ -28,14 +29,26 @@ struct RatingLine: View {
                             }.padding(.leading)
                         Chart {
                             ForEach(weight, id: \.id) { item in
+                                let x = item.day
+                                let y = item.score - 100
                                 LineMark(
-                                    x: .value("day", item.day),
-                                    y: .value("score", item.score - 150)
+                                    x: .value("day", x),
+                                    y: .value("score", y)
                                 ).interpolationMethod(.catmullRom)
+                                    .lineStyle(.init(lineWidth: 3))
+                                AreaMark(x: .value("day", x),
+                                         y: .value("score", y))
+                                .interpolationMethod(.catmullRom)
+                                .foregroundStyle(gradient)
                                 PointMark(
-                                    x: .value("day", item.day),
-                                    y: .value("score", item.score - 150)
-                                )
+                                    x: .value("day", x),
+                                    y: .value("score", y)
+                                ).annotation(position: .top) {
+                                    Text("\(y)")
+                                        .font(.system(size: 12))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.fontGray)
+                                }
                             }
                         }
                         .foregroundColor(.primary)
@@ -64,14 +77,8 @@ struct RatingLine: View {
                 }.onAppear {
                     scrollViewProxy.scrollTo(trailingID, anchor: .trailing)
                 }
-            } 
-        }.navigationTitle("评分曲线")
-            .onAppear {
-            AppDelegate.orientationLock = .all // And making sure it stays that way
-        }.onDisappear {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation") // Forcing the rotation to portrait
-            AppDelegate.orientationLock = .portrait // And making sure it stays that way
-        }
+            }
+        }.background(.white)
     }
 }
 

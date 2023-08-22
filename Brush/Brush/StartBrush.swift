@@ -17,7 +17,6 @@ struct StartBrush: View {
             GeometryReader { geo in
                 let width = geo.size.width
                 VStack {
-                    SheetTag()
                     ZStack(alignment: .center) {
                         Image("Squiggles")
                             .resizable()

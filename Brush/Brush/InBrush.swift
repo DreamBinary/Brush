@@ -14,7 +14,6 @@ struct InBrush: View {
                 let width = geo.size.width
                 let height = geo.size.height
                 VStack {
-                    SheetTag()
                     Spacer()
                     HStack {
                         BrushIcon(radius: 20, color: .init(0x7DE2D1))

@@ -86,13 +86,14 @@ struct RouteView: View {
                 ) {
                     BrushView(
                         store: store.scope(state: \.brush, action: Route.Action.brush)
-                    ).tag(1)
-                }.onAppear {
-                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation") // Forcing the rotation to portrait
-                    AppDelegate.orientationLock = .portrait // And making sure it stays that way
-                }.onDisappear {
-                    AppDelegate.orientationLock = .all // Unlocking the rotation when leaving the view
+                    ).presentationDragIndicator(.visible)
                 }
+//                .onAppear {
+//                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation") // Forcing the rotation to portrait
+//                    AppDelegate.orientationLock = .portrait // And making sure it stays that way
+//                }.onDisappear {
+//                    AppDelegate.orientationLock = .all // Unlocking the rotation when leaving the view
+//                }
             }
         }
     }
