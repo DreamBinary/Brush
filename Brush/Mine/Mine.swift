@@ -12,18 +12,27 @@ import SwiftUI
 
 struct Mine: ReducerProtocol {
     struct State: Equatable {
-//        @BindingState var
+        @BindingState var isShowToothBrush = false
+        @BindingState var isShowBrushCase = false
         var name: String = "Conan Worsh"
     }
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
+        case showToothBrush
+        case showBrushCase
     }
 
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
+                case .showToothBrush:
+                    state.isShowToothBrush = true
+                    return .none
+                case .showBrushCase:
+                    state.isShowBrushCase = true
+                    return .none
                 case .binding:
                     return .none
             }
@@ -59,35 +68,25 @@ struct MineView: View {
                                         .font(.body)
                                         .fontWeight(.medium)
                                         .foregroundColor(.fontGray)
-                                    
+
                                     TwoWord("136", "天").padding(.top)
-                                    
+
                                     Text("加入 TuneBrush")
                                         .font(.body)
                                         .fontWeight(.bold)
                                         .foregroundColor(.fontGray)
-                                    
+
                                     HStack(spacing: 15) {
-                                        NavigationLink(destination: BrushCaseView(
-                                            store: Store(
-                                                initialState: BrushCase.State(),
-                                                reducer: BrushCase()
-                                            )
-                                        ), label: {
-                                            BrushCaseCard()
-                                        })
-                                        NavigationLink(destination: ToothBrushView(
-                                            store: Store(
-                                                initialState: ToothBrush.State(),
-                                                reducer: ToothBrush()
-                                            )
-                                        ), label: {
-                                            ToothBrushCard()
-                                        })
+                                        BrushCaseCard().onTapGesture {
+                                            vStore.send(.showBrushCase)
+                                        }
+                                        ToothBrushCard().onTapGesture {
+                                            vStore.send(.showToothBrush)
+                                        }
                                     }.foregroundColor(Color(0x35444C))
                                         .fontWeight(.semibold)
                                         .padding()
-                                }.frame(height: initContenHeight -  width * 0.5 * sqrt(6) / 4)
+                                }.frame(height: initContenHeight - width * 0.5 * sqrt(6) / 4)
                                 Button(action: {}, label: {
                                     Text("退出当前帐号")
                                         .fontWeight(.medium)
@@ -99,6 +98,20 @@ struct MineView: View {
                     }.padding(.top, height - initContenHeight)
                     MineAvatar(avatarWidth: avatarWidth, degrees: offset.y * 30 / (width * 0.1) - 15.0).offset(y: -height * 0.25 - offset.y)
                 }.frame(width: width, height: height)
+            }.sheet(isPresented: vStore.binding(\.$isShowBrushCase)) {
+                BrushCaseView(
+                    store: Store(
+                        initialState: BrushCase.State(),
+                        reducer: BrushCase()
+                    )
+                ).presentationDragIndicator(.visible)
+            }.sheet(isPresented: vStore.binding(\.$isShowToothBrush)) {
+                ToothBrushView(
+                    store: Store(
+                        initialState: ToothBrush.State(),
+                        reducer: ToothBrush()
+                    )
+                ).presentationDragIndicator(.visible)
             }
         }
     }
@@ -110,7 +123,7 @@ struct BackGround: View {
         VStack {
             Spacer()
             Rectangle()
-                .fill(.white)
+                .fill(Color.bgWhite)
                 .cornerRadius(corners: [.topLeft, .topRight], radius: 16)
                 .frame(height: whiteHeight)
                 .shadow(radius: 2)
@@ -131,19 +144,18 @@ struct BackGround: View {
 struct MineAvatar: View {
     var avatarWidth: Double
     var degrees: Double
-    
+
     init(avatarWidth: Double, degrees: Double) {
         self.avatarWidth = avatarWidth
-        if (degrees > 15) {
+        if degrees > 15 {
             self.degrees = 15
-        } else if (degrees < -15) {
+        } else if degrees < -15 {
             self.degrees = -15
         } else {
             self.degrees = degrees
         }
-        
     }
-    
+
     var body: some View {
         ZStack {
             Rectangle()

@@ -14,6 +14,7 @@ public extension Color {
     static let fontGray: Color = .init(red: 0.51, green: 0.51, blue: 0.51)
     static let primary: Color = .init(red: 0.49, green: 0.89, blue: 0.82)
     static let lightPrimary: Color = .init(red: 0.38, green: 0.86, blue: 0.78, opacity: 0.2)
+    static let bgWhite: Color = .init(0xF2F2F7)
 }
 
 extension Color {

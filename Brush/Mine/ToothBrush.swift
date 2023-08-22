@@ -77,7 +77,7 @@ struct ToothBrushView: View {
                         )
                     }
                 }
-            }.navigationTitle("牙刷更换情况")
+            }
         }
     }
 }

@@ -57,18 +57,18 @@ struct BrushCaseView: View {
                     }.edgesIgnoringSafeArea(.bottom)
                     
                     VStack {
+                        HStack {
+                            Spacer()
+                            DatePicker("", selection: vStore.binding(\.$date), displayedComponents: .date).fixedSize().labelsHidden()
+                            Spacer()
+                        }
                         CircleScore(powerScore: vStore.powerScore, timeScore: vStore.timeScore, sectionScore: vStore.sectionScore).frame(width: width * 0.7, height: width * 0.7)
                         ScoreRow(powerScore: vStore.powerScore, timeScore: vStore.timeScore, sectionScore: vStore.sectionScore)
                         ResultPageView()
                         Spacer()
                     }
                 }
-            }.navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        DatePicker("", selection: vStore.binding(\.$date), displayedComponents: .date).fixedSize().labelsHidden()
-                    }
-                }
+            }.background(Color.bgWhite)
         }
     }
 }
