@@ -117,6 +117,7 @@
 		A0D6C5182A47D15B00C4DA84 /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6C5172A47D15B00C4DA84 /* Tip.swift */; };
 		A0DA4B272A46BA45009CA236 /* BrushIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B262A46BA45009CA236 /* BrushIcon.swift */; };
 		A0DA4B2B2A46BEF8009CA236 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */; };
+		A0F4170A2A95AE71000560A5 /* TCA.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F417092A95AE71000560A5 /* TCA.swift */; };
 		A0F5B55D2A681264001D5EA4 /* BgColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B55C2A681264001D5EA4 /* BgColor.swift */; };
 		A0F5B5652A6817C2001D5EA4 /* SectionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */; };
 		A0F5B5672A682D3A001D5EA4 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */; };
@@ -293,6 +294,7 @@
 		A0D6C5172A47D15B00C4DA84 /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
 		A0DA4B262A46BA45009CA236 /* BrushIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushIcon.swift; sourceTree = "<group>"; };
 		A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
+		A0F417092A95AE71000560A5 /* TCA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCA.swift; sourceTree = "<group>"; };
 		A0F5B55C2A681264001D5EA4 /* BgColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgColor.swift; sourceTree = "<group>"; };
 		A0F5B5642A6817C2001D5EA4 /* SectionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionUtil.swift; sourceTree = "<group>"; };
 		A0F5B5662A682D3A001D5EA4 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 				58707BD92A8F38C000AC00C3 /* View.swift */,
 				A09E21972A66C6240012C6BB /* CornerRadius.swift */,
 				A046BA622A8CFD9400FB3F9A /* Date.swift */,
+				A0F417092A95AE71000560A5 /* TCA.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -943,6 +946,7 @@
 				A06684E22A42F82F00D27BF3 /* Card.swift in Sources */,
 				A0C167E72A793148004B7F51 /* ObservableScrollView.swift in Sources */,
 				A0194E962A8DCD2600F8287B /* CircleScore.swift in Sources */,
+				A0F4170A2A95AE71000560A5 /* TCA.swift in Sources */,
 				A0300C542A446EFD0056496E /* EnterInput.swift in Sources */,
 				588C8C9C2A6ABE8500DD8A65 /* SquareIconView.swift in Sources */,
 				A046BA612A8CFB1600FB3F9A /* ToothBrush.swift in Sources */,

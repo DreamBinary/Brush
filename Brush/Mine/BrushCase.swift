@@ -15,9 +15,9 @@ import SwiftUIPager
 struct BrushCase: ReducerProtocol {
     
     struct State: Equatable {
-        var powerScore = 90
+        var powerScore = 87
         var timeScore = 90
-        var sectionScore = 90
+        var sectionScore = 75
         @BindingState var date: Date = Date()
         @BindingState var isDatePickerVisible = false
     }
@@ -25,12 +25,17 @@ struct BrushCase: ReducerProtocol {
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case showDatePicker
+        case onAppear
     }
     
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
             switch action {
+                case .onAppear:
+                    print("onAppear")
+                    return .none
+                    
                 case .showDatePicker:
                     state.isDatePickerVisible = true
                     return .none

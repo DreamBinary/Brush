@@ -17,7 +17,7 @@ struct Avatar: View {
                 .fill(fillColor)
             Image(img)
                 .resizable()
-                .padding(.all, 10)
+                .padding(.all, 5)
         }.frame(width: radius * 2, height: radius * 2)
     }
 }

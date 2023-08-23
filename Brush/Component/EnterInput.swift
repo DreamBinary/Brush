@@ -86,8 +86,8 @@ struct EnterInput: ReducerProtocol {
                     } else {
                         state.buttonLoading = true
                         return .task { [email = state.username, password = state.password] in
-                            let (user, response): (User?, HTTPURLResponse?) = try await ApiClient.request(Url.signUp, method: .POST, params: ["email": email, "password": password])
-                            return user == .none ? .signUpFail(response?.statusCode ?? -1) : .signUpSuccess
+                            let response: Response<User?> = try await ApiClient.request(Url.signUp, method: .POST, params: ["email": email, "password": password])
+                            return response.code == 200 ? .signUpSuccess : .signUpFail(response.code ?? -1)
                         }
                     }
                     return .none
@@ -105,8 +105,9 @@ struct EnterInput: ReducerProtocol {
                     } else {
                         state.buttonLoading = true
                         return .task { [email = state.username, password = state.password] in
-                            let (user, response): (User?, HTTPURLResponse?) = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "password": password])
-                            return user == .none ? .loginFail(response?.statusCode ?? -1) : .loginSuccess(user!)
+                            
+                            let response: Response<User?> = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "plainPassword": password])
+                            return response.code == 200 ? .loginSuccess(response.data!!) : .signUpFail(response.code ?? -1)
                         }
                     }
                     return .none

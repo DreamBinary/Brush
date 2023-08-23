@@ -17,12 +17,12 @@ struct ApiClient {
         case POST = "POST"
     }
     
-    static func request<T: Decodable>(
+    static func request<T: Codable>(
         _ url: String,
         method: Method = .GET,
         params: [String: Any] = [:],
         headers: [String: String] = [:]
-    ) async throws -> (T?, HTTPURLResponse?){
+    ) async throws -> Response<T?>{
         // 1. 创建URL
         guard let url = URL(string: url) else {
             fatalError("URL is not correct!")
@@ -43,15 +43,11 @@ struct ApiClient {
             let data = try? JSONSerialization.data(withJSONObject: params, options: [])
             request.httpBody = data
         }
-        let (data, response) =  try await URLSession.shared.data(for: request)
-        let httpresponse = response as? HTTPURLResponse
-        if (httpresponse?.statusCode == 200) {
-            let decoder = JSONDecoder()
-            let result = try decoder.decode(T.self, from: data)
-            return (result, httpresponse)
-        } else {
-            return (.none, httpresponse)
-        } 
+        let (data, _) =  try await URLSession.shared.data(for: request)
+        
+        // convert data
+        let response =  try JSONDecoder().decode(Response<T?>.self, from: data)
+        return response
         
         //        // 5. 创建任务
         //        let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -76,7 +72,7 @@ struct ApiClient {
         //        }
         
         // 7. 开始任务
-//        task.resume()
+        //        task.resume()
     }
 }
 

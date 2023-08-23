@@ -15,15 +15,18 @@ struct Mine: ReducerProtocol {
         @BindingState var isShowToothBrush = false
         @BindingState var isShowBrushCase = false
         var name: String = "Conan Worsh"
+        var brushCase = BrushCase.State()
     }
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
+        case brushCase(BrushCase.Action)
         case showToothBrush
         case showBrushCase
     }
 
     var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.brushCase, action: /Action.brushCase) { BrushCase() }
         BindingReducer()
         Reduce { state, action in
             switch action {
@@ -33,8 +36,9 @@ struct Mine: ReducerProtocol {
                 case .showBrushCase:
                     state.isShowBrushCase = true
                     return .none
-                case .binding:
+                case .binding, .brushCase:
                     return .none
+                
             }
         }
     }
@@ -77,7 +81,9 @@ struct MineView: View {
                                         .foregroundColor(.fontGray)
 
                                     HStack(spacing: 15) {
-                                        BrushCaseCard().onTapGesture {
+                                        BrushCaseCard(score:
+                                            Int((vStore.brushCase.powerScore + vStore.brushCase.timeScore + vStore.brushCase.sectionScore) / 3)
+                                        ).onTapGesture {
                                             vStore.send(.showBrushCase)
                                         }
                                         ToothBrushCard().onTapGesture {
@@ -100,10 +106,7 @@ struct MineView: View {
                 }.frame(width: width, height: height)
             }.sheet(isPresented: vStore.binding(\.$isShowBrushCase)) {
                 BrushCaseView(
-                    store: Store(
-                        initialState: BrushCase.State(),
-                        reducer: BrushCase()
-                    )
+                    store: store.scope(state: \.brushCase, action: Mine.Action.brushCase)
                 ).presentationDragIndicator(.visible)
             }.sheet(isPresented: vStore.binding(\.$isShowToothBrush)) {
                 ToothBrushView(
@@ -175,6 +178,7 @@ struct MineAvatar: View {
 }
 
 struct BrushCaseCard: View {
+    var score: Int
     var body: some View {
         Card(color: Color(0xA9C1FD)) {
             ZStack(alignment: .bottomLeading) {
@@ -183,7 +187,7 @@ struct BrushCaseCard: View {
                     .scaledToFit()
                     .padding()
                 VStack(alignment: .leading) {
-                    TwoWord("93", "分")
+                    TwoWord("\(score)", "分")
                     Text("查看刷牙情况")
                         .font(.title2)
                 }.padding(.horizontal)

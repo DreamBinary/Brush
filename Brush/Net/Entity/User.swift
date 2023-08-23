@@ -35,21 +35,38 @@ class User: Codable, Equatable {
         case id = "id"
     }
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        email = try values.decodeIfPresent(String.self, forKey: .email)
-        username = try values.decodeIfPresent(String.self, forKey: .username)
-        avatar = try values.decodeIfPresent(Int.self, forKey: .avatar)
-        signature = try values.decodeIfPresent(String.self, forKey: .signature)
-        id = try values.decodeIfPresent(Int.self, forKey: .id)
+    init(email: String? = "", username: String? = "", avatar: Int? = 0, signature: String? = "", id: Int? = 0) {
+        print("1111111111111")
+        self.email = email
+        self.username = username
+        self.avatar = avatar
+        self.signature = signature
+        self.id = id
     }
     
-    init() {
-        email = ""
-        username = ""
-        avatar = 0
-        signature = ""
-        id = 0
+    
+//    required init(from decoder: Decoder) throws {
+//        print("2222222222")
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        email = try values.decodeIfPresent(String.self, forKey: .email)
+//        username = try values.decodeIfPresent(String.self, forKey: .username)
+//        avatar = try values.decodeIfPresent(Int.self, forKey: .avatar)
+//        signature = try values.decodeIfPresent(String.self, forKey: .signature)
+//        id = try values.decodeIfPresent(Int.self, forKey: .id)
+//
+//        print(email, username, avatar, signature, id)
+//    }
+    
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.email = try container.decodeIfPresent(String.self, forKey: .email)
+        self.username = try container.decodeIfPresent(String.self, forKey: .username)
+        self.avatar = try container.decodeIfPresent(Int.self, forKey: .avatar)
+        self.signature = try container.decodeIfPresent(String.self, forKey: .signature)
+        self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+        
+        print(email, username, avatar, signature, id)
     }
     
     public static func == (lhs: User, rhs: User) -> Bool {
