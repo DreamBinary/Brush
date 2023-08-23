@@ -10,11 +10,13 @@ import SwiftUI
 struct Avatar: View {
     var radius: CGFloat = 30
     var img: String = "Avatar"
-    var fillColor: Color = .black
+    var fillColor: Color?
     var body: some View {
         ZStack {
-            Circle()
-                .fill(fillColor)
+            if (fillColor != nil) {
+                Circle()
+                    .fill(fillColor!)
+            }
             Image(img)
                 .resizable()
                 .padding(.all, 5)

@@ -62,7 +62,12 @@ struct MineView: View {
                             Spacer(minLength: avatarWidth * sqrt(6) / 4)
                             VStack {
                                 VStack(spacing: 5) {
-                                    NavigationLink(destination: Setting()) {
+                                    NavigationLink(destination: SettingView(
+                                        store: Store(
+                                            initialState: Setting.State(),
+                                            reducer: Setting()
+                                        )
+                                    )) {
                                         Text(vStore.name)
                                             .foregroundColor(.fontBlack)
                                             .font(.largeTitle.bold())
