@@ -87,7 +87,7 @@ class ScoreUtil {
     
     // TODO:
     private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool {
-        if (x > 0.01 && z > 0.01 && y > 0.1) {
+        if (abs(x) > 0.05  && abs(y) > 0.1 && abs(z) > 0.05) {
             return true
         }
         return false
@@ -168,7 +168,7 @@ class ScoreUtil {
             datasTmp.append(computeScoreInSecond(data: data))
         }
         let avg = getAvg(data: datasTmp)
-        scoreInSection.append(avg)
+        scoreInSection.append(abs(avg))
     }
     
     private func getAvg(data: [Double]) -> Double {
