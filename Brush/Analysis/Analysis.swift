@@ -58,7 +58,8 @@ struct AnalysisView: View {
         Color(0xCAFBF3, 1),
         Color(0xBAFEF3, 0.52),
         Color(0xDBFFF9, 0.25),
-        Color(0xEEEEEE, 0.34),
+//        Color(0xEEEEEE, 0.34),
+        Color.bgWhite
     ]
 
     var body: some View {

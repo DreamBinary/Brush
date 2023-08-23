@@ -7,7 +7,6 @@
 
 import ComposableArchitecture
 import SwiftUI
-
 // MARK: - Feature domain
 
 struct Mine: ReducerProtocol {
@@ -17,14 +16,14 @@ struct Mine: ReducerProtocol {
         var name: String = "Conan Worsh"
         var brushCase = BrushCase.State()
     }
-
+    
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case brushCase(BrushCase.Action)
         case showToothBrush
         case showBrushCase
     }
-
+    
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.brushCase, action: /Action.brushCase) { BrushCase() }
         BindingReducer()
@@ -38,7 +37,7 @@ struct Mine: ReducerProtocol {
                     return .none
                 case .binding, .brushCase:
                     return .none
-                
+                    
             }
         }
     }
@@ -72,17 +71,17 @@ struct MineView: View {
                                         .font(.body)
                                         .fontWeight(.medium)
                                         .foregroundColor(.fontGray)
-
+                                    
                                     TwoWord("136", "天").padding(.top)
-
+                                    
                                     Text("加入 TuneBrush")
                                         .font(.body)
                                         .fontWeight(.bold)
                                         .foregroundColor(.fontGray)
-
+                                    
                                     HStack(spacing: 15) {
                                         BrushCaseCard(score:
-                                            Int((vStore.brushCase.powerScore + vStore.brushCase.timeScore + vStore.brushCase.sectionScore) / 3)
+                                                        Int((vStore.brushCase.powerScore + vStore.brushCase.timeScore + vStore.brushCase.sectionScore) / 3)
                                         ).onTapGesture {
                                             vStore.send(.showBrushCase)
                                         }
@@ -147,7 +146,7 @@ struct BackGround: View {
 struct MineAvatar: View {
     var avatarWidth: Double
     var degrees: Double
-
+    
     init(avatarWidth: Double, degrees: Double) {
         self.avatarWidth = avatarWidth
         if degrees > 15 {
@@ -158,7 +157,7 @@ struct MineAvatar: View {
             self.degrees = degrees
         }
     }
-
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -197,6 +196,8 @@ struct BrushCaseCard: View {
 }
 
 struct ToothBrushCard: View {
+    @State var day: Int = 89
+    let notify = NotifyUtil()
     var body: some View {
         Card(color: Color(0xA9FDC0)) {
             ZStack(alignment: .bottomLeading) {
@@ -205,13 +206,55 @@ struct ToothBrushCard: View {
                     .scaledToFit()
                     .padding()
                 VStack(alignment: .leading) {
-                    TwoWord("16", "天")
+                    TwoWord("\(day)", "天")
                     Text("牙刷更换情况")
                         .font(.title2)
                 }.padding(.horizontal)
             }
+        }.onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                day += 1
+            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+//                //                requestNotificationPermission()
+//                //                scheduleNotification()
+//
+//
+//            }
         }
+        .onTapGesture {
+            //.askPermissin()
+            notify.send()
+       }
     }
+    
+    //    func requestNotificationPermission() {
+    //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+    //            if success {
+    //                print("Notification permission granted.")
+    //            } else if let error = error {
+    //                print("Notification permission denied: \(error.localizedDescription)")
+    //            }
+    //        }
+    //    }
+    //
+    //    func scheduleNotification() {
+    //        let content = UNMutableNotificationContent()
+    //        content.title = "My Notification"
+    //        content.body = "This is a notification sent from SwiftUI."
+    //        content.sound = UNNotificationSound.default
+    //
+    //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
+    //        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+    //
+    //        UNUserNotificationCenter.current().add(request) { error in
+    //            if let error = error {
+    //                print("Failed to schedule notification: \(error.localizedDescription)")
+    //            } else {
+    //                print("Notification scheduled successfully.")
+    //            }
+    //        }
+    //    }
 }
 
 // MARK: - SwiftUI previews

@@ -75,6 +75,7 @@
 		A05D852B2A80D7D100D27890 /* MLT.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A05D851F2A80D7D100D27890 /* MLT.mp3 */; };
 		A05D852C2A80D7D100D27890 /* OLB.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A05D85202A80D7D100D27890 /* OLB.mp3 */; };
 		A05D852D2A80D7D100D27890 /* ILT.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A05D85212A80D7D100D27890 /* ILT.mp3 */; };
+		A05E5CE52A96156F000DF05D /* NotifyUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E5CE42A96156F000DF05D /* NotifyUtil.swift */; };
 		A063838E2A81200100E46CEF /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = A063838D2A81200100E46CEF /* SwiftUIPager */; };
 		A06383942A8120B500E46CEF /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A06383932A8120B500E46CEF /* ComposableArchitecture */; };
 		A06684D62A42E12400D27BF3 /* Mine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06684D52A42E12400D27BF3 /* Mine.swift */; };
@@ -252,6 +253,7 @@
 		A05D851F2A80D7D100D27890 /* MLT.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MLT.mp3; sourceTree = "<group>"; };
 		A05D85202A80D7D100D27890 /* OLB.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = OLB.mp3; sourceTree = "<group>"; };
 		A05D85212A80D7D100D27890 /* ILT.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ILT.mp3; sourceTree = "<group>"; };
+		A05E5CE42A96156F000DF05D /* NotifyUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyUtil.swift; sourceTree = "<group>"; };
 		A06383882A810F8D00E46CEF /* entitlement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = entitlement.plist; sourceTree = "<group>"; };
 		A06684D52A42E12400D27BF3 /* Mine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mine.swift; sourceTree = "<group>"; };
 		A06684D72A42E32800D27BF3 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 				A045D3112A7A37AA0009EF7B /* DataUtil.swift */,
 				A0333C812A7D163700E20F8E /* WatchUtil.swift */,
 				A0194E972A8DCDC600F8287B /* RandomUtil.swift */,
+				A05E5CE42A96156F000DF05D /* NotifyUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -964,6 +967,7 @@
 				A0D1546B2A7B402E00C6BAEF /* InBrush.swift in Sources */,
 				58707BDA2A8F38C000AC00C3 /* View.swift in Sources */,
 				A09987692A459B3600E2DFFE /* BgColor.swift in Sources */,
+				A05E5CE52A96156F000DF05D /* NotifyUtil.swift in Sources */,
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
 				A0194E982A8DCDC600F8287B /* RandomUtil.swift in Sources */,
 				A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */,
@@ -1294,6 +1298,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brush/Preview Content\"";
@@ -1307,7 +1312,6 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1316,10 +1320,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cxq.Brush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1330,6 +1335,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brush/Preview Content\"";
@@ -1343,7 +1349,6 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1352,10 +1357,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cxq.Brush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

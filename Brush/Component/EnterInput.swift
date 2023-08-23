@@ -6,7 +6,6 @@
 //
 
 import ComposableArchitecture
-import Moya
 import SwiftUI
 
 // MARK: - Feature domain

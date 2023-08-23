@@ -75,8 +75,8 @@ struct RouteView: View {
                             vStore.send(.setSheet(isPresented: true))
                         }
                         Spacer()
-                    }.background(.white)
-                }.onAppear {
+                    }.background(Color.bgWhite)
+                }.background(Color.bgWhite).onAppear {
                     UITabBar.appearance().isHidden = true
                 }.sheet(
                     isPresented: vStore.binding(
