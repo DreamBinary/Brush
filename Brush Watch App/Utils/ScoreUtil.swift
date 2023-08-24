@@ -103,8 +103,8 @@ class ScoreUtil {
             var ty = 0.0
             var tz = 0.0
             // TODO
+            let length = Double(preDataInSecond[i].count)
             preDataInSecond[i].forEach { x, y, z in
-                let length = Double(preDataInSecond[i].count)
                 tx += x / length
                 ty += y / length
                 tz += z / length

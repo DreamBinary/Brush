@@ -60,8 +60,8 @@ class BrushUtil: ObservableObject {
     
     private func processData(_ x: Double, _ y: Double, _ z: Double) {
         self.scoreUtil.getPreDataInSecond(x: x, y: y, z: z)
+        self.musicUtil.changeVolumn(x, y, z)
         // TODO
-//        self.musicUtil.changeVolumn()
     }
     
     func reset() {
