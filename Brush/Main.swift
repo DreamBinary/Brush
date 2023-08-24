@@ -17,7 +17,7 @@ struct Main: ReducerProtocol {
         @BindingState var showToast: Bool = false
         var toastState: ToastState = .init()
 
-        var isLogin: Bool = false
+        var isLogin: Bool = DataUtil.getLogin()
         var route = Route.State()
         var login = Login.State()
     }
@@ -65,6 +65,7 @@ struct Main: ReducerProtocol {
                     }
                     state.toastState.text = SuccessMessage.login.rawValue
                     state.toastState.toastType = .success
+                    DataUtil.setLogin()
                     return Effect.send(.showToast)
                     
                 // TODO
@@ -73,6 +74,12 @@ struct Main: ReducerProtocol {
                     
                     state.toastState.text = msg
                     state.toastState.toastType = .fail
+                    return .none
+                    
+                case .route(.mine(.logout)):
+                    state.isLogin = false
+                    state.route = Route.State()
+                    state.login = Login.State()
                     return .none
                 case .binding, .route, .login:
                     return .none

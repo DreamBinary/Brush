@@ -9,17 +9,16 @@ import Foundation
 
 
 class DataUtil {
+    static private let defaults = UserDefaults.standard
     
     static func saveUser(_ user: User) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(user) {
-            let defaults = UserDefaults.standard
             defaults.set(encoded, forKey: "user")
         }
     }
     
     static func getUser() -> User? {
-        let defaults = UserDefaults.standard
         if let savedPerson = defaults.object(forKey: "user") as? Data {
             let decoder = JSONDecoder()
             if let loadedPerson = try? decoder.decode(User.self, from: savedPerson) {
@@ -29,9 +28,17 @@ class DataUtil {
         return nil
     }
     
-    static func clearUser() {
-        let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: "user")
+    static func getLogin() -> Bool {
+        let isLogin: Bool? = defaults.object(forKey: "login") as? Bool
+        return isLogin ?? false
     }
     
+    static func setLogin() {
+        defaults.set(true, forKey: "login")
+    }
+    
+    static func removeAll() {
+        defaults.removeObject(forKey: "user")
+        defaults.removeObject(forKey: "login")
+    }
 }

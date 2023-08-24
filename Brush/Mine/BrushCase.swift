@@ -25,17 +25,12 @@ struct BrushCase: ReducerProtocol {
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case showDatePicker
-        case onAppear
     }
     
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
             switch action {
-                case .onAppear:
-                    print("onAppear")
-                    return .none
-                    
                 case .showDatePicker:
                     state.isDatePickerVisible = true
                     return .none
@@ -59,6 +54,9 @@ struct BrushCaseView: View {
                     VStack {
                         Spacer()
                         Image("BgBottom")
+                            .resizable()
+                            .scaledToFit()
+                        
                     }.edgesIgnoringSafeArea(.bottom)
                     
                     VStack {

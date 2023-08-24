@@ -16,13 +16,13 @@ struct Login: ReducerProtocol {
         var brushBtnVm = BrushBtnStatus()
         var purpleToothVm = PurpleToothStatus()
     }
-    
+
     enum Action: BindableAction, Equatable {
         case enterInput(EnterInput.Action)
         case onBrushBtnTapped
         case binding(BindingAction<State>)
     }
-    
+
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.enterInput, action: /Action.enterInput) {
             EnterInput()
@@ -39,7 +39,6 @@ struct Login: ReducerProtocol {
                         state.purpleToothVm.toThird()
                         state.brushBtnVm.change(to: .green)
                     }
-                    
                     return .none
                 case .onBrushBtnTapped:
                     state.isLoginView.toggle()
@@ -58,22 +57,17 @@ struct Login: ReducerProtocol {
                     return .none
                 case .enterInput, .binding:
                     return .none
-                    
             }
         }
     }
 }
-
-
-
-
 
 // 文字展示组件
 struct TextDisplayView: View {
     var text: String
     var fontSize: CGFloat
     var textColor: Color
-    
+
     var body: some View {
         Text(text)
             .font(.system(size: fontSize, weight: .heavy))
@@ -83,12 +77,11 @@ struct TextDisplayView: View {
     }
 }
 
-
 class PurpleToothStatus: Equatable {
     static func == (lhs: PurpleToothStatus, rhs: PurpleToothStatus) -> Bool {
         lhs.y == rhs.y && lhs.color == rhs.color && lhs.angle == rhs.angle
     }
-    
+
     var y: Double = 0
     var color: Color = .init(0xADC4FF)
     var angle: Double = -20
@@ -98,16 +91,16 @@ class PurpleToothStatus: Equatable {
         color = .init(0xADC4FF)
         angle = -20
     }
-    
+
     func toSecond() {
         y = 50
         color = .init(0xADC4FF)
         angle = -20
     }
-    
+
     func toThird() {
         y = 10
-        image=Image("ToothGum")
+        image = Image("ToothGum")
         color = Color(0xA9FDC1)
         angle = 30
     }
@@ -115,16 +108,13 @@ class PurpleToothStatus: Equatable {
 
 struct LoginView: View {
     let store: StoreOf<Login>
-    @State private var isAgreed = false
-    @State private var shouldShake = false
-    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             BgColor {
                 ZStack {
                     // Z第一层
                     FirstView(isRemove: vStore.isLoginView)
-                    
+
                     // Z第二层
                     VStack {
                         HStack {
@@ -137,7 +127,7 @@ struct LoginView: View {
                         }
                         Spacer()
                     }
-                    
+
                     // Z第三层
                     VStack {
                         Spacer()
@@ -150,7 +140,8 @@ struct LoginView: View {
                                     } else {
                                         Text("Hi There,\nHave an account!")
                                     }
-                                }.offset(x:-20).font(.system(size: 32)) // 使用自定义字体和字体大小
+                                }.offset(x: -20)
+                                    .font(.system(size: 32)) // 使用自定义字体和字体大小
                                     .fontWeight(.bold) // 设置字体粗细
                                     .padding(.bottom, 10)
                                 EnterInputView(
@@ -163,7 +154,7 @@ struct LoginView: View {
                         }.frame(width: screenWidth, height: vStore.isLogin ? screenHeight * 0.5 : screenHeight * 0.50 + 30)
                             .offset(y: vStore.isLoginView ? 0 : screenHeight)
                     }
-                    
+
                     // Z第四层
                     VStack {
                         if !vStore.isLoginView {
@@ -174,25 +165,23 @@ struct LoginView: View {
                             color: vStore.brushBtnVm.bgColor,
                             opacity: vStore.brushBtnVm.opacity
                         ).offset(y: vStore.isLoginView && !vStore.isLogin ? -30 : 0)
-                        .onTapGesture {
-                            vStore.send(.onBrushBtnTapped)
-                        }
+                            .onTapGesture {
+                                vStore.send(.onBrushBtnTapped)
+                            }
                         if !vStore.isLoginView {
                             Image("StartTuneBrush").padding(.bottom, 50).padding(.top)
                         }
                     }
                 }
             }.animation(.easeInOut(duration: 0.5), value: vStore.isLoginView)
-            .animation(.easeInOut(duration: 0.5), value: vStore.isLogin)
-            
+                .animation(.easeInOut(duration: 0.5), value: vStore.isLogin)
         }
     }
 }
 
-
 struct FirstView: View {
     var isRemove: Bool
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -206,7 +195,7 @@ struct FirstView: View {
             ImgText()
                 .padding(.leading, 20)
                 .offset(x: isRemove ? -screenWidth : 0)
-            
+
             Spacer()
         }
     }
@@ -234,4 +223,3 @@ struct NewLogin_Previews: PreviewProvider {
         )
     }
 }
-

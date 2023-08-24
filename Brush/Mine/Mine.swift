@@ -17,7 +17,7 @@ struct Mine: ReducerProtocol {
         var name: String
         var label: String
         var toothBrushDay: Int
-        var joinDay: Int // TODO
+        var joinDay: Int
         var brushCase: BrushCase.State
 
         init(isShowToothBrush: Bool = false,
@@ -25,7 +25,7 @@ struct Mine: ReducerProtocol {
              name: String = DataUtil.getUser()?.username ?? "Worsh",
              label: String = DataUtil.getUser()?.signature ?? "I want BRIGHT smile",
              toothBrushDay: Int = 0,
-             joinDay: Int = 0,
+             joinDay: Int = Date().away(from: Date(timeIntervalSince1970: 1692530488)), // TODO:
              brushCase: BrushCase.State = BrushCase.State())
         {
             self.isShowToothBrush = isShowToothBrush
@@ -45,7 +45,7 @@ struct Mine: ReducerProtocol {
         case showBrushCase
         case getDay
         case setDay(Int)
-        case exitAccount
+        case logout
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -55,15 +55,15 @@ struct Mine: ReducerProtocol {
             switch action {
                 case .getDay:
 //                    if let userId = DataUtil.getUser()?.id {
-                        return .task {
-                            let userid = 10031
-                            let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userid)", method: .GET)
-                            if response.code == 200 {
-                                let toothBrush: ToothBrushEntity = response.data!!
-                                return .setDay(toothBrush.daysUsed)
-                            }
-                            return .setDay(90)
+                    return .task {
+                        let userid = 10031
+                        let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userid)", method: .GET)
+                        if response.code == 200 {
+                            let toothBrush: ToothBrushEntity = response.data!!
+                            return .setDay(toothBrush.daysUsed)
                         }
+                        return .setDay(90)
+                    }
 //                    } else {
 //                        return Effect.send(.setDay(0))
 //                    }
@@ -78,8 +78,8 @@ struct Mine: ReducerProtocol {
                 case .showBrushCase:
                     state.isShowBrushCase = true
                     return .none
-                case .exitAccount:
-                    
+                case .logout:
+                    DataUtil.removeAll()
                     return .none
                 case .binding, .brushCase:
                     return .none
@@ -122,12 +122,7 @@ struct MineView: View {
                                         .fontWeight(.medium)
                                         .foregroundColor(.fontGray)
 
-                                    TwoWord("\(vStore.joinDay)", "天").padding(.top)
-
-                                    Text("加入 TuneBrush")
-                                        .font(.body)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.fontGray)
+                                    JoinDay(day: vStore.joinDay)
 
                                     HStack(spacing: 15) {
                                         BrushCaseCard(score:
@@ -143,7 +138,7 @@ struct MineView: View {
                                         .padding()
                                 }.frame(height: initContenHeight - width * 0.5 * sqrt(6) / 4)
                                 Button(action: {
-                                    vStore.send(.exitAccount)
+                                    vStore.send(.logout)
                                 }, label: {
                                     Text("退出当前帐号")
                                         .fontWeight(.medium)
@@ -230,8 +225,26 @@ struct MineAvatar: View {
     }
 }
 
+struct JoinDay: View {
+    var day: Int
+    @State private var value = 0
+    var body: some View {
+        VStack {
+            AnimNum(num: day, changeNum: $value) {
+                TwoWord("\(value)", "天").padding(.top)
+            }
+
+            Text("加入 TuneBrush")
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundColor(.fontGray)
+        }
+    }
+}
+
 struct BrushCaseCard: View {
     var score: Int
+    @State private var value: Int = 0
     var body: some View {
         Card(color: Color(0xA9C1FD)) {
             ZStack(alignment: .bottomLeading) {
@@ -240,7 +253,9 @@ struct BrushCaseCard: View {
                     .scaledToFit()
                     .padding()
                 VStack(alignment: .leading) {
-                    TwoWord("\(score)", "分")
+                    AnimNum(num: score, changeNum: $value) {
+                        TwoWord("\(value)", "分")
+                    }
                     Text("查看刷牙情况")
                         .font(.title2)
                 }.padding(.horizontal)
@@ -254,19 +269,19 @@ struct ToothBrushCard: View {
     @State private var value = 0
     let notify = NotifyUtil()
     var body: some View {
-        AnimNum(num: day, changeNum: $value) {
-            Card(color: Color(0xA9FDC0)) {
-                ZStack(alignment: .bottomLeading) {
-                    Image("ToothXraySpot")
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                    VStack(alignment: .leading) {
+        Card(color: Color(0xA9FDC0)) {
+            ZStack(alignment: .bottomLeading) {
+                Image("ToothXraySpot")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                VStack(alignment: .leading) {
+                    AnimNum(num: day, changeNum: $value) {
                         TwoWord("\(value)", "天")
-                        Text("牙刷更换情况")
-                            .font(.title2)
-                    }.padding(.horizontal)
-                }
+                    }
+                    Text("牙刷更换情况")
+                        .font(.title2)
+                }.padding(.horizontal)
             }
         }
     }

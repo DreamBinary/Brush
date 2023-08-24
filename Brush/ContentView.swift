@@ -10,12 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-//        MainView(
-//            store: Store(
-//                initialState: Main.State(),
-//                reducer: Main()
-//            )
-//        )
+        MainView(
+            store: Store(
+                initialState: Main.State(),
+                reducer: Main()
+            )
+        )
 //        TmpExchange()
 //        LoginView(
 //            store: Store(
@@ -23,12 +23,12 @@ struct ContentView: View {
 //                reducer: Login()
 //            )
 //        )
-            RouteView(
-                store: Store(
-                    initialState: Route.State(),
-                    reducer: Route()
-                )
-            )
+//            RouteView(
+//                store: Store(
+//                    initialState: Route.State(),
+//                    reducer: Route()
+//                )
+//            )
 //
 //        TmpExchange()
 //        BrushView(

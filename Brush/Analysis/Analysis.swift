@@ -62,38 +62,36 @@ struct AnalysisView: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
-            GeometryReader { _ in
-                VStack(alignment: .leading, spacing: 10) {
-                    Person(name: vStore.name, label: "Are you ready for your new journey?")
-
-                    StartCard(onGetStarted: { vStore.send(.onTapGetStarted) })
-
-                    Text("Your Analysis")
-                        .font(.title2.bold())
-                        .padding(.horizontal)
-                        .padding(.horizontal)
-
-                    MonthRow(curMonth: vStore.curMonth) { index in
-                        vStore.send(.onTapMonth(index + 1))
-                    }
-
-                    GeometryReader { geo in
-                        let height = geo.size.height - 15
-                        HStack(alignment: .top, spacing: 15) {
-                            VStack(spacing: 15) {
-                                Top(score: vStore.topScore).frame(height: height*0.4)
-                                Mothly().frame(height: height*0.6).onTapGesture {
-                                    vStore.send(.showMonthly)
-                                }
-                            }
-                            VStack(spacing: 15) {
-                                Average(avgPower: vStore.avgPower).frame(height: height*0.25)
-                                Conclusion().frame(height: height*0.75)
+            VStack(alignment: .leading, spacing: 10) {
+                Person(name: vStore.name, label: "Are you ready for your new journey?")
+                
+                StartCard(onGetStarted: { vStore.send(.onTapGetStarted) })
+                
+                Text("Your Analysis")
+                    .font(.title2.bold())
+                    .padding(.horizontal)
+                    .padding(.horizontal)
+                
+                MonthRow(curMonth: vStore.curMonth) { index in
+                    vStore.send(.onTapMonth(index + 1))
+                }
+                
+                GeometryReader { geo in
+                    let height = geo.size.height - 15
+                    HStack(alignment: .top, spacing: 15) {
+                        VStack(spacing: 15) {
+                            Top(score: vStore.topScore).frame(height: height*0.4)
+                            Mothly().frame(height: height*0.6).onTapGesture {
+                                vStore.send(.showMonthly)
                             }
                         }
-                    }.padding(.horizontal)
-                }.clipped()
-            }.background(
+                        VStack(spacing: 15) {
+                            Average(avgPower: vStore.avgPower).frame(height: height*0.25)
+                            Conclusion().frame(height: height*0.75)
+                        }
+                    }
+                }.padding(.horizontal)
+            }.clipped().background(
                 LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
             ).sheet(isPresented: vStore.binding(\.$isShowMothly)) {
 //                    if #available(iOS 16.4, *) {
