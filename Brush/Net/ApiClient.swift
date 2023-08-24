@@ -25,6 +25,7 @@ struct ApiClient {
     ) async throws -> Response<T?>{
         // 1. 创建URL
         guard let url = URL(string: url) else {
+            print(url)
             fatalError("URL is not correct!")
         }
         
@@ -45,7 +46,10 @@ struct ApiClient {
         }
         let (data, _) =  try await URLSession.shared.data(for: request)
         
-        // convert data
+        // convert data to string
+//        let dataString = String(data: data, encoding: .utf8)
+//        print(dataString)
+        
         let response =  try JSONDecoder().decode(Response<T?>.self, from: data)
         return response
         

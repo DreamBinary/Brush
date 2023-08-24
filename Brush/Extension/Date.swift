@@ -28,4 +28,8 @@ extension Date {
         dateFormatter.locale = Locale(identifier: "cn_CN")
         return dateFormatter.string(from: self)
     }
+    
+    func monthNum() -> Int {
+        return Calendar.current.component(.month, from: self)
+    }
 }

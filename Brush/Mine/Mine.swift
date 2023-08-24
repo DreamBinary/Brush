@@ -7,37 +7,82 @@
 
 import ComposableArchitecture
 import SwiftUI
+
 // MARK: - Feature domain
 
 struct Mine: ReducerProtocol {
     struct State: Equatable {
-        @BindingState var isShowToothBrush = false
-        @BindingState var isShowBrushCase = false
-        var name: String = "Conan Worsh"
-        var brushCase = BrushCase.State()
+        @BindingState var isShowToothBrush: Bool
+        @BindingState var isShowBrushCase: Bool
+        var name: String
+        var label: String
+        var toothBrushDay: Int
+        var joinDay: Int // TODO
+        var brushCase: BrushCase.State
+
+        init(isShowToothBrush: Bool = false,
+             isShowBrushCase: Bool = false,
+             name: String = DataUtil.getUser()?.username ?? "Worsh",
+             label: String = DataUtil.getUser()?.signature ?? "I want BRIGHT smile",
+             toothBrushDay: Int = 0,
+             joinDay: Int = 0,
+             brushCase: BrushCase.State = BrushCase.State())
+        {
+            self.isShowToothBrush = isShowToothBrush
+            self.isShowBrushCase = isShowBrushCase
+            self.name = name
+            self.label = label
+            self.toothBrushDay = toothBrushDay
+            self.joinDay = joinDay
+            self.brushCase = brushCase
+        }
     }
-    
+
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case brushCase(BrushCase.Action)
         case showToothBrush
         case showBrushCase
+        case getDay
+        case setDay(Int)
+        case exitAccount
     }
-    
+
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.brushCase, action: /Action.brushCase) { BrushCase() }
         BindingReducer()
         Reduce { state, action in
             switch action {
+                case .getDay:
+//                    if let userId = DataUtil.getUser()?.id {
+                        return .task {
+                            let userid = 10031
+                            let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userid)", method: .GET)
+                            if response.code == 200 {
+                                let toothBrush: ToothBrushEntity = response.data!!
+                                return .setDay(toothBrush.daysUsed)
+                            }
+                            return .setDay(90)
+                        }
+//                    } else {
+//                        return Effect.send(.setDay(0))
+//                    }
+
+                case let .setDay(day):
+                    state.toothBrushDay = day
+                    return .none
+
                 case .showToothBrush:
                     state.isShowToothBrush = true
                     return .none
                 case .showBrushCase:
                     state.isShowBrushCase = true
                     return .none
+                case .exitAccount:
+                    
+                    return .none
                 case .binding, .brushCase:
                     return .none
-                    
             }
         }
     }
@@ -72,32 +117,34 @@ struct MineView: View {
                                             .foregroundColor(.fontBlack)
                                             .font(.largeTitle.bold())
                                     }
-                                    Text("I want BRIGHT smile")
+                                    Text(vStore.label)
                                         .font(.body)
                                         .fontWeight(.medium)
                                         .foregroundColor(.fontGray)
-                                    
-                                    TwoWord("136", "天").padding(.top)
-                                    
+
+                                    TwoWord("\(vStore.joinDay)", "天").padding(.top)
+
                                     Text("加入 TuneBrush")
                                         .font(.body)
                                         .fontWeight(.bold)
                                         .foregroundColor(.fontGray)
-                                    
+
                                     HStack(spacing: 15) {
                                         BrushCaseCard(score:
-                                                        Int((vStore.brushCase.powerScore + vStore.brushCase.timeScore + vStore.brushCase.sectionScore) / 3)
+                                            Int((vStore.brushCase.powerScore + vStore.brushCase.timeScore + vStore.brushCase.sectionScore) / 3)
                                         ).onTapGesture {
                                             vStore.send(.showBrushCase)
                                         }
-                                        ToothBrushCard().onTapGesture {
+                                        ToothBrushCard(day: vStore.toothBrushDay).onTapGesture {
                                             vStore.send(.showToothBrush)
                                         }
                                     }.foregroundColor(Color(0x35444C))
                                         .fontWeight(.semibold)
                                         .padding()
                                 }.frame(height: initContenHeight - width * 0.5 * sqrt(6) / 4)
-                                Button(action: {}, label: {
+                                Button(action: {
+                                    vStore.send(.exitAccount)
+                                }, label: {
                                     Text("退出当前帐号")
                                         .fontWeight(.medium)
                                         .padding(.vertical, 12)
@@ -119,6 +166,8 @@ struct MineView: View {
                         reducer: ToothBrush()
                     )
                 ).presentationDragIndicator(.visible)
+            }.onAppear {
+                vStore.send(.getDay)
             }
         }
     }
@@ -151,7 +200,7 @@ struct BackGround: View {
 struct MineAvatar: View {
     var avatarWidth: Double
     var degrees: Double
-    
+
     init(avatarWidth: Double, degrees: Double) {
         self.avatarWidth = avatarWidth
         if degrees > 15 {
@@ -162,7 +211,7 @@ struct MineAvatar: View {
             self.degrees = degrees
         }
     }
-    
+
     var body: some View {
         ZStack {
             Rectangle()
@@ -201,65 +250,26 @@ struct BrushCaseCard: View {
 }
 
 struct ToothBrushCard: View {
-    @State var day: Int = 89
+    var day: Int
+    @State private var value = 0
     let notify = NotifyUtil()
     var body: some View {
-        Card(color: Color(0xA9FDC0)) {
-            ZStack(alignment: .bottomLeading) {
-                Image("ToothXraySpot")
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-                VStack(alignment: .leading) {
-                    TwoWord("\(day)", "天")
-                    Text("牙刷更换情况")
-                        .font(.title2)
-                }.padding(.horizontal)
+        AnimNum(num: day, changeNum: $value) {
+            Card(color: Color(0xA9FDC0)) {
+                ZStack(alignment: .bottomLeading) {
+                    Image("ToothXraySpot")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                    VStack(alignment: .leading) {
+                        TwoWord("\(value)", "天")
+                        Text("牙刷更换情况")
+                            .font(.title2)
+                    }.padding(.horizontal)
+                }
             }
-        }.onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                day += 1
-            }
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-//                //                requestNotificationPermission()
-//                //                scheduleNotification()
-//
-//
-//            }
         }
-        .onTapGesture {
-            //.askPermissin()
-            notify.send()
-       }
     }
-    
-    //    func requestNotificationPermission() {
-    //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-    //            if success {
-    //                print("Notification permission granted.")
-    //            } else if let error = error {
-    //                print("Notification permission denied: \(error.localizedDescription)")
-    //            }
-    //        }
-    //    }
-    //
-    //    func scheduleNotification() {
-    //        let content = UNMutableNotificationContent()
-    //        content.title = "My Notification"
-    //        content.body = "This is a notification sent from SwiftUI."
-    //        content.sound = UNNotificationSound.default
-    //
-    //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
-    //        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-    //
-    //        UNUserNotificationCenter.current().add(request) { error in
-    //            if let error = error {
-    //                print("Failed to schedule notification: \(error.localizedDescription)")
-    //            } else {
-    //                print("Notification scheduled successfully.")
-    //            }
-    //        }
-    //    }
 }
 
 // MARK: - SwiftUI previews

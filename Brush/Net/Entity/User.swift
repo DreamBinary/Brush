@@ -7,14 +7,17 @@
 
 import Foundation
 
-//"data": {
-//    "email": "16477153539@qq.com",
-//    "username": "牙牙守护者",
-//    "avatar": 0,
-//    "signature": "今天也要好好刷牙",
-//    "id": 10018
+//{
+//    "code": 200,
+//    "message": "登录成功",
+//    "data": {
+//        "email": "tunebrush@shawnxixi.icu",
+//        "username": "牙牙守护者",
+//        "avatar": 0,
+//        "signature": "今天也要好好刷牙",
+//        "id": 10031
+//    }
 //}
-
 
 class User: Codable, Equatable {
     var email: String?
@@ -65,8 +68,6 @@ class User: Codable, Equatable {
         self.avatar = try container.decodeIfPresent(Int.self, forKey: .avatar)
         self.signature = try container.decodeIfPresent(String.self, forKey: .signature)
         self.id = try container.decodeIfPresent(Int.self, forKey: .id)
-        
-        print(email, username, avatar, signature, id)
     }
     
     public static func == (lhs: User, rhs: User) -> Bool {

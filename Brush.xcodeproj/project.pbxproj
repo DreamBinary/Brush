@@ -46,7 +46,7 @@
 		A046BA632A8CFD9400FB3F9A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BA622A8CFD9400FB3F9A /* Date.swift */; };
 		A052C5F82A947B0A00A06BA9 /* OffsetObservingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A052C5F72A947B0A00A06BA9 /* OffsetObservingScrollView.swift */; };
 		A056D9782A948AD200D47F6F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056D9772A948AD200D47F6F /* Setting.swift */; };
-		A056D97A2A94A76500D47F6F /* AnimatableNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056D9792A94A76500D47F6F /* AnimatableNumber.swift */; };
+		A056D97A2A94A76500D47F6F /* AnimNum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056D9792A94A76500D47F6F /* AnimNum.swift */; };
 		A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F7F2A41DBEF00710C4B /* BrushApp.swift */; };
 		A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F812A41DBEF00710C4B /* ContentView.swift */; };
 		A0581F842A41DBEF00710C4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0581F832A41DBEF00710C4B /* Assets.xcassets */; };
@@ -87,6 +87,7 @@
 		A06B6E252A7A23B3001614D4 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06B6E242A7A23B3001614D4 /* ApiClient.swift */; };
 		A06B6E272A7A25B7001614D4 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06B6E262A7A25B7001614D4 /* Response.swift */; };
 		A06B6E292A7A2799001614D4 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06B6E282A7A2799001614D4 /* Url.swift */; };
+		A07BD76D2A973BB0007F766E /* ToothBrushEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B7C7D22A972A9B00633577 /* ToothBrushEntity.swift */; };
 		A08D408A2A8B179B00C30B1B /* BrushUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08D40892A8B179B00C30B1B /* BrushUtil.swift */; };
 		A090A0612A7CCCDB00F1EB81 /* MusicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A090A0602A7CCCDB00F1EB81 /* MusicUtil.swift */; };
 		A097C9062A7DC740001FC8ED /* HapticUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097C9052A7DC740001FC8ED /* HapticUtil.swift */; };
@@ -219,7 +220,7 @@
 		A046BA622A8CFD9400FB3F9A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		A052C5F72A947B0A00A06BA9 /* OffsetObservingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetObservingScrollView.swift; sourceTree = "<group>"; };
 		A056D9772A948AD200D47F6F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
-		A056D9792A94A76500D47F6F /* AnimatableNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableNumber.swift; sourceTree = "<group>"; };
+		A056D9792A94A76500D47F6F /* AnimNum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimNum.swift; sourceTree = "<group>"; };
 		A0581F7C2A41DBEF00710C4B /* Brush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0581F7F2A41DBEF00710C4B /* BrushApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushApp.swift; sourceTree = "<group>"; };
 		A0581F812A41DBEF00710C4B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -275,6 +276,7 @@
 		A0A9FF0A2A45D39500305294 /* FinishBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishBrush.swift; sourceTree = "<group>"; };
 		A0B014142A486D9100838702 /* VoiceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimation.swift; sourceTree = "<group>"; };
 		A0B553E62A6979AD0016E819 /* SpeakUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakUtil.swift; sourceTree = "<group>"; };
+		A0B7C7D22A972A9B00633577 /* ToothBrushEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToothBrushEntity.swift; sourceTree = "<group>"; };
 		A0C167E42A78FEB0004B7F51 /* StartBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartBrush.swift; sourceTree = "<group>"; };
 		A0C167E62A793148004B7F51 /* ObservableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableScrollView.swift; sourceTree = "<group>"; };
 		A0C167E92A7944DA004B7F51 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 			children = (
 				A06B6E262A7A25B7001614D4 /* Response.swift */,
 				A045D30F2A7A31B70009EF7B /* User.swift */,
+				A0B7C7D22A972A9B00633577 /* ToothBrushEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -542,7 +545,7 @@
 				A0194E9B2A8DD28C00F8287B /* TwoWord.swift */,
 				58707BD72A8F104E00AC00C3 /* AggrementView.swift */,
 				A052C5F72A947B0A00A06BA9 /* OffsetObservingScrollView.swift */,
-				A056D9792A94A76500D47F6F /* AnimatableNumber.swift */,
+				A056D9792A94A76500D47F6F /* AnimNum.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -941,11 +944,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A07BD76D2A973BB0007F766E /* ToothBrushEntity.swift in Sources */,
 				A046BA5B2A8CF15F00FB3F9A /* Analysis.swift in Sources */,
 				A06684D62A42E12400D27BF3 /* Mine.swift in Sources */,
 				A0F932842A7A9AE100FFA190 /* AnimViolin.swift in Sources */,
 				A0DA4B272A46BA45009CA236 /* BrushIcon.swift in Sources */,
-				A056D97A2A94A76500D47F6F /* AnimatableNumber.swift in Sources */,
+				A056D97A2A94A76500D47F6F /* AnimNum.swift in Sources */,
 				A06684E22A42F82F00D27BF3 /* Card.swift in Sources */,
 				A0C167E72A793148004B7F51 /* ObservableScrollView.swift in Sources */,
 				A0194E962A8DCD2600F8287B /* CircleScore.swift in Sources */,

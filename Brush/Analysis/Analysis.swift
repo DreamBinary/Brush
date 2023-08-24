@@ -6,16 +6,15 @@
 //
 
 import ComposableArchitecture
-import PopupView
 import SwiftUI
 
 // MARK: - Feature domain
 
 struct Analysis: ReducerProtocol {
     struct State: Equatable {
-        var name: String = "Worsh"
-        var label: String = "Are you ready for your new journey?"
-        var curMonth: Int = 8 // from 1 start
+        var name: String = DataUtil.getUser()?.username ?? "Worsh"
+//        var label: String = "Are you ready for your new journey?"
+        var curMonth: Int = Date().monthNum() // from 1 start
         var topScore: Int = 93
         var avgPower: Double = 0.55
         @BindingState var isShowMothly = false
@@ -58,7 +57,6 @@ struct AnalysisView: View {
         Color(0xCAFBF3, 1),
         Color(0xBAFEF3, 0.52),
         Color(0xDBFFF9, 0.25),
-//        Color(0xEEEEEE, 0.34),
         Color.bgWhite
     ]
 
@@ -66,7 +64,7 @@ struct AnalysisView: View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             GeometryReader { _ in
                 VStack(alignment: .leading, spacing: 10) {
-                    Person(name: vStore.name, label: vStore.label)
+                    Person(name: vStore.name, label: "Are you ready for your new journey?")
 
                     StartCard(onGetStarted: { vStore.send(.onTapGetStarted) })
 
@@ -144,7 +142,7 @@ struct StartCard: View {
                         Text("New TuneBrush Journey")
                             .font(.title2.bold())
                             .padding(.bottom, 1)
-                        Text("预计进行 2min      现在就开始！")
+                        Text("预计进行 2.5 min      现在就开始！")
                             .foregroundColor(.lightBlack)
                             .font(.callout)
                         Text("Get Started！")
@@ -174,27 +172,16 @@ struct Top: View {
 //                    .fontWeight(.semibold)
 //                    .foregroundColor(.white)
 
-                Text("\(value)")
-                    .font(.system(size: UIFont.textStyleSize(.largeTitle)*2))
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .onAppear {
-                        animate()
-                    }.onTapGesture {
-                        animate()
-                    }
+                AnimNum(num: score, changeNum: $value) {
+                    Text("\(value)")
+                        .font(.system(size: UIFont.textStyleSize(.largeTitle)*2))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
+                
                 Text("月度最高 Top")
                     .font(.callout)
                     .fontWeight(.semibold)
-            }
-        }
-    }
-
-    func animate() {
-        value = 0
-        for i: Int in 0 ... score {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) / Double(score)) {
-                value = i
             }
         }
     }

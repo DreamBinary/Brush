@@ -14,9 +14,7 @@ import SwiftUI
 
 struct ToothBrush: ReducerProtocol {
     struct State: Equatable {
-        var toothBrushs: [ToothBrushEntity] = [
-            ToothBrushEntity(day: Date(), brushName: "舒客-蓝"),
-        ]
+        var toothBrushs: [ToothBrushEntity] = [        ]
         @BindingState var isShowingAlert = false
         @BindingState var brushName: String = ""
         @BindingState var date: Date = .now
@@ -51,12 +49,6 @@ struct ToothBrush: ReducerProtocol {
 
 // MARK: - Feature view
 
-struct ToothBrushEntity: Identifiable, Equatable {
-    let id = UUID()
-    let day: Date
-    let brushName: String
-}
-
 struct ToothBrushView: View {
     let store: StoreOf<ToothBrush>
 
@@ -89,9 +81,9 @@ struct ToothBrushList: View {
         List {
             ForEach(toothBrushs) { item in
                 HStack {
-                    Text(item.brushName)
+                    Text("sa df g")
                     Spacer()
-                    Text(item.day, style: .date)
+                    Text("sdaf")
                 }
             }
             HStack {

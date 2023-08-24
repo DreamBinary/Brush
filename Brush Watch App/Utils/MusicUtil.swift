@@ -31,7 +31,7 @@ class MusicUtil {
         vy += y
         vz += z 
         let t: Double = sqrt(vx * vx + vy * vy + vz * vz)
-        player?.volume = Float(0.9 * t / normalSpeed + 0.1)
+        player?.volume = min(Float(0.9 * t / normalSpeed + 0.1), 3)
     }
 
     func stop() {

@@ -19,9 +19,8 @@ struct EnterInput: ReducerProtocol {
     struct State: Equatable {
         var type: InputType = .Login
         @BindingState var focus: Field?
-        @BindingState var username: String = ""
-        @BindingState var password: String = ""
-        
+        @BindingState var username: String = "tunebrush@shawnxixi.icu"
+        @BindingState var password: String = "111111@qq.com"
         @BindingState var shakeUsername: Bool = false
         @BindingState var shakePassword: Bool = false
         @BindingState var shakeAggrement: Bool = false
@@ -163,21 +162,6 @@ struct EnterInputView: View {
                     .shake(vStore.binding(\.$shakePassword))
                 SignUpBtn(text: vStore.type == .SignUp ? "Log in" : "Sign Up", onTap: {
                     vStore.send(.changeType)
-                        let username = "tunebrush@shawnxixi.icu"
-                        for var i: Int in 0 ... username.count {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1 + 1) {
-                                var s = username.prefix(i)
-                                vStore.send(.autoU(String(s)))
-                            }
-                        }
-                        let password = "111111@qq.com"
-                        for var i: Int in 0 ... password.count {
-                            var t: Double = Double(i) * 0.1 + Double(username.count) * 0.1
-                            DispatchQueue.main.asyncAfter(deadline: .now() + t + 1) {
-                                var s = password.prefix(i)
-                                vStore.send(.autoP(String(s)))
-                            }
-                        }
                 })
                 if vStore.type != .Login {
                     AggrementView(isAgree: vStore.binding(\.$isAgree))
