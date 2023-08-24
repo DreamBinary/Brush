@@ -1,8 +1,8 @@
 //
 //  ApiClient.swift
-//  Brush
+//  Brush Watch App
 //
-//  Created by cxq on 2023/8/2.
+//  Created by cxq on 2023/8/24.
 //
 
 import Foundation
@@ -43,8 +43,8 @@ struct ApiClient {
         let (data, _) = try await URLSession.shared.data(for: request)
         
         // convert data to string
-//        let dataString = String(data: data, encoding: .utf8)
-//        print(dataString)
+        //        let dataString = String(data: data, encoding: .utf8)
+        //        print(dataString)
         
         let response = try JSONDecoder().decode(Response<T?>.self, from: data)
         return response
