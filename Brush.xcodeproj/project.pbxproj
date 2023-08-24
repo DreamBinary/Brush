@@ -28,6 +28,7 @@
 		A03252352A7BF509002EEB5C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03252342A7BF509002EEB5C /* Logger.swift */; };
 		A0333C822A7D163700E20F8E /* WatchUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0333C812A7D163700E20F8E /* WatchUtil.swift */; };
 		A03448932A977BAF00EAB7B8 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03448922A977BAF00EAB7B8 /* ApiClient.swift */; };
+		A03448952A977C9900EAB7B8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03448942A977C9900EAB7B8 /* Response.swift */; };
 		A0363FAA2A820A8A00E34E70 /* ScoreUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0363FA92A820A8A00E34E70 /* ScoreUtil.swift */; };
 		A037C08B2A85D7A000101720 /* BgRunUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A037C08A2A85D7A000101720 /* BgRunUtil.swift */; };
 		A03B6D152A6D316B00FFC5E2 /* AnimViolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */; };
@@ -199,6 +200,7 @@
 		A03252342A7BF509002EEB5C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A0333C812A7D163700E20F8E /* WatchUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchUtil.swift; sourceTree = "<group>"; };
 		A03448922A977BAF00EAB7B8 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		A03448942A977C9900EAB7B8 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		A0363FA92A820A8A00E34E70 /* ScoreUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreUtil.swift; sourceTree = "<group>"; };
 		A037C08A2A85D7A000101720 /* BgRunUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BgRunUtil.swift; sourceTree = "<group>"; };
 		A03B6D142A6D316B00FFC5E2 /* AnimViolin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimViolin.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				A03448922A977BAF00EAB7B8 /* ApiClient.swift */,
+				A03448942A977C9900EAB7B8 /* Response.swift */,
 			);
 			path = Net;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				A0D6C5142A47CC6C00C4DA84 /* RemedySelect.swift in Sources */,
 				A0581FAA2A41DBEF00710C4B /* ContentView.swift in Sources */,
 				A090A0612A7CCCDB00F1EB81 /* MusicUtil.swift in Sources */,
+				A03448952A977C9900EAB7B8 /* Response.swift in Sources */,
 				A03448932A977BAF00EAB7B8 /* ApiClient.swift in Sources */,
 				A0F5D5BE2A47202300C4091D /* Start.swift in Sources */,
 				A04255D12A6916A500D38A16 /* AnimCheck.swift in Sources */,
