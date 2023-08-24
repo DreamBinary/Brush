@@ -42,13 +42,15 @@ class MotionUtil {
 //            RunLoop.current.add(self.timerAcce!, forMode: .default)
 //            RunLoop.current.run()
         }
-//        else {
-//            timerAcce = Timer(fire: Date(), interval: interval, repeats: true, block: { _ in
-//                getAcceData(0.1, 0.2, 0.1)
-//            })
-//            RunLoop.current.add(self.timerAcce!, forMode: .default)
-//            RunLoop.current.run()
-//        }
+        
+        // TODO
+        else {
+            let timerAcce = Timer(fire: Date(), interval: 1 / 60, repeats: true, block: { _ in
+                getAcceData(-0.48874518275260925 ,-0.7081124782562256 ,0.0696868896484375)
+            })
+            RunLoop.current.add(timerAcce, forMode: .default)
+            RunLoop.current.run()
+        }
         
 //        if self.motion.isAccelerometerAvailable {
 //            self.motion.accelerometerUpdateInterval = interval
