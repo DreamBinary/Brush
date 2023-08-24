@@ -23,10 +23,10 @@ class MotionUtil {
                     let y = data.userAcceleration.y
                     let z = data.userAcceleration.z
                     getAcceData(x, y, z)
-                } else {
-                    print("TAG", "error")
-                    print(error)
                 }
+//                else {
+//                    print("TAG", "error")
+//                }
                 
             })
 //            timerAcce = Timer(fire: Date(), interval: interval, repeats: true, block: { _ in
@@ -84,7 +84,7 @@ class MotionUtil {
     }
     
     static func stop() {
-        print("TAG", "stop MotionUpdate")
+//        print("TAG", "stop MotionUpdate")
         self.motion.stopDeviceMotionUpdates()
 //        if timerAcce != nil {
 //            timerAcce?.invalidate()
