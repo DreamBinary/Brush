@@ -16,7 +16,7 @@ class ScoreUtil {
     var preDataInSecond: [[(Double, Double, Double)]] = .init(repeating: [], count: 15)
     private var curSecond = 0
     
-    private var normalSpeed: Double = 0.02 / (11 / 8)
+    private var normalSpeed: Double = 0.33259184633785926
     
     func getPreDataInSecond(x: Double, y: Double, z: Double) {
         print("TAG", x, y, z)
@@ -87,7 +87,7 @@ class ScoreUtil {
     
     // TODO:
     private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool {
-        if (abs(x) > 0.05  && abs(y) > 0.1 && abs(z) > 0.05) {
+        if (abs(x) > 0.01  && abs(y) > 0.05 && abs(z) > 0.01) {
             return true
         }
         return false
