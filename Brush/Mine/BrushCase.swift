@@ -56,7 +56,6 @@ struct BrushCaseView: View {
                         Image("BgBottom")
                             .resizable()
                             .scaledToFit()
-                        
                     }.edgesIgnoringSafeArea(.bottom)
                     
                     VStack {

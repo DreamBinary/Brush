@@ -14,7 +14,7 @@ import SwiftUI
 
 struct ToothBrush: ReducerProtocol {
     struct State: Equatable {
-        var toothBrushs: [ToothBrushEntity] = [        ]
+        var toothBrushs: [ToothBrushEntity] = []
         @BindingState var isShowingAlert = false
         @BindingState var brushName: String = ""
         @BindingState var date: Date = .now
@@ -25,6 +25,9 @@ struct ToothBrush: ReducerProtocol {
         case onAddBtn
         case onAddCancel
         case onAddConfirm
+        case addToothBrush
+        case addSuccess
+        case addFail
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -39,6 +42,24 @@ struct ToothBrush: ReducerProtocol {
                     return .none
                 case .onAddBtn:
                     state.isShowingAlert = true
+                    return .none
+                case .addToothBrush:
+                    if let userId = DataUtil.getUser()?.id {
+                        return .task {
+                            let userId = 10031
+                            let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush, method: .POST, params: ["userId": "\(userId)", "usageStartTime": "\(Int(Date().timeIntervalSince1970 * 1000))"])
+                            if response.code == 200 {
+                                let _: ToothBrushEntity = response.data!! //TODO
+                                return .addSuccess
+                            }
+                            return .addFail
+                        }
+                    }
+                    return Effect.send(.addFail)
+                case .addSuccess:
+                    return .none
+                    
+                case .addFail:
                     return .none
                 case .binding:
                     return .none
@@ -79,7 +100,7 @@ struct ToothBrushList: View {
     var onAddBtn: () -> Void
     var body: some View {
         List {
-            ForEach(toothBrushs) { item in
+            ForEach(toothBrushs) { _ in
                 HStack {
                     Text("sa df g")
                     Spacer()

@@ -94,7 +94,7 @@ struct RouteView: View {
 //                }.onDisappear {
 //                    AppDelegate.orientationLock = .all // Unlocking the rotation when leaving the view
 //                }
-            }
+            }.navigationViewStyle(.stack)
         }
     }
 }

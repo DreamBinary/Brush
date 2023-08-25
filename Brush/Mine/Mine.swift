@@ -12,37 +12,26 @@ import SwiftUI
 
 struct Mine: ReducerProtocol {
     struct State: Equatable {
-        @BindingState var isShowToothBrush: Bool
-        @BindingState var isShowBrushCase: Bool
-        var name: String
-        var label: String
-        var toothBrushDay: Int
-        var joinDay: Int
-        var brushCase: BrushCase.State
-
-        init(isShowToothBrush: Bool = false,
-             isShowBrushCase: Bool = false,
-             name: String = DataUtil.getUser()?.username ?? "Worsh",
-             label: String = DataUtil.getUser()?.signature ?? "I want BRIGHT smile",
-             toothBrushDay: Int = 0,
-             joinDay: Int = Date().away(from: Date(timeIntervalSince1970: 1692530488)), // TODO:
-             brushCase: BrushCase.State = BrushCase.State())
-        {
-            self.isShowToothBrush = isShowToothBrush
-            self.isShowBrushCase = isShowBrushCase
-            self.name = name
-            self.label = label
-            self.toothBrushDay = toothBrushDay
-            self.joinDay = joinDay
-            self.brushCase = brushCase
-        }
+        @BindingState var isShowToothBrush: Bool = false
+        @BindingState var isShowBrushCase: Bool = false
+        @BindingState var isShowSetting: Bool = false
+        var name: String = DataUtil.getUser()?.username ?? "Worsh"
+        var label: String = DataUtil.getUser()?.signature ?? "I want BRIGHT smile"
+        var toothBrushDay: Int? = .none
+        var joinDay: Int = Date().away(from: Date(timeIntervalSince1970: 1692530488)) // TODO:
+        var brushCase = BrushCase.State()
+        var toothBrush = ToothBrush.State()
+        var setting = Setting.State()
     }
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case brushCase(BrushCase.Action)
+        case toothBrush(ToothBrush.Action)
+        case setting(Setting.Action)
         case showToothBrush
         case showBrushCase
+        case showSetting
         case getDay
         case setDay(Int)
         case logout
@@ -50,6 +39,8 @@ struct Mine: ReducerProtocol {
 
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.brushCase, action: /Action.brushCase) { BrushCase() }
+        Scope(state: \.toothBrush, action: /Action.toothBrush) { ToothBrush() }
+        Scope(state: \.setting, action: /Action.setting) { Setting() }
         BindingReducer()
         Reduce { state, action in
             switch action {
@@ -78,10 +69,13 @@ struct Mine: ReducerProtocol {
                 case .showBrushCase:
                     state.isShowBrushCase = true
                     return .none
+                case .showSetting:
+                    state.isShowSetting = true
+                    return .none
                 case .logout:
                     DataUtil.removeAll()
                     return .none
-                case .binding, .brushCase:
+                case .binding, .brushCase, .toothBrush, .setting:
                     return .none
             }
         }
@@ -107,16 +101,12 @@ struct MineView: View {
                             Spacer(minLength: avatarWidth * sqrt(6) / 4)
                             VStack {
                                 VStack(spacing: 5) {
-                                    NavigationLink(destination: SettingView(
-                                        store: Store(
-                                            initialState: Setting.State(),
-                                            reducer: Setting()
-                                        )
-                                    )) {
-                                        Text(vStore.name)
-                                            .foregroundColor(.fontBlack)
-                                            .font(.largeTitle.bold())
-                                    }
+                                    Text(vStore.name)
+                                        .foregroundColor(.fontBlack)
+                                        .font(.largeTitle.bold())
+                                        .onTapGesture {
+                                            vStore.send(.showSetting)
+                                        }
                                     Text(vStore.label)
                                         .font(.body)
                                         .fontWeight(.medium)
@@ -156,10 +146,11 @@ struct MineView: View {
                 ).presentationDragIndicator(.visible)
             }.sheet(isPresented: vStore.binding(\.$isShowToothBrush)) {
                 ToothBrushView(
-                    store: Store(
-                        initialState: ToothBrush.State(),
-                        reducer: ToothBrush()
-                    )
+                    store: store.scope(state: \.toothBrush, action: Mine.Action.toothBrush)
+                ).presentationDragIndicator(.visible)
+            }.sheet(isPresented: vStore.binding(\.$isShowSetting)) {
+                SettingView(
+                    store: store.scope(state: \.setting, action: Mine.Action.setting)
                 ).presentationDragIndicator(.visible)
             }.onAppear {
                 vStore.send(.getDay)
@@ -265,7 +256,7 @@ struct BrushCaseCard: View {
 }
 
 struct ToothBrushCard: View {
-    var day: Int
+    var day: Int?
     @State private var value = 0
     let notify = NotifyUtil()
     var body: some View {
@@ -276,8 +267,12 @@ struct ToothBrushCard: View {
                     .scaledToFit()
                     .padding()
                 VStack(alignment: .leading) {
-                    AnimNum(num: day, changeNum: $value) {
-                        TwoWord("\(value)", "天")
+                    if day == .none {
+                        ProgressView()
+                    } else {
+                        AnimNum(num: day!, changeNum: $value) {
+                            TwoWord("\(value)", "天")
+                        }
                     }
                     Text("牙刷更换情况")
                         .font(.title2)

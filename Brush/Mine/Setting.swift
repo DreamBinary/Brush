@@ -27,6 +27,8 @@ struct Setting: ReducerProtocol {
         case showDelete(Bool)
         case showAbout
         case modifyAccount
+        case modifySuccess
+        case modifyFail
         case deleteAccount
     }
     
@@ -44,6 +46,13 @@ struct Setting: ReducerProtocol {
                     state.isShowAbout = true
                     return .none
                 case .modifyAccount:
+                    
+                    return .none
+                case .modifySuccess:
+                    
+                    return .none
+                    
+                case .modifyFail:
                     
                     return .none
                     
@@ -65,6 +74,9 @@ struct SettingView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             Form {
+                Text("Setting")
+                    .font(.largeTitle)
+                    .fontWeight(.medium)
                 Section {
                     SettingRow(imgName: "person.circle", title: "头像", content: {
                         GeometryReader { geo in
@@ -99,30 +111,34 @@ struct SettingView: View {
                 ModifyView()
                     .presentationDetents([.medium])
                     .presentationDragIndicator(.visible)
-            }.alert(isPresented: vStore.binding(\.$isShowDelete)) {
-                Alert(
-                    title: Text("注销账号"),
-                    message: Text("确定要注销账号吗"),
-                    primaryButton: .default(
-                        Text("Cancel"),
-                        action: {
-                            vStore.send(.showDelete(false))
-                        }
-                    ),
-                    secondaryButton: .destructive(
-                        Text("OK"),
-                        action: {
-                            vStore.send(.deleteAccount)
-                        }
-                    )
-                )
-            }.sheet(isPresented: vStore.binding(\.$isShowAbout)) {
+            }.alert("确定要注销账号吗", isPresented: vStore.binding(\.$isShowDelete), actions: {
+                HStack{
+                    Button("OK") {
+                        
+                    }
+                    Button("Cancel") {
+                        
+                    }
+                }
+            })
+//            .alert(isPresented: vStore.binding(\.$isShowDelete)) {
+//                Alert(
+//                    title: Text("注销账号"),
+//                    message: Text("确定要注销账号吗"),
+//                    primaryButton: .cancel(),
+//                    secondaryButton: .destructive(
+//                        Text("OK"),
+//                        action: {
+////                            vStore.send(.deleteAccount)
+//                        }
+//                    )
+//                )
+//            }
+            .sheet(isPresented: vStore.binding(\.$isShowAbout)) {
                 AboutMe()
                     .presentationDragIndicator(.visible)
             }
         }
-        .navigationTitle("Setting")
-        .navigationBarTitleDisplayMode(.large)
     }
 }
 
