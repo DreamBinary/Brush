@@ -15,6 +15,8 @@ import SwiftUI
 struct ToothBrush: ReducerProtocol {
     struct State: Equatable {
         var toothBrushs: [ToothBrushEntity] = []
+        
+        var toothBrush: ToothBrushEntity = ToothBrushEntity()
         @BindingState var isShowingAlert = false
         @BindingState var brushName: String = ""
         @BindingState var date: Date = .now

@@ -43,6 +43,7 @@
 		A046BA612A8CFB1600FB3F9A /* ToothBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BA602A8CFB1600FB3F9A /* ToothBrush.swift */; };
 		A046BA632A8CFD9400FB3F9A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BA622A8CFD9400FB3F9A /* Date.swift */; };
 		A052C5F82A947B0A00A06BA9 /* OffsetObservingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A052C5F72A947B0A00A06BA9 /* OffsetObservingScrollView.swift */; };
+		A056BE142A98914B00025006 /* AnalysisSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056BE132A98914B00025006 /* AnalysisSection.swift */; };
 		A056D9782A948AD200D47F6F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056D9772A948AD200D47F6F /* Setting.swift */; };
 		A056D97A2A94A76500D47F6F /* AnimNum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056D9792A94A76500D47F6F /* AnimNum.swift */; };
 		A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F7F2A41DBEF00710C4B /* BrushApp.swift */; };
@@ -211,6 +212,7 @@
 		A046BA602A8CFB1600FB3F9A /* ToothBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToothBrush.swift; sourceTree = "<group>"; };
 		A046BA622A8CFD9400FB3F9A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		A052C5F72A947B0A00A06BA9 /* OffsetObservingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetObservingScrollView.swift; sourceTree = "<group>"; };
+		A056BE132A98914B00025006 /* AnalysisSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisSection.swift; sourceTree = "<group>"; };
 		A056D9772A948AD200D47F6F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		A056D9792A94A76500D47F6F /* AnimNum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimNum.swift; sourceTree = "<group>"; };
 		A0581F7C2A41DBEF00710C4B /* Brush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brush.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -507,6 +509,7 @@
 			children = (
 				A046BA582A8CF14900FB3F9A /* RatingLine.swift */,
 				A046BA5A2A8CF15F00FB3F9A /* Analysis.swift */,
+				A056BE132A98914B00025006 /* AnalysisSection.swift */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
@@ -961,6 +964,7 @@
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
 				A0194E982A8DCDC600F8287B /* RandomUtil.swift in Sources */,
 				A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */,
+				A056BE142A98914B00025006 /* AnalysisSection.swift in Sources */,
 				581B2AF42A6D07C600E27F93 /* Login.swift in Sources */,
 				A046BA5F2A8CFB0600FB3F9A /* BrushCase.swift in Sources */,
 				A0194E9C2A8DD28C00F8287B /* TwoWord.swift in Sources */,

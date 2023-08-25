@@ -15,26 +15,30 @@ struct Analysis: ReducerProtocol {
         var name: String = DataUtil.getUser()?.username ?? "Worsh"
 //        var label: String = "Are you ready for your new journey?"
         var curMonth: Int = Date().monthNum() // from 1 start
-        var topScore: Int = 93
-        var avgPower: Double = 0.55
-        @BindingState var isShowMothly = false
+        var analysisSection: AnalysisSection.State?
     }
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
+        case analysisSection(AnalysisSection.Action)
+        case analysisSectionInit
+        case analysisSectionCompleted
         case onTapGetStarted
         case onTapMonth(Int)
-        case showMonthly
     }
 
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
             switch action {
-                case .binding:
+                case .binding, .analysisSection:
                     return .none
-                case .showMonthly:
-                    state.isShowMothly = true
+                case .analysisSectionInit:
+
+                    return Effect.send(.analysisSectionCompleted)
+
+                case .analysisSectionCompleted:
+                    state.analysisSection = AnalysisSection.State()
                     return .none
                 case .onTapGetStarted:
                     return .none
@@ -42,6 +46,8 @@ struct Analysis: ReducerProtocol {
                     state.curMonth = month
                     return .none
             }
+        }.ifLet(\.analysisSection, action: /Action.analysisSection) {
+            AnalysisSection()
         }
     }
 }
@@ -64,47 +70,32 @@ struct AnalysisView: View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             VStack(alignment: .leading, spacing: 10) {
                 Person(name: vStore.name, label: "Are you ready for your new journey?")
-                
+
                 StartCard(onGetStarted: { vStore.send(.onTapGetStarted) })
-                
+
                 Text("Your Analysis")
                     .font(.title2.bold())
                     .padding(.horizontal)
                     .padding(.horizontal)
-                
+
                 MonthRow(curMonth: vStore.curMonth) { index in
                     vStore.send(.onTapMonth(index + 1))
                 }
-                
-                GeometryReader { geo in
-                    let height = geo.size.height - 15
-                    HStack(alignment: .top, spacing: 15) {
-                        VStack(spacing: 15) {
-                            Top(score: vStore.topScore).frame(height: height*0.4)
-                            Mothly().frame(height: height*0.6).onTapGesture {
-                                vStore.send(.showMonthly)
-                            }
-                        }
-                        VStack(spacing: 15) {
-                            Average(avgPower: vStore.avgPower).frame(height: height*0.25)
-                            Conclusion().frame(height: height*0.75)
-                        }
+
+                IfLetStore(self.store.scope(state: \.analysisSection, action: Analysis.Action.analysisSection)) {
+                    AnalysisSectionView(store: $0)
+                } else: {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight:.infinity)
+                }
+            }.clipped()
+                .background(
+                    LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
+                ).onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        vStore.send(.analysisSectionInit)
                     }
-                }.padding(.horizontal)
-            }.clipped().background(
-                LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
-            ).sheet(isPresented: vStore.binding(\.$isShowMothly)) {
-//                    if #available(iOS 16.4, *) {
-//                        RatingLine()
-//                            .presentationDetents([.fraction(0.6)])
-//                            .presentationDragIndicator(.visible)
-//                            .presentationCornerRadius(30)
-//                    } else {
-                RatingLine()
-                    .presentationDetents([.fraction(0.6)])
-                    .presentationDragIndicator(.visible)
-//                    }
-            }
+                }
         }
     }
 }
@@ -176,7 +167,7 @@ struct Top: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 }
-                
+
                 Text("月度最高 Top")
                     .font(.callout)
                     .fontWeight(.semibold)
@@ -248,7 +239,7 @@ struct Mothly: View {
                                 )
                             )
                     }.frame(height: height*0.6)
-                        .padding(.horizontal, width * 0.01)
+                        .padding(.horizontal, width*0.01)
                         .onAppear {
                             withAnimation(.easeInOut(duration: 1)) {
                                 value = 1

@@ -15,11 +15,26 @@ import SwiftUIPager
 struct BrushCase: ReducerProtocol {
     
     struct State: Equatable {
-        var powerScore = 87
-        var timeScore = 90
-        var sectionScore = 75
-        @BindingState var date: Date = Date()
-        @BindingState var isDatePickerVisible = false
+        var powerScore: Int
+        var timeScore: Int
+        var sectionScore: Int
+        var totalScore: Int
+        @BindingState var date: Date
+        @BindingState var isDatePickerVisible: Bool
+        
+        init(powerScore: Int = 87,
+             timeScore: Int = 90,
+             sectionScore: Int = 75,
+             date: Date = Date(),
+             isDatePickerVisible: Bool = false
+        ) {
+            self.powerScore = powerScore
+            self.timeScore = timeScore
+            self.sectionScore = sectionScore
+            self.totalScore = Int((timeScore + sectionScore + powerScore) / 3)
+            self.date = date
+            self.isDatePickerVisible = isDatePickerVisible
+        }
     }
     
     enum Action: BindableAction, Equatable {

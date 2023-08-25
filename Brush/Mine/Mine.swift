@@ -17,10 +17,9 @@ struct Mine: ReducerProtocol {
         @BindingState var isShowSetting: Bool = false
         var name: String = DataUtil.getUser()?.username ?? "Worsh"
         var label: String = DataUtil.getUser()?.signature ?? "I want BRIGHT smile"
-        var toothBrushDay: Int? = .none
         var joinDay: Int = Date().away(from: Date(timeIntervalSince1970: 1692530488)) // TODO:
-        var brushCase = BrushCase.State()
-        var toothBrush = ToothBrush.State()
+        var brushCase: BrushCase.State?
+        var toothBrush: ToothBrush.State?
         var setting = Setting.State()
     }
 
@@ -32,37 +31,44 @@ struct Mine: ReducerProtocol {
         case showToothBrush
         case showBrushCase
         case showSetting
-        case getDay
-        case setDay(Int)
+        case toothBrushInit
+        case toothBrushCompleted(ToothBrushEntity)
+        case brushCaseInit
+        case brushCaseCompleted
         case logout
     }
 
     var body: some ReducerProtocol<State, Action> {
-        Scope(state: \.brushCase, action: /Action.brushCase) { BrushCase() }
-        Scope(state: \.toothBrush, action: /Action.toothBrush) { ToothBrush() }
+//        Scope(state: \.brushCase, action: /Action.brushCase) { BrushCase() }
+//        Scope(state: \.toothBrush, action: /Action.toothBrush) { ToothBrush() }
         Scope(state: \.setting, action: /Action.setting) { Setting() }
         BindingReducer()
         Reduce { state, action in
             switch action {
-                case .getDay:
-//                    if let userId = DataUtil.getUser()?.id {
-                    return .task {
-                        let userid = 10031
-                        let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userid)", method: .GET)
-                        if response.code == 200 {
-                            let toothBrush: ToothBrushEntity = response.data!!
-                            return .setDay(toothBrush.daysUsed)
+                case .toothBrushInit:
+                    if let userId = DataUtil.getUser()?.id {
+                        return .task {
+                            let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userId)", method: .GET)
+                            if response.code == 200 {
+                                let toothBrush: ToothBrushEntity = response.data!!
+                                return .toothBrushCompleted(toothBrush)
+                            }
+                            return .toothBrushCompleted(ToothBrushEntity())
                         }
-                        return .setDay(90)
+                    } else {
+                        return .none
                     }
-//                    } else {
-//                        return Effect.send(.setDay(0))
-//                    }
-
-                case let .setDay(day):
-                    state.toothBrushDay = day
+                case let .toothBrushCompleted(toothBrush):
+                    state.toothBrush = ToothBrush.State(toothBrush: toothBrush)
                     return .none
 
+                case .brushCaseInit:
+
+                    return Effect.send(.brushCaseCompleted)
+
+                case .brushCaseCompleted:
+                    state.brushCase = BrushCase.State()
+                    return .none
                 case .showToothBrush:
                     state.isShowToothBrush = true
                     return .none
@@ -78,6 +84,10 @@ struct Mine: ReducerProtocol {
                 case .binding, .brushCase, .toothBrush, .setting:
                     return .none
             }
+        }.ifLet(\.toothBrush, action: /Action.toothBrush) {
+            ToothBrush()
+        }.ifLet(\.brushCase, action: /Action.brushCase) {
+            BrushCase()
         }
     }
 }
@@ -115,12 +125,10 @@ struct MineView: View {
                                     JoinDay(day: vStore.joinDay)
 
                                     HStack(spacing: 15) {
-                                        BrushCaseCard(score:
-                                            Int((vStore.brushCase.powerScore + vStore.brushCase.timeScore + vStore.brushCase.sectionScore) / 3)
-                                        ).onTapGesture {
+                                        BrushCaseCard(score: vStore.brushCase?.totalScore).onTapGesture {
                                             vStore.send(.showBrushCase)
                                         }
-                                        ToothBrushCard(day: vStore.toothBrushDay).onTapGesture {
+                                        ToothBrushCard(day: 90).onTapGesture {
                                             vStore.send(.showToothBrush)
                                         }
                                     }.foregroundColor(Color(0x35444C))
@@ -138,22 +146,39 @@ struct MineView: View {
                             }
                         }
                     }.padding(.top, height - initContenHeight)
-                    MineAvatar(avatarWidth: avatarWidth, degrees: offset.y * 30 / (width * 0.1) - 15.0).offset(y: -height * 0.25 - offset.y)
+
+                    MineAvatar(
+                        avatarWidth: avatarWidth,
+                        degrees: offset.y * 30 / (width * 0.1) - 15.0
+                    ).offset(y: -height * 0.25 - offset.y)
                 }.frame(width: width, height: height)
             }.sheet(isPresented: vStore.binding(\.$isShowBrushCase)) {
-                BrushCaseView(
-                    store: store.scope(state: \.brushCase, action: Mine.Action.brushCase)
-                ).presentationDragIndicator(.visible)
+                IfLetStore(
+                    self.store.scope(
+                        state: \.brushCase,
+                        action: Mine.Action.brushCase
+                    )
+                ) {
+                    BrushCaseView(store: $0).presentationDragIndicator(.visible)
+                }
             }.sheet(isPresented: vStore.binding(\.$isShowToothBrush)) {
-                ToothBrushView(
-                    store: store.scope(state: \.toothBrush, action: Mine.Action.toothBrush)
-                ).presentationDragIndicator(.visible)
+                IfLetStore(
+                    self.store.scope(
+                        state: \.toothBrush,
+                        action: Mine.Action.toothBrush
+                    )
+                ) {
+                    ToothBrushView(store: $0).presentationDragIndicator(.visible)
+                }
             }.sheet(isPresented: vStore.binding(\.$isShowSetting)) {
                 SettingView(
                     store: store.scope(state: \.setting, action: Mine.Action.setting)
                 ).presentationDragIndicator(.visible)
             }.onAppear {
-                vStore.send(.getDay)
+                Task {
+                    vStore.send(.brushCaseInit)
+                    vStore.send(.toothBrushInit)
+                }
             }
         }
     }
@@ -224,7 +249,6 @@ struct JoinDay: View {
             AnimNum(num: day, changeNum: $value) {
                 TwoWord("\(value)", "天").padding(.top)
             }
-
             Text("加入 TuneBrush")
                 .font(.body)
                 .fontWeight(.bold)
@@ -234,7 +258,7 @@ struct JoinDay: View {
 }
 
 struct BrushCaseCard: View {
-    var score: Int
+    var score: Int?
     @State private var value: Int = 0
     var body: some View {
         Card(color: Color(0xA9C1FD)) {
@@ -244,8 +268,12 @@ struct BrushCaseCard: View {
                     .scaledToFit()
                     .padding()
                 VStack(alignment: .leading) {
-                    AnimNum(num: score, changeNum: $value) {
-                        TwoWord("\(value)", "分")
+                    if score == .none {
+                        ProgressView()
+                    } else {
+                        AnimNum(num: score!, changeNum: $value) {
+                            TwoWord("\(value)", "分")
+                        }
                     }
                     Text("查看刷牙情况")
                         .font(.title2)

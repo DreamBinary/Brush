@@ -40,9 +40,7 @@ struct StartBrush: View {
                         color: .white,
                         opacity: 0.57
                     ).onTapGesture {
-                        onStart()
-                        // TODO
-//                        onStartWatch()
+                        onStartWatch()
                     }
                     Image("StartTuneBrush").padding(.bottom, 50).padding(.top, 8)
                 }

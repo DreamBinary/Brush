@@ -21,13 +21,6 @@ struct InBrush: View {
                             .resizable()
                             .scaledToFit()
                             .frame(height: 20)
-//                        LinearGradient(colors: [.init(0x79E3D2), .init(0xFFFFFF)], startPoint: .topLeading, endPoint: .bottomTrailing)
-//                            .frame(width: UIFont.textStyleSize(.title1) * 6)
-//                            .mask {
-//                                Text("TuneBrush")
-//                                    .font(.title)
-//                                    .fontWeight(.bold)
-//                            }
                         Spacer()
                     }.padding(.leading, 30)
                     

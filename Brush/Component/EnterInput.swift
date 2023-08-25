@@ -42,31 +42,12 @@ struct EnterInput: ReducerProtocol {
         case loginFail(Int)
         case signUpFail(Int)
         case signUpSuccess
-        
-        case autoU(String)
-        case autoP(String)
     }
     
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
             switch action {
-                case let .autoU(s):
-                    withAnimation {
-                        state.username = s
-                    }
-                    return .none
-                    
-                case let .autoP(s):
-                    withAnimation {
-                        state.password = s
-                    }
-                    return .none
-                    
-                    
-                    
-                    
-                    
                 case .binding:
                     return .none
                 case .signupTapped:
@@ -103,7 +84,6 @@ struct EnterInput: ReducerProtocol {
                     } else {
                         state.buttonLoading = true
                         return .task { [email = state.username, password = state.password] in
-                            
                             let response: Response<User?> = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "plainPassword": password])
                             return response.code == 200 ? .loginSuccess(response.data!!) : .signUpFail(response.code ?? -1)
                         }
