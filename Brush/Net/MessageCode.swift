@@ -12,6 +12,9 @@ enum ErrorCode: Int {
     case invalidEmailFormat = 453
     case emailAlreadyExists = 454
     case registrationFailed = 455
+    case addRecordFailed = 456
+    case deleteRecordFailed = 457
+    
     case otherError = -1
 
     var message: String {
@@ -28,6 +31,10 @@ enum ErrorCode: Int {
             return "邮箱已存在"
         case .registrationFailed:
             return "注册失败"
+        case .addRecordFailed:
+            return "添加记录失败"
+        case .deleteRecordFailed:
+            return "删除记录失败,记录id不存在"
         case .otherError:
             return "注册失败"
         }
