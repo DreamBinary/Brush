@@ -55,7 +55,29 @@ class BrushUtil: ObservableObject {
             changePage()
         }
         reset()
+        saveScore()
         print("TAG", "--------------", "finish")
+    }
+    
+    private func saveScore()  {
+        if (phoneUtil.userId > 0) {
+            Task {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+                let brushTime = dateFormatter.string(from: .now)
+                
+                let url: String = "https://tunebrush-api.shawnxixi.icu/api/record"
+                let score: ScoreEntity = scoreUtil.getSaveScore()
+                let _: Response<Int?> = try await ApiClient.request(url, method: .POST, params: [
+                    "userId": phoneUtil.userId,
+                    "brushTime": brushTime,
+                    "timeScore": score.timeScore,
+                    "powerScore": score.powerScore,
+                    "powerScoreList": score.powerScoreList
+                ])
+            }
+        }
     }
     
     private func processData(_ x: Double, _ y: Double, _ z: Double) {

@@ -15,31 +15,16 @@ import SwiftUIPager
 struct BrushCase: ReducerProtocol {
     
     struct State: Equatable {
-        var powerScore: Int
-        var timeScore: Int
-        var sectionScore: Int
-        var totalScore: Int
-        @BindingState var date: Date
-        @BindingState var isDatePickerVisible: Bool
-        
-        init(powerScore: Int = 87,
-             timeScore: Int = 90,
-             sectionScore: Int = 75,
-             date: Date = Date(),
-             isDatePickerVisible: Bool = false
-        ) {
-            self.powerScore = powerScore
-            self.timeScore = timeScore
-            self.sectionScore = sectionScore
-            self.totalScore = Int((timeScore + sectionScore + powerScore) / 3)
-            self.date = date
-            self.isDatePickerVisible = isDatePickerVisible
-        }
+        var scoreList: [ScoreEntity] = []
+        @BindingState var date: Date = .now 
+        @BindingState var isDatePickerVisible: Bool = false
     }
     
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case showDatePicker
+        case updateDate
+        case updateCompleted([ScoreEntity])
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -48,6 +33,24 @@ struct BrushCase: ReducerProtocol {
             switch action {
                 case .showDatePicker:
                     state.isDatePickerVisible = true
+                    return .none
+                case .updateDate:
+                    //                    if let userId = DataUtil.getUser()?.id {
+                    return .task { [date = state.date.formattedString()] in
+                        let userId = 10031
+                        let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
+                        if response.code == 200 {
+                            let scoreList: [ScoreEntity] = response.data!!
+                            return .updateCompleted(scoreList)
+                        }
+                        return .updateCompleted([])
+                    }
+                    //                    } else {
+                    //                        return Effect.send(.brushCaseCompleted(ScoreEntity()))
+                    //                    }
+                    
+                case let .updateCompleted(score):
+                    state.scoreList = score
                     return .none
                 case .binding:
                     return .none
@@ -71,21 +74,51 @@ struct BrushCaseView: View {
                         Image("BgBottom")
                             .resizable()
                             .scaledToFit()
+                            .frame(width: width)
                     }.edgesIgnoringSafeArea(.bottom)
                     
                     VStack {
                         HStack {
                             Spacer()
-                            DatePicker("", selection: vStore.binding(\.$date), displayedComponents: .date).fixedSize().labelsHidden()
+                            DatePicker("", selection: vStore.binding(\.$date), displayedComponents: .date)
+                                .fixedSize()
+                                .labelsHidden()
                             Spacer()
                         }.padding(.top)
-                        CircleScore(powerScore: vStore.powerScore, timeScore: vStore.timeScore, sectionScore: vStore.sectionScore).frame(width: width * 0.7, height: width * 0.7)
-                        ScoreRow(powerScore: vStore.powerScore, timeScore: vStore.timeScore, sectionScore: vStore.sectionScore)
-                        ResultPageView()
-                        Spacer()
+                            .task(id: vStore.date) {
+                                vStore.send(.updateDate)
+                            }
+                        if (vStore.scoreList.isEmpty) {
+                            // TODO
+                            ProgressView()
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        } else {
+                            TabView {
+                                ForEach(vStore.scoreList) { score in
+                                    OneBrushCase(score: score)
+                                }
+                            }.tabViewStyle(.page)
+                                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                        }
                     }
                 }
             }.background(Color.bgWhite)
+        }
+    }
+}
+
+struct OneBrushCase: View {
+    var score: ScoreEntity
+    var body: some View {
+        GeometryReader { geo in
+            let width = geo.size.width
+            VStack {
+                CircleScore(powerScore: score.powerScore, timeScore: score.timeScore, sectionScore: score.powerScoreList.min() ?? 0)
+                    .frame(width: width * 0.7, height: width * 0.7)
+                ScoreRow(powerScore: score.powerScore, timeScore: score.timeScore, sectionScore: score.powerScoreList.min() ?? 0)
+                ResultPageView()
+                Spacer()
+            }
         }
     }
 }

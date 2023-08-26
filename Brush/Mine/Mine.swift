@@ -34,7 +34,7 @@ struct Mine: ReducerProtocol {
         case toothBrushInit
         case toothBrushCompleted(ToothBrushEntity)
         case brushCaseInit
-        case brushCaseCompleted(ScoreEntity)
+        case brushCaseCompleted([ScoreEntity])
         case logout
     }
 
@@ -67,19 +67,20 @@ struct Mine: ReducerProtocol {
 //                    if let userId = DataUtil.getUser()?.id {
                         return .task {
                             let userId = 10031
-                            let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)", method: .GET)
+                            let date = Date().formattedString()
+                            let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
                             if response.code == 200 {
-                                let score: ScoreEntity = response.data!!.last ?? ScoreEntity()
-                                return .brushCaseCompleted(score)
+                                let scoreList: [ScoreEntity] = response.data!!
+                                return .brushCaseCompleted(scoreList)
                             }
-                            return .brushCaseCompleted(ScoreEntity())
+                            return .brushCaseCompleted([])
                         }
 //                    } else {
 //                        return Effect.send(.brushCaseCompleted(ScoreEntity()))
 //                    }
 
                 case let .brushCaseCompleted(score):
-                    state.brushCase = BrushCase.State(powerScore: score.powerScore, timeScore: score.timeScore, sectionScore: score.powerScoreList.min() ?? 0)
+                    state.brushCase = BrushCase.State(scoreList: score)
                     return .none
                 case .showToothBrush:
                     state.isShowToothBrush = true
@@ -140,10 +141,12 @@ struct MineView: View {
                                     JoinDay(day: vStore.joinDay)
 
                                     HStack(spacing: 15) {
-                                        BrushCaseCard(score: vStore.brushCase?.totalScore).onTapGesture {
+                                        BrushCaseCard(score: vStore.brushCase?.scoreList.last?.totalScore() ?? 0)
+                                            .onTapGesture {
                                             vStore.send(.showBrushCase)
                                         }
-                                        ToothBrushCard(day: vStore.toothBrush?.toothBrush.daysUsed).onTapGesture {
+                                        ToothBrushCard(day: vStore.toothBrush?.toothBrush.daysUsed ?? 0)
+                                            .onTapGesture {
                                             vStore.send(.showToothBrush)
                                         }
                                     }.foregroundColor(Color(0x35444C))

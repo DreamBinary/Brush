@@ -68,7 +68,7 @@ struct StartBrush: View {
                 var i = 0
                 while (!util.isReachable() && i < 3) {
                     usleep(500000)
-                    util.send2Watch(["start": true], onSuccess: onStart)
+                    util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1], onSuccess: onStart)
                     i += 1
                 }
                 if i >= 3 {

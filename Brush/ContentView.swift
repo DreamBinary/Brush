@@ -11,30 +11,15 @@ struct MyData: Codable {
     let timestamp: Date
     let message: String
 }
+
 struct ContentView: View {
     var body: some View {
-        
-                        MainView(
-                            store: Store(
-                                initialState: Main.State(),
-                                reducer: Main()
-                            )
-                        )
-        //        TmpExchange()
-        //        LoginView(
-        //            store: Store(
-        //                initialState: Login.State(),
-        //                reducer: Login()
-        //            )
-        //        )
-        //            RouteView(
-        //                store: Store(
-        //                    initialState: Route.State(),
-        //                    reducer: Route()
-        //                )
-        //            )
-        //
-        
+        MainView(
+            store: Store(
+                initialState: Main.State(),
+                reducer: Main()
+            )
+        )
     }
 }
 

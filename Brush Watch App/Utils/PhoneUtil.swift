@@ -10,6 +10,7 @@ import WatchConnectivity
 
 class PhoneUtil: NSObject, WCSessionDelegate {
     var onStart: () -> Void
+    var userId: Int = -1
     private var session: WCSession = .default
     
     init(isStarted: Bool = false, onStart: @escaping () -> Void = {}) {
@@ -30,10 +31,10 @@ class PhoneUtil: NSObject, WCSessionDelegate {
     func session(_ session: WCSession,
                  didReceiveMessage message: [String: Any],
                  replyHandler: @escaping ([String: Any]) -> Void) {
-        if (message["start"] != nil) == true {
+        if message["userId"] != nil {
+            userId = message["userId"] as! Int
             HapticUtil.getFromPhone()
             onStart()
-            print("fdsafasd")
             replyHandler(["success": true])
         }
     }

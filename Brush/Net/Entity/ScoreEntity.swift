@@ -33,7 +33,7 @@
 
 import Foundation
 
-class ScoreEntity: Codable, Equatable {
+class ScoreEntity: Codable, Equatable, Identifiable {
     static func == (lhs: ScoreEntity, rhs: ScoreEntity) -> Bool {
         return lhs.id == rhs.id
     }
@@ -44,5 +44,9 @@ class ScoreEntity: Codable, Equatable {
     var powerScore: Int = 0
     var powerScoreList: [Int] = []
     
+    
+    func totalScore() -> Int {
+        return Int((self.timeScore + (self.powerScoreList.min() ?? 0) + self.powerScore) / 3)
+    }
     
 }
