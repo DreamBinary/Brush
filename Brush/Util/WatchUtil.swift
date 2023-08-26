@@ -48,7 +48,7 @@ class WatchUtil: NSObject, WCSessionDelegate {
                 completion(success, error)
             }
         } else {
-            print("failed")
+//            print("failed")
         }
     }
     
