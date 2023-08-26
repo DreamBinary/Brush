@@ -14,12 +14,17 @@ struct MyData: Codable {
 
 struct ContentView: View {
     var body: some View {
-        MainView(
-            store: Store(
-                initialState: Main.State(),
-                reducer: Main()
-            )
-        )
+//        MainView(
+//            store: Store(
+//                initialState: Main.State(),
+//                reducer: Main()
+//            )
+//        )
+        
+        Text("Hello")
+            .onAppear {
+                print(Date().yearNum())    
+            }
     }
 }
 

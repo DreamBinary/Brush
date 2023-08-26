@@ -19,6 +19,7 @@ struct RatingLine: View {
             let width = geo.size.width
             let height = geo.size.height
             let weight = weightModel.allWeights!
+
             ScrollViewReader { scrollViewProxy in
                 ScrollView(.horizontal) {
                     HStack {

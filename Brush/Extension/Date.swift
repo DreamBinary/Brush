@@ -33,6 +33,10 @@ extension Date {
         return Calendar.current.component(.month, from: self)
     }
     
+    func yearNum() -> Int {
+        return Calendar.current.component(.year, from: self)
+    }
+    
     func away(from date: Date) -> Int{
         let components = Calendar.current.dateComponents([.day], from: date, to: self)
         return components.day ?? 0

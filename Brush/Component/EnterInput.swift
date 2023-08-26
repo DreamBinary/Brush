@@ -20,7 +20,7 @@ struct EnterInput: ReducerProtocol {
         var type: InputType = .Login
         @BindingState var focus: Field?
         @BindingState var username: String = "tunebrush@shawnxixi.icu"
-        @BindingState var password: String = "wwwwww"
+        @BindingState var password: String = "qqqqqq"
         @BindingState var shakeUsername: Bool = false
         @BindingState var shakePassword: Bool = false
         @BindingState var shakeAggrement: Bool = false
@@ -147,7 +147,8 @@ struct EnterInputView: View {
                 })
                 if vStore.type != .Login {
                     AggrementView(isAgree: vStore.binding(\.$isAgree))
-                        .shake(vStore.binding(\.$shakeAggrement)).frame(width: UIScreen.main.bounds.width).padding(.top, 4)
+                        .shake(vStore.binding(\.$shakeAggrement))
+                        .frame(width: UIScreen.main.bounds.width).padding(.top, 4)
                 }
                 LoginBtn(text: vStore.type == .Login ? "Log in" : "Sign Up", buttonLoading: vStore.buttonLoading, onTap: {
                     vStore.send(vStore.type == .Login ? .loginTapped : .signupTapped)

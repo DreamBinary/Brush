@@ -33,22 +33,47 @@ struct AggrementView: View {
             Image(systemName: isAgree ? "checkmark.circle" :"circle").foregroundColor(fontColor)
             
             Text("我已阅读并同意").foregroundColor(fontColor).font(Font.system(size: fontSize))
-            Text("TuneBrush用户协议").foregroundColor(fontColor).font(Font.system(size: fontSize)).underline(true, color: fontColor)
+            Text("TuneBrush用户协议")
+                .foregroundColor(fontColor)
+                .font(Font.system(size: fontSize))
+                .underline(true, color: fontColor)
                 .onTapGesture {
                     showUserAgreement=true;
                 }
-            Text("和").foregroundColor(fontColor).font(Font.system(size: fontSize))
-            Text("隐私政策").foregroundColor(fontColor).font(Font.system(size: fontSize)).underline(true, color: fontColor)
+            Text("和")
+                .foregroundColor(fontColor)
+                .font(Font.system(size: fontSize))
+            Text("隐私政策")
+                .foregroundColor(fontColor)
+                .font(Font.system(size: fontSize))
+                .underline(true, color: fontColor)
                 .onTapGesture {
                     showPrivacyPolicy=true;
                 }
-        }
-        .onTapGesture {
+        }.onTapGesture {
             withAnimation(.easeInOut(duration: 0.3)) {
                 isAgree.toggle()
             }
             showingPopup.toggle()
+        }.sheet(isPresented: $showUserAgreement) {
+            UserAgreement().presentationDragIndicator(.visible)
+        }.sheet(isPresented: $showPrivacyPolicy) {
+            PrivacyPolicy().presentationDragIndicator(.visible)
         }
+    }
+}
+
+struct UserAgreement: View {
+    // TODO
+    var body: some View {
+        Text("UserAgreement")
+    }
+}
+
+struct PrivacyPolicy: View {
+    // TODO
+    var body: some View {
+        Text("PrivacyPolicy")
     }
 }
 

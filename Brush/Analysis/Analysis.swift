@@ -13,7 +13,6 @@ import SwiftUI
 struct Analysis: ReducerProtocol {
     struct State: Equatable {
         var name: String = DataUtil.getUser()?.username ?? "Worsh"
-//        var label: String = "Are you ready for your new journey?"
         var curMonth: Int = Date().monthNum() // from 1 start
         var analysisSection: AnalysisSection.State?
     }
