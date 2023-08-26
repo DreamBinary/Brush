@@ -47,6 +47,8 @@ extension View {
                         .appearFrom(.bottom)
                         .animation(.spring())
                         .autohideIn(toastState.duration)
+                        .closeOnTapOutside(true)
+                        
                 }
      }
 }
@@ -135,3 +137,14 @@ extension View {
     }
 }
 
+// 具体实现是通过在视图上注册两个 onChange 的方法来实现的。第一个 onChange 方法监听 first 的变化，并将变化的值赋值给 second；第二个 onChange 方法监听 second 的变化，并将变化的值赋值给 first。
+extension View {
+    func synchronize<Value>(
+        _ first: Binding<Value>,
+        _ second: FocusState<Value>.Binding
+    ) -> some View {
+        self
+            .onChange(of: first.wrappedValue) { second.wrappedValue = $0 }
+            .onChange(of: second.wrappedValue) { first.wrappedValue = $0 }
+    }
+}

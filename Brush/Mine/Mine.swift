@@ -15,9 +15,9 @@ struct Mine: ReducerProtocol {
         @BindingState var isShowToothBrush: Bool = false
         @BindingState var isShowBrushCase: Bool = false
         @BindingState var isShowSetting: Bool = false
-        var name: String = DataUtil.getUser()?.username ?? "Worsh"
-        var label: String = DataUtil.getUser()?.signature ?? "I want BRIGHT smile"
-        var joinDay: Int = Date().away(from: Date(timeIntervalSince1970: 1692530488)) // TODO:
+        var joinDay: Int = Date().away(
+            from: Date(timeIntervalSince1970: DataUtil.getUser()?.registerTime?.timeIntervalSince1970
+                       ?? Date().timeIntervalSince1970))
         var brushCase: BrushCase.State?
         var toothBrush: ToothBrush.State?
         var setting = Setting.State()
@@ -34,7 +34,7 @@ struct Mine: ReducerProtocol {
         case toothBrushInit
         case toothBrushCompleted(ToothBrushEntity)
         case brushCaseInit
-        case brushCaseCompleted
+        case brushCaseCompleted(ScoreEntity)
         case logout
     }
 
@@ -46,8 +46,9 @@ struct Mine: ReducerProtocol {
         Reduce { state, action in
             switch action {
                 case .toothBrushInit:
-                    if let userId = DataUtil.getUser()?.id {
+//                    if let userId = DataUtil.getUser()?.id {
                         return .task {
+                            let userId = 10031
                             let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userId)", method: .GET)
                             if response.code == 200 {
                                 let toothBrush: ToothBrushEntity = response.data!!
@@ -55,19 +56,30 @@ struct Mine: ReducerProtocol {
                             }
                             return .toothBrushCompleted(ToothBrushEntity())
                         }
-                    } else {
-                        return .none
-                    }
+//                    } else {
+//                        return Effect.send(.toothBrushCompleted(ToothBrushEntity()))
+//                    }
                 case let .toothBrushCompleted(toothBrush):
                     state.toothBrush = ToothBrush.State(toothBrush: toothBrush)
                     return .none
 
                 case .brushCaseInit:
+//                    if let userId = DataUtil.getUser()?.id {
+                        return .task {
+                            let userId = 10031
+                            let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)", method: .GET)
+                            if response.code == 200 {
+                                let score: ScoreEntity = response.data!!.last ?? ScoreEntity()
+                                return .brushCaseCompleted(score)
+                            }
+                            return .brushCaseCompleted(ScoreEntity())
+                        }
+//                    } else {
+//                        return Effect.send(.brushCaseCompleted(ScoreEntity()))
+//                    }
 
-                    return Effect.send(.brushCaseCompleted)
-
-                case .brushCaseCompleted:
-                    state.brushCase = BrushCase.State()
+                case let .brushCaseCompleted(score):
+                    state.brushCase = BrushCase.State(powerScore: score.powerScore, timeScore: score.timeScore, sectionScore: score.powerScoreList.min() ?? 0)
                     return .none
                 case .showToothBrush:
                     state.isShowToothBrush = true
@@ -80,6 +92,9 @@ struct Mine: ReducerProtocol {
                     return .none
                 case .logout:
                     DataUtil.removeAll()
+                    return .none
+                case .setting(.disSetting):
+                    state.isShowSetting = false
                     return .none
                 case .binding, .brushCase, .toothBrush, .setting:
                     return .none
@@ -111,13 +126,13 @@ struct MineView: View {
                             Spacer(minLength: avatarWidth * sqrt(6) / 4)
                             VStack {
                                 VStack(spacing: 5) {
-                                    Text(vStore.name)
+                                    Text(vStore.setting.name)
                                         .foregroundColor(.fontBlack)
                                         .font(.largeTitle.bold())
                                         .onTapGesture {
                                             vStore.send(.showSetting)
                                         }
-                                    Text(vStore.label)
+                                    Text(vStore.setting.label)
                                         .font(.body)
                                         .fontWeight(.medium)
                                         .foregroundColor(.fontGray)
@@ -128,7 +143,7 @@ struct MineView: View {
                                         BrushCaseCard(score: vStore.brushCase?.totalScore).onTapGesture {
                                             vStore.send(.showBrushCase)
                                         }
-                                        ToothBrushCard(day: 90).onTapGesture {
+                                        ToothBrushCard(day: vStore.toothBrush?.toothBrush.daysUsed).onTapGesture {
                                             vStore.send(.showToothBrush)
                                         }
                                     }.foregroundColor(Color(0x35444C))
@@ -151,6 +166,9 @@ struct MineView: View {
                         avatarWidth: avatarWidth,
                         degrees: offset.y * 30 / (width * 0.1) - 15.0
                     ).offset(y: -height * 0.25 - offset.y)
+                        .onTapGesture {
+                            vStore.send(.showSetting)
+                        }
                 }.frame(width: width, height: height)
             }.sheet(isPresented: vStore.binding(\.$isShowBrushCase)) {
                 IfLetStore(
@@ -175,10 +193,8 @@ struct MineView: View {
                     store: store.scope(state: \.setting, action: Mine.Action.setting)
                 ).presentationDragIndicator(.visible)
             }.onAppear {
-                Task {
-                    vStore.send(.brushCaseInit)
-                    vStore.send(.toothBrushInit)
-                }
+                vStore.send(.brushCaseInit)
+                vStore.send(.toothBrushInit)
             }
         }
     }
@@ -302,7 +318,7 @@ struct ToothBrushCard: View {
                             TwoWord("\(value)", "天")
                         }
                     }
-                    Text("牙刷更换情况")
+                    Text("牙刷已经使用")
                         .font(.title2)
                 }.padding(.horizontal)
             }

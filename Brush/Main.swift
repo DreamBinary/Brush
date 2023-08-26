@@ -82,7 +82,6 @@ struct Main: ReducerProtocol {
                     state.login = Login.State()
                     return .none
                     
-                    
                 case .route(.mine(.toothBrush(.addSuccess))):
                     state.toastState.text = "成功添加牙刷"
                     state.toastState.toastType = .success
@@ -91,14 +90,8 @@ struct Main: ReducerProtocol {
                     state.toastState.text = "添加牙刷失败"
                     state.toastState.toastType = .fail
                     return Effect.send(.showToast)
-                case .route(.mine(.setting(.modifySuccess))):
-                    state.toastState.text = "成功修改密码"
-                    state.toastState.toastType = .success
-                    return Effect.send(.showToast)
-                case .route(.mine(.setting(.modifyFail))):
-                    state.toastState.text = "修改密码失败"
-                    state.toastState.toastType = .fail
-                    return Effect.send(.showToast)
+                    
+                    
                 case .binding, .route, .login:
                     return .none
             }

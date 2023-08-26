@@ -46,7 +46,25 @@ struct ApiClient {
 //        let dataString = String(data: data, encoding: .utf8)
 //        print(dataString)
         
-        let response = try JSONDecoder().decode(Response<T?>.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .custom({ decoder in
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = formatter.date(from: dateString) {
+                return date
+            }
+            
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Cannot decode date string \(dateString)"
+            )
+            
+        })
+        
+        let response = try decoder.decode(Response<T?>.self, from: data)
         return response
         
         //        // 5. 创建任务

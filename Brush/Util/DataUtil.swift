@@ -13,6 +13,7 @@ class DataUtil {
     
     static func saveUser(_ user: User) {
         let encoder = JSONEncoder()
+//        encoder.dataEncodingStrategy = .
         if let encoded = try? encoder.encode(user) {
             defaults.set(encoded, forKey: "user")
         }

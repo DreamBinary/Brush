@@ -37,4 +37,13 @@ extension Date {
         let components = Calendar.current.dateComponents([.day], from: date, to: self)
         return components.day ?? 0
     }
+    
+    func formattedString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        let formattedDateString = dateFormatter.string(from: self)
+        return formattedDateString
+    }
 }

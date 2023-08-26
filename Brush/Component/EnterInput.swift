@@ -20,7 +20,7 @@ struct EnterInput: ReducerProtocol {
         var type: InputType = .Login
         @BindingState var focus: Field?
         @BindingState var username: String = "tunebrush@shawnxixi.icu"
-        @BindingState var password: String = "111111@qq.com"
+        @BindingState var password: String = "wwwwww"
         @BindingState var shakeUsername: Bool = false
         @BindingState var shakePassword: Bool = false
         @BindingState var shakeAggrement: Bool = false
@@ -85,6 +85,7 @@ struct EnterInput: ReducerProtocol {
                         state.buttonLoading = true
                         return .task { [email = state.username, password = state.password] in
                             let response: Response<User?> = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "plainPassword": password])
+                            
                             return response.code == 200 ? .loginSuccess(response.data!!) : .signUpFail(response.code ?? -1)
                         }
                     }
@@ -93,6 +94,7 @@ struct EnterInput: ReducerProtocol {
                 case let .loginSuccess(user):
                     state.buttonLoading = false
                     DataUtil.saveUser(user)
+              
                     return .none
                 case .loginFail:
                     state.buttonLoading = false
@@ -129,7 +131,7 @@ struct EnterInputView: View {
     
     let store: StoreOf<EnterInput>
     
-    @FocusState var focusedField: EnterInput.State.Field?
+    @FocusState private var focusedField: EnterInput.State.Field?
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
@@ -236,17 +238,7 @@ struct LoginBtn: View {
     }
 }
 
-// 具体实现是通过在视图上注册两个 onChange 的方法来实现的。第一个 onChange 方法监听 first 的变化，并将变化的值赋值给 second；第二个 onChange 方法监听 second 的变化，并将变化的值赋值给 first。
-extension View {
-    func synchronize<Value>(
-        _ first: Binding<Value>,
-        _ second: FocusState<Value>.Binding
-    ) -> some View {
-        self
-            .onChange(of: first.wrappedValue) { second.wrappedValue = $0 }
-            .onChange(of: second.wrappedValue) { first.wrappedValue = $0 }
-    }
-}
+
 
 // MARK: - SwiftUI previews
 

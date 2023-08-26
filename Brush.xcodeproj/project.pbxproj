@@ -44,6 +44,8 @@
 		A046BA632A8CFD9400FB3F9A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BA622A8CFD9400FB3F9A /* Date.swift */; };
 		A052C5F82A947B0A00A06BA9 /* OffsetObservingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A052C5F72A947B0A00A06BA9 /* OffsetObservingScrollView.swift */; };
 		A056BE142A98914B00025006 /* AnalysisSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056BE132A98914B00025006 /* AnalysisSection.swift */; };
+		A056BE162A999BB300025006 /* ScoreEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056BE152A999BB300025006 /* ScoreEntity.swift */; };
+		A056BE182A99AA0600025006 /* ModifyPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056BE172A99AA0600025006 /* ModifyPassword.swift */; };
 		A056D9782A948AD200D47F6F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056D9772A948AD200D47F6F /* Setting.swift */; };
 		A056D97A2A94A76500D47F6F /* AnimNum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056D9792A94A76500D47F6F /* AnimNum.swift */; };
 		A0581F802A41DBEF00710C4B /* BrushApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0581F7F2A41DBEF00710C4B /* BrushApp.swift */; };
@@ -213,6 +215,8 @@
 		A046BA622A8CFD9400FB3F9A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		A052C5F72A947B0A00A06BA9 /* OffsetObservingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetObservingScrollView.swift; sourceTree = "<group>"; };
 		A056BE132A98914B00025006 /* AnalysisSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisSection.swift; sourceTree = "<group>"; };
+		A056BE152A999BB300025006 /* ScoreEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntity.swift; sourceTree = "<group>"; };
+		A056BE172A99AA0600025006 /* ModifyPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyPassword.swift; sourceTree = "<group>"; };
 		A056D9772A948AD200D47F6F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		A056D9792A94A76500D47F6F /* AnimNum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimNum.swift; sourceTree = "<group>"; };
 		A0581F7C2A41DBEF00710C4B /* Brush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brush.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -372,6 +376,7 @@
 				A06B6E262A7A25B7001614D4 /* Response.swift */,
 				A045D30F2A7A31B70009EF7B /* User.swift */,
 				A0B7C7D22A972A9B00633577 /* ToothBrushEntity.swift */,
+				A056BE152A999BB300025006 /* ScoreEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -521,6 +526,7 @@
 				A046BA5E2A8CFB0600FB3F9A /* BrushCase.swift */,
 				A046BA602A8CFB1600FB3F9A /* ToothBrush.swift */,
 				A056D9772A948AD200D47F6F /* Setting.swift */,
+				A056BE172A99AA0600025006 /* ModifyPassword.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -534,8 +540,8 @@
 				A0300C4F2A446E010056496E /* EnterWay.swift */,
 				A0300C532A446EFD0056496E /* EnterInput.swift */,
 				A09987682A459B3600E2DFFE /* BgColor.swift */,
-				A0F932812A7A992600FFA190 /* BgView.swift */,
 				A0DA4B262A46BA45009CA236 /* BrushIcon.swift */,
+				A0F932812A7A992600FFA190 /* BgView.swift */,
 				A0F5D5BB2A46FE1D00C4091D /* HotWord.swift */,
 				A0DA4B2A2A46BEF8009CA236 /* CircularProgress.swift */,
 				A0B014142A486D9100838702 /* VoiceAnimation.swift */,
@@ -963,6 +969,7 @@
 				A05E5CE52A96156F000DF05D /* NotifyUtil.swift in Sources */,
 				A0581FDF2A41E7F900710C4B /* Route.swift in Sources */,
 				A0194E982A8DCDC600F8287B /* RandomUtil.swift in Sources */,
+				A056BE162A999BB300025006 /* ScoreEntity.swift in Sources */,
 				A0581F822A41DBEF00710C4B /* ContentView.swift in Sources */,
 				A056BE142A98914B00025006 /* AnalysisSection.swift in Sources */,
 				581B2AF42A6D07C600E27F93 /* Login.swift in Sources */,
@@ -972,6 +979,7 @@
 				A0300C502A446E010056496E /* EnterWay.swift in Sources */,
 				A045D3102A7A31B70009EF7B /* User.swift in Sources */,
 				A09E21982A66C6240012C6BB /* CornerRadius.swift in Sources */,
+				A056BE182A99AA0600025006 /* ModifyPassword.swift in Sources */,
 				A00913162A430B1600057B4E /* Theme.swift in Sources */,
 				5883C1972A927185002B87A7 /* MessageCode.swift in Sources */,
 				A00913182A432D7F00057B4E /* Avatar.swift in Sources */,

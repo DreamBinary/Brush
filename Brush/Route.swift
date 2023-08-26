@@ -78,7 +78,7 @@ struct RouteView: View {
                     }.background(Color.bgWhite)
                 }.background(Color.bgWhite).onAppear {
                     UITabBar.appearance().isHidden = true
-                }.sheet(
+                }.sheet(    
                     isPresented: vStore.binding(
                         get: \.isSheetPresented,
                         send: Route.Action.setSheet(isPresented:)
