@@ -195,7 +195,7 @@ struct SettingView: View {
                     .presentationDragIndicator(.visible)
             }
             .onTapGesture {
-                unFocus()
+                focu = nil
             }
             .toast(showToast: vStore.binding(\.$showToast), toastState: vStore.toastState)
             .onDisappear {
@@ -211,10 +211,6 @@ struct SettingView: View {
 //
 //            }
         }
-    }
-
-    func unFocus() {
-        focu = nil
     }
 }
 
