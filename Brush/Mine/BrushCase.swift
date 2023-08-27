@@ -12,21 +12,21 @@ import SwiftUI
 import SwiftUIPager
 
 // MARK: - Feature domain
+
 struct BrushCase: ReducerProtocol {
-    
     struct State: Equatable {
         var scoreList: [ScoreEntity] = []
-        @BindingState var date: Date = .now 
+        @BindingState var date: Date = .now
         @BindingState var isDatePickerVisible: Bool = false
     }
-    
+
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case showDatePicker
         case updateDate
         case updateCompleted([ScoreEntity])
     }
-    
+
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
@@ -35,20 +35,19 @@ struct BrushCase: ReducerProtocol {
                     state.isDatePickerVisible = true
                     return .none
                 case .updateDate:
-                    //                    if let userId = DataUtil.getUser()?.id {
-                    return .task { [date = state.date.formattedString()] in
-                        let userId = 10031
-                        let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
-                        if response.code == 200 {
-                            let scoreList: [ScoreEntity] = response.data!!
-                            return .updateCompleted(scoreList)
+                    if let userId = DataUtil.getUser()?.id {
+                        return .task { [date = state.date.formattedString()] in
+                            let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
+                            if response.code == 200 {
+                                let scoreList: [ScoreEntity] = response.data!!
+                                return .updateCompleted(scoreList)
+                            }
+                            return .updateCompleted([])
                         }
-                        return .updateCompleted([])
+                    } else {
+                        return Effect.send(.updateCompleted([]))
                     }
-                    //                    } else {
-                    //                        return Effect.send(.brushCaseCompleted(ScoreEntity()))
-                    //                    }
-                    
+
                 case let .updateCompleted(score):
                     state.scoreList = score
                     return .none
@@ -63,7 +62,7 @@ struct BrushCase: ReducerProtocol {
 
 struct BrushCaseView: View {
     let store: StoreOf<BrushCase>
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             GeometryReader { geo in
@@ -76,7 +75,7 @@ struct BrushCaseView: View {
                             .scaledToFit()
                             .frame(width: width)
                     }.edgesIgnoringSafeArea(.bottom)
-                    
+
                     VStack {
                         HStack {
                             Spacer()
@@ -88,10 +87,9 @@ struct BrushCaseView: View {
                             .task(id: vStore.date) {
                                 vStore.send(.updateDate)
                             }
-                        if (vStore.scoreList.isEmpty) {
-                            // TODO
-                            ProgressView()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        if vStore.scoreList.isEmpty {
+                            // TODO:
+                            Text("空")
                         } else {
                             TabView {
                                 ForEach(vStore.scoreList) { score in
@@ -148,7 +146,7 @@ struct ScoreRow: View {
                 Spacer()
             }.font(.title)
                 .fontWeight(.bold)
-            
+
             TwoWord(first: "\(Int((powerScore + timeScore + sectionScore) / 3))", second: "分",
                     firstFont: .system(size: UIFont.textStyleSize(.largeTitle) * 1.5), secondColor: .primary)
             Text("你还可以做得更好！").font(.caption).foregroundColor(.fontGray)
@@ -195,7 +193,7 @@ struct ResultPageView: View {
                     HotWord("外左上", paddingH: 8, paddingV: 8)
                         .offset(x: widthHalf * 0.6, y: heightHalf * 0.44)
                 }.foregroundColor(Color(0x76CCBE))
-                
+
                 VStack {
                     Spacer()
                     HStack {
@@ -230,7 +228,7 @@ struct ResultPageView: View {
                     HotWord("外左上", paddingH: 8, paddingV: 8)
                         .offset(x: widthHalf * 0.6, y: heightHalf * 0.44)
                 }.foregroundColor(Color(0x76CCBE))
-                
+
                 VStack {
                     Spacer()
                     HStack {
@@ -250,7 +248,7 @@ struct ResultPageView: View {
         AnyView(SectionResultView(section: "外左上片区", point0: "可以再用点劲", point1: "时长还可以再增加一些哦！")),
         AnyView(SectionResultView(section: "内右下片区", point0: "可以再用点劲", point1: "时长还可以再增加一些哦！")),
     ]
-    
+
     var body: some View {
         Pager(page: .first(),
               data: pages.indices,
@@ -316,7 +314,7 @@ struct SectionResultView: View {
                     .fontWeight(.medium)
                 Spacer()
             }
-            
+
         }.padding(.bottom, 10)
     }
 }

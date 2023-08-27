@@ -17,6 +17,7 @@ struct Analysis: ReducerProtocol {
         var monthlyTop: Int = 0
         var avgPower: Double = 0
         var analysisSection: AnalysisSection.State?
+        var hasData: Bool = false
     }
 
     enum Action: BindableAction, Equatable {
@@ -30,6 +31,7 @@ struct Analysis: ReducerProtocol {
         case updateMonthlyTopCompleted(Int)
         case updateAvg
         case updateAvgCompleted
+        case noData
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -56,10 +58,10 @@ struct Analysis: ReducerProtocol {
                                 let score: ScoreEntity = response.data!!
                                 return .updateMonthlyTopCompleted(score.totalScore)
                             }
-                            return .updateMonthlyTopCompleted(0)
+                            return .noData
                         }
                     } else {
-                        return Effect.send(.updateMonthlyTopCompleted(0))
+                        return Effect.send(.noData)
                     }
                 case let .updateMonthlyTopCompleted(score):
                     if state.analysisSection == nil {
@@ -67,6 +69,7 @@ struct Analysis: ReducerProtocol {
                     } else {
                         state.analysisSection?.topScore = score
                     }
+                    state.hasData = true
                     return .none
                 case .updateAvg:
                     // TODO:
@@ -82,6 +85,9 @@ struct Analysis: ReducerProtocol {
                     }
                     return .none
                 case .onTapGetStarted:
+                    return .none
+                case .noData:
+                    state.hasData = false
                     return .none
                 case let .onTapMonth(month):
                     state.analysisSection = nil
@@ -125,7 +131,14 @@ struct AnalysisView: View {
                 }
 
                 IfLetStore(self.store.scope(state: \.analysisSection, action: Analysis.Action.analysisSection)) {
-                    AnalysisSectionView(store: $0)
+                    if (vStore.hasData) {
+                        AnalysisSectionView(store: $0)
+                    } else {
+                        // TODO
+                        Text("空")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                    
                 } else: {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
