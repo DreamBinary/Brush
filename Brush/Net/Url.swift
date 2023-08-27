@@ -16,4 +16,6 @@ class Url {
     static let scoreRecord = baseUrl + "/api/record"
     static let modifyPassword = baseUrl + "/api/users/change-password"
     static let updateUser = baseUrl + "/api/users/update"
+    static let totalScore = baseUrl + "/api/record/totalScore"
+    static let monthTop = baseUrl + "/api/record/monthTop"
 }

@@ -14,6 +14,8 @@ struct Analysis: ReducerProtocol {
     struct State: Equatable {
         var name: String = DataUtil.getUser()?.username ?? "Worsh"
         var curMonth: Int = Date().monthNum() // from 1 start
+        var monthlyTop: Int = 0
+        var avgPower: Double = 0
         var analysisSection: AnalysisSection.State?
     }
 
@@ -21,9 +23,13 @@ struct Analysis: ReducerProtocol {
         case binding(BindingAction<State>)
         case analysisSection(AnalysisSection.Action)
         case analysisSectionInit
-        case analysisSectionCompleted
+//        case analysisSectionCompleted
         case onTapGetStarted
         case onTapMonth(Int)
+        case updateMonthlyTop
+        case updateMonthlyTopCompleted(Int)
+        case updateAvg
+        case updateAvgCompleted
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -33,17 +39,54 @@ struct Analysis: ReducerProtocol {
                 case .binding, .analysisSection:
                     return .none
                 case .analysisSectionInit:
-
-                    return Effect.send(.analysisSectionCompleted)
-
-                case .analysisSectionCompleted:
-                    state.analysisSection = AnalysisSection.State()
+                    return Effect.merge(
+                        Effect.send(Analysis.Action.updateMonthlyTop),
+                        Effect.send(Analysis.Action.updateAvg)
+                    )
+//
+//                case .analysisSectionCompleted:
+//                    state.analysisSection = AnalysisSection.State(topScore: state.monthlyTop, avgPower: state.avgPower)
+//                    return .none
+                case .updateMonthlyTop:
+                    if let userId = DataUtil.getUser()?.id {
+                        return .task { [month = state.curMonth] in
+                            let date = "\(Date().yearNum())-\(month)-1"
+                            let response: Response<ScoreEntity?> = try await ApiClient.request(Url.monthTop + "/\(userId)" + "/\(date)", method: .GET)
+                            if response.code == 200 {
+                                let score: ScoreEntity = response.data!!
+                                return .updateMonthlyTopCompleted(score.totalScore)
+                            }
+                            return .updateMonthlyTopCompleted(0)
+                        }
+                    } else {
+                        return Effect.send(.updateMonthlyTopCompleted(0))
+                    }
+                case let .updateMonthlyTopCompleted(score):
+                    if state.analysisSection == nil {
+                        state.analysisSection = AnalysisSection.State(topScore: score, curMonth: state.curMonth)
+                    } else {
+                        state.analysisSection?.topScore = score
+                    }
+                    return .none
+                case .updateAvg:
+                    // TODO:
+                    return .task {
+                        try await Task.sleep(nanoseconds: 3_000_000_000)
+                        return .updateAvgCompleted
+                    }
+                case .updateAvgCompleted:
+                    if state.analysisSection == nil {
+                        state.analysisSection = AnalysisSection.State(avgPower: 1, curMonth: state.curMonth)
+                    } else {
+                        state.analysisSection?.avgPower = 1
+                    }
                     return .none
                 case .onTapGetStarted:
                     return .none
                 case let .onTapMonth(month):
+                    state.analysisSection = nil
                     state.curMonth = month
-                    return .none
+                    return Effect.send(.analysisSectionInit)
             }
         }.ifLet(\.analysisSection, action: /Action.analysisSection) {
             AnalysisSection()
@@ -85,15 +128,13 @@ struct AnalysisView: View {
                     AnalysisSectionView(store: $0)
                 } else: {
                     ProgressView()
-                        .frame(maxWidth: .infinity, maxHeight:.infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }.clipped()
                 .background(
                     LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
                 ).onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        vStore.send(.analysisSectionInit)
-                    }
+                    vStore.send(.analysisSectionInit)
                 }
         }
     }
@@ -155,10 +196,10 @@ struct Top: View {
     var body: some View {
         Card(color: Color(0x003FE2, 0.44), backgroundOpacity: 0.5) {
             VStack {
-//                Text("历史最高分")
-//                    .font(.body)
-//                    .fontWeight(.semibold)
-//                    .foregroundColor(.white)
+                //                Text("历史最高分")
+                //                    .font(.body)
+                //                    .fontWeight(.semibold)
+                //                    .foregroundColor(.white)
 
                 AnimNum(num: score, changeNum: $value) {
                     Text("\(value)")
@@ -178,7 +219,7 @@ struct Top: View {
 struct Average: View {
     var avgPower: Double
 
-    @State private var currentProgress: Double = 0.0
+    @State private var value: Double = 0.0
     @State private var toAvg: Bool = false
 
     var body: some View {
@@ -186,17 +227,18 @@ struct Average: View {
             VStack {
                 HStack {
                     Image("BrushMin")
-                    ProgressView(value: toAvg ? avgPower : 0.0)
+                    ProgressView(value: value)
                         .progressViewStyle(RoundedRectProgressViewStyle())
                         .frame(width: 90)
                         .onAppear {
-                            startAnimation(duration: 0.3)
-                        }
-                        .onTapGesture {
-                            startAnimation(duration: 0.3)
+                            animate()
+                        }.onTapGesture {
+                            animate()
+                        }.task(id: avgPower) {
+                            animate()
                         }
                     Image(toAvg ? "BrushMax" : "BrushMin")
-                }.animation(.easeInOut(duration: 0.5), value: toAvg)
+                }
                 Text("平均力度 Average")
                     .font(.callout)
                     .fontWeight(.semibold)
@@ -205,11 +247,14 @@ struct Average: View {
         }
     }
 
-    func startAnimation(duration: Double) {
-        currentProgress = 0
+    func animate() {
+        value = 0
         toAvg = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-            toAvg = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                value = avgPower
+                toAvg = true
+            }
         }
     }
 }
@@ -224,7 +269,6 @@ struct Mothly: View {
                 let height = geo.size.height
                 VStack(spacing: 0) {
                     Spacer()
-                    //                Image("ScoreLine")
                     ZStack {
                         AreaShape()
                             .fill(LinearGradient(colors: [color.opacity(0.6), color.opacity(0)], startPoint: .top, endPoint: .bottom))
@@ -237,13 +281,12 @@ struct Mothly: View {
                                     lineCap: .round
                                 )
                             )
+                            .onAppear {
+                                animate()
+                            }
                     }.frame(height: height*0.6)
                         .padding(.horizontal, width*0.01)
-                        .onAppear {
-                            withAnimation(.easeInOut(duration: 1)) {
-                                value = 1
-                            }
-                        }.padding(.bottom)
+                        .padding(.bottom)
 
                     Text("评分曲线 Monthly")
                         .font(.callout)
@@ -252,6 +295,13 @@ struct Mothly: View {
                         .foregroundColor(.lightBlack)
                 }
             }
+        }
+    }
+
+    func animate() {
+        value = 0
+        withAnimation(.easeInOut(duration: 1)) {
+            value = 1
         }
     }
 }

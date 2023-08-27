@@ -37,6 +37,17 @@ extension Date {
         return Calendar.current.component(.year, from: self)
     }
     
+    func dayNum() -> Int {
+        return Calendar.current.component(.day, from: self)
+    }
+    
+    func time() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.locale = Locale(identifier: "cn_CN")
+        return dateFormatter.string(from: self)
+    }
+    
     func away(from date: Date) -> Int{
         let components = Calendar.current.dateComponents([.day], from: date, to: self)
         return components.day ?? 0

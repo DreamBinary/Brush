@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class ScoreUtil {
-    private var dataInSecond: [Double] = [] // length 11 --> in a section
+    private var dataInSecond: [Double] = [] // length 11 --> in a sectiong
     private var scoreInSection: [Int] = [] // length 12
     private var time: Int = 0 // total time is 11 * 12 = 132
     private var cntOneSecond = 11

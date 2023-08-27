@@ -7,42 +7,47 @@
 import Charts
 import SwiftUI
 
+struct ScorePoint: Identifiable, Codable, Equatable {
+    let id: Int
+    let brushTime: Date
+    let totalScore: Int
+}
+
 struct RatingLine: View {
-    private var weightModel = WeightData()
+    var scoreList: [ScorePoint] = []
     private let dataPointWidth: CGFloat = 50
     @Namespace var trailingID
-    @Namespace var leadingID
-    
+    //    @Namespace var leadingID
+
     let gradient = LinearGradient(gradient: Gradient(colors: [.primary.opacity(0.6), .primary.opacity(0.5), .primary.opacity(0.2), .primary.opacity(0.02)]), startPoint: .top, endPoint: .bottom)
     var body: some View {
         GeometryReader { geo in
             let width = geo.size.width
             let height = geo.size.height
-            let weight = weightModel.allWeights!
-
             ScrollViewReader { scrollViewProxy in
                 ScrollView(.horizontal) {
                     HStack {
-                        Image(systemName: "arrow.right")
-                            .id(leadingID)
-                            .onTapGesture {
-                                scrollViewProxy.scrollTo(trailingID)
-                            }.padding(.leading)
+                        //                        Image(systemName: "arrow.right")
+                        //                            .id(leadingID)
+                        //                            .onTapGesture {
+                        //                                scrollViewProxy.scrollTo(trailingID)
+                        //                            }.padding(.leading)
+                        Color.clear.frame(width: 8)
                         Chart {
-                            ForEach(weight, id: \.id) { item in
-                                let x = item.day
-                                let y = item.score - 100
+                            ForEach(scoreList.indices, id: \.self) { index in
+                                let x = scoreList[index].brushTime
+                                let y = scoreList[index].totalScore
                                 LineMark(
-                                    x: .value("day", x),
+                                    x: .value("time", x),
                                     y: .value("score", y)
                                 ).interpolationMethod(.catmullRom)
                                     .lineStyle(.init(lineWidth: 3))
-                                AreaMark(x: .value("day", x),
+                                AreaMark(x: .value("time", x),
                                          y: .value("score", y))
-                                .interpolationMethod(.catmullRom)
-                                .foregroundStyle(gradient)
+                                    .interpolationMethod(.catmullRom)
+                                    .foregroundStyle(gradient)
                                 PointMark(
-                                    x: .value("day", x),
+                                    x: .value("time", x),
                                     y: .value("score", y)
                                 ).annotation(position: .top) {
                                     Text("\(y)")
@@ -50,83 +55,45 @@ struct RatingLine: View {
                                         .fontWeight(.bold)
                                         .foregroundColor(.fontGray)
                                 }
+
+                                PointMark(
+                                    x: .value("time", x),
+                                    y: .value("score", 40)
+                                ).symbolSize(10)
+                                    .annotation(position: .bottom) {
+                                        Group {
+                                            if (index > 1 && x.dayNum() != scoreList[index - 1].brushTime.dayNum()) || index == 0 {
+                                                Text("\(x.time())\n\(x.dayNum())")
+                                            } else {
+                                                Text(x.time())
+                                            }
+                                        }.font(.system(size: 10))
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.fontBlack)
+                                    }
                             }
                         }
                         .foregroundColor(.primary)
-                        .padding(.bottom, 8)
-                        .chartYScale(domain: 0...110)
+                        .padding(.bottom)
+                        .chartYScale(domain: 40 ... 110)
                         .chartYAxis {
                             AxisMarks(position: .trailing)
                         }
                         .chartXAxis {
-                            AxisMarks(preset: .extended, position: .bottom, values: .stride(by: .day)) { value in
-                                if value.as(Date.self)!.isFirstOfMonth() {
-                                    AxisGridLine()
-                                        .foregroundStyle(.black.opacity(0.5))
-                                    let label = "01\n\(value.as(Date.self)!.monthName())"
-                                    AxisValueLabel(label).foregroundStyle(.black)
-                                } else {
-                                    AxisValueLabel(
-                                        format: .dateTime.day(.twoDigits)
-                                    )
-                                }
-                            }
+                            //                            AxisMarks(preset: .extended, position: .bottom) { value in
+                            //                                let label = value.as(Date.self)!.time()
+                            //                                AxisValueLabel(label).foregroundStyle(.black)
+                            //                            }
                         }
-                        .frame(width: dataPointWidth * CGFloat(weight.count), height: min(width, height))
+                        .frame(width: dataPointWidth * CGFloat(scoreList.count), height: height)
                         Color.clear.id(trailingID)
                     }
                 }.onAppear {
                     scrollViewProxy.scrollTo(trailingID, anchor: .trailing)
                 }
             }
-        }.background(.white)
-    }
-}
-
-
-
-struct WeightData {
-    private(set) var allWeights: [Score]?
-    
-    static let weightInitial = 180
-    static let weightInterval = 2
-    static let weightMin = 175
-    static let weightMax = 200
-    
-    init() {
-        createWeightData(days: 100)
-    }
-    
-    mutating func createWeightData(days: Int) {
-        // Generate sample weight date between 175 and 200 pounds (+ or - 0-3 pounds daily)
-        allWeights = []
-        var selectedWeight = WeightData.weightInitial
-        var add = true
-        for interval in 0...days {
-            switch selectedWeight {
-                case (WeightData.weightMax - WeightData.weightInterval + 1)..<Int.max:
-                    add = false
-                case 0..<(WeightData.weightMin + WeightData.weightInterval):
-                    add = true
-                default:
-                    add = (Int.random(in: 0...4) == 3) ? !add : add
-            }
-            
-            selectedWeight = add ? selectedWeight + Int.random(in: 0...WeightData.weightInterval) : selectedWeight - Int.random(in: 0...WeightData.weightInterval)
-            let selectedDate = Calendar.current.date(byAdding: .day, value: -1 * interval, to: Date())!
-            allWeights!.append(Score(date: selectedDate, score: selectedWeight))
         }
-    }
-}
-
-struct Score: Identifiable {
-    let id = UUID()
-    let day: Date
-    let score: Int
-    
-    init(date: Date, score: Int) {
-        self.day = date
-        self.score = score
+            .background(.white)
     }
 }
 

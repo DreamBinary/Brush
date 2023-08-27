@@ -43,10 +43,6 @@ class ScoreEntity: Codable, Equatable, Identifiable {
     var timeScore: Int = 0
     var powerScore: Int = 0
     var powerScoreList: [Int] = []
-    
-    
-    func totalScore() -> Int {
-        return Int((self.timeScore + (self.powerScoreList.min() ?? 0) + self.powerScore) / 3)
-    }
+    var totalScore: Int = 0
     
 }

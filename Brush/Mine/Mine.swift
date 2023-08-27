@@ -46,9 +46,8 @@ struct Mine: ReducerProtocol {
         Reduce { state, action in
             switch action {
                 case .toothBrushInit:
-//                    if let userId = DataUtil.getUser()?.id {
+                    if let userId = DataUtil.getUser()?.id {
                         return .task {
-                            let userId = 10031
                             let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userId)", method: .GET)
                             if response.code == 200 {
                                 let toothBrush: ToothBrushEntity = response.data!!
@@ -56,17 +55,16 @@ struct Mine: ReducerProtocol {
                             }
                             return .toothBrushCompleted(ToothBrushEntity())
                         }
-//                    } else {
-//                        return Effect.send(.toothBrushCompleted(ToothBrushEntity()))
-//                    }
+                    } else {
+                        return Effect.send(.toothBrushCompleted(ToothBrushEntity()))
+                    }
                 case let .toothBrushCompleted(toothBrush):
                     state.toothBrush = ToothBrush.State(toothBrush: toothBrush)
                     return .none
 
                 case .brushCaseInit:
-//                    if let userId = DataUtil.getUser()?.id {
+                    if let userId = DataUtil.getUser()?.id {
                         return .task {
-                            let userId = 10031
                             let date = Date().formattedString()
                             let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
                             if response.code == 200 {
@@ -75,9 +73,9 @@ struct Mine: ReducerProtocol {
                             }
                             return .brushCaseCompleted([])
                         }
-//                    } else {
-//                        return Effect.send(.brushCaseCompleted(ScoreEntity()))
-//                    }
+                    } else {
+                        return Effect.send(.brushCaseCompleted([]))
+                    }
 
                 case let .brushCaseCompleted(score):
                     state.brushCase = BrushCase.State(scoreList: score)
@@ -141,7 +139,7 @@ struct MineView: View {
                                     JoinDay(day: vStore.joinDay)
 
                                     HStack(spacing: 15) {
-                                        BrushCaseCard(score: vStore.brushCase?.scoreList.last?.totalScore() ?? 0)
+                                        BrushCaseCard(score: vStore.brushCase?.scoreList.last?.totalScore ?? 0)
                                             .onTapGesture {
                                             vStore.send(.showBrushCase)
                                         }

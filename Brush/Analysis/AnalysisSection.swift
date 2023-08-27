@@ -7,32 +7,54 @@
 
 import Foundation
 
-
 import ComposableArchitecture
 import SwiftUI
-
 
 // MARK: - Feature domain
 
 struct AnalysisSection: ReducerProtocol {
-    
     struct State: Equatable {
-        var topScore: Int = 93
-        var avgPower: Double = 0.55
+        var topScore: Int = 0
+        var avgPower: Double = 0
+        var hasData: Bool = false
+        var scoreList: [ScorePoint] = []
+        var curMonth: Int = Date().monthNum()
         @BindingState var isShowMothly = false
     }
-    
+
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case showMonthly
+        case getData
+        case getDateCompleted([ScorePoint])
     }
-    
+
     var body: some ReducerProtocol<State, Action> {
         BindingReducer()
         Reduce { state, action in
             switch action {
                 case .showMonthly:
                     state.isShowMothly = true
+                    state.hasData = false
+                    state.scoreList = []
+                    return Effect.send(.getData)
+                case .getData:
+                    if let userId = DataUtil.getUser()?.id {
+                        return .task { [month = state.curMonth] in
+                            let date = "\(Date().yearNum())-\(month)-1"
+                            let response: Response<[String: [ScorePoint]]?> = try await ApiClient.request(Url.totalScore + "/\(userId)" + "/\(date)", method: .GET)
+                            if response.code == 200 {
+                                let scoreList: [ScorePoint] = response.data!!["totalScoreList"] ?? []
+                                return .getDateCompleted(scoreList)
+                            }
+                            return .getDateCompleted([])
+                        }
+                    } else {
+                        return Effect.send(.getDateCompleted([]))
+                    }
+                case let .getDateCompleted(list):
+                    state.scoreList = list
+                    state.hasData = true
                     return .none
                 case .binding:
                     return .none
@@ -45,7 +67,7 @@ struct AnalysisSection: ReducerProtocol {
 
 struct AnalysisSectionView: View {
     let store: StoreOf<AnalysisSection>
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { vStore in
             GeometryReader { geo in
@@ -64,16 +86,31 @@ struct AnalysisSectionView: View {
                 }
             }.padding(.horizontal)
                 .sheet(isPresented: vStore.binding(\.$isShowMothly)) {
-                    //                    if #available(iOS 16.4, *) {
-                    //                        RatingLine()
-                    //                            .presentationDetents([.fraction(0.6)])
-                    //                            .presentationDragIndicator(.visible)
-                    //                            .presentationCornerRadius(30)
-                    //                    } else {
-                    RatingLine()
-                        .presentationDetents([.fraction(0.6)])
+                    Group {
+                        if !vStore.hasData {
+                            ProgressView()
+                                .frame(width: .infinity, height: .infinity)
+                            
+                        } else if (vStore.scoreList.isEmpty){
+                            Text("空")
+                                .frame(width: .infinity, height: .infinity)
+                            // TODO
+                        } else {
+                            RatingLine(scoreList: vStore.scoreList)
+                        }
+                    }.presentationDetents([.fraction(0.6)])
                         .presentationDragIndicator(.visible)
-                    //                    }
+
+//                    //                    if #available(iOS 16.4, *) {
+//                    //                        RatingLine()
+//                    //                            .presentationDetents([.fraction(0.6)])
+//                    //                            .presentationDragIndicator(.visible)
+//                    //                            .presentationCornerRadius(30)
+//                    //                    } else {
+//                    RatingLine()
+//                        .presentationDetents([.fraction(0.6)])
+//                        .presentationDragIndicator(.visible)
+//                    //                    }
                 }
         }
     }
