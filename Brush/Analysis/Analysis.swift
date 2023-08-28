@@ -41,6 +41,7 @@ struct Analysis: ReducerProtocol {
                 case .binding, .analysisSection:
                     return .none
                 case .analysisSectionInit:
+                    state.analysisSection = nil
                     return Effect.merge(
                         Effect.send(Analysis.Action.updateMonthlyTop),
                         Effect.send(Analysis.Action.updateAvg)
@@ -90,7 +91,6 @@ struct Analysis: ReducerProtocol {
                     state.hasData = false
                     return .none
                 case let .onTapMonth(month):
-                    state.analysisSection = nil
                     state.curMonth = month
                     return Effect.send(.analysisSectionInit)
             }
@@ -134,11 +134,8 @@ struct AnalysisView: View {
                     if (vStore.hasData) {
                         AnalysisSectionView(store: $0)
                     } else {
-                        // TODO
-                        Text("空")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        EmptyPageView(onRefresh: {vStore.send(.analysisSectionInit)})
                     }
-                    
                 } else: {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

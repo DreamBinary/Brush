@@ -22,7 +22,6 @@ struct RatingLine: View {
     let gradient = LinearGradient(gradient: Gradient(colors: [.primary.opacity(0.6), .primary.opacity(0.5), .primary.opacity(0.2), .primary.opacity(0.02)]), startPoint: .top, endPoint: .bottom)
     var body: some View {
         GeometryReader { geo in
-            let width = geo.size.width
             let height = geo.size.height
             ScrollViewReader { scrollViewProxy in
                 ScrollView(.horizontal) {

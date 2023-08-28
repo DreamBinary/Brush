@@ -48,7 +48,6 @@ struct ToothBrush: ReducerProtocol {
                 case .addToothBrush:
                     if let userId = DataUtil.getUser()?.id {
                         return .task {
-                            let userId = 10031
                             let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush, method: .POST, params: ["userId": "\(userId)", "usageStartTime": "\(Int(Date().timeIntervalSince1970 * 1000))"])
                             if response.code == 200 {
                                 let _: ToothBrushEntity = response.data!! //TODO

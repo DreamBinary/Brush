@@ -88,8 +88,7 @@ struct BrushCaseView: View {
                                 vStore.send(.updateDate)
                             }
                         if vStore.scoreList.isEmpty {
-                            // TODO:
-                            Text("空")
+                            EmptyPageView()
                         } else {
                             TabView {
                                 ForEach(vStore.scoreList) { score in
