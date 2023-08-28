@@ -20,6 +20,9 @@ struct ToothBrush: ReducerProtocol {
         @BindingState var isShowingAlert = false
         @BindingState var brushName: String = ""
         @BindingState var date: Date = .now
+        
+        @BindingState var showToast: Bool = false
+        var toastState: ToastState = .init()
     }
 
     enum Action: BindableAction, Equatable {
@@ -58,9 +61,15 @@ struct ToothBrush: ReducerProtocol {
                     }
                     return Effect.send(.addFail)
                 case .addSuccess:
+                    state.toastState.text = "成功添加"
+                    state.toastState.toastType = .success
+                    state.showToast = true
                     return .none
                     
                 case .addFail:
+                    state.toastState.text = "添加失败"
+                    state.toastState.toastType = .fail
+                    state.showToast = true
                     return .none
                 case .binding:
                     return .none
@@ -91,7 +100,7 @@ struct ToothBrushView: View {
                         )
                     }
                 }
-            }
+            }.toast(showToast: vStore.binding(\.$showToast), toastState: vStore.toastState)
         }
     }
 }

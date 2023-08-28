@@ -92,4 +92,32 @@ struct ApiClient {
         // 7. 开始任务
         //        task.resume()
     }
+    
+    
+    static func logout<T: Codable>(
+        _ url: String,
+        param: Int = 0
+    ) async throws -> Response<T?> {
+        guard let url = URL(string: url) else {
+            print(url)
+            fatalError("URL is not correct!")
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+//        let json = try? JSONSerialization.data(withJSONObject: [param], options: [])
+//        request.httpBody = json
+        
+        let parameters = "\(param)"
+        let postData: Data? = parameters.data(using: .utf8)
+        request.httpBody = postData
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decoder = JSONDecoder()
+        
+                let dataString = String(data: data, encoding: .utf8)
+                print(dataString)
+        let response = try decoder.decode(Response<T?>.self, from: data)
+        return response
+    }
 }

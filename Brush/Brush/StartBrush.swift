@@ -63,18 +63,26 @@ struct StartBrush: View {
             isPresented = true
             return
         }
+        
         util.startApp { success, _ in
             if success {
-                var i = 0
-                while (!util.isReachable() && i < 3) {
-                    usleep(500000)
-                    util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1], onSuccess: onStart)
-                    i += 1
-                }
-                if i >= 3 {
+                if !util.isReachable() {
                     msg = "信号发送出了错,再试试或者手动打开吧"
                     isPresented = true
+                    util.activate()
+                    return
                 }
+                util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1], onSuccess: onStart)
+//                var i = 0
+//                while (!util.isReachable() && i < 3) {
+//                    usleep(500000)
+//                    util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1], onSuccess: onStart)
+//                    i += 1
+//                }
+//                if i >= 3 {
+//                    msg = "信号发送出了错,再试试或者手动打开吧"
+//                    isPresented = true
+//                }
             } else {
                 msg = "TuneBrush Watch 打开失败了,再试试或者手动打开吧"
                 isPresented = true

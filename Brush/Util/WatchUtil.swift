@@ -47,8 +47,6 @@ class WatchUtil: NSObject, WCSessionDelegate {
             healthStore.startWatchApp(with: workoutConfiguration) { success, error in
                 completion(success, error)
             }
-        } else {
-//            print("failed")
         }
     }
     
@@ -56,6 +54,10 @@ class WatchUtil: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         //        onReceive(message)
+    }
+    
+    func activate() {
+        session.activate()
     }
     
     //    WCSession is not reachable

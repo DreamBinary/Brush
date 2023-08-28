@@ -39,7 +39,9 @@ struct Setting: ReducerProtocol {
         case showModify
         case showDelete
         case showAbout
-        case deleteAccount
+        case logout
+        case logoutSuccess
+        case logoutFail
         case onDisappear
         case updateUser
         case updateSuccess
@@ -63,7 +65,26 @@ struct Setting: ReducerProtocol {
                     state.isShowAbout = true
                     return .none
 
-                case .deleteAccount:
+                case .logout:
+                    if let userId = DataUtil.getUser()?.id {
+                        return .task {
+                            let response: Response<Bool?> = try await ApiClient.logout(Url.logout, param: userId)
+                            if response.code == 200 && response.data == true {
+                                return .logoutSuccess
+                            }
+                            return .logoutFail
+                        }
+                    }
+                    return Effect.send(.logoutFail)
+                    
+                case .logoutSuccess:
+                    DataUtil.removeAll()
+                    return .none
+                    
+                case .logoutFail:
+                    state.toastState.text = "注销失败"
+                    state.toastState.toastType = .fail
+                    state.showToast = true
                     return .none
                 case .onDisappear:
                     return Effect.send(.updateUser)
@@ -185,7 +206,7 @@ struct SettingView: View {
                     secondaryButton: .destructive(
                         Text("OK"),
                         action: {
-                            vStore.send(.deleteAccount)
+                            vStore.send(.logout)
                         }
                     )
                 )
@@ -226,18 +247,20 @@ struct SettingRow<Content>: View where Content: View {
     var content: () -> Content
     var onTap: () -> Void = {}
     var body: some View {
-        Button(action: onTap, label: {
-            HStack {
-                Image(systemName: imgName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 20, height: 20)
-                    .padding(.trailing, 5)
-                Text(title)
-                Spacer()
-                content().foregroundColor(.fontGray)
-            }.foregroundColor(.black)
-        })
+        HStack {
+            Image(systemName: imgName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20, height: 20)
+                .padding(.trailing, 5)
+            Text(title)
+            Spacer()
+            content().foregroundColor(.fontGray)
+        }.foregroundColor(.black)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                onTap()
+            }
     }
 }
 

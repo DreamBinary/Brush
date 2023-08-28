@@ -80,7 +80,19 @@ struct Main: ReducerProtocol {
                     state.isLogin = false
                     state.route = Route.State()
                     state.login = Login.State()
-                    return .none
+                    
+                    state.toastState.text = "成功退出"
+                    state.toastState.toastType = .success
+                    return Effect.send(.showToast)
+                    
+                case .route(.mine(.setting(.logoutSuccess))):
+                    state.isLogin = false
+                    state.route = Route.State()
+                    state.login = Login.State()
+                    
+                    state.toastState.text = "成功注销"
+                    state.toastState.toastType = .success
+                    return Effect.send(.showToast)
                     
                 case .route(.mine(.toothBrush(.addSuccess))):
                     state.toastState.text = "成功添加牙刷"
