@@ -95,7 +95,7 @@ class ScoreUtil {
     
     // TODO:
     private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool {
-        if (abs(x) > 0.01  && abs(y) > 0.05 && abs(z) > 0.01) {
+        if (abs(x) > 0.05  || abs(y) > 0.1 || abs(z) > 0.05) {
             return true
         }
         return false
