@@ -104,6 +104,7 @@
 		A0C167EA2A7944DA004B7F51 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167E92A7944DA004B7F51 /* Main.swift */; };
 		A0C167ED2A795A78004B7F51 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C167EC2A795A78004B7F51 /* Constant.swift */; };
 		A0CACD902A7B9CA5005CDDD4 /* CircleScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CACD8F2A7B9CA5005CDDD4 /* CircleScore.swift */; };
+		A0CBF53D2A9D8458003030E2 /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CBF53C2A9D8458003030E2 /* DataUtil.swift */; };
 		A0D154672A7B306300C6BAEF /* MotionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D154662A7B306300C6BAEF /* MotionUtil.swift */; };
 		A0D154692A7B3A3200C6BAEF /* PhoneUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D154682A7B3A3200C6BAEF /* PhoneUtil.swift */; };
 		A0D1546B2A7B402E00C6BAEF /* InBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D1546A2A7B402E00C6BAEF /* InBrush.swift */; };
@@ -287,6 +288,7 @@
 		A0C167E92A7944DA004B7F51 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		A0C167EC2A795A78004B7F51 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		A0CACD8F2A7B9CA5005CDDD4 /* CircleScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleScore.swift; sourceTree = "<group>"; };
+		A0CBF53C2A9D8458003030E2 /* DataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtil.swift; sourceTree = "<group>"; };
 		A0D154652A7B2CA200C6BAEF /* Brush-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Brush-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A0D154662A7B306300C6BAEF /* MotionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionUtil.swift; sourceTree = "<group>"; };
 		A0D154682A7B3A3200C6BAEF /* PhoneUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneUtil.swift; sourceTree = "<group>"; };
@@ -711,6 +713,7 @@
 				A0363FA92A820A8A00E34E70 /* ScoreUtil.swift */,
 				A037C08A2A85D7A000101720 /* BgRunUtil.swift */,
 				A08D40892A8B179B00C30B1B /* BrushUtil.swift */,
+				A0CBF53C2A9D8458003030E2 /* DataUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				A090A0612A7CCCDB00F1EB81 /* MusicUtil.swift in Sources */,
 				A03448952A977C9900EAB7B8 /* Response.swift in Sources */,
 				A03448932A977BAF00EAB7B8 /* ApiClient.swift in Sources */,
+				A0CBF53D2A9D8458003030E2 /* DataUtil.swift in Sources */,
 				A0F5D5BE2A47202300C4091D /* Start.swift in Sources */,
 				A04255D12A6916A500D38A16 /* AnimCheck.swift in Sources */,
 				A0F5B5672A682D3A001D5EA4 /* CircularProgress.swift in Sources */,
