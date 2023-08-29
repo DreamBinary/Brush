@@ -110,28 +110,26 @@ import SwiftUI
 
 struct Brush: View {
     @ObservedObject private var util = BrushUtil()
-    lazy var phoneUtil = PhoneUtil()
     var body: some View {
-        Text("Jfd")
-//        Group {
-//            switch util.brushState {
-//                case .start:
-//                    Start(isStarted: $util.isStarted, cnt: $util.cnt, onStartTap: {
-//                        util.startBrush()
-//                    })
-//                case .pre:
-//                    SectionPre(util.cSection)
-//                case .ing:
-//                    SectionIng(util.cSection)
-//                case .ed:
-//                    SectionEd(util.cSection)
-//                case .finish:
-//                    Finish { util.finishBrush() }
-//                case .score:
-//                    Score(score: util.getBrushScore()) { util.changePage() }
-////                    Score(score: ["powerScore": 90, "timeScore": 85, "sectionScore": 77], onBtnTap: { util.changePage() })
-//            }
-//        }
+        Group {
+            switch util.brushState {
+                case .start:
+                    Start(isStarted: $util.isStarted, cnt: $util.cnt, onStartTap: {
+                        util.startBrush()
+                    })
+                case .pre:
+                    SectionPre(util.cSection)
+                case .ing:
+                    SectionIng(util.cSection)
+                case .ed:
+                    SectionEd(util.cSection)
+                case .finish:
+                    Finish { util.finishBrush() }
+                case .score:
+                    Score(score: util.getBrushScore()) { util.changePage() }
+//                    Score(score: ["powerScore": 90, "timeScore": 85, "sectionScore": 77], onBtnTap: { util.changePage() })
+            }
+        }
     }
 }
 

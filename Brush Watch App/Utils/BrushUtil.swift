@@ -8,15 +8,15 @@
 import Combine
 import Foundation
 import SwiftUI
+import WatchConnectivity
 
-class BrushUtil: ObservableObject {
+class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
     @Published var brushState: BrushState = .start
     @Published var cSection: Section = .ORT
     @Published var cnt: Int = 3
     @Published var isStarted = false
     private var musicUtil = MusicUtil(res: Section.ORT.rawValue)
     private var scoreUtil = ScoreUtil()
-    
     private lazy var bgRun = BgRunUtil(onStart: {
         Task {
             DispatchQueue.main.async {
@@ -30,6 +30,15 @@ class BrushUtil: ObservableObject {
             await self.brush()
         }
     })
+    
+    private var userId: Int = -1
+    private var session: WCSession = .default
+    
+    override init() {
+        super.init()
+        session.delegate = self
+        session.activate()
+    }
     
     private func brush() async {
         changePage()
@@ -54,30 +63,30 @@ class BrushUtil: ObservableObject {
             changePage()
         }
         reset()
-//        saveScore()
+        saveScore()
         print("TAG", "--------------", "finish")
     }
     
-//    private func saveScore()  {
-//        if (phoneUtil.userId > 0) {
-//            Task {
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-//                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-//                let brushTime = dateFormatter.string(from: .now)
-//
-//                let url: String = "https://tunebrush-api.shawnxixi.icu/api/record"
-//                let score: ScoreEntity = scoreUtil.getSaveScore()
-//                let _: Response<Int?> = try await ApiClient.request(url, method: .POST, params: [
-//                    "userId": phoneUtil.userId,
-//                    "brushTime": brushTime,
-//                    "timeScore": score.timeScore,
-//                    "powerScore": score.powerScore,
-//                    "powerScoreList": score.powerScoreList
-//                ])
-//            }
-//        }
-//    }
+    private func saveScore()  {
+        if (userId > 0) {
+            Task {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+                let brushTime = dateFormatter.string(from: .now)
+
+                let url: String = "https://tunebrush-api.shawnxixi.icu/api/record"
+                let score: ScoreEntity = scoreUtil.getSaveScore()
+                let _: Response<Int?> = try await ApiClient.request(url, method: .POST, params: [
+                    "userId": userId,
+                    "brushTime": brushTime,
+                    "timeScore": score.timeScore,
+                    "powerScore": score.powerScore,
+                    "powerScoreList": score.powerScoreList
+                ])
+            }
+        }
+    }
     
     private func processData(_ x: Double, _ y: Double, _ z: Double) {
         self.scoreUtil.getPreDataInSecond(x: x, y: y, z: z)
@@ -132,6 +141,21 @@ class BrushUtil: ObservableObject {
             }
         }
     }
+    
+    
+    func session(_ session: WCSession,
+                 didReceiveMessage message: [String: Any],
+                 replyHandler: @escaping ([String: Any]) -> Void) {
+        if message["userId"] != nil {
+            userId = message["userId"] as! Int
+            HapticUtil.getFromPhone()
+            startBrush()
+            replyHandler(["success": true])
+        }
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
+    
 }
 
 enum BrushState {
