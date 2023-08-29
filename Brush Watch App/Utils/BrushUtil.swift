@@ -30,8 +30,7 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
             await self.brush()
         }
     })
-    
-    private var userId: Int = -1
+
     private var session: WCSession = .default
     
     override init() {
@@ -68,7 +67,7 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
     }
     
     private func saveScore()  {
-        if (userId > 0) {
+        if let userId = DataUtil.getUserId() {
             Task {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -147,10 +146,11 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
                  didReceiveMessage message: [String: Any],
                  replyHandler: @escaping ([String: Any]) -> Void) {
         if message["userId"] != nil {
-            userId = message["userId"] as! Int
+            replyHandler(["success": true])
+            let userId = message["userId"] as! Int
             HapticUtil.getFromPhone()
             startBrush()
-            replyHandler(["success": true])
+            DataUtil.saveUserId(userId)
         }
     }
     
