@@ -29,10 +29,14 @@ class HapticUtil {
     }
     
     static func click() {
-        device.play(.success)
+        device.play(.directionDown)
     }
     
     static func getFromPhone() {
+        device.play(.directionDown)
+    }
+    
+    static func beat() {
         device.play(.success)
     }
     

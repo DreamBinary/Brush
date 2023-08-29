@@ -10,14 +10,15 @@ import Foundation
 import WatchKit
 
 class MotionUtil {
-    private static let motion = CMMotionManager()
+    private static var motion: CMMotionManager? 
 //    private static var timerAcce: Timer?
 //    static private var timerGyro: Timer?
-    private static let interval = 1.0 / 60.0 // 60 Hz
+    private static let interval = 1.0 / 100.0 // 100 Hz
     static func start(getAcceData: @escaping (Double, Double, Double) -> Void) {
-        if motion.isDeviceMotionAvailable {
-            motion.deviceMotionUpdateInterval = interval
-            motion.startDeviceMotionUpdates(using: .xArbitraryCorrectedZVertical, to: .current ?? .main, withHandler:{ (motionData, error) in
+        motion = CMMotionManager()
+        if motion!.isDeviceMotionAvailable {
+            motion!.deviceMotionUpdateInterval = interval
+            motion!.startDeviceMotionUpdates(using: .xArbitraryCorrectedZVertical, to: .current ?? .main, withHandler:{ (motionData, error) in
                 if let data = motionData {
                     let x = data.userAcceleration.x
                     let y = data.userAcceleration.y
@@ -27,7 +28,6 @@ class MotionUtil {
 //                else {
 //                    print("TAG", "error")
 //                }
-                
             })
 //            timerAcce = Timer(fire: Date(), interval: interval, repeats: true, block: { _ in
 ////                            print("TAG", "heading", motion.deviceMotion?.heading ?? 0)
@@ -42,15 +42,14 @@ class MotionUtil {
 //            RunLoop.current.add(self.timerAcce!, forMode: .default)
 //            RunLoop.current.run()
         }
-        
-        // TODO
-        else {
-            let timerAcce = Timer(fire: Date(), interval: 1 / 60, repeats: true, block: { _ in
-                getAcceData(-0.48874518275260925 ,-0.7081124782562256 ,0.0696868896484375)
-            })
-            RunLoop.current.add(timerAcce, forMode: .default)
-            RunLoop.current.run()
-        }
+
+//        else {
+//            let timerAcce = Timer(fire: Date(), interval: 1 / 60, repeats: true, block: { _ in
+//                getAcceData(-0.48874518275260925 ,-0.7081124782562256 ,0.0696868896484375)
+//            })
+//            RunLoop.current.add(timerAcce, forMode: .default)
+//            RunLoop.current.run()
+//        }
         
 //        if self.motion.isAccelerometerAvailable {
 //            self.motion.accelerometerUpdateInterval = interval
@@ -84,20 +83,11 @@ class MotionUtil {
     }
     
     static func stop() {
-//        print("TAG", "stop MotionUpdate")
-        self.motion.stopDeviceMotionUpdates()
+        self.motion?.stopDeviceMotionUpdates()
+        self.motion = nil
 //        if timerAcce != nil {
 //            timerAcce?.invalidate()
 //            timerAcce = nil
 //        }
-        
-//        if self.timerGyro != nil {
-//            self.timerGyro?.invalidate()
-//            self.timerGyro = nil
-//        }
-    }
-    
-    func getOnWrist() -> WKInterfaceDeviceWristLocation {
-        return WKInterfaceDevice.current().wristLocation
     }
 }

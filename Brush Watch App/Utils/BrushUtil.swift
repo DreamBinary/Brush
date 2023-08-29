@@ -15,6 +15,7 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
     @Published var cSection: Section = .ORT
     @Published var cnt: Int = 3
     @Published var isStarted = false
+    @Published var hasBeat = false
     private var musicUtil = MusicUtil(res: Section.ORT.rawValue)
     private var scoreUtil = ScoreUtil()
     private lazy var bgRun = BgRunUtil(onStart: {
@@ -30,7 +31,7 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
             await self.brush()
         }
     })
-
+    
     private var session: WCSession = .default
     
     override init() {
@@ -49,7 +50,17 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
             })
             HapticUtil.start()
             changePage()
-            sleep(11)
+            await withTaskGroup(of: Void.self) { group in
+                if (hasBeat) {
+                    group.addTask {
+                        await self.beatTip()
+                    }
+                }
+                group.addTask {
+                    await self.timeCount()
+                }
+            }
+            
             MotionUtil.stop()
             musicUtil.stop()
             musicUtil = MusicUtil(res: SectionUtil.getNext(cSection).rawValue)
@@ -61,43 +72,59 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
             sleep(1)
             changePage()
         }
+        MotionUtil.stop()
         reset()
         saveScore()
         print("TAG", "--------------", "finish")
     }
     
-    private func saveScore()  {
+    private func beatTip() async {
+        for _ in 0 ... 6 {
+            try! await Task.sleep(for: .milliseconds(1375))
+            HapticUtil.beat()
+        }
+    }
+    
+    private func timeCount() async {
+        for _ in 0 ... 10 {
+            try! await Task.sleep(for: .seconds(1))
+            await scoreUtil.addSecond()
+        }
+    }
+    
+    private func saveScore() {
+        let score: ScoreEntity = scoreUtil.getSaveScore()
         if let userId = DataUtil.getUserId() {
             Task {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                 dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
                 let brushTime = dateFormatter.string(from: .now)
-
                 let url: String = "https://tunebrush-api.shawnxixi.icu/api/record"
-                let score: ScoreEntity = scoreUtil.getSaveScore()
-                let _: Response<Int?> = try await ApiClient.request(url, method: .POST, params: [
+                let response: Response<Int?> = try await ApiClient.request(url, method: .POST, params: [
                     "userId": userId,
                     "brushTime": brushTime,
                     "timeScore": score.timeScore,
                     "powerScore": score.powerScore,
                     "powerScoreList": score.powerScoreList
                 ])
+                print("TAG", response.code)
+                print("TAG", response.message)
+                print("TAG", response.data)
             }
         }
     }
     
     private func processData(_ x: Double, _ y: Double, _ z: Double) {
-        self.scoreUtil.getPreDataInSecond(x: x, y: y, z: z)
-        self.musicUtil.changeVolumn(x, y, z)
-        // TODO
+        scoreUtil.getPreDataInSecond(x: x, y: y, z: z)
+        musicUtil.changeVolumn(x, y, z)
     }
     
     func reset() {
-        self.cSection = .ORT
-        self.cnt = 3
-        self.isStarted = false
-        self.musicUtil = MusicUtil(res: Section.ORT.rawValue)
+        cSection = .ORT
+        cnt = 3
+        isStarted = false
+        musicUtil = MusicUtil(res: Section.ORT.rawValue)
     }
     
     func startBrush() {
@@ -141,10 +168,10 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
-    
     func session(_ session: WCSession,
                  didReceiveMessage message: [String: Any],
-                 replyHandler: @escaping ([String: Any]) -> Void) {
+                 replyHandler: @escaping ([String: Any]) -> Void)
+    {
         if message["userId"] != nil {
             replyHandler(["success": true])
             let userId = message["userId"] as! Int
@@ -155,7 +182,6 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
-    
 }
 
 enum BrushState {

@@ -16,6 +16,6 @@ class ToothBrushEntity: Codable, Identifiable, Equatable {
         return lhs.id == rhs.id
     }
     
-    var daysUsed: Int = 0
-    var daysRemaining: Int = 0
+    var daysUsed: Int = -1
+    var daysRemaining: Int = -1
 }

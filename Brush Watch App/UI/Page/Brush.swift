@@ -114,9 +114,13 @@ struct Brush: View {
         Group {
             switch util.brushState {
                 case .start:
-                    Start(isStarted: $util.isStarted, cnt: $util.cnt, onStartTap: {
-                        util.startBrush()
-                    })
+                    Start(
+                        isStarted: $util.isStarted,
+                        cnt: $util.cnt,
+                        hasBeat: $util.hasBeat,
+                        onStartTap: {
+                            util.startBrush()
+                        })
                 case .pre:
                     SectionPre(util.cSection)
                 case .ing:

@@ -24,6 +24,7 @@ struct RatingLine: View {
         GeometryReader { geo in
             let height = geo.size.height
             ScrollViewReader { scrollViewProxy in
+                Spacer(minLength: 0)
                 ScrollView(.horizontal) {
                     HStack {
                         //                        Image(systemName: "arrow.right")
@@ -31,7 +32,7 @@ struct RatingLine: View {
                         //                            .onTapGesture {
                         //                                scrollViewProxy.scrollTo(trailingID)
                         //                            }.padding(.leading)
-                        Color.clear.frame(width: 8)
+                        Spacer(minLength: 8)
                         Chart {
                             ForEach(scoreList.indices, id: \.self) { index in
                                 let x = scoreList[index].brushTime

@@ -10,6 +10,7 @@ import Foundation
 
 class MusicUtil {
     private var player: AVPlayer?
+    // TODO
     private var normalAcce: Double = 0.4039051074102969
     init(res: String) {
         if let url = Bundle.main.url(forResource: res, withExtension: "mp3") {
@@ -18,14 +19,15 @@ class MusicUtil {
     }
 
     func play() {
-        player?.volume = 0
+        player?.volume = 1
         player?.seek(to: .zero)
         player?.play()
     }
 
+    // TODO
     func changeVolumn(_ x: Double, _ y: Double, _ z: Double) {
         let t: Double = sqrt(x * x + y * y + z * z)
-        player?.volume = 0
+        player?.volume = min(Float(0.9 * t / normalAcce + 0.2), 5)
     }
 
     func stop() {

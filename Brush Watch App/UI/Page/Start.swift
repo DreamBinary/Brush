@@ -10,6 +10,7 @@ import SwiftUI
 struct Start: View {
     @Binding var isStarted: Bool
     @Binding var cnt: Int
+    @Binding var hasBeat: Bool
     var onStartTap: () -> Void
  
     var body: some View {
@@ -30,6 +31,19 @@ struct Start: View {
                             onStartTap()
                         }.transition(.opacity)
                 }
+                
+                HStack {
+                    VStack {
+                        HStack(spacing: 0) {
+                            Text("节拍器").font(.footnote)
+                            Image(systemName: hasBeat ? "checkmark.circle" :"circle")
+                        }.onTapGesture {
+                            hasBeat.toggle()
+                        }
+                        Spacer()
+                    }
+                    Spacer()
+                }
             }
         }
     }
@@ -37,6 +51,8 @@ struct Start: View {
 
 //struct Start_Previews: PreviewProvider {
 //    static var previews: some View {
-//        Start(isStarted: false) {}
+//        @State var isStarted = false
+//        @State var cnt = 3
+//        Start(isStarted: $isStarted, cnt: $cnt, onStartTap: {})
 //    }
 //}

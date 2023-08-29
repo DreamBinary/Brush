@@ -21,7 +21,7 @@ struct Score: View {
                     let width = geo.size.width
                     let height = geo.size.height
                     let r = min(width, height)
-                    CircleScore(powerScore: score["powerScore"] ?? 100, timeScore: score["timeScore"] ?? 100, sectionScore: score["sectionScore"] ?? 100)
+                    CircleScore(powerScore: score["powerScore"] ?? 0, timeScore: score["timeScore"] ?? 0, sectionScore: score["sectionScore      "] ?? 0)
                         .frame(width: r, height: r)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }

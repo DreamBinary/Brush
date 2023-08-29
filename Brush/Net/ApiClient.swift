@@ -114,9 +114,6 @@ struct ApiClient {
         
         let (data, _) = try await URLSession.shared.data(for: request)
         let decoder = JSONDecoder()
-        
-                let dataString = String(data: data, encoding: .utf8)
-                print(dataString)
         let response = try decoder.decode(Response<T?>.self, from: data)
         return response
     }

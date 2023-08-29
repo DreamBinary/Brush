@@ -128,6 +128,7 @@ struct ScoreRow: View {
         VStack {
             HStack {
                 Spacer()
+                // TODO
                 VStack(alignment: .leading) {
                     Text("力度评分").font(.caption)
                     Text("\(powerScore)/100").foregroundColor(.init(0x7DEED3))

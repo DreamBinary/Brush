@@ -17,7 +17,8 @@ struct Mine: ReducerProtocol {
         @BindingState var isShowSetting: Bool = false
         var joinDay: Int = Date().away(
             from: Date(timeIntervalSince1970: DataUtil.getUser()?.registerTime?.timeIntervalSince1970
-                       ?? Date().timeIntervalSince1970))
+                ?? Date().timeIntervalSince1970))
+        var todayScore: Int = -1
         var brushCase: BrushCase.State?
         var toothBrush: ToothBrush.State?
         var setting = Setting.State()
@@ -79,6 +80,7 @@ struct Mine: ReducerProtocol {
 
                 case let .brushCaseCompleted(score):
                     state.brushCase = BrushCase.State(scoreList: score)
+                    state.todayScore = score.last?.totalScore ?? -1
                     return .none
                 case .showToothBrush:
                     state.isShowToothBrush = true
@@ -139,14 +141,14 @@ struct MineView: View {
                                     JoinDay(day: vStore.joinDay)
 
                                     HStack(spacing: 15) {
-                                        BrushCaseCard(score: vStore.brushCase?.scoreList.last?.totalScore ?? 0)
+                                        BrushCaseCard(score: vStore.todayScore)
                                             .onTapGesture {
-                                            vStore.send(.showBrushCase)
-                                        }
-                                        ToothBrushCard(day: vStore.toothBrush?.toothBrush.daysUsed ?? 0)
+                                                vStore.send(.showBrushCase)
+                                            }
+                                        ToothBrushCard(day: vStore.toothBrush?.toothBrush.daysUsed ?? -1)
                                             .onTapGesture {
-                                            vStore.send(.showToothBrush)
-                                        }
+                                                vStore.send(.showToothBrush)
+                                            }
                                     }.foregroundColor(Color(0x35444C))
                                         .fontWeight(.semibold)
                                         .padding()
@@ -287,11 +289,12 @@ struct BrushCaseCard: View {
                 VStack(alignment: .leading) {
                     if score == .none {
                         ProgressView()
-                    } else {
+                    } else if score != -1 {
                         AnimNum(num: score!, changeNum: $value) {
                             TwoWord("\(value)", "分")
                         }
                     }
+
                     Text("查看刷牙情况")
                         .font(.title2)
                 }.padding(.horizontal)
@@ -314,13 +317,18 @@ struct ToothBrushCard: View {
                 VStack(alignment: .leading) {
                     if day == .none {
                         ProgressView()
-                    } else {
+                    } else if day != -1 {
                         AnimNum(num: day!, changeNum: $value) {
                             TwoWord("\(value)", "天")
                         }
                     }
-                    Text("牙刷已经使用")
-                        .font(.title2)
+                    Group {
+                        if day == -1 {
+                            Text("牙刷使用情况")
+                        } else {
+                            Text("牙刷已经使用")
+                        }
+                    }.font(.title2)
                 }.padding(.horizontal)
             }
         }
