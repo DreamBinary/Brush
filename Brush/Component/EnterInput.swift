@@ -86,7 +86,7 @@ struct EnterInput: ReducerProtocol {
                         return .task { [email = state.username, password = state.password] in
                             let response: Response<User?> = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "plainPassword": password])
                             
-                            return response.code == 200 ? .loginSuccess(response.data!!) : .signUpFail(response.code ?? -1)
+                            return response.code == 200 ? .loginSuccess(response.data!!) : .loginFail(response.code ?? -1)
                         }
                     }
                     return .none
@@ -96,7 +96,7 @@ struct EnterInput: ReducerProtocol {
                     DataUtil.saveUser(user)
               
                     return .none
-                case .loginFail:
+                case .loginFail(_):
                     state.buttonLoading = false
                     return .none
                 case .signUpFail(_):

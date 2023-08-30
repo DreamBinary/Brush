@@ -46,6 +46,7 @@ struct Analysis: ReducerProtocol {
                 case .analysisSectionInit:
                     state.analysisSection = nil
                     return Effect.merge(
+                        Effect.send(Analysis.Action.updateHotword),
                         Effect.send(Analysis.Action.updateMonthlyTop),
                         Effect.send(Analysis.Action.updateAvg)
                     )
@@ -86,7 +87,7 @@ struct Analysis: ReducerProtocol {
                     
                         return .task { [month = state.curMonth] in
                             let date = "\(Date().yearNum())-\(month)-1"
-                            let response: Response<HotArea?> = try await ApiClient.request(Url.monthTop + "/\(userId)" + "/\(date)", method: .GET)
+                            let response: Response<HotArea?> = try await ApiClient.request(Url.hotword + "/\(userId)" + "/\(date)", method: .GET)
                             if response.code == 200 {
                                 let score: HotArea = response.data!!
                                 return .updateHotwordCompleted(score.hotArea)
@@ -98,7 +99,12 @@ struct Analysis: ReducerProtocol {
                     }
                     
                 case let .updateHotwordCompleted(hotArea):
-                    
+                    if state.analysisSection == nil {
+                        state.analysisSection = AnalysisSection.State(hotArea: hotArea, curMonth: state.curMonth)
+                    } else {
+                        state.analysisSection?.hotArea = hotArea
+                    }
+                    state.hasData = true
                     return .none
                 case .updateAvgCompleted:
                     if state.analysisSection == nil {
@@ -372,6 +378,22 @@ struct AreaShape: Shape {
 }
 
 struct Conclusion: View {
+    var hotList: [Int]
+    var hotWords: [String] = [
+        "右上颊",
+        "左上颊",
+        "右上咬",
+        "左上咬",
+        "右上舌",
+        "左上舌",
+        "右下颊",
+        "左下颊",
+        "右下咬",
+        "左下咬",
+        "右下舌",
+        "左下舌"
+    ]
+
     var body: some View {
         GeometryReader { geo in
             let widthHalf = geo.size.width / 2
@@ -388,19 +410,21 @@ struct Conclusion: View {
                     }
                 }
                 Group {
-                    HotWord("刷轻啦")
-                        .offset(x: widthHalf*0.6, y: -heightHalf*0.64)
-                    HotWord("外左上",
-                            paddingH: 10, paddingV: 10)
+                    if !hotList.isEmpty {
+                        HotWord(hotWords[hotList[0]])
+                            .offset(x: widthHalf*0.6, y: -heightHalf*0.64)
+                        HotWord(hotWords[hotList[1]],
+                                paddingH: 10, paddingV: 10)
                         .offset(x: -widthHalf*0.5, y: -heightHalf*0.52)
-                    HotWord("内右上")
-                        .offset(x: widthHalf*0.17, y: -heightHalf*0.08)
-                    HotWord("再用点劲",
-                            paddingH: 12, paddingV: 12)
+                        HotWord(hotWords[hotList[2]])
+                            .offset(x: widthHalf*0.17, y: -heightHalf*0.08)
+                        HotWord(hotWords[hotList[3]],
+                                paddingH: 12, paddingV: 12)
                         .offset(x: -widthHalf*0.6, y: heightHalf*0.36)
-                    HotWord("外左上",
-                            paddingH: 10, paddingV: 10)
+                        HotWord(hotWords[hotList[4]],
+                                paddingH: 10, paddingV: 10)
                         .offset(x: widthHalf*0.52, y: heightHalf*0.44)
+                    }
                 }.foregroundColor(Color(0x9272A1))
             }
         }
