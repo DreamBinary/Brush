@@ -17,15 +17,15 @@ struct Analysis: ReducerProtocol {
         var monthlyTop: Int = 0
         var avgPower: Double = 0
         var hotArea: [Int] = []
-        var analysisSection: AnalysisSection.State?
-        var hasData: Bool = false
+        var analysisSection: AnalysisSection.State? = nil
+        var hasTopData: Bool = false
+        var hasHotAreaData: Bool = false
     }
 
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case analysisSection(AnalysisSection.Action)
         case analysisSectionInit
-//        case analysisSectionCompleted
         case onTapGetStarted
         case onTapMonth(Int)
         case updateMonthlyTop
@@ -34,7 +34,8 @@ struct Analysis: ReducerProtocol {
         case updateAvgCompleted
         case updateHotword
         case updateHotwordCompleted([Int])
-        case noData
+        case noTopData
+        case noHotAreaData
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -63,10 +64,10 @@ struct Analysis: ReducerProtocol {
                                 let score: ScoreEntity = response.data!!
                                 return .updateMonthlyTopCompleted(score.totalScore)
                             }
-                            return .noData
+                            return .noTopData
                         }
                     } else {
-                        return Effect.send(.noData)
+                        return Effect.send(.noTopData)
                     }
                 case let .updateMonthlyTopCompleted(score):
                     if state.analysisSection == nil {
@@ -74,12 +75,12 @@ struct Analysis: ReducerProtocol {
                     } else {
                         state.analysisSection?.topScore = score
                     }
-                    state.hasData = true
+                    state.hasTopData = true
                     return .none
                 case .updateAvg:
                     // TODO:
                     return .task {
-                        try await Task.sleep(nanoseconds: 3_000_000_000)
+                        try await Task.sleep(nanoseconds: 5_000_000)
                         return .updateAvgCompleted
                     }
                 case .updateHotword:
@@ -92,10 +93,10 @@ struct Analysis: ReducerProtocol {
                                 let score: HotArea = response.data!!
                                 return .updateHotwordCompleted(score.hotArea)
                             }
-                            return .noData
+                            return .noHotAreaData
                         }
                     } else {
-                        return Effect.send(.noData)
+                        return Effect.send(.noHotAreaData)
                     }
                     
                 case let .updateHotwordCompleted(hotArea):
@@ -104,19 +105,22 @@ struct Analysis: ReducerProtocol {
                     } else {
                         state.analysisSection?.hotArea = hotArea
                     }
-                    state.hasData = true
+                    state.hasHotAreaData = true
                     return .none
                 case .updateAvgCompleted:
                     if state.analysisSection == nil {
                         state.analysisSection = AnalysisSection.State(avgPower: 0.65, curMonth: state.curMonth)
                     } else {
-                        state.analysisSection?.avgPower = 1
+                        state.analysisSection?.avgPower = 0.65
                     }
                     return .none
                 case .onTapGetStarted:
                     return .none
-                case .noData:
-                    state.hasData = false
+                case .noTopData:
+                    state.hasTopData = false
+                    return .none
+                case .noHotAreaData:
+                    state.hasHotAreaData = false
                     return .none
                 case let .onTapMonth(month):
                     state.curMonth = month
@@ -159,10 +163,10 @@ struct AnalysisView: View {
                 }
 
                 IfLetStore(self.store.scope(state: \.analysisSection, action: Analysis.Action.analysisSection)) {
-                    if (vStore.hasData) {
-                        AnalysisSectionView(store: $0)
-                    } else {
+                    if (!vStore.hasTopData && !vStore.hasHotAreaData) {
                         EmptyPageView(onTap: {vStore.send(.onTapGetStarted)})
+                    } else {
+                        AnalysisSectionView(store: $0)
                     }
                 } else: {
                     ProgressView()
@@ -380,18 +384,18 @@ struct AreaShape: Shape {
 struct Conclusion: View {
     var hotList: [Int]
     var hotWords: [String] = [
-        "右上颊",
-        "左上颊",
-        "右上咬",
-        "左上咬",
-        "右上舌",
-        "左上舌",
-        "右下颊",
-        "左下颊",
-        "右下咬",
-        "左下咬",
-        "右下舌",
-        "左下舌"
+        "右上颊侧",
+        "左上颊侧",
+        "右上咬合",
+        "左上咬合",
+        "右上舌侧",
+        "左上舌侧",
+        "右下颊侧",
+        "左下颊侧",
+        "右下咬合",
+        "左下咬合",
+        "右下舌侧",
+        "左下舌侧"
     ]
 
     var body: some View {
@@ -411,8 +415,8 @@ struct Conclusion: View {
                 }
                 Group {
                     if !hotList.isEmpty {
-                        HotWord(hotWords[hotList[0]])
-                            .offset(x: widthHalf*0.6, y: -heightHalf*0.64)
+                        HotWord(hotWords[hotList[0]],paddingH: 15)
+                            .offset(x: widthHalf*0.6, y: -heightHalf*0.7)
                         HotWord(hotWords[hotList[1]],
                                 paddingH: 10, paddingV: 10)
                         .offset(x: -widthHalf*0.5, y: -heightHalf*0.52)

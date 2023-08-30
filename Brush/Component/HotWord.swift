@@ -15,7 +15,7 @@ struct HotWord: View {
     @State private var shadowRadius: Double = 0
     @State private var shadowX: Double = 0
     @State private var shadowY: Double = 0
-    init(_ content: String, paddingH: CGFloat = 20, paddingV: CGFloat = 15) {
+    init(_ content: String, paddingH: CGFloat = 18, paddingV: CGFloat = 15) {
         self.content = content
         self.paddingV = paddingV
         self.paddingH = paddingH

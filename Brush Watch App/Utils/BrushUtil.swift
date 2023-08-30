@@ -95,10 +95,6 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
         let score: ScoreEntity = scoreUtil.getSaveScore()
         if score.userId != -1 {
             Task {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-                let brushTime = dateFormatter.string(from: .now)
                 let url: String = "https://tunebrush-api.shawnxixi.icu/api/record"
                 let response: Response<Int?> = try await ApiClient.request(url, method: .POST, param: score)
                 // TODO
@@ -174,6 +170,10 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
         if message["userId"] != nil {
             replyHandler(["success": true])
             let userId = message["userId"] as! Int
+            let hasBeat = message["hasBeat"] as! Bool
+            DispatchQueue.main.async {
+                self.hasBeat = hasBeat
+            }
             HapticUtil.getFromPhone()
             startBrush()
             DataUtil.saveUserId(userId)
