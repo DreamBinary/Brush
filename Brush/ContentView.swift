@@ -20,18 +20,6 @@ struct ContentView: View {
                 reducer: Main()
             )
         )
-        .onAppear {
-            Task {
-                //                    let user = User()
-                let response: Response<User?> = try await ApiClient.request("https://tunebrush-api.shawnxixi.icu/api/users/login", method: .POST, params: ["email": "tunebrush@shawnxixi.icu","plainPassword": "qqqqqq"])
-                print("TAG", response.code ?? 0)
-                print("TAG", response.data)
-                //                    let score = ScoreEntity()
-                //                    let data = try JSONEncoder().encode(score)
-                //                            let dataString = String(data: data, encoding: .utf8)
-                //                            print(dataString)
-            }
-        }
         
 //        EmptyPageView()
 //        Text("\(Date().time())")

@@ -18,12 +18,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-struct UserEntity: Codable, Equatable {
-    var email: String?
-    var username: String?
-    var avatar: Int?
-    var signature: String?
-    var id: Int?
-    var registerTime: Date?
-}

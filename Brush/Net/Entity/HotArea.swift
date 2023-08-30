@@ -8,6 +8,5 @@
 import Foundation
 
 struct HotArea: Codable {
-    var userId: Int = -1
     var hotArea: [Int] = []
 }

@@ -12,6 +12,7 @@ struct StartBrush: View {
     let util = WatchUtil()
     @State private var isPresented: Bool = false
     @State private var msg: String = ""
+    @State private var hasBeat: Bool = false
     var body: some View {
         BgColor {
             GeometryReader { geo in
@@ -35,6 +36,14 @@ struct StartBrush: View {
                         .fontWeight(.regular)
                         .foregroundColor(.fontGray)
                     Spacer()
+                    
+                    HStack(spacing: 2) {
+                        Text("节拍器").font(.footnote)
+                        Image(systemName: hasBeat ? "checkmark.circle" :"circle").resizable().frame(width: 12, height: 12)
+                    }.onTapGesture {
+                        hasBeat.toggle()
+                    }.foregroundColor(.fontGray)
+                    
                     BrushIcon(
                         radius: 30,
                         color: .white,
@@ -72,7 +81,7 @@ struct StartBrush: View {
                     util.activate()
                     return
                 }
-                util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1], onSuccess: onStart)
+                util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1, "hasBeat": hasBeat], onSuccess: onStart)
 //                var i = 0
 //                while (!util.isReachable() && i < 3) {
 //                    usleep(500000)

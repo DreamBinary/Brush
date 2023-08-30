@@ -14,9 +14,10 @@ import SwiftUI
 
 struct AnalysisSection: ReducerProtocol {
     struct State: Equatable {
+        var hasData: Bool = false
         var topScore: Int = 0
         var avgPower: Double = 0
-        var hasData: Bool = false
+        var hotArea: [Int] = []
         var scoreList: [ScorePoint] = []
         var curMonth: Int = Date().monthNum()
         @BindingState var isShowMothly = false
@@ -81,7 +82,7 @@ struct AnalysisSectionView: View {
                     }
                     VStack(spacing: 15) {
                         Average(avgPower: vStore.avgPower).frame(height: height*0.25)
-                        Conclusion().frame(height: height*0.75)
+                        Conclusion(hotList: vStore.hotArea).frame(height: height*0.75)
                     }
                 }
             }.padding(.horizontal)
