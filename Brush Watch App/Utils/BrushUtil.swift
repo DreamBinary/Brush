@@ -69,13 +69,12 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
             Task {
                 await scoreUtil.sectionProcces()
             }
-            sleep(1)
+            sleep(1) 
             changePage()
         }
         MotionUtil.stop()
         reset()
         saveScore()
-        print("TAG", "--------------", "finish")
     }
     
     private func beatTip() async {
@@ -88,29 +87,24 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
     private func timeCount() async {
         for _ in 0 ... 10 {
             try! await Task.sleep(for: .seconds(1))
-            await scoreUtil.addSecond()
+            scoreUtil.addSecond()
         }
     }
     
     private func saveScore() {
         let score: ScoreEntity = scoreUtil.getSaveScore()
-        if let userId = DataUtil.getUserId() {
+        if score.userId != -1 {
             Task {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                 dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
                 let brushTime = dateFormatter.string(from: .now)
                 let url: String = "https://tunebrush-api.shawnxixi.icu/api/record"
-                let response: Response<Int?> = try await ApiClient.request(url, method: .POST, params: [
-                    "userId": userId,
-                    "brushTime": brushTime,
-                    "timeScore": score.timeScore,
-                    "powerScore": score.powerScore,
-                    "powerScoreList": score.powerScoreList
-                ])
-                print("TAG", response.code)
-                print("TAG", response.message)
-                print("TAG", response.data)
+                let response: Response<Int?> = try await ApiClient.request(url, method: .POST, param: score)
+                // TODO
+                print("TAG", "response", response.code)
+                print("TAG", "response", response.message)
+                print("TAG", "response", response.data)
             }
         }
     }
@@ -140,8 +134,14 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
         return scoreUtil.getScore()
     }
     
-    func changePage() {
+    func updateState() {
         DispatchQueue.main.async {
+            self.brushState = self.brushState
+            self.cSection = self.cSection
+        }
+    }
+    
+    func changePage() {
             if self.brushState == .ed {
                 self.cSection = SectionUtil.getNext(self.cSection)
             }
@@ -165,7 +165,6 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
                     }
                 }()
             }
-        }
     }
     
     func session(_ session: WCSession,

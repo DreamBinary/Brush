@@ -110,6 +110,9 @@ import SwiftUI
 
 struct Brush: View {
     @ObservedObject private var util = BrushUtil()
+//    @State var brushState: BrushState = .start
+//    var cSection: Section = .ORT
+    private var notificationCenter = NotificationCenter.default.publisher(for: WKExtension.applicationDidBecomeActiveNotification)
     var body: some View {
         Group {
             switch util.brushState {
@@ -133,6 +136,8 @@ struct Brush: View {
                     Score(score: util.getBrushScore()) { util.changePage() }
 //                    Score(score: ["powerScore": 90, "timeScore": 85, "sectionScore": 77], onBtnTap: { util.changePage() })
             }
+        }.onReceive(notificationCenter) { _ in
+            util.updateState()
         }
     }
 }

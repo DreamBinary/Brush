@@ -90,10 +90,6 @@ struct AnalysisSectionView: View {
                         if !vStore.hasData {
                             ProgressView()
                                 .frame(width: .infinity, height: .infinity)
-                        } else if (vStore.scoreList.isEmpty){
-                            GeometryReader { geo in
-                                EmptyPageView()
-                            }
                         } else {
                             RatingLine(scoreList: vStore.scoreList)
                         }

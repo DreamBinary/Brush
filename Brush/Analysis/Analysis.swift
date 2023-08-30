@@ -16,6 +16,7 @@ struct Analysis: ReducerProtocol {
         var curMonth: Int = Date().monthNum() // from 1 start
         var monthlyTop: Int = 0
         var avgPower: Double = 0
+        var hotArea: [Int] = []
         var analysisSection: AnalysisSection.State?
         var hasData: Bool = false
     }
@@ -31,6 +32,8 @@ struct Analysis: ReducerProtocol {
         case updateMonthlyTopCompleted(Int)
         case updateAvg
         case updateAvgCompleted
+        case updateHotword
+        case updateHotwordCompleted([Int])
         case noData
     }
 
@@ -78,9 +81,28 @@ struct Analysis: ReducerProtocol {
                         try await Task.sleep(nanoseconds: 3_000_000_000)
                         return .updateAvgCompleted
                     }
+                case .updateHotword:
+                    if let userId = DataUtil.getUser()?.id {
+                    
+                        return .task { [month = state.curMonth] in
+                            let date = "\(Date().yearNum())-\(month)-1"
+                            let response: Response<HotArea?> = try await ApiClient.request(Url.monthTop + "/\(userId)" + "/\(date)", method: .GET)
+                            if response.code == 200 {
+                                let score: HotArea = response.data!!
+                                return .updateHotwordCompleted(score.hotArea)
+                            }
+                            return .noData
+                        }
+                    } else {
+                        return Effect.send(.noData)
+                    }
+                    
+                case let .updateHotwordCompleted(hotArea):
+                    
+                    return .none
                 case .updateAvgCompleted:
                     if state.analysisSection == nil {
-                        state.analysisSection = AnalysisSection.State(avgPower: 1, curMonth: state.curMonth)
+                        state.analysisSection = AnalysisSection.State(avgPower: 0.65, curMonth: state.curMonth)
                     } else {
                         state.analysisSection?.avgPower = 1
                     }
@@ -134,7 +156,7 @@ struct AnalysisView: View {
                     if (vStore.hasData) {
                         AnalysisSectionView(store: $0)
                     } else {
-                        EmptyPageView(onRefresh: {vStore.send(.analysisSectionInit)})
+                        EmptyPageView(onTap: {vStore.send(.onTapGetStarted)})
                     }
                 } else: {
                     ProgressView()

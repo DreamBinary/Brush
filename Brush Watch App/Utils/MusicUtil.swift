@@ -11,7 +11,7 @@ import Foundation
 class MusicUtil {
     private var player: AVPlayer?
     // TODO
-    private var normalAcce: Double = 0.4039051074102969
+    private var normalAcce: Double = 0.0038730531610324487
     init(res: String) {
         if let url = Bundle.main.url(forResource: res, withExtension: "mp3") {
             self.player = AVPlayer(url: url)

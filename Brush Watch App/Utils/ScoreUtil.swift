@@ -13,26 +13,40 @@ class ScoreUtil {
     private var powerInSection: [Int] = [] // length 12
     //    private var time: Int = 0 // total time is 11 * 12 = 132
     private var timeInSection: [Int] = []
-    private var varInSection: [Int] = []
+    private var freqInSection: [Int] = []
     
     private var totalTimeInSection = 11
     private var preDataInSecond: [[(Double, Double, Double)]] = .init(repeating: [], count: 15)
     private var curSecond = 0
+    private var curSection = 0
     private var score: ScoreEntity?
-    private var normalSpeed: Double = 0.33259184633785926
+    private var normalSpeed: [Double] = [
+        0.050139283943483964,
+        0.021311427065076022,
+        0.03845948726513084,
+        0.03365938355637671,
+        0.023818965945736965,
+        0.043329226200358804,
+        0.006195444499411325,
+        0.0317825916453359,
+        0.021329749070856135,
+        0.02310970736527835,
+        0.02423553891330917,
+        0.023218234100593038
+    ]
     
     func getPreDataInSecond(x: Double, y: Double, z: Double) {
         print("TAG", x, y, z)
         preDataInSecond[curSecond].append((x, y, z))
     }
     
-    func addSecond() async {
-//        print("TAG", "dataLength", preDataInSecond[curSecond].count)
+    func addSecond() {
+        //        print("TAG", "dataLength", preDataInSecond[curSecond].count)
         curSecond += 1
     }
     
     func sectionProcces() async {
-//        print("TAG", "section-------------------------------------------------------")
+        //        print("TAG", "section-------------------------------------------------------")
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
                 await self.computeTime()
@@ -48,22 +62,22 @@ class ScoreUtil {
             group.addTask {
                 await self.computePower()
             }
-            
         }
         preDataInSecond = [[(Double, Double, Double)]](repeating: [], count: 15)
-        curSecond = 0
         dataOneSection.removeAll()
+        curSecond = 0
+        curSection += 1
     }
     
-    // TODO
+    // TODO:
     func getScore() -> [String: Int] {
         var result: [String: Int] = [:]
         //        var powerScore: Int
         //        var timeScore: Int
         //        var sectionScore: Int
-        print("TAG", "time", time)
-        print("TAG", "dataInSecond", dataOneSection)
-        print("TAG", "scoreInSection", powerInSection)
+//        print("TAG", "time", time)
+//        print("TAG", "dataInSecond", dataOneSection)
+//        print("TAG", "scoreInSection", powerInSection)
         
         result["powerScore"] = score?.powerScore
         result["timeScore"] = score?.timeScore
@@ -71,18 +85,39 @@ class ScoreUtil {
         return result
     }
     
-    // TODO
     func getSaveScore() -> ScoreEntity {
+        let timeScore: Int = getTimeScore()
+        let powerScore: Int = getAvg(data: powerInSection)
+        let frequencyScore: Int = getAvg(data: freqInSection)
+        let totalScore = Int(Double(timeScore) * 0.3 + Double(frequencyScore) * 0.4 + Double(powerScore) * 0.3)
+            
+        let areaTimeScoreList: [Int] = timeInSection.map { time in
+            Int(Double(time) / 11 * 100)
+        }
+        
+        var areaTotalScoreList: [Int] = []
+        for i in 0 ... 10 {
+            let t = Double(areaTimeScoreList[i]) * 0.3
+            let f = Double(freqInSection[i]) * 0.4
+            let p = Double(powerInSection[i]) * 0.3
+            areaTotalScoreList.append(Int(t + f + p))
+        }
         score = ScoreEntity(
-            timeScore: getTimeScore(),
-            powerScore: getAvg(data: powerInSection),
-            powerScoreList: powerInSection
+            userId: DataUtil.getUserId() ?? -1,
+            totalScore: totalScore,
+            timeScore: timeScore,
+            frequencyScore: frequencyScore,
+            powerScore: powerScore,
+            areaTotalScoreList: areaTotalScoreList,
+            areaTimeScoreList: areaTimeScoreList,
+            areaFrequencyScoreList: freqInSection,
+            areaPowerScoreList: powerInSection
         )
         return score!
     }
     
     private func getTimeScore() -> Int {
-        let n: Double = 12.0
+        let n = 12.0
         let x: Double = 132
         var sum: Double = 0
         for t in timeInSection {
@@ -94,7 +129,7 @@ class ScoreUtil {
     }
     
     private func computeTime() async {
-        var time: Int = 0
+        var time = 0
         for i in 0 ..< totalTimeInSection {
             var cnt = 0
             preDataInSecond[i].forEach { x, y, z in
@@ -123,7 +158,7 @@ class ScoreUtil {
                 ty += y / length
                 tz += z / length
             }
-            if (i == 0) {
+            if i == 0 {
                 vx.append(tx)
                 vy.append(tx)
                 vz.append(tx)
@@ -132,7 +167,7 @@ class ScoreUtil {
                 vy.append(vy[i - 1] + ty)
                 vz.append(vz[i - 1] + tz)
             }
-//            print("TAG", "XYZ", vx[i], vy[i], vz[i])
+            //            print("TAG", "XYZ", vx[i], vy[i], vz[i])
             dataOneSection.append(sqrt(vx[i] * vx[i] + vy[i] * vy[i] + vz[i] * vz[i]))
         }
         //        let datas = await getDataInSecond()
@@ -148,10 +183,9 @@ class ScoreUtil {
         powerInSection.append(Int(abs(avg)))
     }
     
-    // TODO:
     private func computeScoreOneSecond(data: Double) -> Double {
-        let tmp = 100.0 / normalSpeed * data
-        if data <= normalSpeed {
+        let tmp = 100.0 / normalSpeed[curSection] * data
+        if data <= normalSpeed[curSection] {
             return tmp
         } else {
             return 200.0 - tmp
@@ -162,19 +196,17 @@ class ScoreUtil {
         let mean = dataOneSection.reduce(0, +) / Double(dataOneSection.count)
         let squaredDifferences = dataOneSection.map { pow($0 - mean, 2) }
         let variance = squaredDifferences.reduce(0, +) / Double(dataOneSection.count)
-        varInSection.append(Int(variance))
+        freqInSection.append(Int(100 - 10 * variance)) // TODO:
     }
     
-    // TODO:
     private func isMotion(_ x: Double, _ y: Double, _ z: Double) -> Bool {
-        let nX = 0.1
-        let nY = 0.1
-        let nZ = 0.1
-        // TODO
+        let nX = 0.000366306885014566
+        let nY = 0.0015221705350456447
+        let nZ = 0.0035425071512155378
         let xx = abs(x)
         let yy = abs(y)
         let zz = abs(z)
-        if (xx < nX * 1.5 || xx > nX * 0.5) && (yy < nY * 1.5 || yy > nY * 0.5) && (zz < nZ * 1.5 || zz > nZ * 0.5) {
+        if (xx < nX * 1.5 && xx > nX * 0.5) || (yy < nY * 1.5 && yy > nY * 0.5) || (zz < nZ * 1.5 && zz > nZ * 0.5) {
             return true
         }
         return false
@@ -211,7 +243,6 @@ class ScoreUtil {
     //        }
     //    }
     
-    
     //    private func getDataInSecond() async -> [[Double]] {
     //        var datas: [[Double]] = []
     //        var vx: [Double] = []
@@ -247,8 +278,6 @@ class ScoreUtil {
     //            dataInSecond.append(avg)
     //        }
     //    }
-    
-
     
     private func getAvg(data: [Double]) -> Double {
         return data.reduce(0, +) / Double(data.count)

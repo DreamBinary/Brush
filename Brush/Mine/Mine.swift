@@ -306,7 +306,6 @@ struct BrushCaseCard: View {
 struct ToothBrushCard: View {
     var day: Int?
     @State private var value = 0
-    let notify = NotifyUtil()
     var body: some View {
         Card(color: Color(0xA9FDC0)) {
             ZStack(alignment: .bottomLeading) {

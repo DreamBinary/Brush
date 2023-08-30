@@ -20,7 +20,7 @@ import Foundation
 //    }
 //}
 
-class User: Codable, Equatable {
+struct User: Codable, Equatable {
     var email: String?
     var username: String?
     var avatar: Int?
@@ -28,35 +28,35 @@ class User: Codable, Equatable {
     var id: Int?
     var registerTime: Date?
     
-    public var description: String {
-        return """
-        email = \(email ?? "")
-        username = \(username ?? "")
-        avatar = \(avatar ?? 0)
-        signature = \(signature ?? "")
-        id = \(id ?? 0)
-        registerTime = \(registerTime ?? Date())
-        """
-    }
-    
-    
-    enum CodingKeys: String, CodingKey {
-        case email = "email"
-        case username = "username"
-        case avatar = "avatar"
-        case signature = "signature"
-        case id = "id"
-        case registerTime = "registerTime"
-    }
-    
-    init(email: String? = "", username: String? = "", avatar: Int? = 0, signature: String? = "", id: Int? = 0, registerTime: Date? = Date()) {
-        self.email = email
-        self.username = username
-        self.avatar = avatar
-        self.signature = signature
-        self.id = id
-        self.registerTime = registerTime
-    }
+//    public var description: String {
+//        return """
+//        email = \(email ?? "")
+//        username = \(username ?? "")
+//        avatar = \(avatar ?? 0)
+//        signature = \(signature ?? "")
+//        id = \(id ?? 0)
+//        registerTime = \(registerTime ?? Date())
+//        """
+//    }
+//
+//
+//    enum CodingKeys: String, CodingKey {
+//        case email = "email"
+//        case username = "username"
+//        case avatar = "avatar"
+//        case signature = "signature"
+//        case id = "id"
+//        case registerTime = "registerTime"
+//    }
+//
+//    init(email: String? = "", username: String? = "", avatar: Int? = 0, signature: String? = "", id: Int? = 0, registerTime: Date? = Date()) {
+//        self.email = email
+//        self.username = username
+//        self.avatar = avatar
+//        self.signature = signature
+//        self.id = id
+//        self.registerTime = registerTime
+//    }
     
     
     //    required init(from decoder: Decoder) throws {
@@ -80,9 +80,4 @@ class User: Codable, Equatable {
     //        self.signature = try container.decodeIfPresent(String.self, forKey: .signature)
     //        self.id = try container.decodeIfPresent(Int.self, forKey: .id)
     //    }
-    
-    public static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.email == rhs.email && lhs.username == rhs.username && lhs.avatar == rhs.avatar && lhs.signature == rhs.signature && lhs.id == rhs.id && lhs.registerTime == rhs.registerTime
-    }
-    
 }

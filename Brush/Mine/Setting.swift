@@ -101,7 +101,7 @@ struct Setting: ReducerProtocol {
                     return .none
 
                 case .updateSuccess:
-                    let user: User = DataUtil.getUser() ?? User()
+                    var user: User = DataUtil.getUser() ?? User()
                     user.username = state.name
                     user.signature = state.label
                     DataUtil.saveUser(user)

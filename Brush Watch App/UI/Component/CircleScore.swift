@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct CircleScore: View {
-    var firstScore: Int = 80
-    var secondScore: Int = 70
-    var thirdScore: Int = 77
+    var firstScore: Int = 0
+    var secondScore: Int = 0
+    var thirdScore: Int = 0
     var body: some View {
         GeometryReader { geo in
             let width = geo.size.width
@@ -25,7 +25,7 @@ struct CircleScore: View {
 }
 
 extension CircleScore {
-    init(powerScore firstScore: Int, timeScore secondScore: Int, sectionScore thirdScore: Int) {
+    init(timeScore firstScore: Int, freqScore secondScore: Int, powerScore thirdScore: Int) {
         self.firstScore = firstScore
         self.secondScore = secondScore
         self.thirdScore = thirdScore

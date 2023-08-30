@@ -8,7 +8,13 @@
 import Foundation
 
 struct ScoreEntity: Codable {
+    var userId: Int = 0
+    var totalScore: Int = 0
     var timeScore: Int = 0
+    var frequencyScore: Int = 0
     var powerScore: Int = 0
-    var powerScoreList: [Int] = []
+    var areaTotalScoreList: [Int] = []
+    var areaTimeScoreList: [Int] = []
+    var areaFrequencyScoreList: [Int] = []
+    var areaPowerScoreList: [Int] = []
 }

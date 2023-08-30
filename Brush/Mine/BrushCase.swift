@@ -110,9 +110,9 @@ struct OneBrushCase: View {
         GeometryReader { geo in
             let width = geo.size.width
             VStack {
-                CircleScore(powerScore: score.powerScore, timeScore: score.timeScore, sectionScore: score.powerScoreList.min() ?? 0)
+                CircleScore(timeScore: score.timeScore, freqScore: score.frequencyScore, powerScore: score.powerScore)
                     .frame(width: width * 0.7, height: width * 0.7)
-                ScoreRow(powerScore: score.powerScore, timeScore: score.timeScore, sectionScore: score.powerScoreList.min() ?? 0)
+                ScoreRow(timeScore: score.timeScore, freqScore: score.frequencyScore, powerScore: score.powerScore)
                 ResultPageView()
                 Spacer()
             }
@@ -121,33 +121,32 @@ struct OneBrushCase: View {
 }
 
 struct ScoreRow: View {
-    let powerScore: Int
     let timeScore: Int
-    let sectionScore: Int
+    let freqScore: Int
+    let powerScore: Int
     var body: some View {
         VStack {
             HStack {
                 Spacer()
-                // TODO
-                VStack(alignment: .leading) {
-                    Text("力度评分").font(.caption)
-                    Text("\(powerScore)/100").foregroundColor(.init(0x7DEED3))
-                }
-                Spacer()
                 VStack(alignment: .leading) {
                     Text("时长评分").font(.caption)
-                    Text("\(timeScore)/100").foregroundColor(.init(0x91E3FB))
+                    Text("\(timeScore)/100").foregroundColor(.init(0x7DEED3))
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("片区最低").font(.caption)
-                    Text("\(sectionScore)/100").foregroundColor(.init(0x5D8FEF))
+                    Text("频率评分").font(.caption)
+                    Text("\(freqScore)/100").foregroundColor(.init(0x91E3FB))
+                }
+                Spacer()
+                VStack(alignment: .leading) {
+                    Text("力度评分").font(.caption)
+                    Text("\(powerScore)/100").foregroundColor(.init(0x5D8FEF))
                 }
                 Spacer()
             }.font(.title)
                 .fontWeight(.bold)
-
-            TwoWord(first: "\(Int((powerScore + timeScore + sectionScore) / 3))", second: "分",
+            // TODO totalScore
+            TwoWord(first: "\(Int((powerScore + timeScore + freqScore) / 3))", second: "分",
                     firstFont: .system(size: UIFont.textStyleSize(.largeTitle) * 1.5), secondColor: .primary)
             Text("你还可以做得更好！").font(.caption).foregroundColor(.fontGray)
         }
@@ -275,6 +274,8 @@ struct SectionResultView: View {
     var section: String
     var point0: String
     var point1: String
+    // TODO
+//    var score: Int
     var body: some View {
         VStack {
             Spacer()
@@ -301,7 +302,9 @@ struct SectionResultView: View {
                 }
             }
             Spacer()
-            CircularProgressView(score: 82, foregroundColors: [Color.primary], lineWidth: 10, radius: 30)
+            // TODO
+            CircleScore(timeScore: 0, freqScore: 0, powerScore: 0)
+//            CircularProgressView(score: 82, foregroundColors: [Color.primary], lineWidth: 10, radius: 30)
             Spacer()
             HStack {
                 Spacer()

@@ -21,7 +21,7 @@ class HapticUtil {
     }
     
     static func change() {
-        device.play(.notification)
+        device.play(.success)
     }
     
     static func alert() {
@@ -37,8 +37,6 @@ class HapticUtil {
     }
     
     static func beat() {
-        device.play(.success)
-    }
-    
-    
+        device.play(.notification)
+    } 
 }
