@@ -145,7 +145,7 @@ struct MineView: View {
                                             .onTapGesture {
                                                 vStore.send(.showBrushCase)
                                             }
-                                        ToothBrushCard(day: vStore.toothBrush?.toothBrush.daysUsed ?? -1)
+                                        ToothBrushCard(day: vStore.toothBrush?.toothBrush?.daysUsed ?? -1)
                                             .onTapGesture {
                                                 vStore.send(.showToothBrush)
                                             }
@@ -189,7 +189,7 @@ struct MineView: View {
                         action: Mine.Action.toothBrush
                     )
                 ) {
-                    ToothBrushView(store: $0).presentationDragIndicator(.visible)
+                    ToothBrushView(store: $0).presentationDetents([.medium]).presentationDragIndicator(.visible)
                 }
             }.sheet(isPresented: vStore.binding(\.$isShowSetting)) {
                 SettingView(

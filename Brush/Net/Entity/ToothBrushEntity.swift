@@ -7,11 +7,7 @@
 
 import Foundation
 
-class ToothBrushEntity: Codable, Identifiable, Equatable {
-    static func == (lhs: ToothBrushEntity, rhs: ToothBrushEntity) -> Bool {
-        return lhs.id == rhs.id
-    }
-
+struct ToothBrushEntity: Codable, Equatable {
     var daysUsed: Int = -1
     var daysRemaining: Int = -1
 }
