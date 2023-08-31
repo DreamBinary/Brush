@@ -96,7 +96,7 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
         if score.userId != -1 {
             Task {
                 let url: String = "https://tunebrush-api.shawnxixi.icu/api/record"
-                let response: Response<Int?> = try await ApiClient.request(url, method: .POST, param: score)
+                let _: Response<Int?> = try await ApiClient.request(url, method: .POST, param: score)
                 // TODO
 //                print("TAG", "response", response.code)
 //                print("TAG", "response", response.message)

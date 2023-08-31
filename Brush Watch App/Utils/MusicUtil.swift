@@ -27,7 +27,7 @@ class MusicUtil {
     // TODO
     func changeVolumn(_ x: Double, _ y: Double, _ z: Double) {
         let t: Double = sqrt(x * x + y * y + z * z)
-        player?.volume = min(Float(0.9 * t / normalAcce + 0.2), 5)
+        player?.volume = min(Float(0.9 * t / normalAcce + 0.1), 10)
     }
 
     func stop() {

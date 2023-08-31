@@ -71,7 +71,11 @@ struct Main: ReducerProtocol {
                 // TODO
                 case let .login(.enterInput(.loginFail(code))):
                     var msg: String = ""
-                    
+                    if (code == 200) {
+                        msg = "登录成功"
+                    } else {
+                        msg = "登录失败"
+                    }
                     state.toastState.text = msg
                     state.toastState.toastType = .fail
                     return .none
