@@ -78,8 +78,8 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
     }
     
     private func beatTip() async {
-        for _ in 0 ... 6 {
-            try! await Task.sleep(for: .milliseconds(1375))
+        for _ in 0 ... 14 {
+            try! await Task.sleep(for: .microseconds(687500))
             HapticUtil.beat()
         }
     }
