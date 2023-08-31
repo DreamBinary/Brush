@@ -41,7 +41,7 @@ struct ToothBrush: ReducerProtocol {
                     return .none
                 case .onAddConfirm:
                     state.isShowingAlert = false
-                    return .none
+                    return Effect.send(.addToothBrush)
                 case .onAddBtn:
                     state.isShowingAlert = true
                     return .none
