@@ -20,7 +20,7 @@ struct Mine: ReducerProtocol {
                 ?? Date().timeIntervalSince1970))
         var todayScore: Int = -1
         var brushCase: BrushCase.State?
-        var toothBrush: ToothBrush.State?
+        var toothBrush: ToothBrush.State?   
         var setting = Setting.State()
     }
 
