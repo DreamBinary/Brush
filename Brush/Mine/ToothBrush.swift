@@ -155,7 +155,7 @@ struct HasToothBrushView: View {
             let width = geo.size.width
             VStack {
                 Spacer()
-                Image("ToothBrush0")
+                Image("ToothBrush1")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .mask(

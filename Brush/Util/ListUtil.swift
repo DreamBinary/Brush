@@ -14,7 +14,7 @@ class ListUtil {
         }
 
         var indices: [Int] = []
-        var sortedArray = array.enumerated().sorted { $0.element < $1.element }
+        let sortedArray = array.enumerated().sorted { $0.element < $1.element }
 
         for i in 0 ..< count {
             indices.append(sortedArray[i].offset)

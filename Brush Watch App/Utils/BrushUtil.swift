@@ -15,7 +15,7 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
     @Published var cSection: Section = .ORT
     @Published var cnt: Int = 3
     @Published var isStarted = false
-    @Published var hasBeat = false
+    @Published var hasBeat = true
     private var musicUtil = MusicUtil(res: Section.ORT.rawValue)
     private var scoreUtil = ScoreUtil()
     private lazy var bgRun = BgRunUtil(onStart: {
@@ -96,7 +96,7 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
         if score.userId != -1 {
             Task {
                 let url: String = "https://tunebrush-api.shawnxixi.icu/api/record"
-                let response: Response<Int?> = try await ApiClient.request(url, method: .POST, param: score)
+                let _: Response<Int?> = try await ApiClient.request(url, method: .POST, param: score)
                 // TODO
 //                print("TAG", "response", response.code)
 //                print("TAG", "response", response.message)

@@ -86,7 +86,7 @@ struct RouteView: View {
                 ) {
                     BrushView(
                         store: store.scope(state: \.brush, action: Route.Action.brush)
-                    ).presentationDragIndicator(.visible)
+                    ).presentationDetents([.large]).presentationDragIndicator(.visible)
                 }
 //                .onAppear {
 //                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation") // Forcing the rotation to portrait

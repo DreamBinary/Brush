@@ -18,6 +18,7 @@ struct Setting: ReducerProtocol {
         @BindingState var label: String
         @BindingState var isShowModify = false
         @BindingState var isShowDelete = false
+        @BindingState var isShowCourse = false
         @BindingState var isShowAbout = false
 
         @BindingState var showToast: Bool = false
@@ -38,6 +39,7 @@ struct Setting: ReducerProtocol {
         case disSetting
         case showModify
         case showDelete
+        case showCourse
         case showAbout
         case logout
         case logoutSuccess
@@ -64,7 +66,9 @@ struct Setting: ReducerProtocol {
                 case .showAbout:
                     state.isShowAbout = true
                     return .none
-
+                case .showCourse:
+                    state.isShowCourse = true
+                    return .none
                 case .logout:
                     if let userId = DataUtil.getUser()?.id {
                         return .task {
@@ -182,7 +186,7 @@ struct SettingView: View {
                     SettingRow(imgName: "bookmark", title: "TuneBrush 教程", content: {
                         Image(systemName: "chevron.forward")
                     }) {
-                        vStore.send(.showAbout)
+                        vStore.send(.showCourse)
                     }
                 }.listRowBackground(Color(0xA0D6E5, 0.4))
 
@@ -211,9 +215,13 @@ struct SettingView: View {
                     )
                 )
             }
+            .sheet(isPresented: vStore.binding(\.$isShowCourse)) {
+                Course()
+                    .presentationDetents([.large]).presentationDragIndicator(.visible)
+            }
             .sheet(isPresented: vStore.binding(\.$isShowAbout)) {
                 AboutMe()
-                    .presentationDragIndicator(.visible)
+                    .presentationDetents([.medium]).presentationDragIndicator(.visible)
             }
             .onTapGesture {
                 focu = nil
@@ -235,9 +243,88 @@ struct SettingView: View {
     }
 }
 
+struct Course: View {
+    var body: some View {
+        TabView {
+            CourseOnePage(index: 1, title: "连接 Apple Watch", content: "TuneBrush需要连接您的Apple Watch来获取您更精确的刷牙信息,给您更真实的科学刷牙反 馈,为您提供更沉浸的音乐交互体验")
+            CourseOnePage(index: 2,title: "分片区刷牙", content: "按照美国soidhqowh协会科学刷牙依据,每颗牙来回刷动7~8次能够较好地起到清洁效果,TuneBrush将您的牙齿划分别按照左右上下,颊侧面、舌侧面和咬合面12个片区")
+            CourseOnePage(index: 3,title: "鼓点引导", content: "每个片区会有一段音乐，可以根据 Apple Watch 震动引导刷动规定音乐鼓点")
+            CourseOnePage(index: 4, title: "切换提示", content: "在完成当前片区之后,TuneBrush 会为您提供片区切换的提示")
+            CourseOnePage(index: 5, title: "刷牙评分", content: "12 个片区全都完成之后,TuneBrush 将会为您反馈本次刷牙评分,让您更好地养成科学刷牙习惯")
+        }.tabViewStyle(.page(indexDisplayMode: .always))
+            .edgesIgnoringSafeArea(.bottom)
+    }
+}
+
+struct CourseOnePage: View {
+    let index: Int
+    let title: String
+    let content: String
+    
+    private let backgroundColors: [Color] = [
+        Color(0x7DE2D1, 1),
+        Color(0x9BEADC, 0.69),
+        Color(0xCAFBF3, 1),
+        Color(0xBAFEF3, 0.52),
+        Color(0xDBFFF9, 0.25),
+        Color.bgWhite
+    ]
+    var body: some View {
+        GeometryReader { geo in
+            let width = geo.size.width
+            VStack {
+                Spacer()
+                Image("Course\(index)")
+                    .resizable()
+                    .scaledToFit()
+                    .padding(.vertical)
+                    .frame(width: width * 0.9)
+                
+                VStack(alignment: .leading, spacing: 8) {
+                        Text("\(index) ")
+                            .font(.system(size: UIFont.textStyleSize(.largeTitle) * 2))
+                        + Text(title)
+                            .font(.title)
+                    Text(content)
+                        .font(.body)
+                        .lineSpacing(4)
+                }.padding(.horizontal)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.fontBlack)
+                Spacer()
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .bottom, endPoint: .top)
+            )
+        }
+    }
+}
+
+
+
+
 struct AboutMe: View {
     var body: some View {
-        Text("About Me")
+        VStack {
+            Spacer()
+            Image("Logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 60, height: 60)
+                .padding(.all, 8)
+            Text("TuneBrush")
+                .font(.title)
+                .bold()
+            Text("Version 1.0.0")
+                .font(.body)
+            Spacer()
+            VStack(spacing: 4) {
+                Text("牙牙守护者 版权所有")
+                Text("Copyright ©️ 2023 TuneBrush-Team.")
+                Text("All Rights Reserved.")
+            }.font(.caption2)
+                .foregroundColor(.fontGray)
+        }
     }
 }
 
