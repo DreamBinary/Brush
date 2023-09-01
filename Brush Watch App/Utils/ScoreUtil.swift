@@ -98,8 +98,8 @@ class ScoreUtil {
         var areaTotalScoreList: [Int] = []
         for i in 0 ... 10 {
             let t = Double(areaTimeScoreList[i]) * 0.3
-            let f = Double(freqInSection[i]) * 0.4
-            let p = Double(powerInSection[i]) * 0.3
+            let f = Double(freqInSection[i]) * 0.3
+            let p = Double(powerInSection[i]) * 0.4
             areaTotalScoreList.append(Int(t + f + p))
         }
         score = ScoreEntity(

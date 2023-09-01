@@ -20,7 +20,7 @@ struct Mine: ReducerProtocol {
                 ?? Date().timeIntervalSince1970))
         var todayScore: Int = -1
         var brushCase: BrushCase.State?
-        var toothBrush: ToothBrush.State?   
+        var toothBrush: ToothBrush.State?
         var setting = Setting.State()
     }
 
@@ -32,7 +32,7 @@ struct Mine: ReducerProtocol {
         case showToothBrush
         case showBrushCase
         case showSetting
-        case joinDayInit
+        case userDataInit
         case toothBrushInit
         case toothBrushCompleted(ToothBrushEntity)
         case brushCaseInit
@@ -47,10 +47,14 @@ struct Mine: ReducerProtocol {
         BindingReducer()
         Reduce { state, action in
             switch action {
-            case .joinDayInit:
+            case .userDataInit:
+                let user = DataUtil.getUser()
+                
                 state.joinDay = Date().away(
-                    from: Date(timeIntervalSince1970: DataUtil.getUser()?.registerTime?.timeIntervalSince1970
+                    from: Date(timeIntervalSince1970: user?.registerTime?.timeIntervalSince1970
                         ?? Date().timeIntervalSince1970))
+                state.setting.name = user?.username ?? "Worsh"
+                state.setting.label = user?.signature ?? "I want BRIGHT smile"
                 return .none
                 
                 case .toothBrushInit:
@@ -205,7 +209,7 @@ struct MineView: View {
             }.onAppear {
                 vStore.send(.brushCaseInit)
                 vStore.send(.toothBrushInit)
-                vStore.send(.joinDayInit)
+                vStore.send(.userDataInit)
             }
         }
     }

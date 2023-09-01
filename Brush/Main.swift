@@ -16,7 +16,7 @@ struct Main: ReducerProtocol {
     struct State: Equatable {
         @BindingState var showToast: Bool = false
         var toastState: ToastState = .init()
-
+        @BindingState  var isShowCourse: Bool = false
         var isLogin: Bool = DataUtil.getLogin()
         var route = Route.State()
         var login = Login.State()
@@ -25,6 +25,7 @@ struct Main: ReducerProtocol {
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case showToast
+        case showCourse
         case route(Route.Action)
         case login(Login.Action)
     }
@@ -38,6 +39,9 @@ struct Main: ReducerProtocol {
             switch action {
                 case .showToast:
                     state.showToast = true
+                    return .none
+                case .showCourse:
+                    state.isShowCourse = true
                     return .none
                 case let .login(.enterInput(.signUpFail(code))):
                     var msg: String = ""
@@ -66,19 +70,18 @@ struct Main: ReducerProtocol {
                     state.toastState.text = SuccessMessage.login.rawValue
                     state.toastState.toastType = .success
                     DataUtil.setLogin()
-                    return Effect.send(.showToast)
+                return Effect.merge(
+                    Effect.send(.showToast),
+                    Effect.send(.showCourse)
+                )
                     
                 // TODO
-                case let .login(.enterInput(.loginFail(code))):
+                case let .login(.enterInput(.loginFail(_))):
                     var msg: String = ""
-                if (code == 200) {
-                    msg = "登录成功"
-                } else {
                     msg = "登录失败"
-                }
                     state.toastState.text = msg
                     state.toastState.toastType = .fail
-                    return .none
+                return Effect.send(.showToast)
                     
                 case .route(.mine(.logout)):
                     state.isLogin = false
@@ -133,7 +136,12 @@ struct MainView: View {
                     ).transition(.opacity)
                 }
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                .sheet(isPresented: vStore.binding(\.$isShowCourse)) {
+                    Course()
+                        .presentationDetents([.large]).presentationDragIndicator(.visible)
+                }
                 .toast(showToast: vStore.binding(\.$showToast), toastState: vStore.toastState)
+                
         }
     }
 }
