@@ -15,7 +15,7 @@ class BrushUtil: NSObject, ObservableObject, WCSessionDelegate {
     @Published var cSection: Section = .ORT
     @Published var cnt: Int = 3
     @Published var isStarted = false
-    @Published var hasBeat = false
+    @Published var hasBeat = true
     private var musicUtil = MusicUtil(res: Section.ORT.rawValue)
     private var scoreUtil = ScoreUtil()
     private lazy var bgRun = BgRunUtil(onStart: {

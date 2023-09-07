@@ -12,7 +12,7 @@ struct StartBrush: View {
     let util = WatchUtil()
     @State private var isPresented: Bool = false
     @State private var msg: String = ""
-    @State private var hasBeat: Bool = false
+    @State private var hasBeat: Bool = true
     var body: some View {
         BgColor {
             GeometryReader { geo in
@@ -75,23 +75,23 @@ struct StartBrush: View {
         
         util.startApp { success, _ in
             if success {
-                if !util.isReachable() {
-                    msg = "信号发送出了错,再试试或者手动打开吧"
-                    isPresented = true
-                    util.activate()
-                    return
-                }
-                util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1, "hasBeat": hasBeat], onSuccess: onStart)
-//                var i = 0
-//                while (!util.isReachable() && i < 3) {
-//                    usleep(500000)
-//                    util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1], onSuccess: onStart)
-//                    i += 1
-//                }
-//                if i >= 3 {
+//                usleep(500000)
+//                if !util.isReachable() {
 //                    msg = "信号发送出了错,再试试或者手动打开吧"
 //                    isPresented = true
+//                    util.activate()
+//                    return
 //                }
+                var i = 0
+                while (!util.isReachable() && i < 3) {
+                    usleep(500000)
+                    util.send2Watch(["userId": DataUtil.getUser()?.id ?? -1, "hasBeat": hasBeat], onSuccess: onStart)
+                    i += 1
+                }
+                if i >= 3 {
+                    msg = "信号发送出了错,再试试或者手动打开吧"
+                    isPresented = true
+                }
             } else {
                 msg = "TuneBrush Watch 打开失败了,再试试或者手动打开吧"
                 isPresented = true

@@ -32,6 +32,7 @@ struct Mine: ReducerProtocol {
         case showToothBrush
         case showBrushCase
         case showSetting
+        case userDataInit
         case toothBrushInit
         case toothBrushCompleted(ToothBrushEntity)
         case brushCaseInit
@@ -46,6 +47,16 @@ struct Mine: ReducerProtocol {
         BindingReducer()
         Reduce { state, action in
             switch action {
+            case .userDataInit:
+                let user = DataUtil.getUser()
+                
+                state.joinDay = Date().away(
+                    from: Date(timeIntervalSince1970: user?.registerTime?.timeIntervalSince1970
+                        ?? Date().timeIntervalSince1970))
+                state.setting.name = user?.username ?? "Worsh"
+                state.setting.label = user?.signature ?? "I want BRIGHT smile"
+                return .none
+                
                 case .toothBrushInit:
                     if let userId = DataUtil.getUser()?.id {
                         return .task {
@@ -180,7 +191,7 @@ struct MineView: View {
                         action: Mine.Action.brushCase
                     )
                 ) {
-                    BrushCaseView(store: $0).presentationDragIndicator(.visible)
+                    BrushCaseView(store: $0).presentationDetents([.large]).presentationDragIndicator(.visible)
                 }
             }.sheet(isPresented: vStore.binding(\.$isShowToothBrush)) {
                 IfLetStore(
@@ -194,10 +205,11 @@ struct MineView: View {
             }.sheet(isPresented: vStore.binding(\.$isShowSetting)) {
                 SettingView(
                     store: store.scope(state: \.setting, action: Mine.Action.setting)
-                ).presentationDragIndicator(.visible)
+                ).presentationDetents([.large]).presentationDragIndicator(.visible)
             }.onAppear {
                 vStore.send(.brushCaseInit)
                 vStore.send(.toothBrushInit)
+                vStore.send(.userDataInit)
             }
         }
     }

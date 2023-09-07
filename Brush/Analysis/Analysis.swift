@@ -12,7 +12,7 @@ import SwiftUI
 
 struct Analysis: ReducerProtocol {
     struct State: Equatable {
-        var name: String = DataUtil.getUser()?.username ?? "Worsh"
+        var name: String = "Worsh"
         var curMonth: Int = Date().monthNum() // from 1 start
         var monthlyTop: Int = 0
         var avgPower: Double = 0
@@ -26,6 +26,7 @@ struct Analysis: ReducerProtocol {
         case binding(BindingAction<State>)
         case analysisSection(AnalysisSection.Action)
         case analysisSectionInit
+        case nameInit
         case onTapGetStarted
         case onTapMonth(Int)
         case updateMonthlyTop
@@ -44,6 +45,9 @@ struct Analysis: ReducerProtocol {
             switch action {
                 case .binding, .analysisSection:
                     return .none
+            case .nameInit:
+                state.name = DataUtil.getUser()?.username ?? "Worsh"
+                return .none
                 case .analysisSectionInit:
                     state.analysisSection = nil
                     return Effect.merge(
@@ -177,6 +181,7 @@ struct AnalysisView: View {
                     LinearGradient(gradient: Gradient(colors: self.backgroundColors), startPoint: .top, endPoint: .bottom)
                 ).onAppear {
                     vStore.send(.analysisSectionInit)
+                    vStore.send(.nameInit)
                 }
         }
     }

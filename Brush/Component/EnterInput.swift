@@ -94,7 +94,7 @@ struct EnterInput: ReducerProtocol {
                 case let .loginSuccess(user):
                     state.buttonLoading = false
                     DataUtil.saveUser(user)
-              
+                print(user)
                     return .none
                 case .loginFail(_):
                     state.buttonLoading = false
