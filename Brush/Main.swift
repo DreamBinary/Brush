@@ -75,8 +75,7 @@ struct Main: ReducerProtocol {
                     Effect.send(.showCourse)
                 )
                     
-                // TODO
-                case let .login(.enterInput(.loginFail(_))):
+                case .login(.enterInput(.loginFail(_))):
                     var msg: String = ""
                     msg = "登录失败"
                     state.toastState.text = msg

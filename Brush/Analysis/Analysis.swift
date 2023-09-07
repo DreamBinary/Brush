@@ -82,7 +82,7 @@ struct Analysis: ReducerProtocol {
                     state.hasTopData = true
                     return .none
                 case .updateAvg:
-                    // TODO:
+                    // TODO
                     return .task {
                         try await Task.sleep(nanoseconds: 5_000_000)
                         return .updateAvgCompleted

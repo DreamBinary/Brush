@@ -291,8 +291,6 @@ struct SectionResultView: View {
     var minScore: (Int, Int)
 //    var point0: String
 //    var point1: String
-    // TODO:
-//    var score: Int
     var body: some View {
         VStack {
             Spacer()

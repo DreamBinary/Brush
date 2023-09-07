@@ -51,7 +51,7 @@ struct ToothBrush: ReducerProtocol {
                         return .task { [date = state.date] in
                             let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush, method: .POST, params: ["userId": "\(userId)", "usageStartTime": date.formattedString()])
                             if response.code == 200 {
-                                let toothBrush: ToothBrushEntity = response.data!! // TODO:
+                                let toothBrush: ToothBrushEntity = response.data!!
                                 return .addSuccess(toothBrush)
                             }
                             return .addFail
