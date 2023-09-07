@@ -19,8 +19,8 @@ struct EnterInput: ReducerProtocol {
     struct State: Equatable {
         var type: InputType = .Login
         @BindingState var focus: Field?
-        @BindingState var username: String = "tunebrush@shawnxixi.icu"
-        @BindingState var password: String = "qqqqqq"
+        @BindingState var username: String = ""
+        @BindingState var password: String = ""
         @BindingState var shakeUsername: Bool = false
         @BindingState var shakePassword: Bool = false
         @BindingState var shakeAggrement: Bool = false
