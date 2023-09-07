@@ -22,7 +22,6 @@
 		A02A84302A482C20003255A5 /* VoiceBgAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02A842F2A482C20003255A5 /* VoiceBgAnimation.swift */; };
 		A02A84322A482FBC003255A5 /* VoiceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02A84312A482FBC003255A5 /* VoiceAnimation.swift */; };
 		A0300C472A4449E20056496E /* MyTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C462A4449E20056496E /* MyTabBar.swift */; };
-		A0300C502A446E010056496E /* EnterWay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C4F2A446E010056496E /* EnterWay.swift */; };
 		A0300C542A446EFD0056496E /* EnterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0300C532A446EFD0056496E /* EnterInput.swift */; };
 		A0333C822A7D163700E20F8E /* WatchUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0333C812A7D163700E20F8E /* WatchUtil.swift */; };
 		A03448932A977BAF00EAB7B8 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03448922A977BAF00EAB7B8 /* ApiClient.swift */; };
@@ -42,7 +41,6 @@
 		A046BA612A8CFB1600FB3F9A /* ToothBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BA602A8CFB1600FB3F9A /* ToothBrush.swift */; };
 		A046BA632A8CFD9400FB3F9A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BA622A8CFD9400FB3F9A /* Date.swift */; };
 		A04E1A792A9C6CDF0092608F /* EmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04E1A782A9C6CDF0092608F /* EmptyPageView.swift */; };
-		A04E1A7C2A9C7F140092608F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = A04E1A7B2A9C7F140092608F /* Lottie */; };
 		A04E1A812A9C806C0092608F /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04E1A802A9C806C0092608F /* LottieView.swift */; };
 		A052C5F82A947B0A00A06BA9 /* OffsetObservingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A052C5F72A947B0A00A06BA9 /* OffsetObservingScrollView.swift */; };
 		A056BE142A98914B00025006 /* AnalysisSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A056BE132A98914B00025006 /* AnalysisSection.swift */; };
@@ -194,7 +192,6 @@
 		A02A842F2A482C20003255A5 /* VoiceBgAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceBgAnimation.swift; sourceTree = "<group>"; };
 		A02A84312A482FBC003255A5 /* VoiceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimation.swift; sourceTree = "<group>"; };
 		A0300C462A4449E20056496E /* MyTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBar.swift; sourceTree = "<group>"; };
-		A0300C4F2A446E010056496E /* EnterWay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWay.swift; sourceTree = "<group>"; };
 		A0300C532A446EFD0056496E /* EnterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterInput.swift; sourceTree = "<group>"; };
 		A0333C812A7D163700E20F8E /* WatchUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchUtil.swift; sourceTree = "<group>"; };
 		A03448922A977BAF00EAB7B8 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
@@ -311,7 +308,6 @@
 				58707BDD2A8F3A2400AC00C3 /* PopupView in Frameworks */,
 				A06383942A8120B500E46CEF /* ComposableArchitecture in Frameworks */,
 				A063838E2A81200100E46CEF /* SwiftUIPager in Frameworks */,
-				A04E1A7C2A9C7F140092608F /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,7 +533,6 @@
 				A06684E12A42F82F00D27BF3 /* Card.swift */,
 				A00913172A432D7F00057B4E /* Avatar.swift */,
 				A0300C462A4449E20056496E /* MyTabBar.swift */,
-				A0300C4F2A446E010056496E /* EnterWay.swift */,
 				A0300C532A446EFD0056496E /* EnterInput.swift */,
 				A09987682A459B3600E2DFFE /* BgColor.swift */,
 				A0DA4B262A46BA45009CA236 /* BrushIcon.swift */,
@@ -695,7 +690,6 @@
 				A063838D2A81200100E46CEF /* SwiftUIPager */,
 				A06383932A8120B500E46CEF /* ComposableArchitecture */,
 				58707BDC2A8F3A2400AC00C3 /* PopupView */,
-				A04E1A7B2A9C7F140092608F /* Lottie */,
 			);
 			productName = Brush;
 			productReference = A0581F7C2A41DBEF00710C4B /* Brush.app */;
@@ -839,9 +833,6 @@
 				A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 				A06383922A8120B500E46CEF /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				58707BDB2A8F3A2400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */,
-				5883C1912A924E17002B87A7 /* XCRemoteSwiftPackageReference "Moya" */,
-				A052C5F42A94646E00A06BA9 /* XCRemoteSwiftPackageReference "ChartView" */,
-				A04E1A7A2A9C7F140092608F /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = A0581F7D2A41DBEF00710C4B /* Products */;
 			projectDirPath = "";
@@ -960,7 +951,6 @@
 				A046BA5F2A8CFB0600FB3F9A /* BrushCase.swift in Sources */,
 				A0194E9C2A8DD28C00F8287B /* TwoWord.swift in Sources */,
 				A06B6E252A7A23B3001614D4 /* ApiClient.swift in Sources */,
-				A0300C502A446E010056496E /* EnterWay.swift in Sources */,
 				A045D3102A7A31B70009EF7B /* User.swift in Sources */,
 				A09E21982A66C6240012C6BB /* CornerRadius.swift in Sources */,
 				A0C72E5C2A9F39A800C62258 /* HotArea.swift in Sources */,
@@ -1212,20 +1202,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brush Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = D2S7U468WM;
+				DEVELOPMENT_TEAM = L28NG732PD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Brush-Watch-App-Info.plist";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.lyu.Brush;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.sosd.brush;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lyu.Brush.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sosd.brush.watchkitapp;
 				PRODUCT_NAME = TuneBrush;
 				SDKROOT = watchos;
 				SKIP_INSTALL = NO;
@@ -1246,20 +1236,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brush Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = D2S7U468WM;
+				DEVELOPMENT_TEAM = L28NG732PD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Brush-Watch-App-Info.plist";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.lyu.Brush;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.sosd.brush;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lyu.Brush.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sosd.brush.watchkitapp;
 				PRODUCT_NAME = TuneBrush;
 				SDKROOT = watchos;
 				SKIP_INSTALL = NO;
@@ -1282,7 +1272,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brush/Preview Content\"";
-				DEVELOPMENT_TEAM = D2S7U468WM;
+				DEVELOPMENT_TEAM = L28NG732PD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TuneBrush;
@@ -1298,7 +1288,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lyu.Brush;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sosd.brush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1319,7 +1309,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brush/Preview Content\"";
-				DEVELOPMENT_TEAM = D2S7U468WM;
+				DEVELOPMENT_TEAM = L28NG732PD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TuneBrush;
@@ -1335,7 +1325,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lyu.Brush;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sosd.brush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1591,30 +1581,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		5883C1912A924E17002B87A7 /* XCRemoteSwiftPackageReference "Moya" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Moya/Moya";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 15.0.0;
-			};
-		};
-		A04E1A7A2A9C7F140092608F /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-		A052C5F42A94646E00A06BA9 /* XCRemoteSwiftPackageReference "ChartView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		A063838C2A81200100E46CEF /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fermoya/SwiftUIPager.git";
@@ -1638,11 +1604,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 58707BDB2A8F3A2400AC00C3 /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = PopupView;
-		};
-		A04E1A7B2A9C7F140092608F /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A04E1A7A2A9C7F140092608F /* XCRemoteSwiftPackageReference "lottie-spm" */;
-			productName = Lottie;
 		};
 		A063838D2A81200100E46CEF /* SwiftUIPager */ = {
 			isa = XCSwiftPackageProductDependency;

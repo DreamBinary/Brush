@@ -148,7 +148,6 @@ struct LoginView: View {
                                     store: store.scope(state: \.enterInput, action: Login.Action.enterInput)
                                 )
 //                                .background(Color(.purple))
-                                EnterWay().padding(.vertical, 10)
                                 Spacer()
                             }.frame(width: UIScreen.main.bounds.width * 0.7)
                         }.frame(width: screenWidth, height: vStore.isLogin ? screenHeight * 0.5 : screenHeight * 0.50 + 30)
