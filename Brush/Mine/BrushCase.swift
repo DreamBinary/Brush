@@ -35,18 +35,20 @@ struct BrushCase: ReducerProtocol {
                     state.isDatePickerVisible = true
                     return .none
                 case .updateDate:
-                    if let userId = DataUtil.getUser()?.id {
-                        return .task { [date = state.date.formattedString()] in
-                            let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
-                            if response.code == 200 {
-                                let scoreList: [ScoreEntity] = response.data!!
-                                return .updateCompleted(scoreList)
-                            }
-                            return .updateCompleted([])
-                        }
-                    } else {
-                        return Effect.send(.updateCompleted([]))
-                    }
+                    // todo
+//                    if let userId = DataUtil.getUser()?.id {
+//                        return .task { [date = state.date.formattedString()] in
+//                            let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
+//                            if response.code == 200 {
+//                                let scoreList: [ScoreEntity] = response.data!!
+//                                return .updateCompleted(scoreList)
+//                            }
+//                            return .updateCompleted([])
+//                        }
+//                    } else {
+//                        return Effect.send(.updateCompleted([]))
+//                    }
+                    return Effect.send(.updateCompleted(TestData.scoreList))
 
                 case let .updateCompleted(score):
                     state.scoreList = score
@@ -163,7 +165,6 @@ struct ScoreRow: View {
 //        endPoint: UnitPoint) -> some View
 //    {
 //        self.overlay {
-//
 //            LinearGradient(
 //                colors: colors,
 //                startPoint: startPoint,
@@ -289,31 +290,31 @@ struct ResultPageView: View {
 struct SectionResultView: View {
     var section: String
     var minScore: (Int, Int)
-//    var point0: String
-//    var point1: String
+    //    var point0: String
+    //    var point1: String
     var body: some View {
         VStack {
             Spacer()
             HStack {
-//                RoundedRectangle(cornerRadius: 10)
-//                    .fill(Color(0xDAFDEE))
-//                    .frame(width: 8, height: 30)
-//                    .padding(.leading, 2)
+                //                RoundedRectangle(cornerRadius: 10)
+                //                    .fill(Color(0xDAFDEE))
+                //                    .frame(width: 8, height: 30)
+                //                    .padding(.leading, 2)
                 VStack(alignment: .leading, spacing: 3) {
                     Text(section + "面")
                         .fontWeight(.bold)
-//                    HStack {
-//                        Circle()
-//                            .frame(width: 5, height: 5)
-//                        Text(point0)
-//                            .font(.caption2)
-//                    }.foregroundColor(.fontGray)
-//                    HStack {
-//                        Circle()
-//                            .frame(width: 5, height: 5)
-//                        Text(point1)
-//                            .font(.caption2)
-//                    }.foregroundColor(.fontGray)
+                    //                    HStack {
+                    //                        Circle()
+                    //                            .frame(width: 5, height: 5)
+                    //                        Text(point0)
+                    //                            .font(.caption2)
+                    //                    }.foregroundColor(.fontGray)
+                    //                    HStack {
+                    //                        Circle()
+                    //                            .frame(width: 5, height: 5)
+                    //                        Text(point1)
+                    //                            .font(.caption2)
+                    //                    }.foregroundColor(.fontGray)
                 }
             }
             Spacer()

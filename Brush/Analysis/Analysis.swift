@@ -45,9 +45,9 @@ struct Analysis: ReducerProtocol {
             switch action {
                 case .binding, .analysisSection:
                     return .none
-            case .nameInit:
-                state.name = DataUtil.getUser()?.username ?? "Worsh"
-                return .none
+                case .nameInit:
+                    state.name = DataUtil.getUser()?.username ?? "Worsh"
+                    return .none
                 case .analysisSectionInit:
                     state.analysisSection = nil
                     return Effect.merge(
@@ -55,24 +55,27 @@ struct Analysis: ReducerProtocol {
                         Effect.send(Analysis.Action.updateMonthlyTop),
                         Effect.send(Analysis.Action.updateAvg)
                     )
-//
-//                case .analysisSectionCompleted:
-//                    state.analysisSection = AnalysisSection.State(topScore: state.monthlyTop, avgPower: state.avgPower)
-//                    return .none
+                //
+                //                case .analysisSectionCompleted:
+                //                    state.analysisSection = AnalysisSection.State(topScore: state.monthlyTop, avgPower: state.avgPower)
+                //                    return .none
                 case .updateMonthlyTop:
-                    if let userId = DataUtil.getUser()?.id {
-                        return .task { [month = state.curMonth] in
-                            let date = "\(Date().yearNum())-\(month)-1"
-                            let response: Response<ScoreEntity?> = try await ApiClient.request(Url.monthTop + "/\(userId)" + "/\(date)", method: .GET)
-                            if response.code == 200 {
-                                let score: ScoreEntity = response.data!!
-                                return .updateMonthlyTopCompleted(score.totalScore)
-                            }
-                            return .noTopData
-                        }
-                    } else {
-                        return Effect.send(.noTopData)
-                    }
+                    // todo
+//                    if let userId = DataUtil.getUser()?.id {
+//                        return .task { [month = state.curMonth] in
+//                            let date = "\(Date().yearNum())-\(month)-1"
+//                            let response: Response<ScoreEntity?> = try await ApiClient.request(Url.monthTop + "/\(userId)" + "/\(date)", method: .GET)
+//                            if response.code == 200 {
+//                                let score: ScoreEntity = response.data!!
+//                                return .updateMonthlyTopCompleted(score.totalScore)
+//                            }
+//                            return .noTopData
+//                        }
+//                    } else {
+//                        return Effect.send(.noTopData)
+//                    }
+                    let score: ScoreEntity = .init(id: 1, totalScore: 100)
+                    return Effect.send(.updateMonthlyTopCompleted(score.totalScore))
                 case let .updateMonthlyTopCompleted(score):
                     if state.analysisSection == nil {
                         state.analysisSection = AnalysisSection.State(topScore: score, curMonth: state.curMonth)
@@ -82,27 +85,27 @@ struct Analysis: ReducerProtocol {
                     state.hasTopData = true
                     return .none
                 case .updateAvg:
-                    // TODO
+                    // TODO:
                     return .task {
                         try await Task.sleep(nanoseconds: 5_000_000)
                         return .updateAvgCompleted
                     }
                 case .updateHotword:
-                    if let userId = DataUtil.getUser()?.id {
-                    
-                        return .task { [month = state.curMonth] in
-                            let date = "\(Date().yearNum())-\(month)-1"
-                            let response: Response<HotArea?> = try await ApiClient.request(Url.hotword + "/\(userId)" + "/\(date)", method: .GET)
-                            if response.code == 200 {
-                                let score: HotArea = response.data!!
-                                return .updateHotwordCompleted(score.hotArea)
-                            }
-                            return .noHotAreaData
-                        }
-                    } else {
-                        return Effect.send(.noHotAreaData)
-                    }
-                    
+                    // todo
+//                    if (DataUtil.getUser()?.id) != nil {
+//                        return .task { [month = state.curMonth] in
+//                            let date = "\(Date().yearNum())-\(month)-1"
+//                            let response: Response<HotArea?> = try await ApiClient.request(Url.hotword + "/\(userId)" + "/\(date)", method: .GET)
+//                            if response.code == 200 {
+//                                let score: HotArea = response.data!!
+//                                return .updateHotwordCompleted(score.hotArea)
+//                            }
+//                            return .noHotAreaData
+//                        }
+//                    } else {
+//                        return Effect.send(.noHotAreaData)
+//                    }
+                    return Effect.send(.updateHotwordCompleted([1, 4, 2, 3, 0]))
                 case let .updateHotwordCompleted(hotArea):
                     if state.analysisSection == nil {
                         state.analysisSection = AnalysisSection.State(hotArea: hotArea, curMonth: state.curMonth)
@@ -167,8 +170,8 @@ struct AnalysisView: View {
                 }
 
                 IfLetStore(self.store.scope(state: \.analysisSection, action: Analysis.Action.analysisSection)) {
-                    if (!vStore.hasTopData && !vStore.hasHotAreaData) {
-                        EmptyPageView(onTap: {vStore.send(.onTapGetStarted)})
+                    if !vStore.hasTopData && !vStore.hasHotAreaData {
+                        EmptyPageView(onTap: { vStore.send(.onTapGetStarted) })
                     } else {
                         AnalysisSectionView(store: $0)
                     }
@@ -420,19 +423,19 @@ struct Conclusion: View {
                 }
                 Group {
                     if !hotList.isEmpty {
-                        HotWord(hotWords[hotList[0]],paddingH: 15)
+                        HotWord(hotWords[hotList[0]], paddingH: 15)
                             .offset(x: widthHalf*0.6, y: -heightHalf*0.7)
                         HotWord(hotWords[hotList[1]],
                                 paddingH: 10, paddingV: 10)
-                        .offset(x: -widthHalf*0.5, y: -heightHalf*0.52)
+                            .offset(x: -widthHalf*0.5, y: -heightHalf*0.52)
                         HotWord(hotWords[hotList[2]])
                             .offset(x: widthHalf*0.17, y: -heightHalf*0.08)
                         HotWord(hotWords[hotList[3]],
                                 paddingH: 12, paddingV: 12)
-                        .offset(x: -widthHalf*0.6, y: heightHalf*0.36)
+                            .offset(x: -widthHalf*0.6, y: heightHalf*0.36)
                         HotWord(hotWords[hotList[4]],
                                 paddingH: 10, paddingV: 10)
-                        .offset(x: widthHalf*0.52, y: heightHalf*0.44)
+                            .offset(x: widthHalf*0.52, y: heightHalf*0.44)
                     }
                 }.foregroundColor(Color(0x9272A1))
             }

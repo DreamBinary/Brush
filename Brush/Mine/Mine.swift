@@ -49,67 +49,71 @@ struct Mine: ReducerProtocol {
             switch action {
             case .userDataInit:
                 let user = DataUtil.getUser()
-                
+
                 state.joinDay = Date().away(
                     from: Date(timeIntervalSince1970: user?.registerTime?.timeIntervalSince1970
                         ?? Date().timeIntervalSince1970))
                 state.setting.name = user?.username ?? "Worsh"
                 state.setting.label = user?.signature ?? "I want BRIGHT smile"
                 return .none
-                
-                case .toothBrushInit:
-                    if let userId = DataUtil.getUser()?.id {
-                        return .task {
-                            let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userId)", method: .GET)
-                            if response.code == 200 {
-                                let toothBrush: ToothBrushEntity = response.data!!
-                                return .toothBrushCompleted(toothBrush)
-                            }
-                            return .toothBrushCompleted(ToothBrushEntity())
-                        }
-                    } else {
-                        return Effect.send(.toothBrushCompleted(ToothBrushEntity()))
-                    }
-                case let .toothBrushCompleted(toothBrush):
-                    state.toothBrush = ToothBrush.State(toothBrush: toothBrush)
-                    return .none
 
-                case .brushCaseInit:
-                    if let userId = DataUtil.getUser()?.id {
-                        return .task {
-                            let date = Date().formattedString()
-                            let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
-                            if response.code == 200 {
-                                let scoreList: [ScoreEntity] = response.data!!
-                                return .brushCaseCompleted(scoreList)
-                            }
-                            return .brushCaseCompleted([])
-                        }
-                    } else {
-                        return Effect.send(.brushCaseCompleted([]))
+            case .toothBrushInit:
+                if let userId = DataUtil.getUser()?.id {
+                    return .task {
+                        // todo
+//                            let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush + "/\(userId)", method: .GET)
+//                            if response.code == 200 {
+//                                let toothBrush: ToothBrushEntity = response.data!!
+//                                return .toothBrushCompleted(toothBrush)
+//                            }
+//                            return .toothBrushCompleted(ToothBrushEntity())
+                        return .toothBrushCompleted(ToothBrushEntity(daysUsed: 30, daysRemaining: 90))
                     }
+                } else {
+                    return Effect.send(.toothBrushCompleted(ToothBrushEntity()))
+                }
+            case let .toothBrushCompleted(toothBrush):
+                state.toothBrush = ToothBrush.State(toothBrush: toothBrush)
+                return .none
 
-                case let .brushCaseCompleted(score):
-                    state.brushCase = BrushCase.State(scoreList: score)
-                    state.todayScore = score.last?.totalScore ?? -1
-                    return .none
-                case .showToothBrush:
-                    state.isShowToothBrush = true
-                    return .none
-                case .showBrushCase:
-                    state.isShowBrushCase = true
-                    return .none
-                case .showSetting:
-                    state.isShowSetting = true
-                    return .none
-                case .logout:
-                    DataUtil.removeAll()
-                    return .none
-                case .setting(.disSetting):
-                    state.isShowSetting = false
-                    return .none
-                case .binding, .brushCase, .toothBrush, .setting:
-                    return .none
+            case .brushCaseInit:
+                // todo
+//                if let userId = DataUtil.getUser()?.id {
+//                    return .task {
+//                        let date = Date().formattedString()
+//                        let response: Response<[ScoreEntity]?> = try await ApiClient.request(Url.scoreRecord + "/\(userId)" + "/\(date)", method: .GET)
+//                        if response.code == 200 {
+//                            let scoreList: [ScoreEntity] = response.data!!
+//                            return .brushCaseCompleted(scoreList)
+//                        }
+//                        return .brushCaseCompleted([])
+//                    }
+//                } else {
+//                    return Effect.send(.brushCaseCompleted([]))
+//                }
+                return Effect.send(.brushCaseCompleted(TestData.scoreList))
+
+            case let .brushCaseCompleted(score):
+                state.brushCase = BrushCase.State(scoreList: score)
+                state.todayScore = score.last?.totalScore ?? -1
+                return .none
+            case .showToothBrush:
+                state.isShowToothBrush = true
+                return .none
+            case .showBrushCase:
+                state.isShowBrushCase = true
+                return .none
+            case .showSetting:
+                state.isShowSetting = true
+                return .none
+            case .logout:
+                DataUtil.removeAll()
+                return .none
+            case .setting(.disSetting):
+                state.isShowSetting = false
+                return .none
+            case .binding, .brushCase, .toothBrush, .setting:
+                return .none
             }
         }.ifLet(\.toothBrush, action: /Action.toothBrush) {
             ToothBrush()

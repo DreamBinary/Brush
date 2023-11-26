@@ -70,13 +70,14 @@ struct Setting: ReducerProtocol {
                     state.isShowCourse = true
                     return .none
                 case .logout:
-                    if let userId = DataUtil.getUser()?.id {
+                    if (DataUtil.getUser()?.id) != nil {
                         return .task {
-                            let response: Response<Bool?> = try await ApiClient.logout(Url.logout, param: userId)
-                            if response.code == 200 && response.data == true {
-                                return .logoutSuccess
-                            }
-                            return .logoutFail
+//                            let response: Response<Bool?> = try await ApiClient.logout(Url.logout, param: userId)
+//                            if response.code == 200 && response.data == true {
+//                                return .logoutSuccess
+//                            }
+//                            return .logoutFail
+                            return .logoutSuccess
                         }
                     }
                     return Effect.send(.logoutFail)
@@ -95,11 +96,13 @@ struct Setting: ReducerProtocol {
                 case .updateUser:
                     if let userId = DataUtil.getUser()?.id {
                         return .task { [username = state.name, signature = state.label] in
-                            let response: Response<Bool?> = try await ApiClient.request(Url.updateUser, method: .POST, params: ["username": username, "signature": signature, "id": userId])
-                            if response.code == 200 && response.data == true {
-                                return .updateSuccess
-                            }
-                            return .updateFail
+// todo
+//                            let response: Response<Bool?> = try await ApiClient.request(Url.updateUser, method: .POST, params: ["username": username, "signature": signature, "id": userId])
+//                            if response.code == 200 && response.data == true {
+//                                return .updateSuccess
+//                            }
+//                            return .updateFail
+                            return .updateSuccess
                         }
                     }
                     return .none
@@ -246,7 +249,7 @@ struct SettingView: View {
 struct Course: View {
     var body: some View {
         TabView {
-            CourseOnePage(index: 1, title: "连接 Apple Watch", content: "TuneBrush需要连接您的Apple Watch来获取您更精确的刷牙信息,给您更真实的科学刷牙反 馈,为您提供更沉浸的音乐交互体验")
+            CourseOnePage(index: 1, title: "连接 Apple Watch", content: "TuneBrush需要连接您的Apple Watch来获取您更精确的刷牙信息,给您更真实的科学刷牙反 馈,为您提供更沉浸的音乐交互体验\n 另外，TuneBrush Watch需要使用HeathKit支持Watch APP可以成功地在后台运行以更好的收集数据和刷牙体验")
             CourseOnePage(index: 2,title: "分片区刷牙", content: "按照美国soidhqowh协会科学刷牙依据,每颗牙来回刷动7~8次能够较好地起到清洁效果,TuneBrush将您的牙齿划分别按照左右上下,颊侧面、舌侧面和咬合面12个片区")
             CourseOnePage(index: 3,title: "鼓点引导", content: "每个片区会有一段音乐，可以根据 Apple Watch 震动引导刷动规定音乐鼓点")
             CourseOnePage(index: 4, title: "切换提示", content: "在完成当前片区之后,TuneBrush 会为您提供片区切换的提示")

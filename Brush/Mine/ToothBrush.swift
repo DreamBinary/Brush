@@ -46,18 +46,21 @@ struct ToothBrush: ReducerProtocol {
                     state.isShowingAlert = true
                     return .none
                 case .addToothBrush:
-                    if let userId = DataUtil.getUser()?.id {
-                        state.isLoading = true
-                        return .task { [date = state.date] in
-                            let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush, method: .POST, params: ["userId": "\(userId)", "usageStartTime": date.formattedString()])
-                            if response.code == 200 {
-                                let toothBrush: ToothBrushEntity = response.data!!
-                                return .addSuccess(toothBrush)
-                            }
-                            return .addFail
-                        }
-                    }
-                    return Effect.send(.addFail)
+                    // todo
+//                    if (DataUtil.getUser()?.id) != nil {
+//                        state.isLoading = true
+//                        return .task { [date = state.date] in
+//                            let response: Response<ToothBrushEntity?> = try await ApiClient.request(Url.toothBrush, method: .POST, params: ["userId": "\(userId)", "usageStartTime": date.formattedString()])
+//                            if response.code == 200 {
+//                                let toothBrush: ToothBrushEntity = response.data!!
+//                                return .addSuccess(toothBrush)
+//                            }
+//                            return .addFail
+//
+//                        }
+//                    }
+//                    return Effect.send(.addFail)
+                    return Effect.send(.addSuccess(ToothBrushEntity(daysUsed: 30, daysRemaining: 90)))
                 case let .addSuccess(toothBrush):
                     state.isLoading = false
                     state.toothBrush = toothBrush
@@ -89,7 +92,7 @@ struct ToothBrushView: View {
             GeometryReader { geo in
                 let width = geo.size.width
                 ZStack {
-                    if (vStore.isLoading) {
+                    if vStore.isLoading {
                         ProgressView()
                     } else if vStore.toothBrush == nil {
                         VStack {

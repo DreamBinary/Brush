@@ -40,19 +40,21 @@ struct AnalysisSection: ReducerProtocol {
                     state.scoreList = []
                     return Effect.send(.getData)
                 case .getData:
-                    if let userId = DataUtil.getUser()?.id {
-                        return .task { [month = state.curMonth] in
-                            let date = "\(Date().yearNum())-\(month)-1"
-                            let response: Response<[String: [ScorePoint]]?> = try await ApiClient.request(Url.totalScore + "/\(userId)" + "/\(date)", method: .GET)
-                            if response.code == 200 {
-                                let scoreList: [ScorePoint] = response.data!!["totalScoreList"] ?? []
-                                return .getDateCompleted(scoreList)
-                            }
-                            return .getDateCompleted([])
-                        }
-                    } else {
-                        return Effect.send(.getDateCompleted([]))
-                    }
+                    // todo
+//                    if let userId = DataUtil.getUser()?.id {
+//                        return .task { [month = state.curMonth] in
+//                            let date = "\(Date().yearNum())-\(month)-1"
+//                            let response: Response<[String: [ScorePoint]]?> = try await ApiClient.request(Url.totalScore + "/\(userId)" + "/\(date)", method: .GET)
+//                            if response.code == 200 {
+//                                let scoreList: [ScorePoint] = response.data!!["totalScoreList"] ?? []
+//                                return .getDateCompleted(scoreList)
+//                            }
+//                            return .getDateCompleted([])
+//                        }
+//                    } else {
+//                        return Effect.send(.getDateCompleted([]))
+//                    }
+                    return Effect.send(.getDateCompleted(TestData.pointList))
                 case let .getDateCompleted(list):
                     state.scoreList = list
                     state.hasData = true
@@ -97,16 +99,16 @@ struct AnalysisSectionView: View {
                     }.presentationDetents([.fraction(0.6)])
                         .presentationDragIndicator(.visible)
 
-//                    //                    if #available(iOS 16.4, *) {
-//                    //                        RatingLine()
-//                    //                            .presentationDetents([.fraction(0.6)])
-//                    //                            .presentationDragIndicator(.visible)
-//                    //                            .presentationCornerRadius(30)
-//                    //                    } else {
-//                    RatingLine()
-//                        .presentationDetents([.fraction(0.6)])
-//                        .presentationDragIndicator(.visible)
-//                    //                    }
+                    //                    //                    if #available(iOS 16.4, *) {
+                    //                    //                        RatingLine()
+                    //                    //                            .presentationDetents([.fraction(0.6)])
+                    //                    //                            .presentationDragIndicator(.visible)
+                    //                    //                            .presentationCornerRadius(30)
+                    //                    //                    } else {
+                    //                    RatingLine()
+                    //                        .presentationDetents([.fraction(0.6)])
+                    //                        .presentationDragIndicator(.visible)
+                    //                    //                    }
                 }
         }
     }

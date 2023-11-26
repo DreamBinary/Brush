@@ -63,12 +63,13 @@ struct ModifyPassword: ReducerProtocol {
                     return .none
                     
                 case .modifyPassword:
-                    if let userId = DataUtil.getUser()?.id {
+                    if (DataUtil.getUser()?.id) != nil {
                         return .task { [old = state.old, new = state.new ] in
-                            let response: Response<Bool?> = try await ApiClient.request(Url.modifyPassword, method: .POST, params: ["id": userId, "oldPlainPassword": old, "newPlainPassword": new])
-                            if response.code == 200 && response.data == true {
-                                return .modifySuccess
-                            }
+// todo
+//                            let response: Response<Bool?> = try await ApiClient.request(Url.modifyPassword, method: .POST, params: ["id": userId, "oldPlainPassword": old, "newPlainPassword": new])
+//                            if response.code == 200 && response.data == true {
+//                                return .modifySuccess
+//                            }
                             return .modifyFail
                         }
                     }

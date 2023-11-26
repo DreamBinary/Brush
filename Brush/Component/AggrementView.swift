@@ -74,7 +74,7 @@ struct UserAgreement: View {
                 }
                 ContentText(subTitle:"隐私政策",content:"请注意，您的个人数据将根据我们的隐私政策进行处理。我们会通过HTTPS协议将数据存储在云端数据库中，以确保您的数据安全。请在使用本应用之前，详细阅读我们的隐私政策以获取更多信息。")
                 ContentText(subTitle:"数据收集与使用",content:"TuneBrush应用通过Apple Watch获取用户刷牙速度以及习惯信息，以提供科学规范的刷牙建议。这些数据将被加密并存储在云端数据库中，用于分析和改进应用性能。我们承诺不会向第三方出售或分享您的个人数据。")
-                ContentText(subTitle:"科学依据",content:"我们理解不同用户具有不同的口腔健康需求。TuneBrush应用提供了个性化设置选项，允许您根据个人需求调整刷牙节奏和震动模式，以便获得最佳效果。")
+                ContentText(subTitle:"HealthKit使用",content:"TuneBrush Watch 需要使用HeathKit支持Watch APP可以成功地在后台运行以更好的收集数据和刷牙体验。")
                 ContentText(subTitle:"个性化设置",content:"TuneBrush应用的刷牙节奏和震动模式基于牙科医学建议和相关科学研究。我们的团队与专业牙科医生合作，以确保提供的刷牙建议具有科学性和可靠性。")
                 ContentText(subTitle:"免责声明",content:"尽管TuneBrush应用旨在帮助用户改善刷牙习惯，但最终的刷牙效果仍可能因个人因素而异。我们不能保证应用所提供的刷牙建议对所有用户都适用。在使用本应用的同时，请继续定期就诊牙科医生，以确保您的口腔健康。")
                 ContentText(subTitle:"知识产权",content:"TuneBrush应用中的所有音乐、设计和内容的知识产权归TuneBrush团队所有。未经授权，您不得复制、修改、传播或用于商业目的。")

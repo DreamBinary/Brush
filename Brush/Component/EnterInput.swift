@@ -65,8 +65,13 @@ struct EnterInput: ReducerProtocol {
                     } else {
                         state.buttonLoading = true
                         return .task { [email = state.username, password = state.password] in
-                            let response: Response<User?> = try await ApiClient.request(Url.signUp, method: .POST, params: ["email": email, "password": password])
-                            return response.code == 200 ? .signUpSuccess : .signUpFail(response.code ?? -1)
+                            // todo
+                            //                            let response: Response<User?> = try await ApiClient.request(Url.signUp, method: .POST, params: ["email": email, "password": password])
+                            //                            return response.code == 200 ? .signUpSuccess : .signUpFail(response.code ?? -1)
+                            if (email == "fivvmail@gmail.com" && password == "password") {
+                                return .signUpSuccess
+                            }
+                            return .signUpFail(-1)
                         }
                     }
                     return .none
@@ -84,9 +89,13 @@ struct EnterInput: ReducerProtocol {
                     } else {
                         state.buttonLoading = true
                         return .task { [email = state.username, password = state.password] in
-                            let response: Response<User?> = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "plainPassword": password])
-                            
-                            return response.code == 200 ? .loginSuccess(response.data!!) : .loginFail(response.code ?? -1)
+//                            let response: Response<User?> = try await ApiClient.request(Url.login, method: .POST, params: ["email": email, "plainPassword": password])
+//
+//                            return response.code == 200 ? .loginSuccess(response.data!!) : .loginFail(response.code ?? -1)
+                            if (email == "fivvmail@gmail.com" && password == "password") {
+                                return .loginSuccess(User(email: "fivvmail@gmail.com"))
+                            }
+                            return .signUpFail(-1)
                         }
                     }
                     return .none

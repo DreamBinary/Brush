@@ -62,7 +62,6 @@ struct Login: ReducerProtocol {
     }
 }
 
-// 文字展示组件
 struct TextDisplayView: View {
     var text: String
     var fontSize: CGFloat
